@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type='text/javascript' src="js/jquery.js"></script>
+<script type='text/javascript'>
+	function listHealth() {
+		$("#loader").show();
+		$.ajax({
+			url : "listHealth.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<tr>";
+					html += "<td>" + data[i].hlt_year + "</td>" + "<td>"
+							+ data[i].hlt_name + "</td>" + "<td>"
+							+ data[i].hlt_type + "</td>" + "<td>"
+							+ data[i].hlt_service_area + "</td>"
+							+ "<td><buttun onclick=\"deleteHealth("
+							+ data[i].hlt_id + ");\" >Delete</button></td>"
+							+ "<td><buttun onclick=\"setEditHealth("
+							+ data[i].hlt_id + ");\" >Edit</button></td>";
+					html += "</tr>";
+				}
+				$('#resultTable').html(html);
+				$("#loader").hide();
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+</script>
+<script type='text/javascript'>
+	function createHealth() {
+		$("#loader").show();
+		var obj = {
+			hlt_id : 0,
+			hlt_year : $('#hlt_year').val(),
+			hlt_name : $('#hlt_name').val(),
+			hlt_type : $('#hlt_type').val(),
+			hlt_service_area : $('#hlt_service_area').val()
+
+		};
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "saveHealth.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				$("#loader").hide();
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+	function deleteHealth(id) {
+		var obj = {
+			hlt_id : id
+
+		};
+		alert(id);
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "deleteHealth.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				location.reload();
+			}
+		});
+	}
+	function editHealth() {
+		var obj = {
+			hlt_id : $("#editHltId").val(),
+			hlt_year : $('#editHltYear').val(),
+			hlt_name : $('#editHltName').val(),
+			hlt_type : $('#editHltType').val(),
+			hlt_service_area : $('#editHltServiceArea').val()
+		};
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "saveHealth.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				location.reload();
+			},
+			error : function(data, status, er) {
+				alert('error');
+			}
+		});
+	}
+	function setEditHealth(hlt_id) {
+
+		var obj = {
+			hlt_id : hlt_id
+		};
+
+		$.ajax({
+			url : "findHealth.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert(JSON.stringify(data));
+				$("#editHltId").val(data.hlt_id);
+				$("#editHltYear").val(data.hlt_year);
+				$("#editHltName").val(data.hlt_name);
+				$("#editHltType").val(data.hlt_type);
+				$("#editHltServiceArea").val(data.hlt_service_area);
+			},
+			error : function(data, status, er) {
+				alert('error');
+			}
+		});
+	}
+</script>
+</head>
+<body onload="listHealth();listVillage();">
+	<div id="loader" style="display: none">
+		<img src="image/ajax-loader.gif" />
+	</div>
+	<table id="resultTable" border="1"></table>
+
+	<button onclick="listHealth()">Fetch All</button>
+
+	<div id="loader" style="display: none">
+		<img src="image/ajax-loader.gif" />
+	</div>
+	<table id="resultTable" border="1"></table>
+
+	<hr />
+	Year:
+	<input type="text" id="hlt_year">
+	<BR /> Name:
+	<input type="text" id="hlt_name">
+	<BR /> Type:
+	<input type="text" id="hlt_type">
+	<BR /> Service Area:
+	<input type="text" id="hlt_service_area">
+	<BR />
+	<input type="button" value="Save" onclick="createHealth()" />
+
+	<hr />
+	<input type="hidden" id="editHltId"> Year:
+	<input type="text" id="editHltYear">
+	<BR /> Name:
+	<input type="text" id="editHltName">
+	<BR /> Type:
+	<input type="text" id="editHltType">
+	<BR /> Service Area:
+	<input type="text" id="editHltServiceArea">
+	<BR />
+	<input type="button" value="Save" onclick="editHealth()" />
+
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+<script type='text/javascript' src="js/jquery.js"></script>
+<script type='text/javascript'>
+	function listVillage() {
+		$("#loader").show();
+		$.ajax({
+			url : "listVillage.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<tr>";
+					html += "<td>" + data[i].vil_year + "</td>" + "<td>"
+							+ data[i].vil_number + "</td>" + "<td>"
+							+ data[i].vil_name + "</td>" + "<td>"
+							+ data[i].vil_chief + "</td>"
+							+ "<td><buttun onclick=\"deleteVillage("
+							+ data[i].vil_id + ");\" >Delete</button></td>"
+							+ "<td><buttun onclick=\"setEditVillage("
+							+ data[i].vil_id + ");\" >Edit</button></td>";
+					html += "</tr>";
+				}
+				$('#resultTable').html(html);
+				$("#loader").hide();
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+</script>
+<script type='text/javascript'>
+	function createVillage() {
+		$("#loader").show();
+		var obj = {
+			vil_id : 0,
+			vil_year : $('#vil_year').val(),
+			vil_name : $('#vil_name').val(),
+			vil_number : $('#vil_number').val(),
+			vil_chief : $('#vil_chief').val()
+		};
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "saveVillage.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				$("#loader").hide();
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+	function deleteVillage(id) {
+		var obj = {
+			vil_id : id
+
+		};
+		alert(id);
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "deleteVillage.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				location.reload();
+			}
+		});
+	}
+	function editVillage() {
+		var obj = {
+			vil_id : $("#editVilId").val(),
+			vil_year : $('#editVilYear').val(),
+			vil_name : $('#editVilName').val(),
+			vil_number : $('#editVilNumber').val(),
+			vil_chief : $('#editVilChief').val()
+		};
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "saveVillage.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				location.reload();
+			},
+			error : function(data, status, er) {
+				alert('error');
+			}
+		});
+	}
+	function setEditVillage(vil_id) {
+
+		var obj = {
+			vil_id : vil_id
+		};
+
+		$.ajax({
+			url : "findVillage.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert(JSON.stringify(data));
+				$("#editVilId").val(data.vil_id);
+				$("#editVilYear").val(data.vil_year);
+				$("#editVilName").val(data.vil_name);
+				$("#editVilNumber").val(data.vil_number);
+				$("#editVilChief").val(data.vil_chief);
+			},
+			error : function(data, status, er) {
+				alert('error');
+			}
+		});
+	}
+</script>
+</head>
+<body onload="listVillage()">
+	<div id="loader" style="display: none">
+		<img src="image/ajax-loader.gif" />
+	</div>
+	<table id="resultTable" border="1"></table>
+
+	<button onclick="listVillage()">Fetch All</button>
+
+	<div id="loader" style="display: none">
+		<img src="image/ajax-loader.gif" />
+	</div>
+
+	<hr />
+	Year:
+	<input type="text" id="vil_year">
+	<BR /> Name:
+	<input type="text" id="vil_name">
+	<BR /> Number:
+	<input type="text" id="vil_number">
+	<BR /> Chief:
+	<input type="text" id="vil_chief">
+	<BR />
+	<input type="button" value="Save" onclick="createVillage()" />
+	
+	<hr />
+	<input type="hidden" id="editVilId">
+	Year:
+	<input type="text" id="editVilYear">
+	<BR /> Name:
+	<input type="text" id="editVilName">
+	<BR /> Number:
+	<input type="text" id="editVilNumber">
+	<BR /> Chief:
+	<input type="text" id="editVilChief">
+	<BR />
+	<input type="button" value="Save" onclick="editVillage()" />
+</body>
+</html>

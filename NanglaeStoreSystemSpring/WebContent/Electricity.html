@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type='text/javascript' src="js/jquery.js"></script>
+<script type='text/javascript'>
+	function listElectricity() {
+		$("#loader").show();
+		$.ajax({
+			url : "listElectricity.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				
+				for (var i = 0; i < data.length; i++) {
+					html += "<tr>";
+					html += "<td>" + data[i].elec_year + "</td>" + "<td>"
+							+ data[i].elec_area + "</td>" + "<td>"
+							+ data[i].location.vil_name + "</td>"
+							+ "<td><buttun onclick=\"deleteElectricity("
+							+ data[i].elec_id + ");\" >Delete</button></td>"
+							+ "<td><buttun onclick=\"setEditElectricity("
+							+ data[i].elec_id + ");\" >Edit</button></td>";
+					html += "</tr>";
+				}
+				$('#resultTable').html(html);
+				$("#loader").hide();
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+</script>
+<script type='text/javascript'>
+	function createElectricity() {
+		$("#loader").show();
+		var obj = {
+			elec_id : 0,
+			elec_year : $('#elec_year').val(),
+			elec_area : $('#elec_area').val()
+
+		};
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "saveElectricity.do?id=" + $("#villageSelect").val(),
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				$("#loader").hide();
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+	function listVillage() {
+		$("#loader").show();
+		$.ajax({
+			url : "listVillage.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<option value=\""+data[i].vil_id+"\">"
+							+ data[i].vil_name + "</option>";
+				}
+				$('#villageSelect').html(html);
+
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+	function deleteElectricity(id) {
+		var obj = {
+			elec_id : id
+
+		};
+		alert(id);
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "deleteElectricity.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				location.reload();
+			}
+		});
+	}
+	function editElectricity() {
+		var obj = {
+			elec_id : $("#editElecId").val(),
+			elec_year : $('#editElecYear').val(),
+			elec_area : $('#editElecArea').val()
+		};
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "saveElectricity.do?id=" + $("#editVillageSelect").val(),
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				location.reload();
+			},
+			error : function(data, status, er) {
+				alert('error');
+			}
+		});
+	}
+	function setEditElectricity(elec_id) {
+
+		var obj = {
+			elec_id : elec_id
+		};
+
+		$.ajax({
+			url : "findElectricity.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert(JSON.stringify(data));
+				$("#editElecId").val(data.elec_id);
+				$("#editElecYear").val(data.elec_year);
+				$("#editElecArea").val(data.elec_area);
+			},
+			error : function(data, status, er) {
+				alert('error');
+			}
+		});
+	}
+	function editVillageSelect() {
+		$("#loader").show();
+		$.ajax({
+			url : "listVillage.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<option value=\""+data[i].vil_id+"\">"
+							+ data[i].vil_name + "</option>";
+				}
+				$('#editVillageSelect').html(html);
+
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+</script>
+</head>
+<body onload="listElectricity();listVillage();editVillageSelect();">
+	<div id="loader" style="display: none">
+		<img src="image/ajax-loader.gif" />
+	</div>
+	<table id="resultTable" border="1"></table>
+
+	<button onclick="listElectricity()">Fetch All</button>
+
+	<div id="loader" style="display: none">
+		<img src="image/ajax-loader.gif" />
+	</div>
+	<table id="resultTable" border="1"></table>
+
+	<hr />
+	Year:
+	<input type="text" id="elec_year">
+	<BR /> Area:
+	<input type="text" id="elec_area">
+	<BR /> Location:
+	<select id="villageSelect">
+	</select>
+	<BR />
+	<input type="button" value="Save" onclick="createElectricity()" />
+
+	<hr />
+	<input type="hidden" id="editElecId"> Year:
+	<input type="text" id="editElecYear">
+	<BR /> Area:
+	<input type="text" id="editElecArea">
+	<BR /> Location:
+	<select id="editVillageSelect">
+	</select>
+	<BR />
+	<input type="button" value="Save" onclick="editElectricity()" />
+
+</body>
+</html>

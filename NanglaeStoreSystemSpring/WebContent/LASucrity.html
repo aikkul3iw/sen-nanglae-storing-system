@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type='text/javascript' src="js/jquery.js"></script>
+<script type='text/javascript'>
+	function listLASucrity() {
+		$("#loader").show();
+		$.ajax({
+			url : "listLASucrity.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<tr>";
+					html += "<td>" + data[i].sec_year + "</td>" + "<td>"
+							+ data[i].sec_name + "</td>" + "<td>"
+							+ data[i].sec_member + "</td>"
+							+ "<td><buttun onclick=\"deleteLASucrity("
+							+ data[i].sec_id + ");\" >Delete</button></td>"
+							+ "<td><buttun onclick=\"setEditLASucrity("
+							+ data[i].sec_id + ");\" >Edit</button></td>";
+					html += "</tr>";
+				}
+				$('#resultTable').html(html);
+				$("#loader").hide();
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+</script>
+<script type='text/javascript'>
+	function createLASucrity() {
+		$("#loader").show();
+		var obj = {
+			sec_id : 0,
+			sec_year : $('#sec_year').val(),
+			sec_name : $('#sec_name').val(),
+			sec_member : $('#sec_member').val()
+
+		};
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "saveLASucrity.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				$("#loader").hide();
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+	function deleteLASucrity(id) {
+		var obj = {
+			sec_id : id
+
+		};
+		alert(id);
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "deleteLASucrity.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				location.reload();
+			}
+		});
+	}
+	function editLASucrity() {
+		var obj = {
+			sec_id : $("#editSecId").val(),
+			sec_year : $('#editSecYear').val(),
+			sec_name : $('#editSecName').val(),
+			sec_member : $('#editSecMember').val()
+		};
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "saveLASucrity.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				location.reload();
+			},
+			error : function(data, status, er) {
+				alert('error');
+			}
+		});
+	}
+	function setEditLASucrity(sec_id) {
+
+		var obj = {
+			sec_id : sec_id
+		};
+
+		$.ajax({
+			url : "findLASucrity.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert(JSON.stringify(data));
+				$("#editSecId").val(data.sec_id);
+				$("#editSecYear").val(data.sec_year);
+				$("#editSecName").val(data.sec_name);
+				$("#editSecMember").val(data.sec_member);
+			},
+			error : function(data, status, er) {
+				alert('error');
+			}
+		});
+	}
+</script>
+</head>
+<body onload="listLASucrity();">
+	<div id="loader" style="display: none">
+		<img src="image/ajax-loader.gif" />
+	</div>
+	<table id="resultTable" border="1"></table>
+
+	<button onclick="listLASucrity()">Fetch All</button>
+
+	<div id="loader" style="display: none">
+		<img src="image/ajax-loader.gif" />
+	</div>
+	<table id="resultTable" border="1"></table>
+
+	<hr />
+	Year:
+	<input type="text" id="sec_year">
+	<BR /> Name:
+	<input type="text" id="sec_name">
+	<BR /> Member:
+	<input type="text" id="sec_member">
+	<BR />
+	<input type="button" value="Save" onclick="createLASucrity()" />
+
+	<hr />
+	<input type="hidden" id="editSecId"> Year:
+	<input type="text" id="editSecYear">
+	<BR /> Name:
+	<input type="text" id="editSecName">
+	<BR /> Member:
+	<input type="text" id="editSecMember">
+	<BR />
+	<input type="button" value="Save" onclick="editLASucrity()" />
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+package com.mfu.proj.controller;
+
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.proj.ejb.entity.Population1;
+import com.proj.ejb.face.Population1Service;
+import com.proj.ejb.face.VillageService;
+
+@Controller
+public class Population1Controller {
+	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//Population1ServiceBean!com.proj.ejb.face.Population1Service")
+	Population1Service pop1Serv;
+	
+	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//VillageServiceBean!com.proj.ejb.face.VillageService")
+	VillageService vilServ;
+
+	@RequestMapping("/listPopulation1")
+	public @ResponseBody List<Population1> listPopulation1(HttpServletRequest request) {
+
+		List<Population1> pop1List = null;
+		try {
+			pop1List = pop1Serv.listAllPopulation1();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return pop1List;
+	}
+
+	@RequestMapping("/savePopulation1")
+	public @ResponseBody String savePopulation1(@RequestBody Population1 population1, HttpServletRequest request) {
+		String pop = request.getParameter("id");
+		try {
+			if (population1.getPop_id() == 0) {
+				population1.setLocation(vilServ.findVillageById(Long.parseLong(pop)));
+				pop1Serv.save(population1);
+
+			} else {
+				population1.setLocation(vilServ.findVillageById(Long.parseLong(pop)));
+				pop1Serv.update(population1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "-1";
+		}
+		return "1";
+	}
+
+	@RequestMapping("/deletePopulation1")
+	public @ResponseBody String deletePopulation1(@RequestBody Population1 population1) {
+
+		try {
+			if (population1.getPop_id() != 0) {
+				pop1Serv.delete(population1.getPop_id());
+				;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "-1";
+		}
+		return "1";
+	}
+
+	@RequestMapping("/findPopulation1")
+	public @ResponseBody Population1 findPopulation1(@RequestBody Population1 population1) {
+		Population1 result = null;
+		try {
+
+			result = pop1Serv.findPopulation1ById(population1.getPop_id());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		return result;
+	}
+}

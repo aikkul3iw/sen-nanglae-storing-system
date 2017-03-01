@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type='text/javascript' src="js/jquery.js"></script>
+<script type='text/javascript'>
+	function listIndustry() {
+		$("#loader").show();
+		$.ajax({
+			url : "listIndustry.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<tr>";
+					html += "<td>" + data[i].ins_year + "</td>" + "<td>"
+							+ data[i].ins_name + "</td>" + "<td>"
+							+ data[i].ins_size + "</td>" + "<td>"
+							+ data[i].ins_type + "</td>" + "<td>"
+							+ data[i].ins_labor + "</td>" + "<td>"
+							+ data[i].location.vil_name + "</td>"
+							+ "<td><buttun onclick=\"deleteIndustry("
+							+ data[i].ins_id + ");\" >Delete</button></td>"
+							+ "<td><buttun onclick=\"setEditIndustry("
+							+ data[i].ins_id + ");\" >Edit</button></td>";
+					html += "</tr>";
+				}
+				$('#resultTable').html(html);
+				$("#loader").hide();
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+</script>
+<script type='text/javascript'>
+	function createIndustry() {
+		$("#loader").show();
+		var obj = {
+			ins_id : 0,
+			ins_year : $('#ins_year').val(),
+			ins_name : $('#ins_name').val(),
+			ins_size : $('#ins_size').val(),
+			ins_type : $('#ins_type').val(),
+			ins_labor : $('#ins_labor').val()
+
+		};
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "saveIndustry.do?id=" + $("#villageSelect").val(),
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				$("#loader").hide();
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+	function listVillage() {
+		$("#loader").show();
+		$.ajax({
+			url : "listVillage.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<option value=\""+data[i].vil_id+"\">"
+							+ data[i].vil_name + "</option>";
+				}
+				$('#villageSelect').html(html);
+
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+	function deleteIndustry(id) {
+		var obj = {
+			ins_id : id
+
+		};
+		alert(id);
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "deleteIndustry.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				location.reload();
+			}
+		});
+	}
+	function editIndustry() {
+		var obj = {
+			ins_id : $("#editInsId").val(),
+			ins_year : $('#editInsYear').val(),
+			ins_name : $('#editInsName').val(),
+			ins_size : $('#editInsSize').val(),
+			ins_type : $('#editInsType').val(),
+			ins_labor : $('#editInsLabor').val()
+		};
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "saveIndustry.do?id=" + $("#editVillageSelect").val(),
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				location.reload();
+			},
+			error : function(data, status, er) {
+				alert('error');
+			}
+		});
+	}
+	function setEditIndustry(ins_id) {
+
+		var obj = {
+			ins_id : ins_id
+		};
+
+		$.ajax({
+			url : "findIndustry.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert(JSON.stringify(data));
+				$("#editInsId").val(data.ins_id);
+				$("#editInsYear").val(data.ins_year);
+				$("#editInsName").val(data.ins_name);
+				$("#editInsSize").val(data.ins_size);
+				$("#editInsType").val(data.ins_type);
+				$("#editInsLabor").val(data.ins_labor);
+			},
+			error : function(data, status, er) {
+				alert('error');
+			}
+		});
+	}
+	function editVillageSelect() {
+		$("#loader").show();
+		$.ajax({
+			url : "listVillage.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<option value=\""+data[i].vil_id+"\">"
+							+ data[i].vil_name + "</option>";
+				}
+				$('#editVillageSelect').html(html);
+
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+</script>
+</head>
+<body onload="listIndustry();listVillage();editVillageSelect();">
+	<div id="loader" style="display: none">
+		<img src="image/ajax-loader.gif" />
+	</div>
+	<table id="resultTable" border="1"></table>
+
+	<button onclick="listIndustry()">Fetch All</button>
+
+	<div id="loader" style="display: none">
+		<img src="image/ajax-loader.gif" />
+	</div>
+	<table id="resultTable" border="1"></table>
+
+	<hr />
+	Year:
+	<input type="text" id="ins_year">
+	<BR /> Name:
+	<input type="text" id="ins_name">
+	<BR /> Size:
+	<input type="text" id="ins_size">
+	<BR /> Type:
+	<input type="text" id="ins_type">
+	<BR /> Labor:
+	<input type="text" id="ins_labor">
+	<BR /> Location:
+	<select id="villageSelect">
+	</select>
+	<BR />
+	<input type="button" value="Save" onclick="createIndustry()" />
+
+	<hr />
+	<input type="hidden" id="editInsId"> Year: Year:
+	<input type="text" id="editInsYear">
+	<BR /> Name:
+	<input type="text" id="editInsName">
+	<BR /> Size:
+	<input type="text" id="editInsSize">
+	<BR /> Type:
+	<input type="text" id="editInsType">
+	<BR /> Labor:
+	<input type="text" id="editInsLabor">
+	<BR /> Location:
+	<select id="editVillageSelect">
+	</select>
+	<BR />
+	<input type="button" value="Save" onclick="editIndustry()" />
+
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>ListWater</title>
+<script type='text/javascript' src="js/jquery.js"></script>
+<script type='text/javascript'>
+	function listWater() {
+		$("#loader").show();
+		$.ajax({
+			url : "listWater.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<tr>";
+					html += "<td>" + data[i].water_name + "</td>" + "<td>"
+							+ data[i].water_type + "</td>" + "<td>"
+							+ data[i].location.vil_name + "</td>"
+							+ "<td><buttun onclick=\"deleteWater("
+							+ data[i].water_id + ");\" >Delete</button></td>"
+							+ "<td><buttun onclick=\"setEditWater("
+							+ data[i].water_id + ");\" >Edit</button></td>";
+					html += "</tr>";
+				}
+				$('#resultTable').html(html);
+				$("#loader").hide();
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+</script>
+<script type='text/javascript'>
+	function createWater() {
+		$("#loader").show();
+		var obj = {
+			water_id : 0,
+			water_name : $('#water_name').val(),
+			water_type : $('#water_type').val()
+
+		};
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "saveWater.do?id=" + $("#villageSelect").val(),
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				$("#loader").hide();
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+	function listVillage() {
+		$("#loader").show();
+		$.ajax({
+			url : "listVillage.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<option value=\""+data[i].vil_id+"\">"
+							+ data[i].vil_name + "</option>";
+				}
+				$('#villageSelect').html(html);
+
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+	function deleteWater(id) {
+		var obj = {
+			water_id : id
+
+		};
+		alert(id);
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "deleteWater.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				location.reload();
+			}
+		});
+	}
+	function editWater() {
+		var obj = {
+			water_id : $("#editId").val(),
+			water_name : $('#editWaterName').val(),
+			water_type : $('#editWaterType').val()
+		};
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "saveWater.do?id=" + $("#editVillageSelect").val(),
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				location.reload();
+			},
+			error : function(data, status, er) {
+				alert('error');
+			}
+		});
+	}
+	function setEditWater(water_id) {
+
+		var obj = {
+			water_id : water_id
+		};
+
+		$.ajax({
+			url : "findWater.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert(JSON.stringify(data));
+				$("#editId").val(data.water_id);
+				$("#editWaterName").val(data.water_name);
+				$("#editWaterType").val(data.water_type);
+				$("#editVillage").val(data.location.vil_name);
+			},
+			error : function(data, status, er) {
+				alert('error');
+			}
+		});
+	}
+	function editVillageSelect() {
+		$("#loader").show();
+		$.ajax({
+			url : "listVillage.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<option value=\""+data[i].vil_id+"\">"
+							+ data[i].vil_name + "</option>";
+				}
+				$('#editVillageSelect').html(html);
+
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+</script>
+</head>
+<body onload="listWater();listVillage();editVillageSelect();">
+	<div id="loader" style="display: none">
+		<img src="image/ajax-loader.gif" />
+	</div>
+	<table id="resultTable" border="1"></table>
+
+	<button onclick="listWater()">Fetch All</button>
+
+	<div id="loader" style="display: none">
+		<img src="image/ajax-loader.gif" />
+	</div>
+	<hr />
+	Water name:
+	<input type="text" id="water_name">
+	<BR /> Water type:
+	<input type="text" id="water_type">
+	<BR /> Location:
+	<select id="villageSelect">
+	</select>
+	<BR />
+	<input type="button" value="Save" onclick="createWater()" />
+
+	<hr />
+	<input type="hidden" id="editId"> Water name:
+	<input type="text" id="editWaterName">
+	<BR /> Water type:
+	<input type="text" id="editWaterType">
+	<BR /> Location:
+	<input type="text" id="editVillage" readonly>
+	<select id="editVillageSelect">
+	</select>
+	<BR />
+	<input type="button" value="Save" onclick="editWater()" />
+</body>
+</html>

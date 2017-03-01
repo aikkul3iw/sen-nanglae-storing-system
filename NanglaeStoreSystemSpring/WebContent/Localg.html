@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type='text/javascript' src="js/jquery.js"></script>
+<script type='text/javascript'>
+	function listLocalg() {
+		$("#loader").show();
+		$.ajax({
+			url : "listLocalg.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<tr>";
+					html += "<td>" + data[i].grp_year + "</td>" + "<td>"
+							+ data[i].grp_name + "</td>" + "<td>"
+							+ data[i].grp_member + "</td>" + "<td>"
+							+ data[i].grp_area + "</td>"
+							+ "<td><buttun onclick=\"deleteLocalg("
+							+ data[i].grp_id + ");\" >Delete</button></td>"
+							+ "<td><buttun onclick=\"setEditLocalg("
+							+ data[i].grp_id + ");\" >Edit</button></td>";
+					html += "</tr>";
+				}
+				$('#resultTable').html(html);
+				$("#loader").hide();
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+</script>
+<script type='text/javascript'>
+	function createLocalg() {
+		$("#loader").show();
+		var obj = {
+			grp_id : 0,
+			grp_year : $('#grp_year').val(),
+			grp_name : $('#grp_name').val(),
+			grp_member : $('#grp_member').val(),
+			grp_area : $('#grp_area').val()
+
+		};
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "saveLocalg.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				$("#loader").hide();
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+	function deleteLocalg(id) {
+		var obj = {
+			grp_id : id
+
+		};
+		alert(id);
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "deleteLocalg.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				location.reload();
+			}
+		});
+	}
+	function editLocalg() {
+		var obj = {
+			grp_id : $("#editGroupId").val(),
+			grp_year : $('#editGroupYear').val(),
+			grp_name : $('#editGroupName').val(),
+			grp_member : $('#editGroupMember').val(),
+			grp_area : $('#editGroupArea').val()
+		};
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "saveLocalg.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				location.reload();
+			},
+			error : function(data, status, er) {
+				alert('error');
+			}
+		});
+	}
+	function setEditLocalg(grp_id) {
+
+		var obj = {
+			grp_id : grp_id
+		};
+
+		$.ajax({
+			url : "findLocalg.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert(JSON.stringify(data));
+				$("#editGroupId").val(data.grp_id);
+				$("#editGroupYear").val(data.grp_year);
+				$("#editGroupName").val(data.grp_name);
+				$("#editGroupMember").val(data.grp_member);
+				$("#editGroupArea").val(data.grp_area);
+			},
+			error : function(data, status, er) {
+				alert('error');
+			}
+		});
+	}
+</script>
+</head>
+<body onload="listLocalg();">
+	<div id="loader" style="display: none">
+		<img src="image/ajax-loader.gif" />
+	</div>
+	<table id="resultTable" border="1"></table>
+
+	<button onclick="listLocalg()">Fetch All</button>
+
+	<div id="loader" style="display: none">
+		<img src="image/ajax-loader.gif" />
+	</div>
+	<table id="resultTable" border="1"></table>
+
+	<hr />
+	Year:
+	<input type="text" id="grp_year">
+	<BR /> Name:
+	<input type="text" id="grp_name">
+	<BR /> Member:
+	<input type="text" id="grp_member">
+	<BR /> Area:
+	<input type="text" id="grp_area">
+	<BR />
+	<input type="button" value="Save" onclick="createLocalg()" />
+
+	<hr />
+	<input type="hidden" id="editGroupId"> Year:
+	<input type="text" id="editGroupYear">
+	<BR /> Name:
+	<input type="text" id="editGroupName">
+	<BR /> Member:
+	<input type="text" id="editGroupMember">
+	<BR /> Area:
+	<input type="text" id="editGroupArea">
+	<BR />
+	<input type="button" value="Save" onclick="editLocalg()" />
+
+</body>
+</html>

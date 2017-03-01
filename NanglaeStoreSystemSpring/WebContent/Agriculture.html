@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type='text/javascript' src="js/jquery.js"></script>
+<script type='text/javascript'>
+	function listAgriculture() {
+		$("#loader").show();
+		$.ajax({
+			url : "listAgriculture.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<tr>";
+					html += "<td>" + data[i].agi_year + "</td>" + "<td>"
+							+ data[i].agi_name + "</td>" + "<td>"
+							+ data[i].agi_area + "</td>" + "<td>"
+							+ data[i].agi_description + "</td>"
+							+ "<td><buttun onclick=\"deleteAgriculture("
+							+ data[i].agi_id + ");\" >Delete</button></td>"
+							+ "<td><buttun onclick=\"setEditAgriculture("
+							+ data[i].agi_id + ");\" >Edit</button></td>";
+					html += "</tr>";
+				}
+				$('#resultTable').html(html);
+				$("#loader").hide();
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+</script>
+<script type='text/javascript'>
+	function createAgriculture() {
+		$("#loader").show();
+		var obj = {
+			agi_id : 0,
+			agi_year : $('#agi_year').val(),
+			agi_name : $('#agi_name').val(),
+			agi_area : $('#agi_area').val(),
+			agi_description : $('#agi_description').val()
+		};
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "saveAgriculture.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				$("#loader").hide();
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+	function deleteAgriculture(id) {
+		var obj = {
+			agi_id : id
+
+		};
+		alert(id);
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "deleteAgriculture.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				location.reload();
+			}
+		});
+	}
+	function editAgriculture() {
+		var obj = {
+			agi_id : $("#editAgiId").val(),
+			agi_year : $('#editAgiYear').val(),
+			agi_name : $('#editAgiName').val(),
+			agi_area : $('#editAgiArea').val(),
+			agi_description : $('editAgiDescription').val(),
+		};
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "saveAgriculture.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				location.reload();
+			},
+			error : function(data, status, er) {
+				alert('error');
+			}
+		});
+	}
+	function setEditAgriculture(agi_id) {
+
+		var obj = {
+			agi_id : agi_id
+		};
+
+		$.ajax({
+			url : "findAgriculture.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert(JSON.stringify(data));
+				$("#editAgiId").val(data.agi_id);
+				$("#editAgiYear").val(data.agi_year);
+				$("#editAgiName").val(data.agi_name);
+				$("#editAgiArea").val(data.agi_area);
+				$("#editAgiDescription").val(data.agi_description);
+			},
+			error : function(data, status, er) {
+				alert('error');
+			}
+		});
+	}
+</script>
+</head>
+<body onload="listAgriculture()">
+	<div id="loader" style="display: none">
+		<img src="image/ajax-loader.gif" />
+	</div>
+	<table id="resultTable" border="1"></table>
+
+	<button onclick="listAgriculture()">Fetch All</button>
+
+	<div id="loader" style="display: none">
+		<img src="image/ajax-loader.gif" />
+	</div>
+	<table id="resultTable" border="1"></table>
+
+	<hr />
+	Year:
+	<input type="text" id="agi_year">
+	<BR /> Name:
+	<input type="text" id="agi_name">
+	<BR /> Area:
+	<input type="text" id="agi_area">
+	<BR /> Description:
+	<input type="text" id="agi_description">
+	<BR />
+	<input type="button" value="Save" onclick="createAgriculture()" />
+
+	<hr />
+	<input type="hidden" id="editAgiId"> Year:
+	<input type="text" id="editAgiYear">
+	<BR /> Name:
+	<input type="text" id="editAgiName">
+	<BR /> Area:
+	<input type="text" id="editAgiArea">
+	<BR /> Location: Description:
+	<input type="text" id="editAgiDescription">
+	<BR />
+	<input type="button" value="Save" onclick="editAgriculture()" />
+</body>
+</html>

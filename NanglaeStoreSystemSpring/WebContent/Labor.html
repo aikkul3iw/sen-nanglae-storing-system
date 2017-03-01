@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type='text/javascript' src="js/jquery.js"></script>
+<script type='text/javascript'>
+	function listLabor() {
+		$("#loader").show();
+		$.ajax({
+			url : "listLabor.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<tr>";
+					html += "<td>" + data[i].lab_year + "</td>" + "<td>"
+							+ data[i].lab_type + "</td>" + "<td>"
+							+ data[i].lab_amount + "</td>" + "<td>"
+							+ "<td><buttun onclick=\"deleteLabor("
+							+ data[i].lab_id + ");\" >Delete</button></td>"
+							+ "<td><buttun onclick=\"setEditLabor("
+							+ data[i].lab_id + ");\" >Edit</button></td>";
+					html += "</tr>";
+				}
+				$('#resultTable').html(html);
+				$("#loader").hide();
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+</script>
+<script type='text/javascript'>
+	function createLabor() {
+		$("#loader").show();
+		var obj = {
+			lab_id : 0,
+			lab_year : $('#lab_year').val(),
+			lab_type : $('#lab_type').val(),
+			lab_amount : $('#lab_amount').val()
+		};
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "saveLabor.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				$("#loader").hide();
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+	function deleteLabor(id) {
+		var obj = {
+			lab_id : id
+
+		};
+		alert(id);
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "deleteLabor.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				location.reload();
+			}
+		});
+	}
+	function editLabor() {
+		var obj = {
+			lab_id : $("#editLabId").val(),
+			lab_year : $('#editLabYear').val(),
+			lab_type : $('#editLabType').val(),
+			lab_amount : $('#editLabAmount').val(),
+		};
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "saveLabor.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				location.reload();
+			},
+			error : function(data, status, er) {
+				alert('error');
+			}
+		});
+	}
+	function setEditLabor(lab_id) {
+
+		var obj = {
+			lab_id : lab_id
+		};
+
+		$.ajax({
+			url : "findLabor.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert(JSON.stringify(data));
+				$("#editLabId").val(data.lab_id);
+				$("#editLabYear").val(data.lab_year);
+				$("#editLabType").val(data.lab_type);
+				$("#editLabAmount").val(data.lab_amount);
+			},
+			error : function(data, status, er) {
+				alert('error');
+			}
+		});
+	}
+</script>
+</head>
+<body onload="listLabor()">
+	<div id="loader" style="display: none">
+		<img src="image/ajax-loader.gif" />
+	</div>
+	<table id="resultTable" border="1"></table>
+
+	<button onclick="listLabor()">Fetch All</button>
+
+	<div id="loader" style="display: none">
+		<img src="image/ajax-loader.gif" />
+	</div>
+	<table id="resultTable" border="1"></table>
+
+	<hr />
+	Year:
+	<input type="text" id="lab_year">
+	<BR /> Type:
+	<input type="text" id="lab_type">
+	<BR /> Amount:
+	<input type="text" id="lab_amount">
+	<BR />
+	<input type="button" value="Save" onclick="createLabor()" />
+
+	<hr />
+	<input type="hidden" id="editLabId"> Year:
+	<input type="text" id="editLabYear">
+	<BR /> Type:
+	<input type="text" id="editLabType">
+	<BR /> Amount:
+	<input type="text" id="editLabAmount">
+	<BR />
+	<input type="button" value="Save" onclick="editLabor()" />
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type='text/javascript' src="js/jquery.js"></script>
+<script type='text/javascript'>
+	function listDrainage() {
+		$("#loader").show();
+		$.ajax({
+			url : "listDrainage.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<tr>";
+					html += "<td>" + data[i].drain_year + "</td>" + "<td>"
+							+ data[i].drain_name + "</td>" + "<td>"
+							+ data[i].drain_location_connected + "</td>"
+							+ data[i].location.vil_name + "</td>"
+							+ "<td><buttun onclick=\"deleteDrainage("
+							+ data[i].drain_id + ");\" >Delete</button></td>"
+							+ "<td><buttun onclick=\"setEditDrainage("
+							+ data[i].drain_id + ");\" >Edit</button></td>";
+					html += "</tr>";
+				}
+				$('#resultTable').html(html);
+				$("#loader").hide();
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+</script>
+<script type='text/javascript'>
+	function createDrainage() {
+		$("#loader").show();
+		var obj = {
+			drain_id : 0,
+			drain_year : $('#drain_year').val(),
+			drain_name : $('#drain_name').val(),
+			drain_location_connected : $('#drain_location_connected').val()
+		};
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "saveDrainage.do?id=" + $("#villageSelect").val(),
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				$("#loader").hide();
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+	function listVillage() {
+		$("#loader").show();
+		$.ajax({
+			url : "listVillage.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<option value=\""+data[i].vil_id+"\">"
+							+ data[i].vil_name + "</option>";
+				}
+				$('#villageSelect').html(html);
+
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+	function editDrainage() {
+		var obj = {
+			drain_id : $("#editDrainId").val(),
+			drain_year : $('#editDrainYear').val(),
+			drain_name : $('#editDrainName').val(),
+			drain_location_connected : $('#editDrainLocalConnect').val()
+		};
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "saveDrainage.do?id=" + $("#editVillageSelect").val(),
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				location.reload();
+			},
+			error : function(data, status, er) {
+				alert('error');
+			}
+		});
+	}
+	function setEditDrainage(drain_id) {
+
+		var obj = {
+			drain_id : drain_id
+		};
+
+		$.ajax({
+			url : "findDrainage.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert(JSON.stringify(data));
+				$("#editDrainId").val(data.drain_id);
+				$("#editDrainYear").val(data.drain_year);
+				$("#editDrainName").val(data.drain_name);
+				$("#editDrainLocalConnect").val(data.drain_location_connected);
+			},
+			error : function(data, status, er) {
+				alert('error');
+			}
+		});
+	}
+	function editVillageSelect() {
+		$("#loader").show();
+		$.ajax({
+			url : "listVillage.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<option value=\""+data[i].vil_id+"\">"
+							+ data[i].vil_name + "</option>";
+				}
+				$('#editVillageSelect').html(html);
+
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+</script>
+</head>
+<body onload="listDrainage();listVillage();editVillageSelect();">
+	<div id="loader" style="display: none">
+		<img src="image/ajax-loader.gif" />
+	</div>
+	<table id="resultTable" border="1"></table>
+
+	<button onclick="listDrainage()">Fetch All</button>
+
+	<div id="loader" style="display: none">
+		<img src="image/ajax-loader.gif" />
+	</div>
+	<table id="resultTable" border="1"></table>
+
+	<hr />
+	Year:
+	<input type="text" id="drain_year">
+	<BR /> Name:
+	<input type="text" id="drain_name">
+	<BR /> Location connect:
+	<input type="text" id="drain_location_connected">
+	<BR /> Location:
+	<select id="villageSelect">
+	</select>
+	<BR />
+	<input type="button" value="Save" onclick="createDrainage()" />
+
+	<hr />
+	<input type="hidden" id="editDrainId"> Year:
+	<input type="text" id="editDrainYear">
+	<BR /> Name:
+	<input type="text" id="editDrainName">
+	<BR /> Location connect:
+	<input type="text" id="editDrainLocalConnect">
+	<BR /> Location:
+	<select id="editVillageSelect">
+	</select>
+	<BR />
+	<input type="button" value="Save" onclick="editDrainage()" />
+</body>
+</html>
