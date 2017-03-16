@@ -590,7 +590,7 @@
                                                 <tr>
                                                 
                                                     <td align="pull-right" style="padding: 15px">จำนวนแรงงาน</td>
-                                                    <td ><input class="form-control" maxlength="5" id="lab_amount" placeholder="ระบุจำนวนแรงงาน" required></td><td>คน</td>
+                                                    <td ><input class="form-control" maxlength="5" id="lab_amount" placeholder="ระบุจำนวนแรงงาน" required></td><td style="padding: 15px">คน</td>
                                                 
                                                 </tr>
                                                 <tr>
@@ -598,9 +598,10 @@
                                                     <td><textarea class="form-control" maxlength="255" id="lab_work" placeholder="ระบุรายละเอียดการใช้แรงงาน" name="per-address" required></textarea></td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="2" align="center" style="padding: 15px">
-                                                    <button type="reset" class="btn btn-default">ล้างข้อมูล</button>
-                                                    <input type="button" class="btn btn-default" value="บันทึก" onclick="createLabor()" />
+                                                	<td></td>
+                                                    <td align="center" style="padding: 15px">
+                                                    <button style="width: 100px" type="reset" class="btn btn-default">ล้างข้อมูล</button>
+                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="createLabor()" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -632,7 +633,8 @@
                                                     <td><textarea class="form-control" maxlength="255" id="editLabWork" placeholder="" name="per-address" required="true"></textarea></td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="2" align="center" style="padding: 15px">
+                                                	<td></td>
+                                                    <td style="padding: 15px">
                                                     <a href="#listLabor" data-toggle="tab"><button class="btn btn-default">ยกเลิก</button></a>
                                                     <input type="button" class="btn btn-default" value="บันทึก" onclick="editLabor()" />
                                                     </td>
