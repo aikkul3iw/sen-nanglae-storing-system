@@ -740,19 +740,19 @@
                         </div>
                                 <div class="tab-pane fade" id="addEducation">
                                     <form role="form">
-                                            <table width="70%" align="center"><tr>
-                                                    <td align="pull-right" style="padding: 10px">ปีข้อมูล</td>
-                                                    <td><input id="edu_year" maxlength="4" class="form-control" placeholder="" value="2558" name="tran-year" required="true" style="width: 70%"></td>
+                                            <table width="50%" align="center"><tr>
+                                                    <td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
+                                                    <td><input id="edu_year" maxlength="4" class="form-control" placeholder="" value="2558" name="tran-year" required="true"></td>
                                                 </tr> 
                                                 <tr>
                                                 
-                                                    <td align="pull-right" style="padding: 10px">ชื่อสถานศึกษา</td>
-                                                    <td ><input type="text" id="edu_name" maxlength="100" class="form-control" placeholder="ระบุชื่อสถานศึกษา" name="edu-name" required="true" style="width: 70%"></td>
+                                                    <td align="pull-right" style="padding: 15px">ชื่อสถานศึกษา</td>
+                                                    <td ><input type="text" id="edu_name" maxlength="100" class="form-control" placeholder="ระบุชื่อสถานศึกษา" name="edu-name" required="true"></td>
                                                 </tr>
                                                  <tr>
-                                                    <td align="pull-right" style="padding: 10px">ประเภทสถานศึกษา</td>
+                                                    <td align="pull-right" style="padding: 15px">ประเภทสถานศึกษา</td>
                                                     <td>
-                                                        <select id="edu_type" class="form-control" name="water-location" style="width: 70%">
+                                                        <select id="edu_type" class="form-control" name="water-location">
                                                             <option value="">เลือกประเภท</option>
                                                             <option value="ศูนย์เด็กเล็ก">ศูนย์เด็กเล็ก</option>
                                                             <option value="โรงเรียน">โรงเรียน</option>
@@ -760,21 +760,21 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">จำนวนนักเรียน</td>
-                                                    <td><input id="student" maxlength="4" class="form-control" placeholder="ระบุจำนวนนักเรียน" name="edu-amount" required="true" style="width: 70%"></td><td>คน</td>
+                                                    <td align="pull-right" style="padding: 15px">จำนวนนักเรียน</td>
+                                                    <td><input id="student" maxlength="4" class="form-control" placeholder="ระบุจำนวนนักเรียน" name="edu-amount" required="true"></td><td style="padding: 15px">คน</td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">ที่ตั้ง</td>
+                                                    <td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
                                                     <td>
-                                                        <select id="villageSelect" class="form-control" name="edu-location" style="width: 70%">
-                                                           
+                                                        <select id="villageSelect" class="form-control" name="edu-location">    
                                                         </select>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="2" align="center" style="padding: 15px">
-                                                    <button type="reset" class="btn btn-default">ล้างข้อมูล</button>
-                                                    <input type="button" class="btn btn-default" value="บันทึก" onclick="createEducation()" />
+                                                    <td></td>
+                                                    <td align="center" style="padding: 15px">
+                                                    <button style="width: 100px" type="reset" class="btn btn-default">ล้างข้อมูล</button>
+                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="createEducation()" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -815,9 +815,10 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="2" align="center" style="padding: 15px">
-                                                    <a href="#listEduKid" data-toggle="tab"><button class="btn btn-default">ยกเลิก</button></a>
-                                                    <input type="button" class="btn btn-default" value="บันทึก" onclick="editEducation()" />
+                                                    <td></td>
+                                                    <td align="center" style="padding: 15px">
+                                                    <a href="#listEduKid" data-toggle="tab"><button style="width: 100px" class="btn btn-default">ยกเลิก</button></a>
+                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="editEducation()" />
                                                     </td>
                                                 </tr>
                                             </table>
