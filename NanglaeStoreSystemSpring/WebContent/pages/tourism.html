@@ -56,10 +56,8 @@
 							+ data[i].tour_name + "</td>" + "<td>"
 							+ data[i].tour_description + "</td>" + "<td>"
 							+ "หมู่ที่ "+data[i].location.vil_number+" บ้าน"+data[i].location.vil_name + "</td>"
-							+ "<td><a href onclick=\"deleteTourism("
-							+ data[i].tour_id + ");\" >ลบข้อมูล</a></td>"
-							+ "<td><a href=\"#editTourism\" data-toggle=\"tab\" onclick=\"setEditTourism("
-							+ data[i].tour_id + ");\" >แก้ไข</a></td>";
+							+ "<td><button data-toggle=\"modal\" data-id="+data[i].tour_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
+							+ "<td><button href=\"#editTourism\" data-toggle=\"tab\" onclick=\"setEditTourism("+ data[i].tour_id + ");\">แก้ไข</button></td>"
 					html += "</tr>";
 				}
 				html += "<tbody>";
@@ -133,13 +131,12 @@
 			}
 		});
 	}
-	function deleteTourism(id) {
+	function deleteTourism() {
+		var id = document.getElementById("tour_id").value;
 		var obj = {
 			tour_id : id
 
 		};
-		//alert(id);
-		//alert(JSON.stringify(obj));
 		$.ajax({
 			url : "../deleteTourism.do",
 			type : "POST",
@@ -148,7 +145,6 @@
 			contentType : "application/json",
 			mimeType : "application/json",
 			success : function(data) {
-				alert('success');
 				location.reload();
 			}
 		});
@@ -643,6 +639,32 @@
                                             </table>
                                         </form>
                                 </div>
+<!-- Start modal -->                                
+<div>
+			<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="H3"> ----- ยืนยันการลบข้อมูล !! -----</h4>
+						</div>
+						<div class="modal-body">
+							<p>คุณต้องการลบข้อมูลชุดนี้?</p>
+							<input type="hidden" name="tour_id" id="tour_id" value=""/>
+						</div>
+						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">ยกเลิก</button>
+							<button type="button" id="deleteTourism" class="btn btn-danger" onclick="deleteTourism();">ลบข้อมูล</button>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<!-- End modal -->                                
                                 <div class="tab-pane fade" id="editTourism">
                                     <form role="form">
                                     <input type="hidden" id="editTourId">
@@ -711,6 +733,10 @@
             responsive: true
         });
     });
+    function openDeleteModal(id) {
+        $('#tour_id').val($(id).data('id'));
+        $('#DeleteModal').modal('show');
+	}
     </script>
 
 </body>
