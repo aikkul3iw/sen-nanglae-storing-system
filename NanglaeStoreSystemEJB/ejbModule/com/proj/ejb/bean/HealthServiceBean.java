@@ -34,7 +34,7 @@ public class HealthServiceBean implements HealthService {
 		Health hlt = findHealthById(hlt_id);
 		if (hlt != null) {
 			em.remove(hlt);
-			;
+			
 		}
 
 	}
