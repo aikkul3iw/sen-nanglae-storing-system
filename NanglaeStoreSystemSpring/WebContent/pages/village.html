@@ -92,7 +92,6 @@
 			document.getElementById('vil_chief').style.borderColor = "red";
 			return false;
 		} else {
-		if(confirm("ต้องการบันทึกข้อมูลนี้หรือไม่!")){
 		$("#loader").show();
 		var errDetectMsg = 'ไม่สามารถบันทึกข้อมูลได้';
 		var errDetec = false;
@@ -122,12 +121,9 @@
 			}
 		});
 		}
-		}
 	}
 	function deleteVillage() {
 		var id = document.getElementById("vil_id").value;
-
-		if(confirm("ต้องการลบข้อมูลนี้หรือไม่!")){
 		var obj = {
 			vil_id : id
 		};
@@ -142,8 +138,6 @@
 				location.reload();
 			}
 		});
-		}else{
-			}
 	}
 	function editVillage() {
 		var obj = {
