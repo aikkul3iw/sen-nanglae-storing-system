@@ -55,10 +55,8 @@ function listService() {
 				html += "<td>" + data[i].ser_year + "</td>" + "<td>"
 						+ data[i].ser_name + "</td>" + "<td>"
 						+ data[i].ser_capacity + "</td>"
-						+ "<td><a href onclick=\"deleteService("
-						+ data[i].ser_id + ");\" >ลบข้อมูล</a></td>"
-						+ "<td><a href=\"#editService\" data-toggle=\"tab\" onclick=\"setEditService("
-						+ data[i].ser_id + ");\" >แก้ไข</a></td>";
+						+ "<td><button data-toggle=\"modal\" data-id="+data[i].ser_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
+						+ "<td><button href=\"#editService\" data-toggle=\"tab\" onclick=\"setEditService("+ data[i].ser_id + ");\">แก้ไข</button></td>"
 				html += "</tr>";
 			}
 			html += "<tbody>";
@@ -92,7 +90,6 @@ function listService() {
 	    			ser_capacity : $('#ser_capacity').val()
 
 	    		};
-	    		//alert(JSON.stringify(obj));
 	    		$.ajax({
 	    			url : "../saveService.do",
 	    			type : "POST",
@@ -112,13 +109,12 @@ function listService() {
 	    		});
 	    }
 	}
-	function deleteService(id) {
+	function deleteService() {
+		var id = document.getElementById("ser_id").value;
 		var obj = {
 			ser_id : id
 
 		};
-		//alert(id);
-		//alert(JSON.stringify(obj));
 		$.ajax({
 			url : "../deleteService.do",
 			type : "POST",
@@ -127,7 +123,6 @@ function listService() {
 			contentType : "application/json",
 			mimeType : "application/json",
 			success : function(data) {
-				alert('success');
 				location.reload();
 			}
 		});
@@ -595,6 +590,32 @@ function listService() {
                                             </table>
                                         </form>
                                 </div>
+<!-- Start modal -->                                
+<div>
+			<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="H3"> ----- ยืนยันการลบข้อมูล !! -----</h4>
+						</div>
+						<div class="modal-body">
+							<p>คุณต้องการลบข้อมูลชุดนี้?</p>
+							<input type="hidden" name="ser_id" id="ser_id" value=""/>
+						</div>
+						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">ยกเลิก</button>
+							<button type="button" id="deleteService" class="btn btn-danger" onclick="deleteService();">ลบข้อมูล</button>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<!-- End modal -->                                
                                 <div class="tab-pane fade" id="editService">
                                     <form role="form">
                                     <input type="hidden" id="editSerId">
@@ -656,6 +677,10 @@ function listService() {
             responsive: true
         });
     });
+    function openDeleteModal(id) {
+        $('#ser_id').val($(id).data('id'));
+        $('#DeleteModal').modal('show');
+	}
     </script>
 
 </body>
