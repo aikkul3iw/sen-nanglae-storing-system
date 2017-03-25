@@ -133,13 +133,12 @@
 			}
 		});
 	}
-	function deleteHealth(id) {
+	function deleteHealth() {
+		var id = document.getElementById("hlt_id").value;
 		var obj = {
 			hlt_id : id
 
 		};
-		//alert(id);
-		//alert(JSON.stringify(obj));
 		$.ajax({
 			url : "../deleteHealth.do",
 			type : "POST",
@@ -148,7 +147,6 @@
 			contentType : "application/json",
 			mimeType : "application/json",
 			success : function(data) {
-				alert('success');
 				location.reload();
 			}
 		});
@@ -161,7 +159,6 @@
 			hlt_service_area : $('#editHltServiceArea').val()
 			
 		};
-		//alert(JSON.stringify(obj));
 		$.ajax({
 			url : "../saveHealth.do?id=" + $("#editVillageSelect").val(),
 			type : "POST",
@@ -645,6 +642,32 @@
                                             </table>
                                         </form>
                                 </div>
+<!-- Start modal -->                                
+<div>
+			<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="H3"> ----- ยืนยันการลบข้อมูล !! -----</h4>
+						</div>
+						<div class="modal-body">
+							<p>คุณต้องการลบข้อมูลชุดนี้?</p>
+							<input type="hidden" name="hlt_id" id="hlt_id" value=""/>
+						</div>
+						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">ยกเลิก</button>
+							<button type="button" id="deleteHealth" class="btn btn-danger" onclick="deleteHealth();">ลบข้อมูล</button>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<!-- End modal -->                                
                                 <div class="tab-pane fade" id="editHealth">
                                     <form role="form">
                                     <input type="hidden" id="editHltId">
@@ -713,6 +736,10 @@
             responsive: true
         });
     });
+    function openDeleteModal(id) {
+        $('#hlt_id').val($(id).data('id'));
+        $('#DeleteModal').modal('show');
+	}
     </script>
 
 </body>
