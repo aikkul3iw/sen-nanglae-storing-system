@@ -54,7 +54,7 @@
 				var html = '';
 				html += "<thead>";
 				html += "<tr>";
-				html += "<th>ปีที่ข้อมูล</th><th>มลพิษ</th><th>ผลกระทบ</th><th>พิ้นที่ได้รับผลกระทบ</th><th colspan='2'>ตัวเลือก</th>";
+				html += "<th>ปีที่ข้อมูล</th><th>มลพิษ</th><th>ผลกระทบ</th><th>พิ้นที่ได้รับผลกระทบ</th><th colspan='2'><center>ตัวเลือก</center></th>";
 				html += "</tr>";
 				html += "</thead>";
 				html += "<tbody>";
@@ -71,8 +71,9 @@
 							+ data[i].pol_name + "</td>" + "<td>"
 							+ data[i].pol_effect + "</td>" + "<td>"
 							+ data[i].pol_area + "</td>"
-							+ "<td><button data-toggle=\"modal\" data-id="+data[i].pol_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
-							+ "<td><button href=\"#editPolution\" data-toggle=\"tab\" onclick=\"setEditPolution("+ data[i].pol_id + ");\">แก้ไข</button></td>"
+							+ "<td><center><button href=\"#editPolution\" data-toggle=\"tab\" onclick=\"setEditPolution("+ data[i].pol_id + ");\" class=\"btn btn-warning\">แก้ไขข้อมูล</button></center></td>"
+							+ "<td><center><button data-toggle=\"modal\" data-id="+data[i].pol_id+" onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\">ลบข้อมูล</button></center></td>"
+							
 					html += "</tr>";
 				}
 				html += "<tbody>";
@@ -614,8 +615,8 @@
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <button style="width: 100px" type="reset" class="btn btn-default">ล้างข้อมูล</button>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="createPolution()" />
+                                                    <button style="width: 100px" type="reset" class="btn btn-warning">ล้างข้อมูล</button>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="createPolution()" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -673,8 +674,8 @@
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <a href="#listPolution" data-toggle="tab"><button style="width: 100px" class="btn btn-default">ยกเลิก</button></a>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="editPolution()" />
+                                                    <a href="#listPolution" data-toggle="tab"><button style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="editPolution()" />
                                                     </td>
                                                 </tr>
                                             </table>
