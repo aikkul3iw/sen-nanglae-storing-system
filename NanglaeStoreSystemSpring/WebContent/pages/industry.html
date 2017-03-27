@@ -46,7 +46,7 @@ function listIndustry() {
 			var html = '';
 			html += "<thead>";
 			html += "<tr>";
-			html += "<th>ปีข้อมูล</th><th>ชื่ออุตสาหกรรม</th><th>ที่ตั้ง</th><th>ขนาด</th><th>มูลค่าอุตสาหกรรม(ล้านบาท)</th><th>จำนวนแรงงาน(คน)</th><th colspan='2'>ตัวเลือก</th>";
+			html += "<th>ปีข้อมูล</th><th>ชื่ออุตสาหกรรม</th><th>ที่ตั้ง</th><th>ขนาด</th><th>มูลค่าอุตสาหกรรม(ล้านบาท)</th><th>จำนวนแรงงาน(คน)</th><th colspan='2'><center>ตัวเลือก</center></th>";
 			html += "</tr>";
 			html += "</thead>";
 			html += "<tbody>";
@@ -59,8 +59,9 @@ function listIndustry() {
 						+ data[i].ins_size + "</td>" + "<td>"
 						+ data[i].ins_type + "</td>" + "<td>"
 						+ data[i].ins_labor + "</td>"
-						+ "<td><button data-toggle=\"modal\" data-id="+data[i].ins_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
-						+ "<td><button href=\"#editIndustry\" data-toggle=\"tab\" onclick=\"setEditIndustry("+ data[i].ins_id + ");\">แก้ไข</button></td>"
+						+ "<td><center><button href=\"#editIndustry\" data-toggle=\"tab\" onclick=\"setEditIndustry("+ data[i].ins_id + ");\" class=\"btn btn-warning\">แก้ไขข้อมูล</button></center></td>"
+						+ "<td><center><button data-toggle=\"modal\" data-id="+data[i].ins_id+" onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\">ลบข้อมูล</button></center></td>"
+						
 				html += "</tr>";
 			}
 			html += "<tbody>";
@@ -660,8 +661,8 @@ function listIndustry() {
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <button style="width: 100px" type="reset" class="btn btn-default">ล้างข้อมูล</button>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="createIndustry()" />
+                                                    <button style="width: 100px" type="reset" class="btn btn-warning">ล้างข้อมูล</button>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="createIndustry()" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -734,8 +735,8 @@ function listIndustry() {
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <a href="#listIndust" data-toggle="tab"><button style="width: 100px" class="btn btn-default">ยกเลิก</button></a>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="editIndustry()" />
+                                                    <a href="#listIndust" data-toggle="tab"><button style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="editIndustry()" />
                                                     </td>
                                                 </tr>
                                             </table>

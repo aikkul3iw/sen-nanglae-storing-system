@@ -46,7 +46,7 @@
 				var html = '';
 				html += "<thead>";
 				html += "<tr>";
-				html += "<th>ปีที่บันทึกข้อมูล</th><th>ชื่อสถานศึกษา</th><th>ประเภท</th><th>จำนวนนักเรียน(คน)</th><th>ที่ตั้ง</th><th colspan='2'>ตัวเลือก</th>";
+				html += "<th>ปีที่บันทึกข้อมูล</th><th>ชื่อสถานศึกษา</th><th>ประเภท</th><th>จำนวนนักเรียน(คน)</th><th>ที่ตั้ง</th><th colspan='2'><center>ตัวเลือก</center></th>";
 				html += "</tr>";
 				html += "</thead>";
 				html += "<tbody>";
@@ -58,8 +58,9 @@
 							+ data[i].edu_type + "</td>" + "<td>"
 							+ data[i].student + "</td>" + "<td>"
 							+ "หมู่ที่ "+data[i].location.vil_number+" บ้าน"+data[i].location.vil_name + "</td>"
-							+ "<td><button data-toggle=\"modal\" data-id="+data[i].edu_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
-							+ "<td><button href=\"#editEducation\" data-toggle=\"tab\" onclick=\"setEditEducation("+ data[i].edu_id + ");\">แก้ไข</button></td>"
+							+ "<td><center><button href=\"#editEducation\" data-toggle=\"tab\" onclick=\"setEditEducation("+ data[i].edu_id + ");\" class=\"btn btn-warning\">แก้ไข</button></center></td>"
+							+ "<td><center><button data-toggle=\"modal\" data-id="+data[i].edu_id+" onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\">ลบข้อมูล</button></center></td>"
+							
 					html += "</tr>";
 				}
 				html += "<tbody>";
@@ -769,8 +770,8 @@
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <button style="width: 100px" type="reset" class="btn btn-default">ล้างข้อมูล</button>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="createEducation()" />
+                                                    <button style="width: 100px" type="reset" class="btn btn-warning">ล้างข้อมูล</button>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="createEducation()" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -839,8 +840,8 @@
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <a href="#listEduKid" data-toggle="tab"><button style="width: 100px" class="btn btn-default">ยกเลิก</button></a>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="editEducation()" />
+                                                    <a href="#listEduKid" data-toggle="tab"><button style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="editEducation()" />
                                                     </td>
                                                 </tr>
                                             </table>

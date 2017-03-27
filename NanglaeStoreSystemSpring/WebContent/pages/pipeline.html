@@ -46,7 +46,7 @@
 				var html = '';
 				html += "<thead>";
 				html += "<tr>";
-				html += "<th>ปีที่บันทึกข้อมูล</th><th>หมู่ที่</th><th>ชื่อหมู่บ้าน</th><th>สถานะระบบประปา</th><th>ใช้จาก</th><th colspan='2'>ตัวเลือก</th>";
+				html += "<th>ปีที่บันทึกข้อมูล</th><th>หมู่ที่</th><th>ชื่อหมู่บ้าน</th><th>สถานะระบบประปา</th><th>ใช้จาก</th><th colspan='2'><center>ตัวเลือก</center></th>";
 				html += "</tr>";
 				html += "</thead>";
 				html += "<tbody>";
@@ -57,8 +57,9 @@
 							+ data[i].location.vil_name + "</td>"+ "<td>"
 							+ data[i].pipe_system + "</td>" + "<td>"
 							+ data[i].pipe_use_from + "</td>" 
-							+ "<td><button data-toggle=\"modal\" data-id="+data[i].pipe_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
-							+ "<td><button href=\"#editPipeline\" data-toggle=\"tab\" onclick=\"setEditPipeline("+ data[i].pipe_id + ");\">แก้ไข</button></td>"
+							+ "<td><center><button href=\"#editPipeline\" data-toggle=\"tab\" onclick=\"setEditPipeline("+ data[i].pipe_id + ");\" class=\"btn btn-warning\">แก้ไขข้อมูล</button></center></td>"
+							+ "<td><center><button data-toggle=\"modal\" data-id="+data[i].pipe_id+" onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\">ลบข้อมูล</button></center></td>"
+							
 					html += "</tr>";
 				}
 				html += "<tbody>";
@@ -635,8 +636,8 @@
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <button style="width: 100px" type="reset" class="btn btn-default">ล้างข้อมูล</button>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="createPipeline()" />
+                                                    <button style="width: 100px" type="reset" class="btn btn-warning">ล้างข้อมูล</button>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="createPipeline()" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -699,8 +700,8 @@
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <a href="#listPipeline" data-toggle="tab"><button style="width: 100px" class="btn btn-default">ยกเลิก</button></a>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="editPipeline()" />
+                                                    <a href="#listPipeline" data-toggle="tab"><button style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="editPipeline()" />
                                                     </td>
                                                 </tr>
                                             </table>

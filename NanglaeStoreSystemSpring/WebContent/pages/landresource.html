@@ -46,7 +46,7 @@
 				var html = '';
 				html += "<thead>";
 				html += "<tr>";
-				html += "<th>ปีที่ข้อมูล</th><th>ทรัพยากรดิน</th><th>การใช้ประโยชน์</th><th colspan='2'>ตัวเลือก</th>";
+				html += "<th>ปีที่ข้อมูล</th><th>ทรัพยากรดิน</th><th>การใช้ประโยชน์</th><th colspan='2'><center>ตัวเลือก</center></th>";
 				html += "</tr>";
 				html += "</thead>";
 				html += "<tbody>";
@@ -54,9 +54,10 @@
 					html += "<tr>";
 					html += "<td>" + data[i].land_year + "</td>" + "<td>"
 							+ data[i].land_name + "</td>" + "<td>"
-							+ data[i].land_usage + "</td>" 
-							+ "<td><button data-toggle=\"modal\" data-id="+data[i].land_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
-							+ "<td><button href=\"#editLand\" data-toggle=\"tab\" onclick=\"setEditLandResource("+ data[i].land_id + ");\">แก้ไข</button></td>"
+							+ data[i].land_usage + "</td>"
+							+ "<td><center><button href=\"#editLand\" data-toggle=\"tab\" onclick=\"setEditLandResource("+ data[i].land_id + ");\" class=\"btn btn-warning\">แก้ไขข้อมูล</button></center></td>"
+							+ "<td><center><button data-toggle=\"modal\" data-id="+data[i].land_id+" onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\">ลบข้อมูล</button></center></td>"
+							
 					html += "</tr>";
 				}
 				html += "<tbody>";
@@ -581,8 +582,8 @@
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <button style="width: 100px" type="reset" class="btn btn-default">ล้างข้อมูล</button>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="createLandResource()" />
+                                                    <button style="width: 100px" type="reset" class="btn btn-warning">ล้างข้อมูล</button>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="createLandResource()" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -633,8 +634,8 @@
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <a href="#listLand" data-toggle="tab"><button style="width: 100px" class="btn btn-default">ยกเลิก</button></a>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="editLandResource()" />
+                                                    <a href="#listLand" data-toggle="tab"><button style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="editLandResource()" />
                                                     </td>
                                                 </tr>
                                             </table>

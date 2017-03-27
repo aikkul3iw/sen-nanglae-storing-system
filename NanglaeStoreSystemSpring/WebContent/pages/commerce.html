@@ -46,7 +46,7 @@ function listCommerce() {
 			var html = '';
 			html += "<thead>";
 			html += "<tr>";
-			html += "<th>ปีที่ข้อมูล</th><th>ชื่อ</th><th>ประเภท</th><th>ที่ตั้ง</th><th>รายละเอียด</th><th colspan='2'>ตัวเลือก</th>";
+			html += "<th>ปีที่ข้อมูล</th><th>ชื่อ</th><th>ประเภท</th><th>ที่ตั้ง</th><th>รายละเอียด</th><th colspan='2'><center>ตัวเลือก</center></th>";
 			html += "</tr>";
 			html += "</thead>";
 			html += "<tbody>";
@@ -57,8 +57,9 @@ function listCommerce() {
 						+ data[i].com_type + "</td>" + "<td>"
 						+ "หมู่ที่ "+data[i].location.vil_number+" บ้าน"+data[i].location.vil_name + "</td>"
 						+ "<td>" +data[i].com_description + "</td>"
-						+ "<td><button data-toggle=\"modal\" data-id="+data[i].com_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
-						+ "<td><button href=\"#editCommerce\" data-toggle=\"tab\" onclick=\"setEditCommerce("+ data[i].com_id + ");\">แก้ไข</button></td>"
+						+ "<td><center><button href=\"#editCommerce\" data-toggle=\"tab\" onclick=\"setEditCommerce("+ data[i].com_id + ");\" class=\"btn btn-warning\">แก้ไขข้อมูล</button></center></td>"
+						+ "<td><center><button data-toggle=\"modal\" data-id="+data[i].com_id+" onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\">ลบข้อมูล</button></center></td>"
+						
 				html += "</tr>";
 			}
 			html += "<tbody>";
@@ -647,8 +648,8 @@ function listCommerce() {
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <button style="width: 100px" type="reset" class="btn btn-default">ล้างข้อมูล</button>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="createCommerce()" />
+                                                    <button style="width: 100px" type="reset" class="btn btn-warning">ล้างข้อมูล</button>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="createCommerce()" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -725,8 +726,8 @@ function listCommerce() {
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <a href="#listCommerce" data-toggle="tab"><button style="width: 100px" class="btn btn-default">ยกเลิก</button></a>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="editCommerce()" />
+                                                    <a href="#listCommerce" data-toggle="tab"><button style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="editCommerce()" />
                                                     </td>
                                                 </tr>
                                             </table>

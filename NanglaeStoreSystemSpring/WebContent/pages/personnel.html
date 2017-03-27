@@ -48,7 +48,7 @@
 				var html = '';
 				html += "<thead>";
 				html += "<tr>";
-				html += "<th>ปีที่บันทึกข้อมูล</th><th>ชื่อ</th><th>ตำแหน่ง</th><th>เบอร์โทรศัพท์</th><th>ที่อยู่</th><th>อีเมลล์</th><th colspan='2'>ตัวเลือก</th>";
+				html += "<th>ปีที่บันทึกข้อมูล</th><th>ชื่อ</th><th>ตำแหน่ง</th><th>เบอร์โทรศัพท์</th><th>ที่อยู่</th><th>อีเมลล์</th><th colspan='2'><center>ตัวเลือก</center></th>";
 				html += "</tr>";
 				html += "</thead>";
 				html += "<tbody>";
@@ -62,8 +62,9 @@
 							+ data[i].per_tel_number + "</td>" + "<td>"
 							+ data[i].per_address + "</td>" + "<td>"
 							+ data[i].per_email + "</td>" 
-							+ "<td><button data-toggle=\"modal\" data-id="+data[i].per_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
-							+ "<td><button href=\"#editPersonnel\" data-toggle=\"tab\" onclick=\"setEditPersonnel("+ data[i].per_id + ");\">แก้ไข</button></td>"
+							+ "<td><center><button href=\"#editPersonnel\" data-toggle=\"tab\" onclick=\"setEditPersonnel("+ data[i].per_id + ");\" class=\"btn btn-warning\">แก้ไขข้อมูล</button></center></td>"
+							+ "<td><center><button data-toggle=\"modal\" data-id="+data[i].per_id+" onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\">ลบข้อมูล</button></center></td>"
+							
 					html += "</tr>";
 				}
 				html += "<tbody>";
@@ -660,8 +661,8 @@
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <button style="width: 100px" type="reset" class="btn btn-default">ล้างข้อมูล</button>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="createPersonnel()" />
+                                                    <button style="width: 100px" type="reset" class="btn btn-warning">ล้างข้อมูล</button>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="createPersonnel()" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -741,8 +742,8 @@
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <a href="#listPersonnel" data-toggle="tab"><button style="width: 100px" class="btn btn-default">ยกเลิก</button></a>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="editPersonnel()" />
+                                                    <a href="#listPersonnel" data-toggle="tab"><button style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="editPersonnel()" />
                                                     </td>
                                                 </tr>
                                             </table>

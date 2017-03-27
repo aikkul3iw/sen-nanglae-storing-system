@@ -46,7 +46,7 @@
 				var html = '';
 				html += "<thead>";
 				html += "<tr>";
-				html += "<th>ปีข้อมูล</th><th>ระบบระบายน้ำ</th><th>ที่ตั้ง</th><th>พื้นที่เชื่อมต่อ</th><th colspan='2'>ตัวเลือก</th>";
+				html += "<th>ปีข้อมูล</th><th>ระบบระบายน้ำ</th><th>ที่ตั้ง</th><th>พื้นที่เชื่อมต่อ</th><th colspan='2'><center>ตัวเลือก</center></th>";
 				html += "</tr>";
 				html += "</thead>";
 				html += "<tbody>";
@@ -56,8 +56,9 @@
 							+ data[i].drain_name + "</td>" + "<td>"
 							+ "หมู่ที่ "+data[i].location.vil_number + " บ้าน"+data[i].location.vil_name + "</td>" + "<td>"
 							+ data[i].drain_location_connected + "</td>"
-							+ "<td><button data-toggle=\"modal\" data-id="+data[i].drain_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
-							+ "<td><button href=\"#editDrain\" data-toggle=\"tab\" onclick=\"setEditDrainage("+ data[i].drain_id + ");\">แก้ไข</button></td>"
+							+ "<td><center><button href=\"#editDrain\" data-toggle=\"tab\" onclick=\"setEditDrainage("+ data[i].drain_id + ");\" class=\"btn btn-warning\">แก้ไขข้อมูล</button></center></td>"
+							+ "<td><center><button data-toggle=\"modal\" data-id="+data[i].drain_id+" onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\">ลบข้อมูล</button></center></td>"
+							
 					html += "</tr>";
 				}
 				html += "<tbody>";
@@ -633,8 +634,8 @@
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <button style="width: 100px" type="reset" class="btn btn-default">ล้างข้อมูล</button>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="createDrainage()" />
+                                                    <button style="width: 100px" type="reset" class="btn btn-warning">ล้างข้อมูล</button>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="createDrainage()" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -695,8 +696,8 @@
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <a href="#listDrain" data-toggle="tab"><button style="width: 100px" class="btn btn-default">ยกเลิก</button></a>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="editDrainage()" />
+                                                    <a href="#listDrain" data-toggle="tab"><button style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="editDrainage()" />
                                                     </td>
                                                 </tr>
                                             </table>

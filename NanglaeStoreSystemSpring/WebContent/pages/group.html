@@ -45,7 +45,7 @@ function listLocalg() {
 		success : function(data) {
 			var html = '';html += "<thead>";
 			html += "<tr>";
-			html += "<th>ปีข้อมูล</th><th>ชื่อ</th><th>จำนวน</th><th colspan='2'>ตัวเลือก</th>";
+			html += "<th>ปีข้อมูล</th><th>ชื่อ</th><th>จำนวน</th><th colspan='2'><center>ตัวเลือก</center></th>";
 			html += "</tr>";
 			html += "</thead>";
 			html += "<tbody>";
@@ -54,8 +54,9 @@ function listLocalg() {
 				html += "<td>" + data[i].grp_year + "</td>" + "<td>"
 						+ data[i].grp_name + "</td>" + "<td>"
 						+ data[i].grp_member + "</td>"
-						+ "<td><button data-toggle=\"modal\" data-id="+data[i].grp_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
-						+ "<td><button href=\"#editGroup\" data-toggle=\"tab\" onclick=\"setEditLocalg("+ data[i].grp_id + ");\">แก้ไข</button></td>"
+						+ "<td><center><button href=\"#editGroup\" data-toggle=\"tab\" onclick=\"setEditLocalg("+ data[i].grp_id + ");\" class=\"btn btn-warning\">แก้ไข</button></center></td>"
+						+ "<td><center><button data-toggle=\"modal\" data-id="+data[i].grp_id+" onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\">ลบข้อมูล</button></center></td>"
+						
 				html += "</tr>";
 			}
 			html += "<tbody>";
@@ -586,8 +587,8 @@ function listLocalg() {
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <button style="width: 100px" type="reset" class="btn btn-default">ล้างข้อมูล</button>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="createLocalg()" />
+                                                    <button style="width: 100px" type="reset" class="btn btn-warning">ล้างข้อมูล</button>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="createLocalg()" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -642,8 +643,8 @@ function listLocalg() {
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <a href="#listGroup" data-toggle="tab"><button style="width: 100px" class="btn btn-default">ยกเลิก</button></a>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="editLocalg()" />
+                                                    <a href="#listGroup" data-toggle="tab"><button style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="editLocalg()" />
                                                     </td>
                                                 </tr>
                                             </table>
