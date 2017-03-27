@@ -35,6 +35,9 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <!-- Copy Function JavaScript -->
+    <script src="../js/copydata.js"></script>
 
 </head>
 
@@ -389,7 +392,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">การพาณิชย์</h1>
+                    <h1 class="page-header">คัดลอกข้อมูล</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -409,20 +412,36 @@
                     
                     <div class="tab-content">
                         <div class="tab-pane fade in active" id="listCommerce">
-                         คัดลอกข้อมูลจาก พ.ศ.
-                    <select>
-                        <option value="2558">2558</option>
-                        <option value="2559">2559</option>
-                    </select>
-                    <br><br>
-                    สร้างข้อมูลใหม่   พ.ศ.<input type="text" name="year" required><br><br>
-                    <button type="summit" value="save" class="btn btn-primary">คัดลอก</button>
-                        
+                        <form>
+                        <table>
+                        <tr>
+                        	<td style="padding: 15px"> คัดลอกข้อมูลจาก พ.ศ.</td>
+                        	<td>
+                        		<select class="form-control" id="oldYear">
+                        			<option value="2558">2558</option>
+                        			<option value="2559">2559</option>
+                    			</select>
+                        	</td>
+                        </tr>
+                        <tr>
+                        	<td style="padding: 15px"> สร้างข้อมูลใหม่   พ.ศ.</td>
+                        	<td>
+                        		<input type="text" class="form-control" name="year" id="newYear" required>
+                        	</td>
+                        </tr>
+                        <tr>
+                        	<td style="padding: 15px"></td>
+                        	<td><center><input style="width: 100px" type="button" value="คัดลอก" onclick="copyData()" class="btn btn-default"/></center></td>
+                        	
+                        </tr>
+                        </table>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
+    </div>
+        
 
     <!-- jQuery -->
     <script src="../vendor/jquery/jquery.min.js"></script>
