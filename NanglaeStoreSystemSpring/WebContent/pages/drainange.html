@@ -56,10 +56,8 @@
 							+ data[i].drain_name + "</td>" + "<td>"
 							+ "หมู่ที่ "+data[i].location.vil_number + " บ้าน"+data[i].location.vil_name + "</td>" + "<td>"
 							+ data[i].drain_location_connected + "</td>"
-							+ "<td><a href onclick=\"deleteDrainage("
-							+ data[i].drain_id + ");\" >ลบข้อมูล</a></td>"
-							+ "<td><a href=\"#editDrain\" data-toggle=\"tab\" onclick=\"setEditDrainage("
-							+ data[i].drain_id + ");\" >แก้ไข</a></td>";
+							+ "<td><button data-toggle=\"modal\" data-id="+data[i].drain_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
+							+ "<td><button href=\"#editDrain\" data-toggle=\"tab\" onclick=\"setEditDrainage("+ data[i].drain_id + ");\">แก้ไข</button></td>"
 					html += "</tr>";
 				}
 				html += "<tbody>";
@@ -112,13 +110,12 @@
 		});
 		}
 	}
-	function deleteDrainage(id) {
+	function deleteDrainage() {
+		var id = document.getElementById("drain_id").value;
 		var obj = {
 			drain_id : id
 
 		};
-		//alert(id);
-		//alert(JSON.stringify(obj));
 		$.ajax({
 			url : "../deleteDrainage.do",
 			type : "POST",
@@ -127,7 +124,6 @@
 			contentType : "application/json",
 			mimeType : "application/json",
 			success : function(data) {
-				alert('success');
 				location.reload();
 			}
 		});
@@ -644,6 +640,32 @@
                                             </table>
                                         </form>
                                 </div>
+<!-- Start modal -->                                
+<div>
+			<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="H3"> ----- ยืนยันการลบข้อมูล !! -----</h4>
+						</div>
+						<div class="modal-body">
+							<p>คุณต้องการลบข้อมูลชุดนี้?</p>
+							<input type="hidden" name=drain_id id="drain_id" value=""/>
+						</div>
+						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">ยกเลิก</button>
+							<button type="button" id="deleteDrainange" class="btn btn-danger" onclick="deleteDrainage();">ลบข้อมูล</button>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<!-- End modal -->                                
                                 <div class="tab-pane fade" id="editDrain">
                                     <form role="form">
                                     <input type="hidden" id="editDrainId">
@@ -712,6 +734,10 @@
             responsive: true
         });
     });
+    function openDeleteModal(id) {
+        $('#drain_id').val($(id).data('id'));
+        $('#DeleteModal').modal('show');
+	}
     </script>
 
 </body>

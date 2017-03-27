@@ -61,10 +61,8 @@
 							+ data[i].vil_number + "</td>" + "<td>"
 							+ data[i].vil_name + "</td>" + "<td>"
 							+ data[i].vil_chief + "</td>"
-							+ "<td><a href onclick=\"deleteVillage("
-							+ data[i].vil_id + ");\" >ลบข้อมูล</a></td>"
-							+ "<td><a href=\"#editVillage\" data-toggle=\"tab\" onclick=\"setEditVillage("
-							+ data[i].vil_id + ");\" >แก้ไข</a></td>";
+							+ "<td><button data-toggle=\"modal\" data-id="+data[i].vil_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
+							+ "<td><button href=\"#editVillage\" data-toggle=\"tab\" onclick=\"setEditVillage("+ data[i].vil_id + ");\">แก้ไข</button></td>"
 					html += "</tr>";
 					}
 				}
@@ -94,7 +92,6 @@
 			document.getElementById('vil_chief').style.borderColor = "red";
 			return false;
 		} else {
-		if(confirm("ต้องการบันทึกข้อมูลนี้หรือไม่!")){
 		$("#loader").show();
 		var errDetectMsg = 'ไม่สามารถบันทึกข้อมูลได้';
 		var errDetec = false;
@@ -105,7 +102,6 @@
 			vil_number : $('#vil_number').val(),
 			vil_chief : $('#vil_chief').val()
 		};
-		//alert(JSON.stringify(obj));
 		$.ajax({
 			url : "../saveVillage.do",
 			type : "POST",
@@ -125,16 +121,12 @@
 			}
 		});
 		}
-		}
 	}
-	function deleteVillage(id) {
-
-		if(confirm("ต้องการลบข้อมูลนี้หรือไม่!")){
+	function deleteVillage() {
+		var id = document.getElementById("vil_id").value;
 		var obj = {
 			vil_id : id
 		};
-		//alert(id);
-		//alert(JSON.stringify(obj));
 		$.ajax({
 			url : "../deleteVillage.do",
 			type : "POST",
@@ -143,12 +135,9 @@
 			contentType : "application/json",
 			mimeType : "application/json",
 			success : function(data) {
-				alert('ลบข้อมูลเสร็จสิ้น');
 				location.reload();
 			}
 		});
-		}else{
-			}
 	}
 	function editVillage() {
 		var obj = {
@@ -549,6 +538,32 @@
 											</table>
 										</form>
 									</div>
+<!-- Start modal -->                                
+<div>
+			<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="H3"> ----- ยืนยันการลบข้อมูล !! -----</h4>
+						</div>
+						<div class="modal-body">
+							<p>คุณต้องการลบข้อมูลชุดนี้?</p>
+							<input type="hidden" name="vil_id" id="vil_id" value=""/>
+						</div>
+						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">ยกเลิก</button>
+							<button type="button" id="deleteVillage" class="btn btn-danger" onclick="deleteVillage();">ลบข้อมูล</button>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<!-- End modal -->									
 									<div class="tab-pane fade" id="editVillage">
 									<a href="#listVillage" data-toggle="tab"> &#x21E6; ยกเลิกการแก้ไขข้อมูล  </a>
 										<form role="form">
@@ -665,6 +680,19 @@
 		    });
 		});
 		</script>
+		    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+    
+    function openDeleteModal(id) {
+        $('#vil_id').val($(id).data('id'));
+        $('#DeleteModal').modal('show');
+	}
+    
+    </script>
 		
 </body>
 

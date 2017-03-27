@@ -85,10 +85,8 @@ function numberWithCommas(x) {
 							+ allFemale + "</td>" + "<td>"
 							+ allPop + "</td>" + "<td>"
 							+ "<center>"+data[i].pop_house_amount +"</center>" + "</td>"
-							+ "<td><a href onclick=\"deletePopulation1("
-							+ data[i].pop_id + ");\" >ลบข้อมูล</a></td>"
-							+ "<td><a href=\"#editPop\" data-toggle=\"tab\" onclick=\"setEditPopulation1("
-							+ data[i].pop_id + ");\" >แก้ไข</a></td>";
+							+ "<td><button data-toggle=\"modal\" data-id="+data[i].pop_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
+							+ "<td><button href=\"#editPop\" data-toggle=\"tab\" onclick=\"setEditPolution("+ data[i].pop_id + ");\">แก้ไข</button></td>"
 					html += "</tr>";
 				}
 				html += "<th colspan=\"3\" ><center>รวม</center></th>";
@@ -194,10 +192,8 @@ function listPopulationByNation() {
 						+ allM + "</td>" + "<td>"
 						+ allF + "</td>" + "<td>"
 						+ allPopNation + "</td>" 
-						+ "<td><a href onclick=\"deletePopulation1("
-						+ data[i].pop_id + ");\" >ลบข้อมูล</a></td>"
-						+ "<td><a href=\"#editPop\" data-toggle=\"tab\" onclick=\"setEditPopulation1("
-						+ data[i].pop_id + ");\" >แก้ไข</a></td>";
+						+ "<td><button data-toggle=\"modal\" data-id="+data[i].pop_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
+						+ "<td><button href=\"#editPop\" data-toggle=\"tab\" onclick=\"setEditPolution("+ data[i].pop_id + ");\">แก้ไข</button></td>"
 				html += "</tr>";
 			}
 			html += "<th colspan=\"3\" ><center>รวม</center></th>";
@@ -298,10 +294,8 @@ function listPopulationByElection() {
 						+ all20 + "</td>" + "<td>"
 						+ "<center>"+data[i].pop_military_select_reg +"</center>"+ "</td>" + "<td>"
 						+ "<center>"+data[i].pop_military_select_join +"</center>"+ "</td>" 
-						+ "<td><a href onclick=\"deletePopulation1("
-						+ data[i].pop_id + ");\" >ลบข้อมูล</a></td>"
-						+ "<td><a href=\"#editPop\" data-toggle=\"tab\" onclick=\"setEditPopulation1("
-						+ data[i].pop_id + ");\" >แก้ไข</a></td>";
+						+ "<td><button data-toggle=\"modal\" data-id="+data[i].pop_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
+						+ "<td><button href=\"#editPop\" data-toggle=\"tab\" onclick=\"setEditPolution("+ data[i].pop_id + ");\">แก้ไข</button></td>"
 				html += "</tr>";
 			}
 			html += "<th colspan=\"3\" ><center>รวม</center></th>";
@@ -441,13 +435,12 @@ function listPopulationByElection() {
 			}
 		});
 	}
-	function deletePopulation1(id) {
+	function deletePopulation1() {
+		var id = document.getElementById("pop_id").value;
 		var obj = {
 			pop_id : id
 
 		};
-		//alert(id);
-		//alert(JSON.stringify(obj));
 		$.ajax({
 			url : "../deletePopulation1.do",
 			type : "POST",
@@ -456,7 +449,6 @@ function listPopulationByElection() {
 			contentType : "application/json",
 			mimeType : "application/json",
 			success : function(data) {
-				alert('success');
 				location.reload();
 			}
 		});
@@ -1148,6 +1140,32 @@ function listPopulationByElection() {
                                             </table>
                                         </form>
                                 </div>
+<!-- Start modal -->                                
+<div>
+			<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="H3"> ----- ยืนยันการลบข้อมูล !! -----</h4>
+						</div>
+						<div class="modal-body">
+							<p>คุณต้องการลบข้อมูลชุดนี้?</p>
+							<input type="hidden" name="pop_id" id="pop_id" value=""/>
+						</div>
+						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">ยกเลิก</button>
+							<button type="button" id="deletePopulation1" class="btn btn-danger" onclick="deletePopulation1();">ลบข้อมูล</button>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<!-- End modal -->                                
                                 <div class="tab-pane fade" id="editPop">
                                     <form role="form">
                                     <input type="hidden" id="editPopId">
@@ -1271,6 +1289,10 @@ function listPopulationByElection() {
             responsive: true
         });
     });
+    function openDeleteModal(id) {
+        $('#pop_id').val($(id).data('id'));
+        $('#DeleteModal').modal('show');
+	}
     </script>
 
 </body>

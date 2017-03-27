@@ -31,7 +31,7 @@ public class ElectricityServiceBean implements ElectricityService {
 	public void delete(long id) {
 		Electricity e = findElectricityById(id);
 		if (e != null) {
-			em.refresh(e);
+			em.remove(e);
 		}
 	}
 

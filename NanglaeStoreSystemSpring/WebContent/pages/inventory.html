@@ -74,10 +74,8 @@ function listInventory() {
 						+ numberWithCommas(data[i].ivn_gov_provide) + "</td>" + "<td>"
 						+ numberWithCommas(data[i].ivn_gor_purchase) + "</td>" + "<td>"
 						+ numberWithCommas(data[i].inv_outcome) + "</td>"
-						+ "<td><a href onclick=\"deleteInventory("
-						+ data[i].ivn_id + ");\" >ลบข้อมูล</a></td>"
-						+ "<td><a href=\"#editInven\" data-toggle=\"tab\" onclick=\"setEditInventory("
-						+ data[i].ivn_id + ");\" >แก้ไข</a></td>";
+						+ "<td><button data-toggle=\"modal\" data-id="+data[i].ivn_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
+						+ "<td><button href=\"#editInven\" data-toggle=\"tab\" onclick=\"setEditInventory("+ data[i].ivn_id + ");\">แก้ไข</button></td>"
 				html += "</tr>";
 			}
 			balance = totalOutcome-totalIncome;
@@ -158,13 +156,12 @@ function listInventory() {
 		});
 		}
 	}
-	function deleteInventory(id) {
+	function deleteInventory() {
+		var id = document.getElementById("ivn_id").value;
 		var obj = {
 			ivn_id : id
 
 		};
-		//alert(id);
-		//alert(JSON.stringify(obj));
 		$.ajax({
 			url : "../deleteInventory.do",
 			type : "POST",
@@ -173,7 +170,6 @@ function listInventory() {
 			contentType : "application/json",
 			mimeType : "application/json",
 			success : function(data) {
-				alert('success');
 				location.reload();
 			}
 		});
@@ -659,6 +655,32 @@ function listInventory() {
                                             </table>
                                         </form>
                                 </div>
+<!-- Start modal -->                                
+<div>
+			<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="H3"> ----- ยืนยันการลบข้อมูล !! -----</h4>
+						</div>
+						<div class="modal-body">
+							<p>คุณต้องการลบข้อมูลชุดนี้?</p>
+							<input type="hidden" name="ivn_id" id="ivn_id" value=""/>
+						</div>
+						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">ยกเลิก</button>
+							<button type="button" id="deleteInventory" class="btn btn-danger" onclick="deleteInventory();">ลบข้อมูล</button>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<!-- End modal -->                                
                                 <div class="tab-pane fade" id="editInven">
                                     <form role="form">
                                     <input type="hidden" id="editIvnId">
@@ -734,6 +756,10 @@ function listInventory() {
             responsive: true
         });
     });
+    function openDeleteModal(id) {
+        $('#ivn_id').val($(id).data('id'));
+        $('#DeleteModal').modal('show');
+	}
     </script>
 
 </body>
