@@ -192,6 +192,7 @@
 				$("#editTourYear").val(data.tour_year);
 				$("#editTourName").val(data.tour_name);
 				$("#editTourDescription").val(data.tour_description);
+				$('#editVillageSelect').val(data.location.vil_id);
 			},
 			error : function(data, status, er) {
 				alert('error');

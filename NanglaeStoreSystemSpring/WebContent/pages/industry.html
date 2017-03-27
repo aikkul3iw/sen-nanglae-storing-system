@@ -208,6 +208,7 @@ function listIndustry() {
 				$("#editInsSize").val(data.ins_size);
 				$("#editInsType").val(data.ins_type);
 				$("#editInsLabor").val(data.ins_labor);
+				$('#editVillageSelect').val(data.location.vil_id);
 			},
 			error : function(data, status, er) {
 				alert('error');

@@ -192,7 +192,7 @@
 				$("#editWaterYear").val(data.water_year);
 				$("#editWaterName").val(data.water_name);
 				$("#editWaterType").val(data.water_type);
-				$("#editVillage").val(data.location.vil_name);
+				$('#editVillageSelect').val(data.location.vil_id);
 			},
 			error : function(data, status, er) {
 				alert('error');
@@ -681,7 +681,7 @@
                                                     <td><input class="form-control" maxlength="4" id="water_year" placeholder="" value="2558" name="pipe-year" required="true"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 15px">ชื่อเแหล่งน้ำ</td>
+                                                    <td align="pull-right" style="padding: 15px">ชื่อแหล่งน้ำ</td>
                                                     <td><input id="water_name" maxlength="50" class="form-control" placeholder="ระบุชื่อแหล่งน้ำ" name="water-name" required="true"></td>
                                                 </tr>  
                                                 <tr>
@@ -750,7 +750,7 @@
                                                     <td><input class="form-control" maxlength="4" id="editWaterYear" placeholder="" value="2558" name="pipe-year" required="true"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 15px">ชื่อเแหล่งน้ำ</td>
+                                                    <td align="pull-right" style="padding: 15px">ชื่อแหล่งน้ำ</td>
                                                     <td><input id="editWaterName" maxlength="50" class="form-control" placeholder="" name="water-name" required="true"></td>
                                                 </tr>  
                                                 <tr>

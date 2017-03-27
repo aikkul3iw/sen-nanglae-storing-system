@@ -191,6 +191,7 @@ function listCommerce() {
 				$("#editComType").val(data.com_type);
 				$("#editComHouseNumber").val(data.com_house_number);
 				$("#editComDescription").val(data.com_description);
+				$('#editVillageSelect').val(data.location.vil_id);
 			},
 			error : function(data, status, er) {
 				alert('error');

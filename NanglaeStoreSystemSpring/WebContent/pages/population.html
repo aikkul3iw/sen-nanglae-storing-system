@@ -86,7 +86,7 @@ function numberWithCommas(x) {
 							+ allPop + "</td>" + "<td>"
 							+ "<center>"+data[i].pop_house_amount +"</center>" + "</td>"
 							+ "<td><button data-toggle=\"modal\" data-id="+data[i].pop_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
-							+ "<td><button href=\"#editPop\" data-toggle=\"tab\" onclick=\"setEditPolution("+ data[i].pop_id + ");\">แก้ไข</button></td>"
+							+ "<td><button href=\"#editPop\" data-toggle=\"tab\" onclick=\"setEditPopulation1("+ data[i].pop_id + ");\">แก้ไข</button></td>"
 					html += "</tr>";
 				}
 				html += "<th colspan=\"3\" ><center>รวม</center></th>";
@@ -509,26 +509,20 @@ function listPopulationByElection() {
 						$("#editPopYear").val(data.pop_year);
 						$("#editPopHouseAmount").val(data.pop_house_amount);
 						$("#editPopThaiNationMale").val(data.pop_thai_nation_m);
-						$("#editPopThaiNationFemale").val(
-								data.pop_thai_nation_f);
-						$("#editPopChineseNationMale").val(
-								data.pop_chinese_nation_m);
-						$("#editPopChineseNationFemale").val(
-								data.pop_chinese_nation_f);
-						$("#editPopOtherNationMale").val(
-								data.pop_other_nation_m);
-						$("#editPopOtherNationFemale").val(
-								data.pop_other_nation_f);
+						$("#editPopThaiNationFemale").val(data.pop_thai_nation_f);
+						$("#editPopChineseNationMale").val(data.pop_chinese_nation_m);
+						$("#editPopChineseNationFemale").val(data.pop_chinese_nation_f);
+						$("#editPopOtherNationMale").val(data.pop_other_nation_m);
+						$("#editPopOtherNationFemale").val(data.pop_other_nation_f);
 						$("#editPopElect15Male").val(data.pop_elect15_m);
 						$("#editPopElect15Female").val(data.pop_elect15_f);
 						$("#editPopElect18Male").val(data.pop_elect18_m);
 						$("#editPopElect18Female").val(data.pop_elect18_f);
 						$("#editPopElect20Male").val(data.pop_elect20_m);
 						$("#editPopElect20Female").val(data.pop_elect20_f);
-						$("#editPopMilitarySelectReg").val(
-								data.pop_military_select_reg);
-						$("#editPopMilitarySelectJoin").val(
-								data.pop_military_select_join);
+						$("#editPopMilitarySelectReg").val(data.pop_military_select_reg);
+						$("#editPopMilitarySelectJoin").val(data.pop_military_select_join);
+						$('#editVillageSelect').val(data.location.vil_id);
 					},
 					error : function(data, status, er) {
 						alert('error');
@@ -1058,66 +1052,60 @@ function listPopulationByElection() {
                                 </div>
                                 <div class="tab-pane fade" id="addPop">
                                     <form role="form">
-                                            <table width="70%" align="center">
+                                            <table width="75%" align="center">
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">ปีข้อมูล</td>
+                                                    <td style="padding: 15px">ปีข้อมูล</td>
                                                     <td align="center"><input maxlength="4" id="pop_year" class="form-control" placeholder="" value="2558" name="pop-year" style="width: 70%" required></td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">หมู่บ้าน</td>
+                                                    <td style="padding: 15px">หมู่บ้าน</td>
                                                     <td align="center"><select class="form-control" id="villageSelect" placeholder="" name="vil-name" style="width: 70%" required>
                                                             
                                                     </select></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">จำนวนครัวเรือน</td>
-                                                    <td align="center"><input maxlength="4" class="form-control" id="pop_house_amount" placeholder="ระบุจำนวนครัวเรือน" name="pop-year" style="width: 70%" required></td><td>หลังคาเรือน</td>
+                                                    <td style="padding: 15px">จำนวนครัวเรือน</td>
+                                                    <td align="center"><input maxlength="4" class="form-control" id="pop_house_amount" placeholder="ระบุจำนวนครัวเรือน" name="pop-year" style="width: 70%"></td><td style="">ครัวเรือน</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
-                                                    <td></td>
+                                                    <td style="padding: 15px"><b>สัญชาติ</b></td>
                                                     <td align="center"><b>ชาย</b></td><td></td>
                                                     <td align="center"><b>หญิง</b></td>
                                                 </tr>
-                                                
                                                 <tr>
-                                                    <td style="padding: 15px"><b>สัญชาติ</b></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="pull-right" style="padding: 10px">สัญชาติไทย</td>
+                                                    <td style="padding: 10px">สัญชาติไทย</td>
                                                     <td align="center"><input maxlength="4" class="form-control" id="pop_thai_nation_m" placeholder="ระบุจำนวนคน" name="pop-thai-m" style="width: 70%" required></td><td>คน</td>
                                                     <td align="center"><input maxlength="4" class="form-control" id="pop_thai_nation_f" placeholder="ระบุจำนวนคน" name="pop-thai-f" style="width: 70%" required></td><td>คน</td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">สัญชาติจีน</td>
+                                                    <td style="padding: 10px">สัญชาติจีน</td>
                                                     <td align="center"><input maxlength="4" class="form-control" id="pop_chinese_nation_m" placeholder="ระบุจำนวนคน" name="pop-chn-m" style="width: 70%" required></td><td>คน</td>
                                                     <td align="center"><input maxlength="4" class="form-control" id="pop_chinese_nation_f" placeholder="ระบุจำนวนคน" name="pop-chn-f" style="width: 70%" required></td><td>คน</td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">สัญชาติอื่นๆ</td>
+                                                    <td style="padding: 10px">สัญชาติอื่นๆ</td>
                                                     <td align="center"><input maxlength="4" class="form-control" id="pop_other_nation_m" placeholder="ระบุจำนวนคน" name="pop-oth-m" style="width: 70%" required></td><td>คน</td>
                                                     <td align="center"><input maxlength="4" class="form-control" id="pop_other_nation_f" placeholder="ระบุจำนวนคน" name="pop-oth-f" style="width: 70%" required></td><td>คน</td>
                                                 </tr>
                                                 <tr>
                                                     <td style="padding: 15px"><b>บุคลมาสิทธิ์เลือกตั้ง</b></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td align="center"><b>ชาย</b></td><td></td>
+                                                    <td align="center"><b>หญิง</b></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">อายุ 15 ปี</td>
+                                                    <td style="padding: 10px">อายุ 15 ปี</td>
                                                     <td align="center"><input maxlength="4" class="form-control" id="pop_elect15_m" placeholder="ระบุจำนวนคน" name="pop-elec-15-m" style="width: 70%" required></td><td>คน</td>
                                                     <td align="center"><input maxlength="4" class="form-control" id="pop_elect15_f" placeholder="ระบุจำนวนคน" name="pop-elec-15-f" style="width: 70%" required></td><td>คน</td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">อายุ 18 ปี</td>
+                                                    <td style="padding: 10px">อายุ 18 ปี</td>
                                                     <td align="center"><input maxlength="4" class="form-control" id="pop_elect18_m" placeholder="ระบุจำนวนคน" name="pop-elec-18-m" style="width: 70%" required></td><td>คน</td>
                                                     <td align="center"><input maxlength="4" class="form-control" id="pop_elect18_f" placeholder="ระบุจำนวนคน" name="pop-elec-18-f" style="width: 70%" required></td><td>คน</td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">อายุ 20 ปี</td>
+                                                    <td style="padding: 10px">อายุ 20 ปี</td>
                                                     <td align="center"><input maxlength="4" class="form-control" id="pop_elect20_m" placeholder="ระบุจำนวนคน" name="pop-elec-20-m" style="width: 70%" required></td><td>คน</td>
                                                     <td align="center"><input maxlength="4" class="form-control" id="pop_elect20_f" placeholder="ระบุจำนวนคน" name="pop-elec-20-f" style="width: 70%" required></td><td>คน</td>
                                                 </tr>
@@ -1127,20 +1115,20 @@ function listPopulationByElection() {
                                                     <td></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">บุคคลต้องขึ้นทะเบียนทหาร</td>
+                                                    <td style="padding: 10px">บุคคลต้องขึ้นทะเบียนทหาร</td>
                                                     <td align="center"><input maxlength="4" class="form-control" id="pop_military_select_reg" placeholder="ระบุจำนวนคน" name="pop-mil-join-m" style="width: 70%" required></td>
-                                                    <td></td><td>คน</td>
+                                                    <td>คน</td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">บุคคลต้องเข้ารับเกณฑ์ทหาร</td>
+                                                    <td style="padding: 10px">บุคคลต้องเข้ารับเกณฑ์ทหาร</td>
                                                     <td align="center"><input maxlength="4" class="form-control" id="pop_military_select_join" placeholder="ระบุจำนวนคน" name="pop-mil-reg-m" style="width: 70%" required></td>
-                                                    <td></td><td>คน</td>
+                                                    <td>คน</td>
                                                 </tr>
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <button style="width: 80px" type="reset" class="btn btn-default">ล้างข้อมูล</button>
-                                                    <input style="width: 80px" type="button" class="btn btn-default" value="บันทึก" onclick="createPopulation1()" />
+                                                    <button style="width: 100px" type="reset" class="btn btn-default">ล้างข้อมูล</button>
+                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="createPopulation1()" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -1175,48 +1163,42 @@ function listPopulationByElection() {
                                 <div class="tab-pane fade" id="editPop">
                                     <form role="form">
                                     <input type="hidden" id="editPopId">
-                                            <table width="70%" align="center">
+                                            <table width="75%" align="center">
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">ปีข้อมูล</td>
+                                                    <td style="padding: 15px">ปีข้อมูล</td>
                                                     <td align="center"><input maxlength="4" id="editPopYear" class="form-control" placeholder="" value="2558" name="pop-year" style="width: 70%" required></td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">หมู่บ้าน</td>
+                                                    <td style="padding: 15px">หมู่บ้าน</td>
                                                     <td align="center"><select maxlength="4" class="form-control" id="editVillageSelect" placeholder="" name="vil-name" style="width: 70%" required>
                                                             
                                                     </select></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">จำนวนครัวเรือน</td>
-                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopHouseAmount" placeholder="" name="pop-year" style="width: 70%" required></td>
+                                                    <td style="padding: 15px">จำนวนครัวเรือน</td>
+                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopHouseAmount" placeholder="" name="pop-year" style="width: 70%" required></td><td style="">ครัวเรือน</td>
                                                     <td></td>
                                                 </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td align="center"><b>ชาย</b></td>
-                                                    <td align="center"><b>หญิง</b></td>
-                                                </tr>
-                                                
                                                 <tr>
                                                     <td style="padding: 15px"><b>สัญชาติ</b></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td align="center"><b>ชาย</b></td><td></td>
+                                                    <td align="center"><b>หญิง</b></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">สัญชาติไทย</td>
-                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopThaiNationMale" placeholder="" name="pop-thai-m" style="width: 70%" required></td>
-                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopThaiNationFemale" placeholder="" name="pop-thai-f" style="width: 70%" required></td>
+                                                    <td style="padding: 10px">สัญชาติไทย</td>
+                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopThaiNationMale" placeholder="" name="pop-thai-m" style="width: 70%" required></td><td>คน</td>
+                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopThaiNationFemale" placeholder="" name="pop-thai-f" style="width: 70%" required></td><td>คน</td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">สัญชาติจีน</td>
-                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopChineseNationMale" placeholder="" name="pop-chn-m" style="width: 70%" required></td>
-                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopChineseNationFemale" placeholder="" name="pop-chn-f" style="width: 70%" required></td>
+                                                    <td style="padding: 10px">สัญชาติจีน</td>
+                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopChineseNationMale" placeholder="" name="pop-chn-m" style="width: 70%" required></td><td>คน</td>
+                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopChineseNationFemale" placeholder="" name="pop-chn-f" style="width: 70%" required></td><td>คน</td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">สัญชาติอื่นๆ</td>
-                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopOtherNationMale" placeholder="" name="pop-oth-m" style="width: 70%" required></td>
-                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopOtherNationFemale" placeholder="" name="pop-oth-f" style="width: 70%" required></td>
+                                                    <td style="padding: 10px">สัญชาติอื่นๆ</td>
+                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopOtherNationMale" placeholder="" name="pop-oth-m" style="width: 70%" required></td><td>คน</td>
+                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopOtherNationFemale" placeholder="" name="pop-oth-f" style="width: 70%" required></td><td>คน</td>
                                                 </tr>
                                                 <tr>
                                                     <td style="padding: 15px"><b>บุคลมาสิทธิ์เลือกตั้ง</b></td>
@@ -1224,19 +1206,19 @@ function listPopulationByElection() {
                                                     <td></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">อายุ 15 ปี</td>
-                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopElect15Male" placeholder="" name="pop-elec-15-m" style="width: 70%" required></td>
-                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopElect15Female" placeholder="" name="pop-elec-15-f" style="width: 70%" required></td>
+                                                    <td style="padding: 10px">อายุ 15 ปี</td>
+                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopElect15Male" placeholder="" name="pop-elec-15-m" style="width: 70%" required></td><td>คน</td>
+                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopElect15Female" placeholder="" name="pop-elec-15-f" style="width: 70%" required></td><td>คน</td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">อายุ 18 ปี</td>
-                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopElect18Male" placeholder="" name="pop-elec-18-m" style="width: 70%" required></td>
-                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopElect18Female" placeholder="" name="pop-elec-18-f" style="width: 70%" required></td>
+                                                    <td style="padding: 10px">อายุ 18 ปี</td>
+                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopElect18Male" placeholder="" name="pop-elec-18-m" style="width: 70%" required></td><td>คน</td>
+                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopElect18Female" placeholder="" name="pop-elec-18-f" style="width: 70%" required></td><td>คน</td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">อายุ 20 ปี</td>
-                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopElect20Male" placeholder="" name="pop-elec-20-m" style="width: 70%" required></td>
-                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopElect20Female" placeholder="" name="pop-elec-20-f" style="width: 70%" required></td>
+                                                    <td style="padding: 10px">อายุ 20 ปี</td>
+                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopElect20Male" placeholder="" name="pop-elec-20-m" style="width: 70%" required></td><td>คน</td>
+                                                    <td align="center"><input maxlength="4" class="form-control" id="editPopElect20Female" placeholder="" name="pop-elec-20-f" style="width: 70%" required></td><td>คน</td>
                                                 </tr>
                                                 <tr>
                                                     <td style="padding: 15px"><b>การเกณฑ์ทหาร</b></td>
@@ -1244,18 +1226,19 @@ function listPopulationByElection() {
                                                     <td></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">บุคคลต้องขึ้นทะเบียนทหาร</td>
+                                                    <td style="padding: 10px">บุคคลต้องขึ้นทะเบียนทหาร</td>
                                                     <td align="center"><input maxlength="4" class="form-control" id="editPopMilitarySelectReg" placeholder="" name="pop-mil-join-m" style="width: 70%" required></td>
-                                                    <td></td>
+                                                    <td>คน</td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">บุคคลต้องเข้ารับเกณฑ์ทหาร</td>
+                                                    <td style="padding: 10px">บุคคลต้องเข้ารับเกณฑ์ทหาร</td>
                                                     <td align="center"><input maxlength="4" class="form-control" id="editPopMilitarySelectJoin" placeholder="" name="pop-mil-reg-m" style="width: 70%" required></td>
-                                                    <td></td>
+                                                    <td>คน</td>
                                                 </tr>
                                                 <tr>
+                                                	<td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <a href="#listAgePop" data-toggle="tab"><button style="width: 100px" class="btn btn-default">ยกเลิก</button></a>
+                                                    <a href="#listAllPop" data-toggle="tab"><button style="width: 100px" class="btn btn-default">ยกเลิก</button></a>
                                                     <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="editPopulation1()" />
                                                     </td>
                                                 </tr>

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title></title>
+    <title>www.Nanglea.com</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -83,20 +83,20 @@ function listInventory() {
 			html += "<tr>";
 			html += "<th style=\"text-align: right\" colspan=\"2\">รายรับจริง</th>";
 			var fixed_totalIncome = parseFloat(totalIncome).toFixed( 2 );
-			html += "<th style=\"text-align: right\" colspan=\"4\">"+numberWithCommas(fixed_totalIncome)+"</th>";
-			html+= "<th>บาท</th>"
+			html += "<th style=\"text-align: right\" colspan=\"3\">"+numberWithCommas(fixed_totalIncome)+"</th>";
+			html+= "<th colspan=\"2\">บาท</th>"
 			html += "</tr>";
 			html += "<tr>";
 			html += "<th style=\"text-align: right\" colspan=\"2\">รายจ่ายจริง</th>";
-			html += "<th style=\"text-align: right\" colspan=\"4\">"+numberWithCommas(totalOutcome)+"</th>";
-			html+= "<th>บาท</th>"
+			html += "<th style=\"text-align: right\" colspan=\"3\">"+numberWithCommas(totalOutcome)+"</th>";
+			html+= "<th colspan=\"2\">บาท</th>"
 			html += "</tr>";
 			html += "<tr>";
 			html += "<th style=\"text-align: right\" colspan=\"2\">เงินสะสมคงเหลือ</th>";
 			var checkBalance = (balance < 0) ? balance * -1 : balance;
 			var fixed_checkBalance = parseFloat(checkBalance).toFixed( 2 );
-			html += "<th style=\"text-align: right\" colspan=\"4\">"+numberWithCommas(fixed_checkBalance)+"</th>";
-			html+= "<th>บาท</th>"
+			html += "<th style=\"text-align: right\" colspan=\"3\">"+numberWithCommas(fixed_checkBalance)+"</th>";
+			html+= "<th colspan=\"2\">บาท</th>"
 			html += "</tr>";
 			html += "<tbody>";
 			$('#resultTable').html(html);
