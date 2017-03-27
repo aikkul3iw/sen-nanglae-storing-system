@@ -201,7 +201,7 @@
 				$("#editEduName").val(data.edu_name);
 				$("#editEduType").val(data.edu_type);
 				$("#editStudent").val(data.student);
-				
+				$('#editVillageSelect').val(data.location.vil_id);
 			},
 			error : function(data, status, er) {
 				alert('error');
@@ -805,19 +805,18 @@
                                 <div class="tab-pane fade" id="editEducation">
                                     <form role="form">
                                     <input type="hidden" id="editEduId">
-                                            <table width="70%" align="center"><tr>
-                                                    <td align="pull-right" style="padding: 10px">ปีข้อมูล</td>
-                                                    <td><input id="editEduYear" maxlength="4" class="form-control" placeholder="" value="2558" name="tran-year" required="true" style="width: 70%"></td>
+                                            <table width="50%" align="center"><tr>
+                                                    <td style="padding: 10px">ปีข้อมูล</td>
+                                                    <td><input id="editEduYear" maxlength="4" class="form-control" placeholder="" value="2558" name="tran-year" required="true"></td>
                                                 </tr> 
-                                                <tr>
-                                                
-                                                    <td align="pull-right" style="padding: 10px">ชื่อสถานศึกษา</td>
-                                                    <td ><input type="text" id="editEduName" maxlength="100" class="form-control" placeholder="ระบุชื่อสถานศึกษา" name="edu-name" required="true" style="width: 70%"></td>
+                                                <tr> 
+                                                    <td style="padding: 10px">ชื่อสถานศึกษา</td>
+                                                    <td ><input type="text" id="editEduName" maxlength="100" class="form-control" placeholder="ระบุชื่อสถานศึกษา" name="edu-name" required="true"></td>
                                                 </tr>
                                                  <tr>
-                                                    <td align="pull-right" style="padding: 10px">ประเภทสถานศึกษา</td>
+                                                    <td style="padding: 10px">ประเภทสถานศึกษา</td>
                                                     <td>
-                                                        <select id="editEduType" class="form-control" name="water-location" style="width: 70%">
+                                                        <select id="editEduType" class="form-control" name="water-location">
                                                             <option value="">เลือกประเภท</option>
                                                             <option value="ศูนย์เด็กเล็ก">ศูนย์เด็กเล็ก</option>
                                                             <option value="โรงเรียน">โรงเรียน</option>
@@ -825,21 +824,20 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">จำนวนนักเรียน</td>
-                                                    <td><input id="editStudent" maxlength="4" class="form-control" placeholder="" name="edu-amount" required="true" style="width: 70%"></td>
+                                                    <td style="padding: 10px">จำนวนนักเรียน</td>
+                                                    <td><input id="editStudent" maxlength="4" class="form-control" placeholder="" name="edu-amount" required="true"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="pull-right" style="padding: 10px">ที่ตั้ง</td>
+                                                    <td style="padding: 10px">ที่ตั้ง</td>
                                                     <td>
-                                                        <select id="editVillageSelect" class="form-control" name="edu-location" style="width: 70%">
-                                                           
+                                                        <select id="editVillageSelect" class="form-control" name="edu-location">
                                                         </select>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td></td>
+                                                	<td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <a href="#listEduKid" data-toggle="tab"><button style="width: 100px" class="btn btn-default">ยกเลิก</button></a>
+                                                    <a href="#listEduPrime" data-toggle="tab"><button style="width: 100px" class="btn btn-default">ยกเลิก</button></a>
                                                     <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="editEducation()" />
                                                     </td>
                                                 </tr>

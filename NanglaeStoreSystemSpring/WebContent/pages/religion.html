@@ -192,6 +192,7 @@
 				$("#editReligionYear").val(data.rel_year);
 				$("#editReligionName").val(data.rel_name);
 				$("#editReligionType").val(data.rel_type);
+				$('#editVillageSelect').val(data.location.vil_id);
 			},
 			error : function(data, status, er) {
 				alert('error');
