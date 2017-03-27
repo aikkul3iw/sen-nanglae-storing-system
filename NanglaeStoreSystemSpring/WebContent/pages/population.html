@@ -55,7 +55,7 @@ function numberWithCommas(x) {
                 +"<th rowspan=\"2\"><center><b>ชื่อหมู่บ้าน</b></center></th>"
                 +"<th colspan=\"2\"><center><b>ประชากร</b></center></th>"
                 +"<th rowspan=\"2\"><center><b>รวม</b></center></th>"
-                +"<th rowspan=\"2\"><center><b>จำนวนครัวเรือน</b></center></th><th rowspan=\"2\" colspan='2'>ตัวเลือก</th>"
+                +"<th rowspan=\"2\"><center><b>จำนวนครัวเรือน</b></center></th><th rowspan=\"2\" colspan='2'><center>ตัวเลือก</center></th>"
             	+"</tr><tr>"
                	+"<th><center><b>ชาย</b></center></th>"
                	+"<th><center><b>หญิง</b></center></th>";
@@ -85,8 +85,9 @@ function numberWithCommas(x) {
 							+ allFemale + "</td>" + "<td>"
 							+ allPop + "</td>" + "<td>"
 							+ "<center>"+data[i].pop_house_amount +"</center>" + "</td>"
-							+ "<td><button data-toggle=\"modal\" data-id="+data[i].pop_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
-							+ "<td><button href=\"#editPop\" data-toggle=\"tab\" onclick=\"setEditPopulation1("+ data[i].pop_id + ");\">แก้ไข</button></td>"
+							+ "<td><center><button href=\"#editPop\" data-toggle=\"tab\" onclick=\"setEditPopulation1("+ data[i].pop_id + ");\" class=\"btn btn-warning\">แก้ไขข้อมูล</button></center></td>"
+							+ "<td><center><button data-toggle=\"modal\" data-id="+data[i].pop_id+" onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\">ลบข้อมูล</button></center></td>"
+							
 					html += "</tr>";
 				}
 				html += "<th colspan=\"3\" ><center>รวม</center></th>";
@@ -120,7 +121,7 @@ function listPopulationByNation() {
                 +"<th colspan=\"3\"><center>สัญชาติที่ไม่ใช่สัญชาติไทย</b></center></th>"
                 +"<th colspan=\"3\"><center>สัญชาติไทย</b></center></th>"
                 +"<th colspan=\"3\"><center>สัญชาติจีน</b></center></th>"
-                +"<th colspan=\"3\"><center>ทุกสัญชาติ</b></center></th><th rowspan=\"2\" colspan='2'>ตัวเลือก</th>"
+                +"<th colspan=\"3\"><center>ทุกสัญชาติ</b></center></th><th rowspan=\"2\" colspan='2'><center>ตัวเลือก</center></th>"
             +"</tr><tr>"
                +"<th><center><b>ชาย</b></center></th>"
                +"<th><center><b>หญิง</b></center></th>"
@@ -192,8 +193,8 @@ function listPopulationByNation() {
 						+ allM + "</td>" + "<td>"
 						+ allF + "</td>" + "<td>"
 						+ allPopNation + "</td>" 
-						+ "<td><button data-toggle=\"modal\" data-id="+data[i].pop_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
-						+ "<td><button href=\"#editPop\" data-toggle=\"tab\" onclick=\"setEditPolution("+ data[i].pop_id + ");\">แก้ไข</button></td>"
+						+ "<td><center><button href=\"#editPop\" data-toggle=\"tab\" onclick=\"setEditPopulation1("+ data[i].pop_id + ");\" class=\"btn btn-warning\">แก้ไขข้อมูล</button></center></td>"
+						+ "<td><center><button data-toggle=\"modal\" data-id="+data[i].pop_id+" onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\">ลบข้อมูล</button></center></td>"
 				html += "</tr>";
 			}
 			html += "<th colspan=\"3\" ><center>รวม</center></th>";
@@ -235,7 +236,7 @@ function listPopulationByElection() {
                 +"<th colspan=\"3\"><center>บุคคลที่มีสิทธิ์เลือกตั้งอายุ 18 ปี</b></center></th>"
                 +"<th colspan=\"3\"><center>บุคคลที่มีสิทธิ์เลือกตั้งอายุ 20 ปี</b></center></th>"
                 +"<th rowspan=\"2\"><center>บุคคลที่ต้องขึ้นทะเบียนทะหาร</b></center></th>"
-                +"<th rowspan=\"2\"><center>บุคคลที่ต้องเข้ารับเกณฑ์ทหาร</b></center></th><th rowspan=\"2\" colspan='2'>ตัวเลือก</th>"
+                +"<th rowspan=\"2\"><center>บุคคลที่ต้องเข้ารับเกณฑ์ทหาร</b></center></th><th rowspan=\"2\" colspan='2'><center>ตัวเลือก</center></th>"
                 +"</tr><tr>"
                    +"<th><center><b>ชาย</b></center></th>"
                    +"<th><center><b>หญิง</b></center></th>"
@@ -294,8 +295,8 @@ function listPopulationByElection() {
 						+ all20 + "</td>" + "<td>"
 						+ "<center>"+data[i].pop_military_select_reg +"</center>"+ "</td>" + "<td>"
 						+ "<center>"+data[i].pop_military_select_join +"</center>"+ "</td>" 
-						+ "<td><button data-toggle=\"modal\" data-id="+data[i].pop_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
-						+ "<td><button href=\"#editPop\" data-toggle=\"tab\" onclick=\"setEditPolution("+ data[i].pop_id + ");\">แก้ไข</button></td>"
+						+ "<td><center><button href=\"#editPop\" data-toggle=\"tab\" onclick=\"setEditPopulation1("+ data[i].pop_id + ");\" class=\"btn btn-warning\">แก้ไขข้อมูล</button></center></td>"
+						+ "<td><center><button data-toggle=\"modal\" data-id="+data[i].pop_id+" onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\">ลบข้อมูล</button></center></td>"
 				html += "</tr>";
 			}
 			html += "<th colspan=\"3\" ><center>รวม</center></th>";
@@ -1127,8 +1128,8 @@ function listPopulationByElection() {
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <button style="width: 100px" type="reset" class="btn btn-default">ล้างข้อมูล</button>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="createPopulation1()" />
+                                                    <button style="width: 100px" type="reset" class="btn btn-warning">ล้างข้อมูล</button>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="createPopulation1()" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -1238,8 +1239,8 @@ function listPopulationByElection() {
                                                 <tr>
                                                 	<td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <a href="#listAllPop" data-toggle="tab"><button style="width: 100px" class="btn btn-default">ยกเลิก</button></a>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="editPopulation1()" />
+                                                    <a href="#listAllPop" data-toggle="tab"><button style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="editPopulation1()" />
                                                     </td>
                                                 </tr>
                                             </table>

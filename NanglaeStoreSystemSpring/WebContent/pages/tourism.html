@@ -46,7 +46,7 @@
 				var html = '';
 				html += "<thead>";
 				html += "<tr>";
-				html += "<th>ปีที่บันทึกข้อมูล</th><th>แหล่งท่องเที่ยว</th><th>รายละเอียด</th><th>ที่ตั้ง</th><th colspan='2'>ตัวเลือก</th>";
+				html += "<th>ปีที่บันทึกข้อมูล</th><th>แหล่งท่องเที่ยว</th><th>รายละเอียด</th><th>ที่ตั้ง</th><th colspan='2'><center>ตัวเลือก</center></th>";
 				html += "</tr>";
 				html += "</thead>";
 				html += "<tbody>";
@@ -56,8 +56,9 @@
 							+ data[i].tour_name + "</td>" + "<td>"
 							+ data[i].tour_description + "</td>" + "<td>"
 							+ "หมู่ที่ "+data[i].location.vil_number+" บ้าน"+data[i].location.vil_name + "</td>"
-							+ "<td><button data-toggle=\"modal\" data-id="+data[i].tour_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
-							+ "<td><button href=\"#editTourism\" data-toggle=\"tab\" onclick=\"setEditTourism("+ data[i].tour_id + ");\">แก้ไข</button></td>"
+							+ "<td><center><button href=\"#editTourism\" data-toggle=\"tab\" onclick=\"setEditTourism("+ data[i].tour_id + ");\" class=\"btn btn-warning\">แก้ไขข้อมูล</button></center></td>"
+							+ "<td><center><button data-toggle=\"modal\" data-id="+data[i].tour_id+" onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\">ลบข้อมูล</button></center></td>"
+							
 					html += "</tr>";
 				}
 				html += "<tbody>";
@@ -633,8 +634,8 @@
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <button style="width: 100px" type="reset" class="btn btn-default">ล้างข้อมูล</button>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="createTourism()" />
+                                                    <button style="width: 100px" type="reset" class="btn btn-warning">ล้างข้อมูล</button>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="createTourism()" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -695,8 +696,8 @@
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <a href="#listTourism" data-toggle="tab"><button style="width: 100px" class="btn btn-default">ยกเลิก</button></a>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="editTourism()" />
+                                                    <a href="#listTourism" data-toggle="tab"><button style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="editTourism()" />
                                                     </td>
                                                 </tr>
                                             </table>

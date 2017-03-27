@@ -46,7 +46,7 @@
 				var html = '';
 				html += "<thead>";
 				html += "<tr>";
-				html += "<th>ปีที่บันทึกข้อมูล</th><th>การคมนาคม</th><th>ประเภท</th><th>รายละเอียด</th><th colspan='2'>ตัวเลือก</th>";
+				html += "<th>ปีที่บันทึกข้อมูล</th><th>การคมนาคม</th><th>ประเภท</th><th>รายละเอียด</th><th colspan='2'><center>ตัวเลือก</center></th>";
 				html += "</tr>";
 				html += "</thead>";
 				html += "<tbody>";
@@ -56,8 +56,9 @@
 							+ data[i].tran_name + "</td>" + "<td>"
 							+ data[i].type + "</td>" + "<td>"
 							+ data[i].description + "</td>"
-							+ "<td><button data-toggle=\"modal\" data-id="+data[i].tran_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
-							+ "<td><button href=\"#editTransport\" data-toggle=\"tab\" onclick=\"setEditTransport("+ data[i].tran_id + ");\">แก้ไข</button></td>"
+							+ "<td><center><button href=\"#editTransport\" data-toggle=\"tab\" onclick=\"setEditTransport("+ data[i].tran_id + ");\" class=\"btn btn-warning\">แก้ไขข้อมูล</button></center></td>"
+							+ "<td><center><button data-toggle=\"modal\" data-id="+data[i].tran_id+" onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\">ลบข้อมูล</button></center></td>"
+							
 					html += "</tr>";
 				}
 				html += "<tbody>";
@@ -593,8 +594,8 @@
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <button style="width: 100px" type="reset" class="btn btn-default">ล้างข้อมูล</button>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="createTransport()" />
+                                                    <button style="width: 100px" type="reset" class="btn btn-warning">ล้างข้อมูล</button>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="createTransport()" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -651,8 +652,8 @@
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <a href="#listTransport" data-toggle="tab"><button style="width: 100px" class="btn btn-default">ยกเลิก</button></a>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="editTransport()" />
+                                                    <a href="#listTransport" data-toggle="tab"><button style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="editTransport()" />
                                                     </td>
                                                 </tr>
                                             </table>

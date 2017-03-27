@@ -46,7 +46,7 @@ function listService() {
 			var html = '';
 			html += "<thead>";
 			html += "<tr>";
-			html += "<th>ปีข้อมูล</th><th>ชื่อ</th><th>การให้บริการ</th><th colspan='2'>ตัวเลือก</th>";
+			html += "<th>ปีข้อมูล</th><th>ชื่อ</th><th>การให้บริการ</th><th colspan='2'><center>ตัวเลือก</center></th>";
 			html += "</tr>";
 			html += "</thead>";
 			html += "<tbody>";
@@ -55,8 +55,9 @@ function listService() {
 				html += "<td>" + data[i].ser_year + "</td>" + "<td>"
 						+ data[i].ser_name + "</td>" + "<td>"
 						+ data[i].ser_capacity + "</td>"
-						+ "<td><button data-toggle=\"modal\" data-id="+data[i].ser_id+" onclick=\"openDeleteModal(this);\">ลบข้อมูล</button></td>"
-						+ "<td><button href=\"#editService\" data-toggle=\"tab\" onclick=\"setEditService("+ data[i].ser_id + ");\">แก้ไข</button></td>"
+						+ "<td><center><button href=\"#editService\" data-toggle=\"tab\" onclick=\"setEditService("+ data[i].ser_id + ");\" class=\"btn btn-warning\">แก้ไขข้อมูล</button></center></td>"
+						+ "<td><center><button data-toggle=\"modal\" data-id="+data[i].ser_id+" onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\">ลบข้อมูล</button></center></td>"
+						
 				html += "</tr>";
 			}
 			html += "<tbody>";
@@ -583,8 +584,8 @@ function listService() {
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <button style="width: 100px" type="reset" class="btn btn-default">ล้างข้อมูล</button>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="createService()" />
+                                                    <button style="width: 100px" type="reset" class="btn btn-warning">ล้างข้อมูล</button>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="createService()" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -638,8 +639,8 @@ function listService() {
                                                 <tr>
                                                     <td></td>
                                                     <td align="center" style="padding: 15px">
-                                                    <a href="#listService" data-toggle="tab"><button style="width: 100px" class="btn btn-default">ยกเลิก</button></a>
-                                                    <input style="width: 100px" type="button" class="btn btn-default" value="บันทึก" onclick="editService()" />
+                                                    <a href="#listService" data-toggle="tab"><button style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
+                                                    <input style="width: 100px" type="button" class="btn btn-success" value="บันทึก" onclick="editService()" />
                                                     </td>
                                                 </tr>
                                             </table>
