@@ -47,12 +47,6 @@
 			type : "POST",
 			success : function(data) {
 				var html = '';
-				html += "<thead>";
-				html += "<tr>";
-				html += "<th>ปีข้อมูล</th><th>หมู่ที่</th><th>ชื่อหมู่บ้าน</th><th>ชื่อกำนัน/ผู้ใหญ่บ้าน</th><th colspan='2'><center>ตัวเลือก</center></th>";
-				html += "</tr>";
-				html += "</thead>";
-				html += "<tbody>";
 				var year =  document.getElementById("selectedYear").value;
 				for (var i = 0; i < data.length; i++) {
 					if(data[i].vil_year == year){
@@ -61,14 +55,25 @@
 							+ data[i].vil_number + "</td>" + "<td>"
 							+ data[i].vil_name + "</td>" + "<td>"
 							+ data[i].vil_chief + "</td>"
-							+ "<td><center><button href=\"#editVillage\" data-toggle=\"tab\" onclick=\"setEditVillage("+ data[i].vil_id + ");\" class=\"btn btn-warning\">แก้ไขข้อมูล</button></center></td>"
-							+ "<td><center><button data-toggle=\"modal\" data-id="+data[i].vil_id+" onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\">ลบข้อมูล</button></center></td>"
+							+ "<td style=\"text-align: center;\"><button href=\"#editVillage\" data-toggle=\"tab\" onclick=\"setEditVillage("+ data[i].vil_id + ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button data-toggle=\"modal\" data-id="+data[i].vil_id+" onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 							
 					html += "</tr>";
 					}
 				}
-				html += "<tbody>";
-				$('#resultTable').html(html);
+				$('#listVillages').html(html);
+				$('#resultTable').DataTable({
+
+					dom : 'Bfrtip',
+					buttons : [ {
+						extend : 'pdfHtml5',
+						exportOptions : {
+							columns : [ 0, 1, 2, 3 ]
+						},
+						customize : function(doc) {
+							doc.defaultStyle['font'] = 'THSarabun';
+						}
+					}, 'excelHtml5' ]
+				});
 				$("#loader").hide();
 			},
 			error : function(data, status, er) {
@@ -479,17 +484,30 @@
 								<!-- Tab panes -->
 								<div class="tab-content">
 									<div class="tab-pane fade in active" id="listVillage">
-										
+
 										<form>
-										พ.ศ. 
-										<select id="selectedYear" onchange='listVillage()'>
-											<option value="2558">2558</option>
-											<option value="2559">2559</option>
-										</select> 
+											พ.ศ. <select id="selectedYear" onchange='listVillage()'>
+												<option value="2558">2558</option>
+												<option value="2559">2559</option>
+											</select>
 										</form>
 										<br>
 										<div class="table-responsive">
-											<table class="table table-striped table-bordered table-hover" id="resultTable">
+											<table class="table table-striped table-bordered table-hover"
+												id="resultTable">
+												<!-- Start change table -->
+												<thead>
+													<tr>
+														<th>ปีข้อมูล</th>
+														<th>หมู่ที่</th>
+														<th>ชื่อหมู่บ้าน</th>
+														<th>ชื่อกำนัน/ผู้ใหญ่บ้าน</th>
+														<th style="text-align: center;">ตัวเลือก</th>
+													</tr>
+												</thead>
+												<tbody id="listVillages">
+												</tbody>
+												<!-- End change table -->
 											</table>
 										</div>
 									</div>
@@ -504,99 +522,113 @@
 												<tr>
 
 													<td align="pull-right" style="padding: 15px">หมู่ที่</td>
-													<td><input class="form-control" placeholder="ระบุเลขที่หมู่บ้าน"
-														name="vil-number" maxlength="2" id="vil_number" required onblur="validate()"></td>
+													<td><input class="form-control"
+														placeholder="ระบุเลขที่หมู่บ้าน" name="vil-number"
+														maxlength="2" id="vil_number" required onblur="validate()"></td>
 
 												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">ชื่อหมู่บ้าน</td>
-													<td><input class="form-control" placeholder="ระบุชื่อหมู่บ้าน"
-														name="vil-name" maxlength="50" id="vil_name" required></td>
+													<td><input class="form-control"
+														placeholder="ระบุชื่อหมู่บ้าน" name="vil-name"
+														maxlength="50" id="vil_name" required></td>
 												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">ชื่อกำนัน/ผู้ใหญ่บ้าน</td>
-													<td><input class="form-control" placeholder="ระบุชื่อผู้ใหญ่บ้าน"
-														name="vilChief" maxlength="50" id="vil_chief" required></td>
+													<td><input class="form-control"
+														placeholder="ระบุชื่อผู้ใหญ่บ้าน" name="vilChief"
+														maxlength="50" id="vil_chief" required></td>
 												</tr>
-												
-												<tr>
-												<td></td>
-												<td>
-												<div class="form-group">
-        											<div class="col-md-9 col-md-offset-3">
-           						 						<div id="messages"></div>
-        											</div>
-    											</div>
-    											</td>
-    											</tr>
+
 												<tr>
 													<td></td>
-                                                    <td align="center" style="padding: 15px">
-														<button style="width: 100px" type="reset" class="btn btn-warning">ล้างข้อมูล</button>
-														<input style="width: 100px" type="button" value="บันทึก" onclick="createVillage()" class="btn btn-success"/>
+													<td>
+														<div class="form-group">
+															<div class="col-md-9 col-md-offset-3">
+																<div id="messages"></div>
+															</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td></td>
+													<td align="center" style="padding: 15px">
+														<button style="width: 100px" type="reset"
+															class="btn btn-warning">ล้างข้อมูล</button> <input
+														style="width: 100px" type="button" value="บันทึก"
+														onclick="createVillage()" class="btn btn-success" />
 													</td>
 												</tr>
 											</table>
 										</form>
 									</div>
-<!-- Start modal -->                                
-<div>
-			<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog"
-				aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-							<h4 class="modal-title" id="H3"> ----- ยืนยันการลบข้อมูล !! -----</h4>
-						</div>
-						<div class="modal-body">
-							<p>คุณต้องการลบข้อมูลชุดนี้?</p>
-							<input type="hidden" name="vil_id" id="vil_id" value=""/>
-						</div>
-						
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">ยกเลิก</button>
-							<button type="button" id="deleteVillage" class="btn btn-danger" onclick="deleteVillage();">ลบข้อมูล</button>
-							
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-<!-- End modal -->									
+									<!-- Start modal -->
+									<div>
+										<div class="modal fade" id="DeleteModal" tabindex="-1"
+											role="dialog" aria-labelledby="myModalLabel"
+											aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal"
+															aria-hidden="true">&times;</button>
+														<h4 class="modal-title" id="H3">-----
+															ยืนยันการลบข้อมูล !! -----</h4>
+													</div>
+													<div class="modal-body">
+														<p>คุณต้องการลบข้อมูลชุดนี้?</p>
+														<input type="hidden" name="vil_id" id="vil_id" value="" />
+													</div>
+
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default"
+															data-dismiss="modal">ยกเลิก</button>
+														<button type="button" id="deleteVillage"
+															class="btn btn-danger" onclick="deleteVillage();">ลบข้อมูล</button>
+
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- End modal -->
 									<div class="tab-pane fade" id="editVillage">
 										<form role="form">
-										<input type="hidden" id="editVilId">
+											<input type="hidden" id="editVilId">
 											<table width="50%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 													<td><input class="form-control" placeholder=""
-														value="2558" maxlength="4" id="editVilYear" name="vil-year"></td>
+														value="2558" maxlength="4" id="editVilYear"
+														name="vil-year"></td>
 												</tr>
 												<tr>
 
 													<td align="pull-right" style="padding: 15px">หมู่ที่</td>
 													<td><input class="form-control" placeholder=""
-														name="vil-number" maxlength="2" id="editVilNumber" required=""></td>
+														name="vil-number" maxlength="2" id="editVilNumber"
+														required=""></td>
 
 												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">ชื่อหมู่บ้าน</td>
 													<td><input class="form-control" placeholder=""
-														name="vil-name" maxlength="50" id="editVilName" required=""></td>
+														name="vil-name" maxlength="50" id="editVilName"
+														required=""></td>
 												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">ชื่อกำนัน/ผู้ใหญ่บ้าน</td>
 													<td><input class="form-control" placeholder=""
-														name="vilChief" maxlength="50" id="editVilChief" required=""></td>
+														name="vilChief" maxlength="50" id="editVilChief"
+														required=""></td>
 												</tr>
 												<tr>
 													<td></td>
-                                                    <td align="center" style="padding: 15px">
-														<a href="#listVillage" data-toggle="tab"><button style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
-														<input style="width: 100px" type="button" value="บันทึก" onclick="editVillage()" class="btn btn-success"/>
-													</td>
+													<td align="center" style="padding: 15px"><a
+														href="#listVillage" data-toggle="tab"><button
+																style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
+														<input style="width: 100px" type="button" value="บันทึก"
+														onclick="editVillage()" class="btn btn-success" /></td>
 												</tr>
 											</table>
 										</form>
@@ -620,8 +652,23 @@
 
 		<!-- DataTables JavaScript -->
 		<script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+		<script
+			src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+		<script
+			src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js"></script>
+		<script src="../vendor/datatables/js/vfs_fonts.js"></script>
+		<script
+			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
+		<script
+			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
 		<script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
 		<script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+		<script
+			src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.bootstrap.min.js"></script>
+		<script
+			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
+		<script
+			src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
 
 		<!-- Custom Theme JavaScript -->
 		<script src="../dist/js/sb-admin-2.js"></script>
@@ -680,7 +727,7 @@
 		    });
 		});
 		</script>
-		    <script>
+		<script>
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
             responsive: true
@@ -693,7 +740,6 @@
 	}
     
     </script>
-		
 </body>
 
 </html>
