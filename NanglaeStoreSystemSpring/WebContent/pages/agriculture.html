@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,6 +19,7 @@
 <!-- DataTables CSS -->
 <link href="../vendor/datatables-plugins/dataTables.bootstrap.css"
 	rel="stylesheet">
+
 
 <!-- DataTables Responsive CSS -->
 <link href="../vendor/datatables-responsive/dataTables.responsive.css"
@@ -39,8 +39,9 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
 <script type='text/javascript' src="../js/jquery.js"></script>
-<script type='text/javascript'>
+<script type='text/javascript' charset="utf-8">
 	function listAgriculture() {
 		$("#loader").show();
 		$
@@ -65,14 +66,26 @@
 									+ "</td>"
 									+ "<td style=\"text-align: center;\"><button href=\"#editAgri\" data-toggle=\"tab\" onclick=\"setEditAgriculture("
 									+ data[i].agi_id
-									+ ");\" class=\"btn btn-warning\">แก้ไขข้อมูล</button>&nbsp;&nbsp;<button data-toggle=\"modal\" data-id="
+									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button data-toggle=\"modal\" data-id="
 									+ data[i].agi_id
-									+ " onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\">ลบข้อมูล</button></td>";
+									+ " onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>";
 
 							html += "</tr>";
 						}
 						$('#listAgriculture').html(html);
-						$('#resultTable').DataTable();
+						$('#resultTable').DataTable({
+
+							dom : 'Bfrtip',
+							buttons : [ {
+								extend : 'pdfHtml5',
+								exportOptions : {
+									columns : [ 0, 1, 2, 3 ]
+								},
+								customize : function(doc) {
+									doc.defaultStyle['font'] = 'THSarabun';
+								}
+							}, 'excelHtml5' ]
+						});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -105,7 +118,6 @@
 				agi_area : $('#agi_area').val(),
 				agi_description : $('#agi_description').val()
 			};
-			//alert(JSON.stringify(obj));
 			$.ajax({
 				url : "../saveAgriculture.do",
 				type : "POST",
@@ -114,7 +126,6 @@
 				contentType : "application/json",
 				mimeType : "application/json",
 				success : function(data) {
-					//alert('success');
 					$("#loader").hide();
 					location.reload();
 				},
@@ -488,7 +499,7 @@
 										<div class="table-responsive">
 											<table id="resultTable"
 												class="table table-striped table-bordered table-hover">
-												
+
 <!-- Start change table -->
 												<thead>
 													<tr>
@@ -640,8 +651,24 @@
 
 		<!-- DataTables JavaScript -->
 		<script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+		<script
+			src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+		<script
+			src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js"></script>
+		<script src="../vendor/datatables/js/vfs_fonts.js"></script>
+		<script
+			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
+		<script
+			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
 		<script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
 		<script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+		<script
+			src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.bootstrap.min.js"></script>
+		<script
+			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
+		<script
+			src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+
 
 		<!-- Custom Theme JavaScript -->
 		<script src="../dist/js/sb-admin-2.js"></script>
@@ -649,9 +676,7 @@
 		<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 		<script>
 			$(document).ready(function() {
-				$('#dataTables-example').DataTable({
-					responsive : true
-				});
+
 			});
 
 			function openDeleteModal(id) {
