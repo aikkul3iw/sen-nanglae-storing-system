@@ -74,7 +74,19 @@
 							html += "</tr>";
 						}
 						$('#listPipelines').html(html);
-						$("#resultTable").DataTable();
+						$("#resultTable").DataTable({
+
+							dom : 'Bfrtip',
+							buttons : [ {
+								extend : 'pdfHtml5',
+								exportOptions : {
+									columns : [ 0, 1, 2, 3, 4 ]
+								},
+								customize : function(doc) {
+									doc.defaultStyle['font'] = 'THSarabun';
+								}
+							}, 'excelHtml5' ]
+						});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -674,8 +686,23 @@
 
 		<!-- DataTables JavaScript -->
 		<script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+		<script
+			src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+		<script
+			src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js"></script>
+		<script src="../vendor/datatables/js/vfs_fonts.js"></script>
+		<script
+			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
+		<script
+			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
 		<script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
 		<script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+		<script
+			src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.bootstrap.min.js"></script>
+		<script
+			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
+		<script
+			src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
 
 		<!-- Custom Theme JavaScript -->
 		<script src="../dist/js/sb-admin-2.js"></script>
