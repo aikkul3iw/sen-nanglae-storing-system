@@ -25,7 +25,7 @@ import com.proj.ejb.face.UserService;
 		
 		@RequestMapping(value="/login",method=RequestMethod.GET)
 		public ModelAndView displayLogin(HttpServletRequest request, HttpServletResponse response) {
-			ModelAndView model = new ModelAndView("loginUser.jsp");
+			ModelAndView model = new ModelAndView("loginUser");
 			User loginBean = new User();
 			model.addObject("loginBean", loginBean);
 			
@@ -37,16 +37,23 @@ import com.proj.ejb.face.UserService;
 				@ModelAttribute("loginBean")User loginBean){
 			ModelAndView model= null;
 			try{
+				for(User user:userServ.listAllUser()){
+					System.out.println(user.getUser_id()+" ID "+user.getUsername()+" username "+user.getPassword()+" password ");
+				}
+				
+				
 			
 				boolean isValidUser = userServ.login(loginBean.getUsername(),
 						loginBean.getPassword());
+				System.out.println(loginBean.getUsername()+" "+loginBean.getPassword());
 				if(isValidUser){
 					System.out.println("User Login Successful");
 					request.setAttribute("loggedInUser", loginBean.getUsername());
-					model = new ModelAndView("../pages/index.html");
+					model = new ModelAndView("index");
 				}
 				else{
-					model = new ModelAndView("agriculture.html");
+					System.out.println("Fail");
+					model = new ModelAndView("TestJSP.jsp");
 					model.addObject("loginBean", loginBean);
 					request.setAttribute("message", "Invalid credentials!!");
 				}

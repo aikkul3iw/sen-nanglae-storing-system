@@ -51,9 +51,9 @@ public class UserServiceBean implements UserService{
 	public boolean login(String username,String password){
 		boolean  isLoginSuccess = false;
 		
-		List<User> list = em.createQuery("SELECT user FROM User user where user.username=:username and user.password=:password")
+		List<User> list = em.createQuery("SELECT user FROM User user WHERE user.username = :username AND user.password = :password")
 				.setParameter("username", username).setParameter("password", password).getResultList();
-		
+		System.out.println("intro"+list.size());
 		if(!list.isEmpty()){
 			isLoginSuccess = true;
 		}

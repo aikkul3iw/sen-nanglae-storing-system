@@ -11,25 +11,25 @@
 <title>www.Nanglea.com</title>
 
 <!-- Bootstrap Core CSS -->
-<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="../NanglaeGov/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- MetisMenu CSS -->
-<link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+<link href="../NanglaeGov/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
 <!-- DataTables CSS -->
-<link href="../vendor/datatables-plugins/dataTables.bootstrap.css"
+<link href="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.css"
 	rel="stylesheet">
 
 
 <!-- DataTables Responsive CSS -->
-<link href="../vendor/datatables-responsive/dataTables.responsive.css"
+<link href="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.css"
 	rel="stylesheet">
 
 <!-- Custom CSS -->
-<link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+<link href="../NanglaeGov/dist/css/sb-admin-2.css" rel="stylesheet">
 
 <!-- Custom Fonts -->
-<link href="../vendor/font-awesome/css/font-awesome.min.css"
+<link href="../NanglaeGov/vendor/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -40,13 +40,13 @@
     <![endif]-->
 
 
-<script type='text/javascript' src="../js/jquery.js"></script>
+<script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript' charset="utf-8">
 	function listAgriculture() {
 		$("#loader").show();
 		$
 				.ajax({
-					url : "../listAgriculture.do",
+					url : "../NanglaeGov/listAgriculture.do",
 					type : "POST",
 					success : function(data) {
 						var html = '';
@@ -119,7 +119,7 @@
 				agi_description : $('#agi_description').val()
 			};
 			$.ajax({
-				url : "../saveAgriculture.do",
+				url : "../NanglaeGov/saveAgriculture.do",
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -147,7 +147,7 @@
 		//alert(id);
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../deleteAgriculture.do",
+			url : "../NanglaeGov/deleteAgriculture.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -542,7 +542,6 @@
 												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">การทำการเกษตร</td>
-													<td><textarea id="agi_description" maxlength="255"
 															class="form-control" placeholder="ระบุรายละเอียด"
 															name="vil-name" required="true"></textarea></td>
 												</tr>
@@ -641,27 +640,27 @@
 		</div>
 
 		<!-- jQuery -->
-		<script src="../vendor/jquery/jquery.min.js"></script>
+		<script src="../NanglaeGov/vendor/jquery/jquery.min.js"></script>
 
 		<!-- Bootstrap Core JavaScript -->
-		<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+		<script src="../NanglaeGov/vendor/bootstrap/js/bootstrap.min.js"></script>
 
 		<!-- Metis Menu Plugin JavaScript -->
-		<script src="../vendor/metisMenu/metisMenu.min.js"></script>
+		<script src="../NanglaeGov/vendor/metisMenu/metisMenu.min.js"></script>
 
 		<!-- DataTables JavaScript -->
-		<script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+		<script src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
 		<script
 			src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
 		<script
 			src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js"></script>
-		<script src="../vendor/datatables/js/vfs_fonts.js"></script>
+		<script src="../NanglaeGov/vendor/datatables/js/vfs_fonts.js"></script>
 		<script
 			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
 		<script
 			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
-		<script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-		<script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+		<script src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+		<script src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script>
 		<script
 			src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.bootstrap.min.js"></script>
 		<script
@@ -671,7 +670,7 @@
 
 
 		<!-- Custom Theme JavaScript -->
-		<script src="../dist/js/sb-admin-2.js"></script>
+		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
 
 		<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 		<script>
