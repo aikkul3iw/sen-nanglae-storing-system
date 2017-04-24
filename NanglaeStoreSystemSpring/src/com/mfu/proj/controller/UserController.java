@@ -25,7 +25,7 @@ import com.proj.ejb.face.UserService;
 		
 		@RequestMapping(value="/login",method=RequestMethod.GET)
 		public ModelAndView displayLogin(HttpServletRequest request, HttpServletResponse response) {
-			ModelAndView model = new ModelAndView("login");
+			ModelAndView model = new ModelAndView("loginUser.jsp");
 			User loginBean = new User();
 			model.addObject("loginBean", loginBean);
 			
@@ -43,10 +43,10 @@ import com.proj.ejb.face.UserService;
 				if(isValidUser){
 					System.out.println("User Login Successful");
 					request.setAttribute("loggedInUser", loginBean.getUsername());
-					model = new ModelAndView("welcome");
+					model = new ModelAndView("../pages/index.html");
 				}
 				else{
-					model = new ModelAndView("login");
+					model = new ModelAndView("agriculture.html");
 					model.addObject("loginBean", loginBean);
 					request.setAttribute("message", "Invalid credentials!!");
 				}
@@ -58,7 +58,7 @@ import com.proj.ejb.face.UserService;
 
 			}
 
-			return null;
+			return model;
 		}  	
 		
 		@RequestMapping("/listUser")

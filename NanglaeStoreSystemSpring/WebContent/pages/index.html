@@ -53,7 +53,7 @@
 	google.charts.setOnLoadCallback(drawChart);
 
 	var year = new Date().getFullYear();
-	alert(year);
+	//alert(year);
 
 	var totalThai = 0;
 	var totalOther = 0;
@@ -98,6 +98,8 @@
 	}
 </script>
 <script type='text/javascript'>
+
+
 	function getVillageAmount() {
 		var villageAmount = 0;
 		$("#loader").show();
@@ -279,23 +281,9 @@ var chart = AmCharts.makeChart( "chartdiv", {
 				<div class="container-fluid">
 					<div class="collapse navbar-collapse"
 						id="bs-example-navbar-collapse-1">
-						<form id="signin" class="navbar-form navbar-right" role="form">
-							<div class="input-group">
-								<span class="input-group-addon"><i
-									class="glyphicon glyphicon-user"></i></span> <input id="email"
-									type="email" class="form-control" name="email" value=""
-									placeholder="ผู้ใช้งาน">
-							</div>
-
-							<div class="input-group">
-								<span class="input-group-addon"><i
-									class="glyphicon glyphicon-lock"></i></span> <input id="password"
-									type="password" class="form-control" name="password" value=""
-									placeholder="รหัสผ่าน">
-							</div>
-
-							<button type="submit" class="btn btn-primary">เข้าสู่ระบบ</button>
-						</form>
+						
+							<a href="../login.do"><button class="btn btn-primary" >เข้าสู่ระบบ</button></a>
+					
 
 					</div>
 				</div>
