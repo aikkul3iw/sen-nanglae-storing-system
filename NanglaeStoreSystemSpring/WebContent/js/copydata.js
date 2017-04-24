@@ -251,7 +251,7 @@ function copyData() {
 			//alert('error');
 			$("#loader").hide();
 		}
-	});
+	});*/
 	
 	//copy Forest
 	$.ajax({
@@ -297,7 +297,7 @@ function copyData() {
 	});
 	
 	//copy Group
-	$.ajax({
+	/*$.ajax({
 		url : "../listLocalg.do",
 		type : "POST",
 		success : function(data) {
