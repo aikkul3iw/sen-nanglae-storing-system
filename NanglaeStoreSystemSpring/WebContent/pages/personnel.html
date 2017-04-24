@@ -10,6 +10,7 @@
 <meta name="author" content="">
 
 <title></title>
+<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.11.0.css" type="text/css" media="all">
 
 <!-- Bootstrap Core CSS -->
 <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -610,9 +611,9 @@
 											</tr>
 											<tr>
 												<td align="pull-right" style="padding: 15px">เบอร์โทรติดต่อ</td>
-												<td><input class="form-control" maxlength="12"
-													id="per_tel_number" placeholder="ต.ย. 089-8998999"
-													name="pertelnumber" required></td>
+												<td><input class="form-control" placeholder="ต.ย. 089-8998999" maxlength="10"
+													id="per_tel_number" 
+													name="pertelnumber" required ></td>
 											</tr>
 											<tr>
 												<td align="pull-right" style="padding: 15px">อีเมล์</td>
@@ -780,13 +781,58 @@
 		<script
 			src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
 
+	<!-- Mask plug-in -->
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/qunit/qunit-1.11.0.js"></script>
+    
+    <script type="text/javascript" src="../js/sinon-1.10.3.js"></script>
+    <script type="text/javascript" src="../js/sinon-qunit-1.0.0.js"></script>
+    
+    <script type="text/javascript" src="../js/jquery.mask.js"></script>
+    <script type="text/javascript" src="../js/jquery.mask.test.js"></script>
+	
 	<!-- Custom Theme JavaScript -->
 	<script src="../dist/js/sb-admin-2.js"></script>
 
 	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
-	<script>
-		
-		function openDeleteModal(id) {
+	<script>	
+	$(document).ready(function(){
+		  $('.date').mask('00/00/0000');
+		  $('.time').mask('00:00:00');
+		  $('.date_time').mask('00/00/0000 00:00:00');
+		  $('.cep').mask('00000-000');
+		  $('.phone').mask('0000-0000');
+		  $('.phone_with_ddd').mask('(00) 0000-0000');
+		  $('.phone_us').mask('(000) 000-0000');
+		  $('.mixed').mask('AAA 000-S0S');
+		  $('.cpf').mask('000.000.000-00', {reverse: true});
+		  $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
+		  $('.money').mask('000.000.000.000.000,00', {reverse: true});
+		  $('.money2').mask("#.##0,00", {reverse: true});
+		  $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
+		    translation: {
+		      'Z': {
+		        pattern: /[0-9]/, optional: true
+		      }
+		    }
+		  });
+		  $('.ip_address').mask('099.099.099.099');
+		  $('.percent').mask('##0,00%', {reverse: true});
+		  $('.clear-if-not-match').mask("00/00/0000", {clearIfNotMatch: true});
+		  $('.placeholder').mask("00/00/0000", {placeholder: "__/__/____"});
+		  $('.fallback').mask("00r00r0000", {
+		      translation: {
+		        'r': {
+		          pattern: /[\/]/,
+		          fallback: '/'
+		        },
+		        placeholder: "__/__/____"
+		      }
+		    });
+		  $('.selectonfocus').mask("00/00/0000", {selectOnFocus: true});
+		});
+	
+	function openDeleteModal(id) {
 			$('#per_id').val($(id).data('id'));
 			$('#DeleteModal').modal('show');
 		}

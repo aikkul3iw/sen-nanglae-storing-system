@@ -2,6 +2,7 @@ package com.proj.ejb.face;
 
 import java.util.List;
 
+
 import com.proj.ejb.entity.User;
 
 public interface UserService {
@@ -10,5 +11,5 @@ public interface UserService {
 	public void delete(long id);
 	public User findUserById(long id);
 	public List<User> listAllUser();
-	
+	public boolean login(String username,String password);
 }
