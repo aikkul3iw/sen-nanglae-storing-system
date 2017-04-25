@@ -23,6 +23,13 @@ import com.proj.ejb.face.UserService;
 		@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//UserServiceBean!com.proj.ejb.face.UserService")
 		UserService userServ;
 		
+		@RequestMapping(value="/index",method=RequestMethod.GET)
+		public ModelAndView displayIndex(HttpServletRequest request, HttpServletResponse response) {
+			ModelAndView model = new ModelAndView("index");
+			
+			return model;
+		}
+		
 		@RequestMapping(value="/login",method=RequestMethod.GET)
 		public ModelAndView displayLogin(HttpServletRequest request, HttpServletResponse response) {
 			ModelAndView model = new ModelAndView("loginUser");
