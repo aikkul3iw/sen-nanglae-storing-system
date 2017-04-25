@@ -314,7 +314,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
 							<ul class="nav nav-second-level">
 								<li><a href="#">เคหะ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="village.html">หมู่บ้าน</a></li>
+										<li><a href="village.do">หมู่บ้าน</a></li>
 										<li><a href="industry.html">การอุตสาหกรรม</a></li>
 										<li><a href="education.html">การศึกษา</a></li>
 										<li><a href="religion.html">การศาสนา</a></li>

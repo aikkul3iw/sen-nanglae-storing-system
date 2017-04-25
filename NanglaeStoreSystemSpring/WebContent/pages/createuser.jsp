@@ -398,7 +398,7 @@
 						<li><a href="#"><i class="fa fa-child fa-fw"></i> บุคคล<span
 								class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="personnel.html">บุคลากร</a></li>
+								<li><a href="NanglaeGov/listPersonnel.jsp">บุคลากร</a></li>
 								<li><a href="population.html">ประชากร</a></li>
 								<li><a href="labor.html">แรงงาน</a></li>
 							</ul> <!-- /.nav-second-level --></li>
@@ -445,7 +445,7 @@
 								<li><a href="polution.html">มลพิษ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="copy.html"><i class="fa fa-copy"></i>
-								คัดลอกข้อมูล</a></li>
+								คัดลอกข้อมูล</a></li>1
 					</ul>
 				</div>
 				<!-- /.sidebar-collapse -->
