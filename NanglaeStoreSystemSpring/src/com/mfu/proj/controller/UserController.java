@@ -87,7 +87,7 @@ import com.proj.ejb.face.UserService;
 				}
 				else{
 					System.out.println("Fail");
-					model = new ModelAndView("index");
+					model = new ModelAndView("loginUser");
 					model.addObject("loginBean", loginBean);
 					request.setAttribute("loginBean", "Invalid credentials!!");
 				}
