@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>www.Nanglea.com</title>
+<title>การเกษตรกรรม</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="../NanglaeGov/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

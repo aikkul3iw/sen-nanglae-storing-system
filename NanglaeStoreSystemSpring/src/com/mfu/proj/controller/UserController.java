@@ -32,11 +32,45 @@ import com.proj.ejb.face.UserService;
 			return model;
 		}
 		
+		@RequestMapping(value="/createUser",method=RequestMethod.GET)
+		public ModelAndView displaycreateUser(HttpServletRequest request, HttpServletResponse response) {
+			String username  = (String) request.getAttribute("loggedInUser");
+			
+			if(username != null){
+				ModelAndView model = new ModelAndView("createuser");
+				User loginBean = new User();
+				model.addObject("loginBean", loginBean);
+				return model;
+			}else{
+				ModelAndView model = new ModelAndView("loginUser");
+				request.setAttribute("loggedInUser", null);
+				User loginBean = new User();
+				model.addObject("loginBean", loginBean);
+				return model;
+			}
+			
+		}
+		
+		@RequestMapping(value="/logout",method=RequestMethod.GET)
+		public ModelAndView displayLogout(HttpServletRequest request, HttpServletResponse response) {
+			ModelAndView model = new ModelAndView("index");
+			
+			//String username  = (String) request.getAttribute("loggedInUser");
+			request.setAttribute("loggedInUser", null);
+			User loginBean = new User();
+			model.addObject("loginBean", loginBean);
+			
+			return model;
+		}
+		
 		@RequestMapping(value="/login",method=RequestMethod.POST)
 		public ModelAndView executeLogin(HttpServletRequest request, HttpServletResponse response, 
 				@ModelAttribute("loginBean")User loginBean){
 			ModelAndView model= null;
-			try{
+			
+			
+			
+				try{
 				for(User user:userServ.listAllUser()){
 					System.out.println(user.getUser_id()+" ID "+user.getUsername()+" username "+user.getPassword()+" password ");
 				}
@@ -49,24 +83,26 @@ import com.proj.ejb.face.UserService;
 				if(isValidUser){
 					System.out.println("User Login Successful");
 					request.setAttribute("loggedInUser", loginBean.getUsername());
-					model = new ModelAndView("index");
+					model = new ModelAndView("createuser");
 				}
 				else{
 					System.out.println("Fail");
-					model = new ModelAndView("TestJSP.jsp");
+					model = new ModelAndView("index");
 					model.addObject("loginBean", loginBean);
-					request.setAttribute("message", "Invalid credentials!!");
+					request.setAttribute("loginBean", "Invalid credentials!!");
 				}
 
 			}
 			catch(Exception e)
 			{
 				e.printStackTrace();
-
 			}
+				
 
 			return model;
-		}  	
+		}
+		
+		
 		
 		@RequestMapping("/listUser")
 		public @ResponseBody List<User> listUser(HttpServletRequest request) {
