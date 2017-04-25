@@ -50,10 +50,11 @@
 	google.charts.load('current', {
 		'packages' : [ 'corechart' ]
 	});
-	google.charts.setOnLoadCallback(drawChart);
 
 	var year = new Date().getFullYear();
-	//alert(year);
+
+	var year = new Date().getFullYear()+543;
+
 
 	var totalThai = 0;
 	var totalOther = 0;
