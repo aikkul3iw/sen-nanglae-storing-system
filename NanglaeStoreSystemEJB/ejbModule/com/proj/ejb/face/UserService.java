@@ -12,4 +12,6 @@ public interface UserService {
 	public User findUserById(long id);
 	public List<User> listAllUser();
 	public boolean login(String username,String password);
+	public boolean RoleSuperuser(String role);
+	public boolean RoleUser(String role);
 }
