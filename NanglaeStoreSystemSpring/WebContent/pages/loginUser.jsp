@@ -52,6 +52,16 @@
 			
 			<form:label path="password">รหัสผ่าน</form:label>
 			<form:password class="form-control" placeholder="รหัสผ่าน" id="password" name="password" path="password" /><br>
+			
+			<!-- <form:label path="role">ตำแหน่งผู้ใช้งาน</form:label>
+			<form:input class="form-control" placeholder="ตำแหน่งผู้ใช้งาน" id="role" name="role" path="role" /><br> -->
+			
+			 <form:label path="role">ตำแหน่งผู้ใช้งาน</form:label>
+            <form:select path="role">
+				<form:option value="1" label="1" />
+				<form:option value="2" label="2" />
+			</form:select><br>
+			
 			<a href="logout.do"><input  class="btn btn-danger" style="width: 160px" value="ยกเลิก" /></a>
 			<input class="btn btn-success" style="width: 160px" type="submit" value="เข้าสู่ระบบ" />
 		</form:form>
