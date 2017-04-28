@@ -87,4 +87,10 @@ public class LaborController {
 		
 		return model;
 	}
+	@RequestMapping(value="/nonLabor",method=RequestMethod.GET)
+	public ModelAndView displaynonLabor(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonLabor");
+		
+		return model;
+	}
 }

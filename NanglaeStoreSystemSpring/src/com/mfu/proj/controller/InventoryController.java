@@ -86,4 +86,10 @@ public class InventoryController {
 		
 		return model;
 	}
+	@RequestMapping(value="/nonInventory",method=RequestMethod.GET)
+	public ModelAndView displaynonInventory(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonInventory");
+		
+		return model;
+	}
 }

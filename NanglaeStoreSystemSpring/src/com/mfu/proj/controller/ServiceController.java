@@ -88,4 +88,10 @@ public class ServiceController {
 		
 		return model;
 	}
+	@RequestMapping(value="/nonService",method=RequestMethod.GET)
+	public ModelAndView displaynonService(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonService");
+		
+		return model;
+	}
 }

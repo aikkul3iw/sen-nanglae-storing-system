@@ -88,4 +88,10 @@ public class LASucrityController {
 		
 		return model;
 	}
+	@RequestMapping(value="/nonSecurity",method=RequestMethod.GET)
+	public ModelAndView displaynonSecurity(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonSecurity");
+		
+		return model;
+	}
 }

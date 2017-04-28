@@ -99,4 +99,10 @@ public class ElectricityController {
 		
 		return model;
 	}
+	@RequestMapping(value="/nonElectric",method=RequestMethod.GET)
+	public ModelAndView displaynonElectricity(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonElectric");
+		
+		return model;
+	}
 }

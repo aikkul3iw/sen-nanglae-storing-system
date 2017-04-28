@@ -89,4 +89,10 @@ public class TransportController {
 		
 		return model;
 	}
+	@RequestMapping(value="/nonTransport",method=RequestMethod.GET)
+	public ModelAndView displaynonTransport(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonTransport");
+		
+		return model;
+	}
 }

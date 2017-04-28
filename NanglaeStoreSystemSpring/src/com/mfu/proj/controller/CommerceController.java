@@ -94,4 +94,10 @@ public class CommerceController {
 		
 		return model;
 	}
+	@RequestMapping(value="/nonCommerce",method=RequestMethod.GET)
+	public ModelAndView displaynonCommerce(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonCommerce");
+		
+		return model;
+	}
 }

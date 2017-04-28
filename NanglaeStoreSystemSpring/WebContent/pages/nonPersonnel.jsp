@@ -1,6 +1,5 @@
-<%@include file="include.jsp"%>
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +11,8 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title></title>
+<title>เทศบาลตำบลนางแล</title>
+<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.11.0.css" type="text/css" media="all">
 
 <!-- Bootstrap Core CSS -->
 <link href="../NanglaeGov/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -41,39 +41,53 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-<script type='text/javascript' src="../js/jquery.js"></script>
+<script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
 	function listPersonnel() {
 		$("#loader").show();
-		$.ajax({
-			url : "../listPersonnel.do",
-			type : "POST",
-			success : function(data) {
-				var successMsg = '';
-				var errorMsg = '';
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<tr>";
-					html += "<td>" + data[i].per_year + "</td>" + "<td>"
-							+ data[i].per_title + data[i].per_firstname + " "
-							+ data[i].per_lastname + "</td>" + "<td>"
-							+ data[i].per_position + "</td>" + "<td>"
-							+ data[i].per_tel_number + "</td>" + "<td>"
-							+ data[i].per_address + "</td>" + "<td>"
-							+ data[i].per_email + "</td>"
-					html += "</tr>";
-				}
-				$('#listPersonnels').html(html);
-				$("#resultTable").DataTable({});
-				$('#successMsg').html(successMsg);
-				$('#errorMsg').html(errorMsg);
-				$("#loader").hide();
-			},
-			error : function(data, status, er) {
-				alert('ไม่สามารถโหลดข้อมูลได้');
-				$("#loader").hide();
-			}
-		});
+		$
+				.ajax({
+					url : "../NanglaeGov/listPersonnel.do",
+					type : "POST",
+					success : function(data) {
+						var successMsg = '';
+						var errorMsg = '';
+						var html = '';
+						for (var i = 0; i < data.length; i++) {
+							html += "<tr>";
+							html += "<td>"
+									+ data[i].per_year
+									+ "</td>"
+									+ "<td>"
+									+ data[i].per_title
+									+ data[i].per_firstname
+									+ " "
+									+ data[i].per_lastname
+									+ "</td>"
+									+ "<td>"
+									+ data[i].per_position
+									+ "</td>"
+									+ "<td>"
+									+ data[i].per_tel_number
+									+ "</td>"
+									+ "<td>"
+									+ data[i].per_address
+									+ "</td>"
+									+ "<td>"
+									+ data[i].per_email
+									+ "</td>"
+
+							html += "</tr>";
+						}
+						$('#listPersonnels').html(html);
+						$("#resultTable").DataTable({});
+						$("#loader").hide();
+					},
+					error : function(data, status, er) {
+						alert('ไม่สามารถโหลดข้อมูลได้');
+						$("#loader").hide();
+					}
+				});
 	}
 </script>
 <script type='text/javascript'>
@@ -122,7 +136,7 @@
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../savePersonnel.do",
+				url : "../NanglaeGov/savePersonnel.do",
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -148,7 +162,7 @@
 
 		};
 		$.ajax({
-			url : "../deletePersonnel.do",
+			url : "../NanglaeGov/deletePersonnel.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -176,7 +190,7 @@
 
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../savePersonnel.do",
+			url : "../NanglaeGov/savePersonnel.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -198,7 +212,7 @@
 		};
 
 		$.ajax({
-			url : "../findPersonnel.do",
+			url : "../NanglaeGov/findPersonnel.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -232,7 +246,7 @@
 
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
-			style="margin-bottom: 0; background-color: #98c3e8">
+			style="margin-bottom: 0;background-color: #98c3e8">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-collapse">
@@ -241,7 +255,7 @@
 						class="icon-bar"></span>
 				</button>
 				<img src="../NanglaeGov/images/logo-nanglae.png"><a class="navbar-brand"
-					href="index.html">เทศบาลตำบลนางแล</a>
+					href="index.do">เทศบาลตำบลนางแล</a>
 			</div>
 			<!-- /.navbar-header -->
 
@@ -249,18 +263,9 @@
 				<div class="container-fluid">
 					<div class="collapse navbar-collapse"
 						id="bs-example-navbar-collapse-1">
-						<form:form id="loginForm" method="post" action="login.do" modelAttribute="loginBean" class="navbar-form navbar-right" role="form">
-							<div class="input-group">
-								<span class="input-group-addon"><i
-									class="glyphicon glyphicon-user"></i></span> <form:input class="form-control" placeholder="Username" id="username" name="username" path="username" /><br>
-							</div>
-							<div class="input-group">
-								<span class="input-group-addon"><i
-									class="glyphicon glyphicon-lock"></i></span> <form:password class="form-control" placeholder="Password" id="password" name="password" path="password" /><br>
-							</div>
-
-							<button type="submit" class="btn btn-primary">เข้าสู่ระบบ</button>
-							</form:form>
+						<div class="navbar-form navbar-right">
+							<a href="login.do"><button class="btn btn-primary">เข้าสู่ระบบ</button></a>
+						</div>
 					</div>
 				</div>
 			</ul>
@@ -271,54 +276,52 @@
 						<li><a href="#"><i class="fa fa-child fa-fw"></i> บุคคล<span
 								class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="personnel.html">บุคลากร</a></li>
-								<li><a href="population.html">ประชากร</a></li>
-								<li><a href="labor.html">แรงงาน</a></li>
+								<li><a href="nonPersonnel.do">บุคลากร</a></li>
+								<li><a href="nonPopulation.do">ประชากร</a></li>
+								<li><a href="nonLabor.do">แรงงาน</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-home fa-fw"></i>
 								สาธารณูปโภค<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="transport.html">ระบบคมนาคมขนส่ง</a></li>
-								<li><a href="electric.html">ระบบไฟฟ้า</a></li>
-								<li><a href="pipeline.html">ระบบประปา</a></li>
-								<li><a href="drainange.html">ระบบระบายน้ำ</a></li>
+								<li><a href="nonTransport.do">ระบบคมนาคมขนส่ง</a></li>
+								<li><a href="nonElectric.do">ระบบไฟฟ้า</a></li>
+								<li><a href="nonPipeline.do">ระบบประปา</a></li>
+								<li><a href="nonDrainage.do">ระบบระบายน้ำ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-road fa-fw"></i>
 								สาธารณุปการ<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li><a href="#">เคหะ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="village.html">หมู่บ้าน</a></li>
-										<li><a href="industry.html">การอุตสาหกรรม</a></li>
-										<li><a href="education.html">การศึกษา</a></li>
-										<li><a href="religion.html">การศาสนา</a></li>
-										<li><a href="commerce.html">การพาณิชย์</a></li>
-										<li><a href="tourism.html">แหล่งท่องเที่ยว</a></li>
+										<li><a href="nonVillage.do">หมู่บ้าน</a></li>
+										<li><a href="nonIndustry.do">การอุตสาหกรรม</a></li>
+										<li><a href="nonEducation.do">การศึกษา</a></li>
+										<li><a href="nonReligion.do">การศาสนา</a></li>
+										<li><a href="nonCommerce.do">การพาณิชย์</a></li>
+										<li><a href="nonTourism.do">แหล่งท่องเที่ยว</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 								<li><a href="#">บริการ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="health.html">การสาธารสุข</a></li>
-										<li><a href="security.html">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
+										<li><a href="nonHealth.do">การสาธารสุข</a></li>
+										<li><a href="nonSecurity.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
 										</li>
-										<li><a href="group.html">กลุ่มในชุมชน</a></li>
-										<li><a href="service.html">ศูนย์บริการประชาชน</a></li>
-										<li><a href="inventory.html">การคลัง</a></li>
+										<li><a href="nonGroup.do">กลุ่มในชุมชน</a></li>
+										<li><a href="nonService.do">ศูนย์บริการประชาชน</a></li>
+										<li><a href="nonInventory.do">การคลัง</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-tree fa-fw"></i>
 								ธรรมชาติและสิ่งแวดล้อม<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="agriculture.html">การเกษตรกรรม</a></li>
+								<li><a href="nonAgriculture.do">การเกษตรกรรม</a></li>
 								<li><a href="#">ทรัพยากรธรรมชาติ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="waterresource.html">ทรัพยากรณ์น้ำ</a></li>
-										<li><a href="landresource.html">ทรัพยากรณ์ดิน</a></li>
-										<li><a href="forrestresource.html">ทรัพยากรณ์ป่าไม้</a></li>
+										<li><a href="nonWaterresource.do">ทรัพยากรณ์น้ำ</a></li>
+										<li><a href="nonLandresource.do">ทรัพยากรณ์ดิน</a></li>
+										<li><a href="nonForestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
 									</ul></li>
-								<li><a href="polution.html">มลพิษ</a></li>
+								<li><a href="nonPolution.do">มลพิษ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
-						<li><a href="copy.html"><i class="fa fa-copy"></i>
-								คัดลอกข้อมูล</a></li>
 					</ul>
 				</div>
 				<!-- /.sidebar-collapse -->
@@ -354,23 +357,28 @@
 										<option value="2558">2558</option>
 										<option value="2559">2559</option>
 
-									</select> <br>
-									<br> <br>
+									</select> <br><br>
+									
+
+									<br> 
+
 									<div class="table-responsive">
 										<table class="table table-striped table-bordered table-hover"
 											id="resultTable">
-											<thead>
-												<tr>
-													<th>ปีที่บันทึกข้อมูล</th>
-													<th>ชื่อ</th>
-													<th>ตำแหน่ง</th>
-													<th>เบอร์โทรศัพท์</th>
-													<th>ที่อยู่</th>
-													<th>อีเมลล์</th>
-												</tr>
-											</thead>
-											<tbody id="listPersonnels">
-											</tbody>
+<!-- Start change table -->
+												<thead>
+													<tr>
+														<th>ปีที่บันทึกข้อมูล</th>
+														<th>ชื่อ</th>
+														<th>ตำแหน่ง</th>
+														<th>เบอร์โทรศัพท์</th>
+														<th>ที่อยู่</th>
+														<th>อีเมลล์</th>
+													</tr>
+												</thead>
+												<tbody id="listPersonnels">
+												</tbody>
+<!-- End change table -->
 										</table>
 									</div>
 								</div>
@@ -392,30 +400,77 @@
 	<script src="../NanglaeGov/vendor/metisMenu/metisMenu.min.js"></script>
 
 	<!-- DataTables JavaScript -->
-	<script src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
-	<script
-		src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
-	<script
-		src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js"></script>
-	<script src="../NanglaeGov/vendor/datatables/js/vfs_fonts.js"></script>
-	<script
-		src="//cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
-	<script
-		src="//cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
-	<script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-	<script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
-	<script
-		src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.bootstrap.min.js"></script>
-	<script
-		src="//cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+		<script src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
+		<script
+			src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+		<script
+			src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js"></script>
+		<script src="../NanglaeGov/vendor/datatables/js/vfs_fonts.js"></script>
+		<script
+			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
+		<script
+			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
+		<script src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+		<script src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script>
+		<script
+			src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.bootstrap.min.js"></script>
+		<script
+			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
+		<script
+			src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
 
+	<!-- Mask plug-in -->
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/qunit/qunit-1.11.0.js"></script>
+    
+    <script type="text/javascript" src="../NanglaeGov/js/sinon-1.10.3.js"></script>
+    <script type="text/javascript" src="../NanglaeGov/js/sinon-qunit-1.0.0.js"></script>
+    
+    <script type="text/javascript" src="../NanglaeGov/js/jquery.mask.js"></script>
+    <script type="text/javascript" src="../NanglaeGov/js/jquery.mask.test.js"></script>
+	
 	<!-- Custom Theme JavaScript -->
 	<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
 
 	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
-	<script>
-		function openDeleteModal(id) {
+	<script>	
+	$(document).ready(function(){
+		  $('.date').mask('00/00/0000');
+		  $('.time').mask('00:00:00');
+		  $('.date_time').mask('00/00/0000 00:00:00');
+		  $('.cep').mask('00000-000');
+		  $('.phone').mask('0000-0000');
+		  $('.phone_with_ddd').mask('(00) 0000-0000');
+		  $('.phone_us').mask('(000) 000-0000');
+		  $('.mixed').mask('AAA 000-S0S');
+		  $('.cpf').mask('000.000.000-00', {reverse: true});
+		  $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
+		  $('.money').mask('000.000.000.000.000,00', {reverse: true});
+		  $('.money2').mask("#.##0,00", {reverse: true});
+		  $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
+		    translation: {
+		      'Z': {
+		        pattern: /[0-9]/, optional: true
+		      }
+		    }
+		  });
+		  $('.ip_address').mask('099.099.099.099');
+		  $('.percent').mask('##0,00%', {reverse: true});
+		  $('.clear-if-not-match').mask("00/00/0000", {clearIfNotMatch: true});
+		  $('.placeholder').mask("00/00/0000", {placeholder: "__/__/____"});
+		  $('.fallback').mask("00r00r0000", {
+		      translation: {
+		        'r': {
+		          pattern: /[\/]/,
+		          fallback: '/'
+		        },
+		        placeholder: "__/__/____"
+		      }
+		    });
+		  $('.selectonfocus').mask("00/00/0000", {selectOnFocus: true});
+		});
+	
+	function openDeleteModal(id) {
 			$('#per_id').val($(id).data('id'));
 			$('#DeleteModal').modal('show');
 		}

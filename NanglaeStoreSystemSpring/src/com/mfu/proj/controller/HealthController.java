@@ -97,4 +97,10 @@ public class HealthController {
 		
 		return model;
 	}
+	@RequestMapping(value="/nonHealth",method=RequestMethod.GET)
+	public ModelAndView displaynonHealth(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonHealth");
+		
+		return model;
+	}
 }

@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>www.Nanglae.co.th</title>
+<title>เทศบาลตำบลนางแล</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="../NanglaeGov/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -87,7 +87,7 @@
 
 		var data = google.visualization.arrayToDataTable([
 				[ 'สัญชาติ', 'จำนวน(คน)' ], [ 'ไทย', totalThai ],
-				[ 'จีน', totalChinese ], [ 'อื่นๆ', totalOther ], [ 'ไม่รู้', 46 ] ]);
+				[ 'จีน', totalChinese ], [ 'อื่นๆ', totalOther ], ]);
 		var options = {
 			title : 'สัดส่วนประชากรตามสัญชาติ(ทั้งหมด ' + totalAllNation
 					+ ' คน)'
@@ -216,48 +216,6 @@
     chart.draw(data, options);
   }
     </script>
-<script type="text/javascript">
-var chart = AmCharts.makeChart( "chartdiv", {
-	  "type": "funnel",
-	  "theme": "light",
-	  "dataProvider": [ {
-	    "title": "Website visits",
-	    "value": 30
-	  }, {
-	    "title": "Downloads",
-	    "value": 123
-	  }, {
-	    "title": "Requested price list",
-	    "value": 98
-	  }, {
-	    "title": "Contaced for more info",
-	    "value": 72
-	  }, {
-	    "title": "Purchased",
-	    "value": 35
-	  }, {
-	    "title": "Contacted for support",
-	    "value": 15
-	  }, {
-	    "title": "Purchased additional products",
-	    "value": 8
-	  } ],
-	  "balloon": {
-	    "fixedPosition": true
-	  },
-	  "valueField": "value",
-	  "titleField": "title",
-	  "marginRight": 240,
-	  "marginLeft": 50,
-	  "startX": -500,
-	  "rotate": true,
-	  "labelPosition": "right",
-	  "balloonText": "[[title]]: [[value]]n[[description]]",
-	  "export": {
-	    "enabled": true
-	  }
-	} );
-</script>
 </head>
 
 <body onload="getVillageAmount();getListTourism();">
@@ -275,7 +233,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
 						class="icon-bar"></span>
 				</button>
 				<img src="../NanglaeGov/images/logo-nanglae.png"><a class="navbar-brand"
-					href="index.html">เทศบาลตำบลนางแล</a>
+					href="index.do">เทศบาลตำบลนางแล</a>
 			</div>
 			<!-- /.navbar-header -->
 
@@ -283,10 +241,9 @@ var chart = AmCharts.makeChart( "chartdiv", {
 				<div class="container-fluid">
 					<div class="collapse navbar-collapse"
 						id="bs-example-navbar-collapse-1">
-						
-							<a href="login.do"><button class="btn btn-primary" >เข้าสู่ระบบ</button></a>
-					
-
+						<div class="navbar-form navbar-right">
+							<a href="login.do"><button class="btn btn-primary">เข้าสู่ระบบ</button></a>
+						</div>
 					</div>
 				</div>
 			</ul>
@@ -297,54 +254,52 @@ var chart = AmCharts.makeChart( "chartdiv", {
 						<li><a href="#"><i class="fa fa-child fa-fw"></i> บุคคล<span
 								class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="personnel.html">บุคลากร</a></li>
-								<li><a href="population.html">ประชากร</a></li>
-								<li><a href="labor.html">แรงงาน</a></li>
+								<li><a href="nonPersonnel.do">บุคลากร</a></li>
+								<li><a href="nonPopulation.do">ประชากร</a></li>
+								<li><a href="nonLabor.do">แรงงาน</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-home fa-fw"></i>
 								สาธารณูปโภค<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="transport.html">ระบบคมนาคมขนส่ง</a></li>
-								<li><a href="electric.html">ระบบไฟฟ้า</a></li>
-								<li><a href="pipeline.html">ระบบประปา</a></li>
-								<li><a href="drainange.html">ระบบระบายน้ำ</a></li>
+								<li><a href="nonTransport.do">ระบบคมนาคมขนส่ง</a></li>
+								<li><a href="nonElectric.do">ระบบไฟฟ้า</a></li>
+								<li><a href="nonPipeline.do">ระบบประปา</a></li>
+								<li><a href="nonDrainage.do">ระบบระบายน้ำ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-road fa-fw"></i>
 								สาธารณุปการ<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li><a href="#">เคหะ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="village.do">หมู่บ้าน</a></li>
-										<li><a href="industry.html">การอุตสาหกรรม</a></li>
-										<li><a href="education.html">การศึกษา</a></li>
-										<li><a href="religion.html">การศาสนา</a></li>
-										<li><a href="commerce.html">การพาณิชย์</a></li>
-										<li><a href="tourism.html">แหล่งท่องเที่ยว</a></li>
+										<li><a href="nonVillage.do">หมู่บ้าน</a></li>
+										<li><a href="nonIndustry.do">การอุตสาหกรรม</a></li>
+										<li><a href="nonEducation.do">การศึกษา</a></li>
+										<li><a href="nonReligion.do">การศาสนา</a></li>
+										<li><a href="nonCommerce.do">การพาณิชย์</a></li>
+										<li><a href="nonTourism.do">แหล่งท่องเที่ยว</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 								<li><a href="#">บริการ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="health.html">การสาธารสุข</a></li>
-										<li><a href="security.html">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
+										<li><a href="nonHealth.do">การสาธารสุข</a></li>
+										<li><a href="nonSecurity.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
 										</li>
-										<li><a href="group.html">กลุ่มในชุมชน</a></li>
-										<li><a href="service.html">ศูนย์บริการประชาชน</a></li>
-										<li><a href="inventory.html">การคลัง</a></li>
+										<li><a href="nonGroup.do">กลุ่มในชุมชน</a></li>
+										<li><a href="nonService.do">ศูนย์บริการประชาชน</a></li>
+										<li><a href="nonInventory.do">การคลัง</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-tree fa-fw"></i>
 								ธรรมชาติและสิ่งแวดล้อม<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="agriculture.html">การเกษตรกรรม</a></li>
+								<li><a href="nonAgriculture.do">การเกษตรกรรม</a></li>
 								<li><a href="#">ทรัพยากรธรรมชาติ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="waterresource.html">ทรัพยากรณ์น้ำ</a></li>
-										<li><a href="landresource.html">ทรัพยากรณ์ดิน</a></li>
-										<li><a href="forrestresource.html">ทรัพยากรณ์ป่าไม้</a></li>
+										<li><a href="nonWaterresource.do">ทรัพยากรณ์น้ำ</a></li>
+										<li><a href="nonLandresource.do">ทรัพยากรณ์ดิน</a></li>
+										<li><a href="nonForestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
 									</ul></li>
-								<li><a href="polution.html">มลพิษ</a></li>
+								<li><a href="nonPolution.do">มลพิษ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
-						<li><a href="copy.html"><i class="fa fa-copy"></i>
-								คัดลอกข้อมูล</a></li>
 					</ul>
 				</div>
 				<!-- /.sidebar-collapse -->
@@ -393,82 +348,8 @@ var chart = AmCharts.makeChart( "chartdiv", {
 				</header>
 				<!-- /.col-lg-12 -->
 			</div>
-			<!-- /.row -->
-			<div class="row">
-				<div class="col-lg-3 col-md-6">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<div class="row">
-								<div class="col-xs-3">
-									<i class="fa fa-comments fa-5x"></i>
-								</div>
-								<div id="villageAmount"></div>
-							</div>
-						</div>
-						<div id="villageLink"></div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="panel panel-green">
-						<div class="panel-heading">
-							<div class="row">
-								<div class="col-xs-3">
-									<i class="fa fa-tasks fa-5x"></i>
-								</div>
-								<div id="TourAmount"></div>
-							</div>
-						</div>
-						<div id=TourLink></div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="panel panel-yellow">
-						<div class="panel-heading">
-							<div class="row">
-								<div class="col-xs-3">
-									<i class="fa fa-shopping-cart fa-5x"></i>
-								</div>
-								<div class="col-xs-9 text-right">
-									<div class="huge">124</div>
-									<div>New Orders!</div>
-								</div>
-							</div>
-						</div>
-						<a href="#">
-							<div class="panel-footer">
-								<span class="pull-left">View Details</span> <span
-									class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-								<div class="clearfix"></div>
-							</div>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="panel panel-red">
-						<div class="panel-heading">
-							<div class="row">
-								<div class="col-xs-3">
-									<i class="fa fa-support fa-5x"></i>
-								</div>
-								<div class="col-xs-9 text-right">
-									<div class="huge">13</div>
-									<div>Support Tickets!</div>
-								</div>
-							</div>
-						</div>
-						<a href="#">
-							<div class="panel-footer">
-								<span class="pull-left">View Details</span> <span
-									class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-								<div class="clearfix"></div>
-							</div>
-						</a>
-					</div>
-				</div>
-			</div>
 			<div id="chart_div" style="width: 900px; height: 500px;"></div>
 			<div id="piechart" style="width: 900px; height: 500px;"></div>
-			<div id="chartdiv"></div>
 		</div>
 		<!-- /#page-wrapper -->
 

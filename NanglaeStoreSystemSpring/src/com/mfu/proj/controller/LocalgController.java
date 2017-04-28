@@ -87,4 +87,10 @@ public class LocalgController {
 		
 		return model;
 	}
+	@RequestMapping(value="/nonGroup",method=RequestMethod.GET)
+	public ModelAndView displaynonGroup(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonGroup");
+		
+		return model;
+	}
 }

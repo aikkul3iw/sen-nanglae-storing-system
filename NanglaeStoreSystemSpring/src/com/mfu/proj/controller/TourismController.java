@@ -94,4 +94,10 @@ public class TourismController {
 		
 		return model;
 	}
+	@RequestMapping(value="/nonTourism",method=RequestMethod.GET)
+	public ModelAndView displaynonTourism(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonTourism");
+		
+		return model;
+	}
 }

@@ -94,4 +94,10 @@ public class IndustryController {
 		
 		return model;
 	}
+	@RequestMapping(value="/nonIndustry",method=RequestMethod.GET)
+	public ModelAndView displaynonIndustry(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonIndustry");
+		
+		return model;
+	}
 }

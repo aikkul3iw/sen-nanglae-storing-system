@@ -89,4 +89,10 @@ public class PolutionController {
 		
 		return model;
 	}
+	@RequestMapping(value="/nonPolution",method=RequestMethod.GET)
+	public ModelAndView displaynonPolution(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonPolution");
+		
+		return model;
+	}
 }

@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin 2 - Bootstrap Admin Theme</title>
+<title>เทศบาลตำบลนางแล</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="../NanglaeGov/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -224,7 +224,7 @@
 						class="icon-bar"></span>
 				</button>
 				<img src="../NanglaeGov/images/logo-nanglae.png">
-				<a class="navbar-brand" href="index.jsp">เทศบาลตำบลนางแล</a>
+				<a class="navbar-brand" href="index.do">เทศบาลตำบลนางแล</a>
 			</div>
 			<!-- /.navbar-header -->
 
@@ -411,53 +411,53 @@
 						<li><a href="#"><i class="fa fa-child fa-fw"></i> บุคคล<span
 								class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="personnel.jsp">บุคลากร</a></li>
-								<li><a href="population.jsp">ประชากร</a></li>
-								<li><a href="labor.jsp">แรงงาน</a></li>
+								<li><a href="personnel.do">บุคลากร</a></li>
+								<li><a href="population.do">ประชากร</a></li>
+								<li><a href="labor.do">แรงงาน</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-road fa-fw"></i>
 								สาธารณูปโภค<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="transport.jsp">ระบบคมนาคมขนส่ง</a></li>
-								<li><a href="electric.jsp">ระบบไฟฟ้า</a></li>
-								<li><a href="pipeline.jsp">ระบบประปา</a></li>
-								<li><a href="drainange.jsp">ระบบระบายน้ำ</a></li>
+								<li><a href="transport.do">ระบบคมนาคมขนส่ง</a></li>
+								<li><a href="electric.do">ระบบไฟฟ้า</a></li>
+								<li><a href="pipeline.do">ระบบประปา</a></li>
+								<li><a href="drainange.do">ระบบระบายน้ำ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-home fa-fw"></i>
 								สาธารณุปการ<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li><a href="#">เคหะ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="village.jsp">หมู่บ้าน</a></li>
-										<li><a href="industry.jsp">การอุตสาหกรรม</a></li>
-										<li><a href="education.jsp">การศึกษา</a></li>
-										<li><a href="religion.jsp">การศาสนา</a></li>
-										<li><a href="commerce.jsp">การพาณิชย์</a></li>
-										<li><a href="tourism.jsp">แหล่งท่องเที่ยว</a></li>
+										<li><a href="village.do">หมู่บ้าน</a></li>
+										<li><a href="industry.do">การอุตสาหกรรม</a></li>
+										<li><a href="education.do">การศึกษา</a></li>
+										<li><a href="religion.do">การศาสนา</a></li>
+										<li><a href="commerce.do">การพาณิชย์</a></li>
+										<li><a href="tourism.do">แหล่งท่องเที่ยว</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 								<li><a href="#">บริการ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="health.html">การสาธารสุข</a></li>
-										<li><a href="security.html">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
+										<li><a href="health.do">การสาธารสุข</a></li>
+										<li><a href="security.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
 										</li>
-										<li><a href="group.jsp">กลุ่มในชุมชน</a></li>
-										<li><a href="service.jsp">ศูนย์บริการประชาชน</a></li>
-										<li><a href="inventory.jsp">การคลัง</a></li>
+										<li><a href="group.do">กลุ่มในชุมชน</a></li>
+										<li><a href="service.do">ศูนย์บริการประชาชน</a></li>
+										<li><a href="inventory.do">การคลัง</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="glyphicon glyphicon-leaf"></i>
 								ธรรมชาติและสิ่งแวดล้อม<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="agriculture.jsp">การเกษตรกรรม</a></li>
+								<li><a href="agriculture.do">การเกษตรกรรม</a></li>
 								<li><a href="#">ทรัพยากรธรรมชาติ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="waterresource.jsp">ทรัพยากรณ์น้ำ</a></li>
-										<li><a href="landresource.jsp">ทรัพยากรณ์ดิน</a></li>
-										<li><a href="forrestresource.jsp">ทรัพยากรณ์ป่าไม้</a></li>
+										<li><a href="waterresource.do">ทรัพยากรณ์น้ำ</a></li>
+										<li><a href="landresource.do">ทรัพยากรณ์ดิน</a></li>
+										<li><a href="forrestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
 									</ul></li>
-								<li><a href="polution.jsp">มลพิษ</a></li>
+								<li><a href="polution.do">มลพิษ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
-						<li><a href="copy.jsp"><i class="fa fa-copy"></i>
+						<li><a href="copy.do"><i class="fa fa-copy"></i>
 								คัดลอกข้อมูล</a></li>
 					</ul>
 				</div>

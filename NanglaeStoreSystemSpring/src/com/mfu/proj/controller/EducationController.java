@@ -97,4 +97,10 @@ public class EducationController {
 		
 		return model;
 	}
+	@RequestMapping(value="/nonEducation",method=RequestMethod.GET)
+	public ModelAndView displaynonEducation(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonEducation");
+		
+		return model;
+	}
 }

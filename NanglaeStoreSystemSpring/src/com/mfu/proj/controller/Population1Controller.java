@@ -94,4 +94,10 @@ public class Population1Controller {
 		
 		return model;
 	}
+	@RequestMapping(value="/nonPopulation",method=RequestMethod.GET)
+	public ModelAndView displaynonPopulation(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonPopulation");
+		
+		return model;
+	}
 }

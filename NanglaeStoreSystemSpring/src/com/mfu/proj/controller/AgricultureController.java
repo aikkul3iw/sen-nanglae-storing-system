@@ -89,4 +89,10 @@ public class AgricultureController {
 		
 		return model;
 	}
+	@RequestMapping(value="/nonAgriculture",method=RequestMethod.GET)
+	public ModelAndView displaynonVillage(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonAgriculture");
+		
+		return model;
+	}
 }

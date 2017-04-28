@@ -95,4 +95,10 @@ public class WaterController {
 		
 		return model;
 	}
+	@RequestMapping(value="/nonWaterresource",method=RequestMethod.GET)
+	public ModelAndView displaynonWaterresource(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonWaterresource");
+		
+		return model;
+	}
 }

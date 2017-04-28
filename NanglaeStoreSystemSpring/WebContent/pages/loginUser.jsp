@@ -35,7 +35,7 @@
 
 </head>
 
-<body>
+<body style="background-color: #d7f0f5">
 
     <div class="container">
         <div class="row">
@@ -48,11 +48,12 @@
 		<form:form id="loginForm" method="post" action="login.do" modelAttribute="loginBean">
 
 			<form:label path="username">ชื่อผู้ใช้งาน</form:label>
-			<form:input class="form-control" placeholder="Username" id="username" name="username" path="username" /><br>
+			<form:input class="form-control" placeholder="ผู้ใช้งาน" id="username" name="username" path="username" /><br>
 			
 			<form:label path="password">รหัสผ่าน</form:label>
-			<form:password class="form-control" placeholder="Password" id="password" name="password" path="password" /><br>
-			<input class="btn btn-lg btn-success btn-block" type="submit" value="Submit" />
+			<form:password class="form-control" placeholder="รหัสผ่าน" id="password" name="password" path="password" /><br>
+			<a href="logout.do"><input  class="btn btn-danger" style="width: 160px" value="ยกเลิก" /></a>
+			<input class="btn btn-success" style="width: 160px" type="submit" value="เข้าสู่ระบบ" />
 		</form:form>
 	 </div>
                 </div>

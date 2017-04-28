@@ -89,4 +89,10 @@ public class LandResourceController {
 		
 		return model;
 	}
+	@RequestMapping(value="/nonLandresource",method=RequestMethod.GET)
+	public ModelAndView displaynonLandResource(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonLandresource");
+		
+		return model;
+	}
 }

@@ -99,4 +99,10 @@ public class PipelineController {
 		
 		return model;
 	}
+	@RequestMapping(value="/nonPipeline",method=RequestMethod.GET)
+	public ModelAndView displaynonPipeline(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonPipeline");
+		
+		return model;
+	}
 }

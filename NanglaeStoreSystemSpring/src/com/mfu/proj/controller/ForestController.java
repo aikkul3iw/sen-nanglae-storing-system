@@ -97,4 +97,10 @@ public class ForestController {
 		
 		return model;
 	}
+	@RequestMapping(value="/nonForestresource",method=RequestMethod.GET)
+	public ModelAndView displaynonForestresource(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonForestresource");
+		
+		return model;
+	}
 }

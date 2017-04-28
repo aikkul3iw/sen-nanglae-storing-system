@@ -81,9 +81,9 @@ public class PersonnelController {
 
 		return result;
 	}
-	@RequestMapping(value="/non-personel",method=RequestMethod.GET)
-	public ModelAndView displayLogin(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("non-personel");
+	@RequestMapping(value="/nonPersonnel",method=RequestMethod.GET)
+	public ModelAndView displaynonPersonnel(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonPersonnel");
 		return model;
 	}
 	

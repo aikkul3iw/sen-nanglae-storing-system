@@ -94,4 +94,10 @@ public class ReligionController {
 		
 		return model;
 	}
+	@RequestMapping(value="/nonReligion",method=RequestMethod.GET)
+	public ModelAndView displaynonReligion(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonReligion");
+		
+		return model;
+	}
 }

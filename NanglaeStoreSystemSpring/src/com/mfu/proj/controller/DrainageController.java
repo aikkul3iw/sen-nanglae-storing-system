@@ -99,4 +99,10 @@ public class DrainageController {
 		
 		return model;
 	}
+	@RequestMapping(value="/nonDrainage",method=RequestMethod.GET)
+	public ModelAndView displaynonDrainage(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonDrainage");
+		
+		return model;
+	}
 }
