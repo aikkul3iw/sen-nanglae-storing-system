@@ -409,65 +409,9 @@
 				<!-- /.dropdown -->
 			</ul>
 			<!-- /.navbar-top-links -->
-
-			<div class="navbar-default sidebar" role="navigation">
-				<div class="sidebar-nav navbar-collapse">
-					<ul class="nav" id="side-menu">
-						<li><a href="#"><i class="fa fa-child fa-fw"></i> บุคคล<span
-								class="fa arrow"></span></a>
-							<ul class="nav nav-second-level">
-								<li><a href="personnel.html">บุคลากร</a></li>
-								<li><a href="population.html">ประชากร</a></li>
-								<li><a href="labor.html">แรงงาน</a></li>
-							</ul> <!-- /.nav-second-level --></li>
-						<li><a href="#"><i class="fa fa-road fa-fw"></i>
-								สาธารณูปโภค<span class="fa arrow"></span></a>
-							<ul class="nav nav-second-level">
-								<li><a href="transport.html">ระบบคมนาคมขนส่ง</a></li>
-								<li><a href="electric.html">ระบบไฟฟ้า</a></li>
-								<li><a href="pipeline.html">ระบบประปา</a></li>
-								<li><a href="drainange.html">ระบบระบายน้ำ</a></li>
-							</ul> <!-- /.nav-second-level --></li>
-						<li><a href="#"><i class="fa fa-home fa-fw"></i>
-								สาธารณุปการ<span class="fa arrow"></span></a>
-							<ul class="nav nav-second-level">
-								<li><a href="#">เคหะ<span class="fa arrow"></span></a>
-									<ul class="nav nav-third-level">
-										<li><a href="village.html">หมู่บ้าน</a></li>
-										<li><a href="industry.html">การอุตสาหกรรม</a></li>
-										<li><a href="education.html">การศึกษา</a></li>
-										<li><a href="religion.html">การศาสนา</a></li>
-										<li><a href="commerce.html">การพาณิชย์</a></li>
-										<li><a href="tourism.html">แหล่งท่องเที่ยว</a></li>
-									</ul> <!-- /.nav-third-level --></li>
-								<li><a href="#">บริการ<span class="fa arrow"></span></a>
-									<ul class="nav nav-third-level">
-										<li><a href="health.html">การสาธารสุข</a></li>
-										<li><a href="security.html">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
-										</li>
-										<li><a href="group.html">กลุ่มในชุมชน</a></li>
-										<li><a href="service.html">ศูนย์บริการประชาชน</a></li>
-										<li><a href="inventory.html">การคลัง</a></li>
-									</ul> <!-- /.nav-third-level --></li>
-							</ul> <!-- /.nav-second-level --></li>
-						<li><a href="#"><i class="glyphicon glyphicon-leaf"></i>
-								ธรรมชาติและสิ่งแวดล้อม<span class="fa arrow"></span></a>
-							<ul class="nav nav-second-level">
-								<li><a href="agriculture.html">การเกษตรกรรม</a></li>
-								<li><a href="#">ทรัพยากรธรรมชาติ<span class="fa arrow"></span></a>
-									<ul class="nav nav-third-level">
-										<li><a href="waterresource.html">ทรัพยากรณ์น้ำ</a></li>
-										<li><a href="landresource.html">ทรัพยากรณ์ดิน</a></li>
-										<li><a href="forrestresource.html">ทรัพยากรณ์ป่าไม้</a></li>
-									</ul></li>
-								<li><a href="polution.html">มลพิษ</a></li>
-							</ul> <!-- /.nav-second-level --></li>
-						<li><a href="copy.html"><i class="fa fa-copy"></i>
-								คัดลอกข้อมูล</a></li>
-					</ul>
-				</div>
-				<!-- /.sidebar-collapse -->
-			</div>
+			
+			<!-- / .menu slide bar -->
+			<%@include file="menu.jsp" %>
 		</nav>
 		<div id="page-wrapper">
 			<div class="row">

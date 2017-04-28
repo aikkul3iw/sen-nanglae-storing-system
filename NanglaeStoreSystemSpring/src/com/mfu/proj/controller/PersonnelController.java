@@ -86,4 +86,11 @@ public class PersonnelController {
 		ModelAndView model = new ModelAndView("non-personel");
 		return model;
 	}
+	
+	@RequestMapping(value="/personnel",method=RequestMethod.GET)
+	public ModelAndView displayPersonnel(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("personnel");
+		
+		return model;
+	}
 }

@@ -4,11 +4,14 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.proj.ejb.entity.Localg;
 import com.proj.ejb.face.LocalgService;
@@ -76,5 +79,12 @@ public class LocalgController {
 		}
 
 		return result;
+	}
+	
+	@RequestMapping(value="/group",method=RequestMethod.GET)
+	public ModelAndView displayGroup(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("group");
+		
+		return model;
 	}
 }
