@@ -90,4 +90,10 @@ public class VillageController {
 
 		return result;
 	}
+	@RequestMapping(value="/nonVillage",method=RequestMethod.GET)
+	public ModelAndView displaynonVillage(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("nonVillage");
+		
+		return model;
+	}
 }

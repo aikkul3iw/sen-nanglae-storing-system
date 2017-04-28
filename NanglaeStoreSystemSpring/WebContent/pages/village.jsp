@@ -215,7 +215,7 @@
 
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
-			style="margin-bottom: 0">
+			style="margin-bottom: 0;background-color: #98c3e8">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-collapse">
@@ -223,7 +223,8 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.html">เทศบาลตำบลนางแล</a>
+				<img src="../NanglaeGov/images/logo-nanglae.png">
+				<a class="navbar-brand" href="index.jsp">เทศบาลตำบลนางแล</a>
 			</div>
 			<!-- /.navbar-header -->
 
@@ -410,60 +411,60 @@
 						<li><a href="#"><i class="fa fa-child fa-fw"></i> บุคคล<span
 								class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="personnel.html">บุคลากร</a></li>
-								<li><a href="population.html">ประชากร</a></li>
-								<li><a href="labor.html">แรงงาน</a></li>
+								<li><a href="personnel.jsp">บุคลากร</a></li>
+								<li><a href="population.jsp">ประชากร</a></li>
+								<li><a href="labor.jsp">แรงงาน</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-road fa-fw"></i>
 								สาธารณูปโภค<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="transport.html">ระบบคมนาคมขนส่ง</a></li>
-								<li><a href="electric.html">ระบบไฟฟ้า</a></li>
-								<li><a href="pipeline.html">ระบบประปา</a></li>
-								<li><a href="drainange.html">ระบบระบายน้ำ</a></li>
+								<li><a href="transport.jsp">ระบบคมนาคมขนส่ง</a></li>
+								<li><a href="electric.jsp">ระบบไฟฟ้า</a></li>
+								<li><a href="pipeline.jsp">ระบบประปา</a></li>
+								<li><a href="drainange.jsp">ระบบระบายน้ำ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-home fa-fw"></i>
 								สาธารณุปการ<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li><a href="#">เคหะ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="village.html">หมู่บ้าน</a></li>
-										<li><a href="industry.html">การอุตสาหกรรม</a></li>
-										<li><a href="education.html">การศึกษา</a></li>
-										<li><a href="religion.html">การศาสนา</a></li>
-										<li><a href="commerce.html">การพาณิชย์</a></li>
-										<li><a href="tourism.html">แหล่งท่องเที่ยว</a></li>
+										<li><a href="village.jsp">หมู่บ้าน</a></li>
+										<li><a href="industry.jsp">การอุตสาหกรรม</a></li>
+										<li><a href="education.jsp">การศึกษา</a></li>
+										<li><a href="religion.jsp">การศาสนา</a></li>
+										<li><a href="commerce.jsp">การพาณิชย์</a></li>
+										<li><a href="tourism.jsp">แหล่งท่องเที่ยว</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 								<li><a href="#">บริการ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
 										<li><a href="health.html">การสาธารสุข</a></li>
 										<li><a href="security.html">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
 										</li>
-										<li><a href="group.html">กลุ่มในชุมชน</a></li>
-										<li><a href="service.html">ศูนย์บริการประชาชน</a></li>
-										<li><a href="inventory.html">การคลัง</a></li>
+										<li><a href="group.jsp">กลุ่มในชุมชน</a></li>
+										<li><a href="service.jsp">ศูนย์บริการประชาชน</a></li>
+										<li><a href="inventory.jsp">การคลัง</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="glyphicon glyphicon-leaf"></i>
 								ธรรมชาติและสิ่งแวดล้อม<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="agriculture.html">การเกษตรกรรม</a></li>
+								<li><a href="agriculture.jsp">การเกษตรกรรม</a></li>
 								<li><a href="#">ทรัพยากรธรรมชาติ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="waterresource.html">ทรัพยากรณ์น้ำ</a></li>
-										<li><a href="landresource.html">ทรัพยากรณ์ดิน</a></li>
-										<li><a href="forrestresource.html">ทรัพยากรณ์ป่าไม้</a></li>
+										<li><a href="waterresource.jsp">ทรัพยากรณ์น้ำ</a></li>
+										<li><a href="landresource.jsp">ทรัพยากรณ์ดิน</a></li>
+										<li><a href="forrestresource.jsp">ทรัพยากรณ์ป่าไม้</a></li>
 									</ul></li>
-								<li><a href="polution.html">มลพิษ</a></li>
+								<li><a href="polution.jsp">มลพิษ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
-						<li><a href="copy.html"><i class="fa fa-copy"></i>
+						<li><a href="copy.jsp"><i class="fa fa-copy"></i>
 								คัดลอกข้อมูล</a></li>
 					</ul>
 				</div>
 				<!-- /.sidebar-collapse -->
 			</div>
 		</nav>
-		<div id="page-wrapper">
+		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
 				<div class="col-lg-12">
 					<h1 class="page-header">หมู่บ้าน</h1>
