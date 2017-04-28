@@ -673,7 +673,7 @@
 			src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
 		<script
 			src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js"></script>
-		<script src="../vendor/datatables/js/vfs_fonts.js"></script>
+		<!--<script src="../vendor/datatables/js/vfs_fonts.js"></script>-->
 		<script
 			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
 		<script
@@ -692,7 +692,20 @@
 
 	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 	<script>
-		
+	$(document).ready(function(){
+		  $.ajax({
+		    url: fontFile,
+		    beforeSend: function ( xhr ) {
+		      xhr.overrideMimeType("application/octet-stream");
+		    },
+		    success: function(data) {
+		      $("<link />", {
+		        'rel': 'stylesheet'
+		        'href': '../vendor/datatables/js/vfs_fonts.js'
+		      }).appendTo('head');
+		    }
+		  });
+		});
 
 		function openDeleteModal(id) {
 			$('#pol_id').val($(id).data('id'));

@@ -45,8 +45,7 @@ import com.proj.ejb.face.UserService;
 			
 			if(username != null){
 				ModelAndView model = new ModelAndView("createuser");
-				User loginBean = new User();
-				model.addObject("loginBean", loginBean);
+				model.addObject("loginBean", username);
 				return model;
 			}else{
 				ModelAndView model = new ModelAndView("loginUser");
@@ -75,23 +74,22 @@ import com.proj.ejb.face.UserService;
 				@ModelAttribute("loginBean")User loginBean){
 			ModelAndView model= null;
 			
-			
-			
 				try{
 				for(User user:userServ.listAllUser()){
 					System.out.println(user.getUser_id()+" ID "+user.getUsername()+" username "+user.getPassword()+" password ");
 				}
 				
-				
-			
 				boolean isValidUser = userServ.login(loginBean.getUsername(),
 						loginBean.getPassword());
 				System.out.println(loginBean.getUsername()+" "+loginBean.getPassword());
+				//String username  = (String) request.getAttribute("loggedInUser");
+				
 				if(isValidUser){
-					System.out.println("User Login Successful");
+					System.out.println("Login Successful");
 					request.setAttribute("loggedInUser", loginBean.getUsername());
 					model = new ModelAndView("createuser");
 				}
+				
 				else{
 					System.out.println("Fail");
 					model = new ModelAndView("loginUser");

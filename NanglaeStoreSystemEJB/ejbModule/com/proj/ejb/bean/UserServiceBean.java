@@ -60,6 +60,30 @@ public class UserServiceBean implements UserService{
 		return isLoginSuccess;
 	}
 	
+	public boolean RoleSuperuser(String role){
+		boolean  isLoginSuccess = false;
+		
+		List<User> list = em.createQuery("SELECT user FROM User user WHERE user.role = :1")
+				.setParameter("role", role).getResultList();
+		System.out.println("intro"+list.size());
+		if(!list.isEmpty()){
+			isLoginSuccess = true;
+		}
+		return isLoginSuccess;
+	}
+	
+	public boolean RoleUser(String role){
+		boolean  isLoginSuccess = false;
+		
+		List<User> list = em.createQuery("SELECT user FROM User user WHERE user.role = :2")
+				.setParameter("role", role).getResultList();
+		System.out.println("intro"+list.size());
+		if(!list.isEmpty()){
+			isLoginSuccess = true;
+		}
+		return isLoginSuccess;
+	}
+	
 }
 
 
