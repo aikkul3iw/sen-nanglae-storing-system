@@ -56,7 +56,7 @@
 			<!-- <form:label path="role">ตำแหน่งผู้ใช้งาน</form:label>
 			<form:input class="form-control" placeholder="ตำแหน่งผู้ใช้งาน" id="role" name="role" path="role" /><br> -->
 			
-			 <form:label path="role">ตำแหน่งผู้ใช้งาน</form:label>
+			<form:label path="role">ตำแหน่งผู้ใช้งาน</form:label>
             <form:select path="role">
 				<form:option value="1" label="1" />
 				<form:option value="2" label="2" />

@@ -784,56 +784,13 @@
 		<script
 			src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
 
-	<!-- Mask plug-in -->
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/qunit/qunit-1.11.0.js"></script>
-    
-    <script type="text/javascript" src="../NanglaeGov/js/sinon-1.10.3.js"></script>
-    <script type="text/javascript" src="../NanglaeGov/js/sinon-qunit-1.0.0.js"></script>
-    
-    <script type="text/javascript" src="../NanglaeGov/js/jquery.mask.js"></script>
-    <script type="text/javascript" src="../NanglaeGov/js/jquery.mask.test.js"></script>
+	
 	
 	<!-- Custom Theme JavaScript -->
 	<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
 
 	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 	<script>	
-	$(document).ready(function(){
-		  $('.date').mask('00/00/0000');
-		  $('.time').mask('00:00:00');
-		  $('.date_time').mask('00/00/0000 00:00:00');
-		  $('.cep').mask('00000-000');
-		  $('.phone').mask('0000-0000');
-		  $('.phone_with_ddd').mask('(00) 0000-0000');
-		  $('.phone_us').mask('(000) 000-0000');
-		  $('.mixed').mask('AAA 000-S0S');
-		  $('.cpf').mask('000.000.000-00', {reverse: true});
-		  $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
-		  $('.money').mask('000.000.000.000.000,00', {reverse: true});
-		  $('.money2').mask("#.##0,00", {reverse: true});
-		  $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
-		    translation: {
-		      'Z': {
-		        pattern: /[0-9]/, optional: true
-		      }
-		    }
-		  });
-		  $('.ip_address').mask('099.099.099.099');
-		  $('.percent').mask('##0,00%', {reverse: true});
-		  $('.clear-if-not-match').mask("00/00/0000", {clearIfNotMatch: true});
-		  $('.placeholder').mask("00/00/0000", {placeholder: "__/__/____"});
-		  $('.fallback').mask("00r00r0000", {
-		      translation: {
-		        'r': {
-		          pattern: /[\/]/,
-		          fallback: '/'
-		        },
-		        placeholder: "__/__/____"
-		      }
-		    });
-		  $('.selectonfocus').mask("00/00/0000", {selectOnFocus: true});
-		});
 	
 	function openDeleteModal(id) {
 			$('#per_id').val($(id).data('id'));
