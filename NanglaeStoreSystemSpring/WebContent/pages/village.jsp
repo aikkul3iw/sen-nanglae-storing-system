@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,25 +14,49 @@
 <title>เทศบาลตำบลนางแล</title>
 
 <!-- Bootstrap Core CSS -->
-<link href="../NanglaeGov/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="../NanglaeGov/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
 
 <!-- MetisMenu CSS -->
-<link href="../NanglaeGov/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+<link href="../NanglaeGov/vendor/metisMenu/metisMenu.min.css"
+	rel="stylesheet">
 
 <!-- DataTables CSS -->
-<link href="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.css"
+<link
+	href="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.css"
 	rel="stylesheet">
 
 <!-- DataTables Responsive CSS -->
-<link href="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.css"
+<link
+	href="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.css"
 	rel="stylesheet">
 
 <!-- Custom CSS -->
 <link href="../NanglaeGov/dist/css/sb-admin-2.css" rel="stylesheet">
+<link href="../NanglaeGov/dist/css/sweetalert2.min.css" rel="stylesheet">
 
 <!-- Custom Fonts -->
 <link href="../NanglaeGov/vendor/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
+<!-- Data Table -->
+<link
+	href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"
+	rel="stylesheet">
+<link
+	href="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"
+	rel="stylesheet">
+<link
+	href="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"
+	rel="stylesheet">
+<link
+	href="https://cdn.datatables.net/buttons/1.3.1/js/buttons.bootstrap.min.js"
+	rel="stylesheet">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -57,25 +81,25 @@
 							+ data[i].vil_number + "</td>" + "<td>"
 							+ data[i].vil_name + "</td>" + "<td>"
 							+ data[i].vil_chief + "</td>"
-							+ "<td style=\"text-align: center;\"><button href=\"#editVillage\" data-toggle=\"tab\" onclick=\"setEditVillage("+ data[i].vil_id + ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button data-toggle=\"modal\" data-id="+data[i].vil_id+" onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
+							+ "<td style=\"text-align: center;\"><button href=\"#editVillage\" data-toggle=\"tab\" onclick=\"setEditVillage("+ data[i].vil_id + ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteVillage("+data[i].vil_id+");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 							
 					html += "</tr>";
 					}
 				}
 				$('#listVillages').html(html);
-				$('#resultTable').DataTable({
+				$(document).ready(function() {
+				    var table = $('#resultTable').DataTable( {
+				        lengthChange: false,
+				        buttons: [ 'copy', 'excel', {extend:'pdf',
+				        	
+							customize : function(doc) {
+								doc.defaultStyle['font'] = 'THSarabun';
+							}}, 'colvis']
+				        });
+				    table.buttons().container()
+			        .appendTo( '#page-wrapper .col-sm-6:eq(0)' );
+				} );
 
-					dom : 'Bfrtip',
-					buttons : [ {
-						extend : 'pdfHtml5',
-						exportOptions : {
-							columns : [ 0, 1, 2, 3 ]
-						},
-						customize : function(doc) {
-							doc.defaultStyle['font'] = 'THSarabun';
-						}
-					}, 'excelHtml5' ]
-				});
 				$("#loader").hide();
 			},
 			error : function(data, status, er) {
@@ -118,9 +142,12 @@
 			contentType : "application/json",
 			mimeType : "application/json",
 			success : function(data) {
-				//alert('บันทึกข้อมูลเสร็จสิ้น');
-				$("#loader").hide();
-				location.reload();
+				swal({
+					  title: 'บันทึกข้อมูลสำเร็จ',
+					  type: 'success'
+					}).then(function () {
+						location.reload();
+					});
 				
 			},
 			error : function(data, status, er) {
@@ -130,22 +157,33 @@
 		});
 		}
 	}
-	function deleteVillage() {
-		var id = document.getElementById("vil_id").value;
-		var obj = {
-			vil_id : id
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteVillage.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
+	function deleteVillage(vil_id) {
+		swal({
+			  title: 'Are you sure?',
+			  text: "You won't be able to revert this!",
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Yes, delete it!'
+			}).then(function () {
+				var id = vil_id;
+				var obj = {
+					vil_id : id
+				};
+				$.ajax({
+					url : "../NanglaeGov/deleteVillage.do",
+					type : "POST",
+					dataType : "JSON",
+					data : JSON.stringify(obj),
+					contentType : "application/json",
+					mimeType : "application/json",
+					success : function(data) {
+						location.reload();
+					}
+				});
+			});
+		
 	}
 	function editVillage() {
 		var obj = {
@@ -165,8 +203,12 @@
 			contentType : "application/json",
 			mimeType : "application/json",
 			success : function(data) {
-				//alert('บันทึกข้อมูลเสร็จสิ้น');
-				location.reload();
+				swal({
+					  title: 'บันทึกข้อมูลสำเร็จ',
+					  type: 'success'
+					}).then(function () {
+						location.reload();
+					});
 			},
 			error : function(data, status, er) {
 				alert('ไม่สามารถบันทึกข้อมูลได้');
@@ -215,7 +257,7 @@
 
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
-			style="margin-bottom: 0;background-color: #98c3e8">
+			style="margin-bottom: 0; background-color: #98c3e8">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-collapse">
@@ -223,8 +265,8 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<img src="../NanglaeGov/images/logo-nanglae.png">
-				<a class="navbar-brand" href="index.do">เทศบาลตำบลนางแล</a>
+				<img src="../NanglaeGov/images/logo-nanglae.png"> <a
+					class="navbar-brand" href="index.do">เทศบาลตำบลนางแล</a>
 			</div>
 			<!-- /.navbar-header -->
 
@@ -654,7 +696,8 @@
 		<script src="../NanglaeGov/vendor/metisMenu/metisMenu.min.js"></script>
 
 		<!-- DataTables JavaScript -->
-		<script src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
+		<script
+			src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
 		<script
 			src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
 		<script
@@ -664,8 +707,10 @@
 			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
 		<script
 			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
-		<script src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-		<script src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script>
+		<script
+			src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+		<script
+			src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script>
 		<script
 			src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.bootstrap.min.js"></script>
 		<script
@@ -675,6 +720,7 @@
 
 		<!-- Custom Theme JavaScript -->
 		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
+		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
 
 		<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 		<script>
