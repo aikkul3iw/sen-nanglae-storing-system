@@ -45,25 +45,8 @@
 <link
 	href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.bootstrap.min.css"
 	rel="stylesheet">
-<link
-	href="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"
-	rel="stylesheet">
-<link
-	href="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"
-	rel="stylesheet">
-<link
-	href="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"
-	rel="stylesheet">
-<link
-	href="https://cdn.datatables.net/buttons/1.3.1/js/buttons.bootstrap.min.js"
-	rel="stylesheet">
 
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
 	function listVillage() {
@@ -722,73 +705,7 @@
 		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
 		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
 
-		<!-- Page-Level Demo Scripts - Tables - Use for reference -->
-		<script>
-			$(document).ready(function() {
-				$('#dataTables-example').DataTable({
-					responsive : true
-				});
-			});
-		</script>
-		<script type="text/javascript">
-		$(document).ready(function()) {
-		    $('#formCreate').bootstrapValidator({
-		        container: '#messages',
-		        feedbackIcons: {
-		            valid: 'glyphicon glyphicon-ok',
-		            invalid: 'glyphicon glyphicon-remove',
-		            validating: 'glyphicon glyphicon-refresh'
-		        },
-		        fields: {
-		            vil_year: {
-		                validators: {
-		                    notEmpty: {
-		                        message: 'The full name is required and cannot be empty'
-		                    }
-		                }
-		            },
-		            vil_number: {
-		                validators: {
-		                    notEmpty: {
-		                        message: 'The full name is required and cannot be empty'
-		                    }
-		                }
-		            },
-		            vil_name: {
-		                validators: {
-		                    notEmpty: {
-		                        message: 'The full name is required and cannot be empty'
-		                    }
-		                }
-		            },
-		            vil_chief: {
-		                validators: {
-		                    notEmpty: {
-		                        message: 'The content is required and cannot be empty'
-		                    },
-		                    stringLength: {
-		                        max: 500,
-		                        message: 'The content must be less than 500 characters long'
-		                    }
-		                }
-		            }
-		        }
-		    });
-		});
-		</script>
-		<script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-    });
-    
-    function openDeleteModal(id) {
-        $('#vil_id').val($(id).data('id'));
-        $('#DeleteModal').modal('show');
-	}
-    
-    </script>
+
 </body>
 
 </html>

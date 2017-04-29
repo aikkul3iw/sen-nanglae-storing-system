@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,19 +12,21 @@
 
 <title>เทศบาลตำบลนางแล</title>
 
-<!-- Bootstrap Core CSS -->
-<link href="../NanglaeGov/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- MetisMenu CSS -->
-<link href="../NanglaeGov/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-
-<!-- DataTables CSS -->
-<link href="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.css"
+<link href="../NanglaeGov/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
 
+<!-- MetisMenu CSS -->
+<link href="../NanglaeGov/vendor/metisMenu/metisMenu.min.css"
+	rel="stylesheet">
+
+<!-- DataTables CSS -->
+<link
+	href="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.css"
+	rel="stylesheet">
 
 <!-- DataTables Responsive CSS -->
-<link href="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.css"
+<link
+	href="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.css"
 	rel="stylesheet">
 
 <!-- Custom CSS -->
@@ -34,12 +36,12 @@
 <link href="../NanglaeGov/vendor/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
 
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+<link
+	href="//cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="//cdn.datatables.net/buttons/1.3.1/css/buttons.bootstrap.min.css"
+	rel="stylesheet">
 
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
@@ -75,19 +77,32 @@
 							html += "</tr>";
 						}
 						$('#listAgriculture').html(html);
-						$('#resultTable').DataTable({
+						$(document)
+								.ready(
+										function() {
+											var table = $('#resultTable')
+													.DataTable(
+															{
+																lengthChange : false,
+																buttons : [
+																		'copy',
+																		'excel',
+																		{
+																			extend : 'pdf',
 
-							dom : 'Bfrtip',
-							buttons : [ {
-								extend : 'pdfHtml5',
-								exportOptions : {
-									columns : [ 0, 1, 2, 3 ]
-								},
-								customize : function(doc) {
-									doc.defaultStyle['font'] = 'THSarabun';
-								}
-							}, 'excelHtml5' ]
-						});
+																			customize : function(
+																					doc) {
+																				doc.defaultStyle['font'] = 'THSarabun';
+																			}
+																		},
+																		'colvis' ]
+															});
+											table
+													.buttons()
+													.container()
+													.appendTo(
+															'#page-wrapper .col-sm-6:eq(0)');
+										});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -221,7 +236,7 @@
 
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
-			style="margin-bottom: 0;background-color: #98c3e8">
+			style="margin-bottom: 0; background-color: #98c3e8">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-collapse">
@@ -229,8 +244,8 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<img src="../NanglaeGov/images/logo-nanglae.png">
-				<a class="navbar-brand" href="index.do">เทศบาลตำบลนางแล</a>
+				<img src="../NanglaeGov/images/logo-nanglae.png"> <a
+					class="navbar-brand" href="index.do">เทศบาลตำบลนางแล</a>
 			</div>
 			<!-- /.navbar-header -->
 
@@ -503,7 +518,7 @@
 											<table id="resultTable"
 												class="table table-striped table-bordered table-hover">
 
-<!-- Start change table -->
+												<!-- Start change table -->
 												<thead>
 													<tr>
 														<th>ปีที่ข้อมูล</th>
@@ -515,7 +530,7 @@
 												</thead>
 												<tbody id="listAgriculture">
 												</tbody>
-<!-- End change table -->
+												<!-- End change table -->
 											</table>
 										</div>
 									</div>
@@ -545,8 +560,9 @@
 												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">การทำการเกษตร</td>
-															class="form-control" placeholder="ระบุรายละเอียด"
-															name="vil-name" required="true"></textarea></td>
+													<td><textarea id="edit_description" maxlength="255"
+															class="form-control" placeholder="ระบุละเอียดเพิ่มเติม" name="vil-name"
+															required="true"></textarea></td>
 												</tr>
 												<tr>
 													<td></td>
@@ -652,40 +668,24 @@
 		<script src="../NanglaeGov/vendor/metisMenu/metisMenu.min.js"></script>
 
 		<!-- DataTables JavaScript -->
-		<script src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
+		<script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 		<script
-			src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+			src="//cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
 		<script
-			src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js"></script>
+			src="//cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
+		<script
+			src="//cdn.datatables.net/buttons/1.3.1/js/buttons.bootstrap.min.js"></script>
+		<script
+			src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
 		<script src="../NanglaeGov/vendor/datatables/js/vfs_fonts.js"></script>
 		<script
-			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
+			src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
 		<script
-			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
-		<script src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-		<script src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script>
-		<script
-			src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.bootstrap.min.js"></script>
-		<script
-			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
-		<script
-			src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-
+			src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script><!-- Button JavaScript -->
+		<script src="../NanglaeGov/js/buttons.bootstrap.min.js"></script>
 
 		<!-- Custom Theme JavaScript -->
 		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
-
-		<!-- Page-Level Demo Scripts - Tables - Use for reference -->
-		<script>
-			$(document).ready(function() {
-
-			});
-
-			function openDeleteModal(id) {
-				$('#agi_id').val($(id).data('id'));
-				$('#DeleteModal').modal('show');
-			}
-		</script>
 </body>
 
 </html>
