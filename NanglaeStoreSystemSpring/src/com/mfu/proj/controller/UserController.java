@@ -84,10 +84,22 @@ import com.proj.ejb.face.UserService;
 				System.out.println(loginBean.getUsername()+" "+loginBean.getPassword());
 				//String username  = (String) request.getAttribute("loggedInUser");
 				
+				String role = userServ.Role(loginBean.getRole());
 				if(isValidUser){
-					System.out.println("Login Successful");
-					request.setAttribute("loggedInUser", loginBean.getUsername());
-					model = new ModelAndView("createuser");
+					if(role.equalsIgnoreCase("1")){
+						System.out.println("Login Superuser Successful");
+						request.setAttribute("loggedInUser", loginBean.getUsername());
+						model = new ModelAndView("createuser");
+					}else if(role.equalsIgnoreCase("2")){
+						System.out.println("Login User Successful");
+						request.setAttribute("loggedInUser", loginBean.getUsername());
+						model = new ModelAndView("index");
+					}else{
+						System.out.println("Fail");
+						model = new ModelAndView("loginUser");
+						model.addObject("loginBean", loginBean);
+						request.setAttribute("loginBean", "Invalid credentials!!");
+					}
 				}
 				
 				else{
@@ -171,5 +183,5 @@ import com.proj.ejb.face.UserService;
 			return result;
 		}
 		
-
+		
 }

@@ -84,6 +84,15 @@ public class UserServiceBean implements UserService{
 		return isLoginSuccess;
 	}
 	
+	public String Role(String role) {
+		List<User> list = em.createQuery("SELECT user FROM User user WHERE user.role = :role")
+				.setParameter("role", role).getResultList();
+		if(!list.isEmpty()){
+			
+		}
+		return role;
+		
+	}
 }
 
 

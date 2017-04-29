@@ -14,4 +14,5 @@ public interface UserService {
 	public boolean login(String username,String password);
 	public boolean RoleSuperuser(String role);
 	public boolean RoleUser(String role);
+	public String Role(String role);
 }
