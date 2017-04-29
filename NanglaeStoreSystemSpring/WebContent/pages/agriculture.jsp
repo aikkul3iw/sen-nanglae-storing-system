@@ -171,7 +171,7 @@
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../saveAgriculture.do",
+			url : "../NanglaeGov/saveAgriculture.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -193,7 +193,7 @@
 		};
 
 		$.ajax({
-			url : "../findAgriculture.do",
+			url : "../NanglaeGov/findAgriculture.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
