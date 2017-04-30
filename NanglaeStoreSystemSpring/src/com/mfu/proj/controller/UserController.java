@@ -53,20 +53,11 @@ import com.proj.ejb.face.UserService;
 		
 		@RequestMapping(value="/createUser",method=RequestMethod.GET)
 		public ModelAndView displaycreateUser(HttpServletRequest request, HttpServletResponse response) {
-			String username  = (String) request.getAttribute("loggedInUser");
 			
-			if(username != null){
 				ModelAndView model = new ModelAndView("createuser");
-				model.addObject("loginBean", username);
+
 				return model;
-			}else{
-				ModelAndView model = new ModelAndView("loginUser");
-				request.setAttribute("loggedInUser", null);
-				User loginBean = new User();
-				model.addObject("loginBean", loginBean);
-				return model;
-			}
-			
+
 		}
 		
 		@RequestMapping(value="/logout",method=RequestMethod.GET)
