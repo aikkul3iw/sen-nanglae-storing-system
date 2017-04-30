@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
@@ -14,32 +14,36 @@
 <title>เทศบาลตำบลนางแล</title>
 
 <!-- Bootstrap Core CSS -->
-<link href="../NanglaeGov/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="../NanglaeGov/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
 
 <!-- MetisMenu CSS -->
-<link href="../NanglaeGov/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+<link href="../NanglaeGov/vendor/metisMenu/metisMenu.min.css"
+	rel="stylesheet">
 
 <!-- DataTables CSS -->
-<link href="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.css"
+<link
+	href="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.css"
 	rel="stylesheet">
 
 <!-- DataTables Responsive CSS -->
-<link href="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.css"
+<link
+	href="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.css"
 	rel="stylesheet">
 
 <!-- Custom CSS -->
 <link href="../NanglaeGov/dist/css/sb-admin-2.css" rel="stylesheet">
+<link href="../NanglaeGov/dist/css/sweetalert2.min.css" rel="stylesheet">
 
 <!-- Custom Fonts -->
 <link href="../NanglaeGov/vendor/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
 
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+<!-- Data Table -->
+<link href="css/dataTable/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="css/dataTable/buttons.bootstrap.min.css" rel="stylesheet">
+
+
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
 	function listLandResource() {
@@ -63,26 +67,24 @@
 									+ "</td>"
 									+ "<td><center><button href=\"#editLand\" data-toggle=\"tab\" onclick=\"setEditLandResource("
 									+ data[i].land_id
-									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button data-toggle=\"modal\" data-id="
+									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteLandResource("
 									+ data[i].land_id
-									+ " onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
-
+									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 							html += "</tr>";
 						}
 						$('#listLandResources').html(html);
-						$("#resultTable").DataTable({
-
-							dom : 'Bfrtip',
-							buttons : [ {
-								extend : 'pdfHtml5',
-								exportOptions : {
-									columns : [ 0, 1, 2 ]
-								},
-								customize : function(doc) {
-									doc.defaultStyle['font'] = 'THSarabun';
-								}
-							}, 'excelHtml5' ]
+						$(document).ready(function() {
+							var table = $('#resultTable').DataTable({
+								lengthChange : false,
+								buttons : ['excel',{extend : 'pdf',exportOptions : {
+								columns : [ 0, 1, 2 ]},customize : function(doc) {
+								doc.defaultStyle['font'] = 'THSarabun';
+										}
+									},
+								]
 						});
+						table.buttons().container().appendTo('#page-wrapper .col-sm-6:eq(0)');
+					});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -120,9 +122,12 @@
 				contentType : "application/json",
 				mimeType : "application/json",
 				success : function(data) {
-					//alert('success');
-					$("#loader").hide();
-					location.reload();
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
 				},
 				error : function(data, status, er) {
 					alert('error');
@@ -132,8 +137,17 @@
 		}
 
 	}
-	function deleteLandResource() {
-		var id = document.getElementById("land_id").value;
+	function deleteLandResource(land_id) {
+		swal({
+			title : 'คุณต้องการลบข้อมูลหรือไม่?',
+			type : 'warning',
+			showCancelButton : true,
+			confirmButtonColor : '#3085d6',
+			cancelButtonColor : '#d33',
+			confirmButtonText : 'ตกลง',
+			cancelButtonText : 'ยกเลิก'
+		}).then(function() {
+		var id = land_id;
 		var obj = {
 			land_id : id
 
@@ -148,6 +162,7 @@
 			success : function(data) {
 				location.reload();
 			}
+		});
 		});
 	}
 	function editLandResource() {
@@ -166,8 +181,12 @@
 			contentType : "application/json",
 			mimeType : "application/json",
 			success : function(data) {
-				//alert('success');
-				location.reload();
+				swal({
+					title : 'บันทึกข้อมูลสำเร็จ',
+					type : 'success'
+				}).then(function() {
+					location.reload();
+				});
 			},
 			error : function(data, status, er) {
 				alert('error');
@@ -537,36 +556,6 @@
 											</table>
 										</form>
 									</div>
-									<!-- Start modal -->
-									<div>
-										<div class="modal fade" id="DeleteModal" tabindex="-1"
-											role="dialog" aria-labelledby="myModalLabel"
-											aria-hidden="true">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header">
-														<button type="button" class="close" data-dismiss="modal"
-															aria-hidden="true">&times;</button>
-														<h4 class="modal-title" id="H3">-----
-															ยืนยันการลบข้อมูล !! -----</h4>
-													</div>
-													<div class="modal-body">
-														<p>คุณต้องการลบข้อมูลชุดนี้?</p>
-														<input type="hidden" name="land_id" id="land_id" value="" />
-													</div>
-
-													<div class="modal-footer">
-														<button type="button" class="btn btn-default"
-															data-dismiss="modal">ยกเลิก</button>
-														<button type="button" id="deleteLandResource"
-															class="btn btn-danger" onclick="deleteLandResource();">ลบข้อมูล</button>
-
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!-- End modal -->
 									<div class="tab-pane fade" id="editLand">
 										<form role="form">
 											<input type="hidden" id="editLandId">
@@ -620,36 +609,25 @@
 		<script src="../NanglaeGov/vendor/metisMenu/metisMenu.min.js"></script>
 
 		<!-- DataTables JavaScript -->
-		<script src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
 		<script
-			src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
-		<script
-			src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js"></script>
+			src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
+		<script src="../NanglaeGov/js/dataTables.buttons.min.js"></script>
+		<script src="../NanglaeGov/js/pdfmake.min.js"></script>
 		<script src="../NanglaeGov/vendor/datatables/js/vfs_fonts.js"></script>
+		<script src="../NanglaeGov/js/buttons.html5.min.js"></script>
+		<script src="../NanglaeGov/js/buttons.print.min.js"></script>
 		<script
-			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
+			src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
 		<script
-			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
-		<script src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-		<script src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script>
-		<script
-			src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.bootstrap.min.js"></script>
-		<script
-			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
-		<script
-			src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+			src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script>
+		<script src="../NanglaeGov/js/buttons.bootstrap.min.js"></script>
+		<script src="../NanglaeGov/js/buttons.colVis.min.js"></script>
+		<script src="../NanglaeGov/js/jszip.min.js"></script>
 
 		<!-- Custom Theme JavaScript -->
 		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
-
-		<!-- Page-Level Demo Scripts - Tables - Use for reference -->
-		<script>
-			
-			function openDeleteModal(id) {
-				$('#land_id').val($(id).data('id'));
-				$('#DeleteModal').modal('show');
-			}
-		</script>
+		<!-- Sweetalert2 JavaScript -->
+		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
 </body>
 
 </html>

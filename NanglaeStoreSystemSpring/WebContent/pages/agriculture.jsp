@@ -4,7 +4,8 @@
 <html lang="en">
 
 <head>
-<meta charset="utf-8">
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
@@ -12,6 +13,7 @@
 
 <title>เทศบาลตำบลนางแล</title>
 
+<!-- Bootstrap Core CSS -->
 <link href="../NanglaeGov/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
 
@@ -31,21 +33,19 @@
 
 <!-- Custom CSS -->
 <link href="../NanglaeGov/dist/css/sb-admin-2.css" rel="stylesheet">
+<link href="../NanglaeGov/dist/css/sweetalert2.min.css" rel="stylesheet">
 
 <!-- Custom Fonts -->
 <link href="../NanglaeGov/vendor/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
 
-<link
-	href="//cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="//cdn.datatables.net/buttons/1.3.1/css/buttons.bootstrap.min.css"
-	rel="stylesheet">
+<!-- Data Table -->
+<link href="css/dataTable/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="css/dataTable/buttons.bootstrap.min.css" rel="stylesheet">
 
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
-<script type='text/javascript' charset="utf-8">
+<script type='text/javascript'>
 	function listAgriculture() {
 		$("#loader").show();
 		$
@@ -70,43 +70,30 @@
 									+ "</td>"
 									+ "<td style=\"text-align: center;\"><button href=\"#editAgri\" data-toggle=\"tab\" onclick=\"setEditAgriculture("
 									+ data[i].agi_id
-									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button data-toggle=\"modal\" data-id="
+									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteAgriculture("
 									+ data[i].agi_id
-									+ " onclick=\"openDeleteModal(this);\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>";
+									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 							html += "</tr>";
+
 						}
 						$('#listAgriculture').html(html);
-						$(document)
-								.ready(
-										function() {
-											var table = $('#resultTable')
-													.DataTable(
-															{
-																lengthChange : false,
-																buttons : [
-																		'copy',
-																		'excel',
-																		{
-																			extend : 'pdf',
-
-																			customize : function(
-																					doc) {
-																				doc.defaultStyle['font'] = 'THSarabun';
-																			}
-																		},
-																		'colvis' ]
-															});
-											table
-													.buttons()
-													.container()
-													.appendTo(
-															'#page-wrapper .col-sm-6:eq(0)');
-										});
+						$(document).ready(function() {
+							var table = $('#resultTable').DataTable({
+								lengthChange : false,
+								buttons : ['excel',{extend : 'pdf',exportOptions : {
+								columns : [ 0, 1, 2, 3]},customize : function(doc) {
+								doc.defaultStyle['font'] = 'THSarabun';
+										}
+									},
+								]
+						});
+						table.buttons().container().appendTo('#page-wrapper .col-sm-6:eq(0)');
+					});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
-						alert('error');
+						alert('ไม่สามารถโหลดข้อมูลได้');
 						$("#loader").hide();
 					}
 				});
@@ -114,7 +101,6 @@
 </script>
 <script type='text/javascript'>
 	function createAgriculture() {
-		$("#loader").show();
 		if ($('#agi_year').val() == "") {
 			document.getElementById('agi_year').style.borderColor = "red";
 			return false;
@@ -128,6 +114,9 @@
 			document.getElementById('agi_description').style.borderColor = "red";
 			return false;
 		} else {
+			$("#loader").show();
+			var errDetectMsg = 'ไม่สามารถบันทึกข้อมูลได้';
+			var errDetec = false;
 			var obj = {
 				agi_id : 0,
 				agi_year : $('#agi_year').val(),
@@ -143,37 +132,50 @@
 				contentType : "application/json",
 				mimeType : "application/json",
 				success : function(data) {
-					$("#loader").hide();
-					location.reload();
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
 				},
 				error : function(data, status, er) {
-					alert('error');
+					alert(errDetectMsg);
 					$("#loader").hide();
 				}
 			});
 		}
 
 	}
-	function deleteAgriculture() {
-		var id = document.getElementById("agi_id").value;
+	function deleteAgriculture(agi_id) {
+		swal({
+			title : 'คุณต้องการลบข้อมูลหรือไม่?',
+			type : 'warning',
+			showCancelButton : true,
+			confirmButtonColor : '#3085d6',
+			cancelButtonColor : '#d33',
+			confirmButtonText : 'ตกลง',
+			cancelButtonText : 'ยกเลิก'
+		}).then(function() {
+			var id = agi_id
+			var obj = {
+				agi_id : id
 
-		var obj = {
-			agi_id : id
-
-		};
-		//alert(id);
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/deleteAgriculture.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				location.reload();
-			}
+			};
+			//alert(id);
+			//alert(JSON.stringify(obj));
+			$.ajax({
+				url : "../NanglaeGov/deleteAgriculture.do",
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					//alert('success');
+					location.reload();
+				}
+			});
 		});
 	}
 	function editAgriculture() {
@@ -193,8 +195,12 @@
 			contentType : "application/json",
 			mimeType : "application/json",
 			success : function(data) {
-				//alert('success');
-				location.reload();
+				swal({
+					title : 'บันทึกข้อมูลสำเร็จ',
+					type : 'success'
+				}).then(function() {
+					location.reload();
+				});
 			},
 			error : function(data, status, er) {
 				alert('error');
@@ -560,8 +566,9 @@
 												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">การทำการเกษตร</td>
-													<td><textarea id="edit_description" maxlength="255"
-															class="form-control" placeholder="ระบุละเอียดเพิ่มเติม" name="vil-name"
+													<td><textarea id="agi_description" maxlength="255"
+															class="form-control"
+															placeholder="ระบุรายละเอียดเพิ่มเติม" name="vil-name"
 															required="true"></textarea></td>
 												</tr>
 												<tr>
@@ -576,37 +583,6 @@
 											</table>
 										</form>
 									</div>
-									<!-- Start modal -->
-									<div>
-										<div class="modal fade" id="DeleteModal" tabindex="-1"
-											role="dialog" aria-labelledby="myModalLabel"
-											aria-hidden="true">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header">
-														<button type="button" class="close" data-dismiss="modal"
-															aria-hidden="true">&times;</button>
-														<h4 class="modal-title" id="H3">-----
-															ยืนยันการลบข้อมูล !! -----</h4>
-													</div>
-													<div class="modal-body">
-														<p>คุณต้องการลบข้อมูลชุดนี้?</p>
-														<input type="hidden" name="agi_id" id="agi_id" value="" />
-													</div>
-
-													<div class="modal-footer">
-														<button type="button" class="btn btn-default"
-															data-dismiss="modal">ยกเลิก</button>
-														<button type="button" id="deleteAgriculture"
-															class="btn btn-danger" onclick="deleteAgriculture();">ลบข้อมูล</button>
-
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!-- End modal -->
-
 									<div class="tab-pane fade" id="editAgri">
 										<form role="form">
 											<input type="hidden" id="editAgiId">
@@ -668,24 +644,25 @@
 		<script src="../NanglaeGov/vendor/metisMenu/metisMenu.min.js"></script>
 
 		<!-- DataTables JavaScript -->
-		<script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-		<script
-			src="//cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
-		<script
-			src="//cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
-		<script
-			src="//cdn.datatables.net/buttons/1.3.1/js/buttons.bootstrap.min.js"></script>
 		<script
 			src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
+		<script src="../NanglaeGov/js/dataTables.buttons.min.js"></script>
+		<script src="../NanglaeGov/js/pdfmake.min.js"></script>
 		<script src="../NanglaeGov/vendor/datatables/js/vfs_fonts.js"></script>
+		<script src="../NanglaeGov/js/buttons.html5.min.js"></script>
+		<script src="../NanglaeGov/js/buttons.print.min.js"></script>
 		<script
 			src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
 		<script
-			src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script><!-- Button JavaScript -->
+			src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script>
 		<script src="../NanglaeGov/js/buttons.bootstrap.min.js"></script>
+		<script src="../NanglaeGov/js/buttons.colVis.min.js"></script>
+		<script src="../NanglaeGov/js/jszip.min.js"></script>
 
 		<!-- Custom Theme JavaScript -->
 		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
+		<!-- Sweetalert2 JavaScript -->
+		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
 </body>
 
 </html>

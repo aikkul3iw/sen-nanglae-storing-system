@@ -38,13 +38,10 @@
 <!-- Custom Fonts -->
 <link href="../NanglaeGov/vendor/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
+
 <!-- Data Table -->
-<link
-	href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.bootstrap.min.css"
-	rel="stylesheet">
+<link href="css/dataTable/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="css/dataTable/buttons.bootstrap.min.css" rel="stylesheet">
 
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
@@ -56,40 +53,51 @@
 			type : "POST",
 			success : function(data) {
 				var html = '';
-				var year =  document.getElementById("selectedYear").value;
+				var year = document.getElementById("selectedYear").value;
 				for (var i = 0; i < data.length; i++) {
-					if(data[i].vil_year == year){
-					html += "<tr>";
-					html += "<td>" + data[i].vil_year + "</td>" + "<td>"
-							+ data[i].vil_number + "</td>" + "<td>"
-							+ data[i].vil_name + "</td>" + "<td>"
-							+ data[i].vil_chief + "</td>"
-							+ "<td style=\"text-align: center;\"><button href=\"#editVillage\" data-toggle=\"tab\" onclick=\"setEditVillage("+ data[i].vil_id + ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteVillage("+data[i].vil_id+");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
-							
-					html += "</tr>";
-					}
-				}
-				$('#listVillages').html(html);
-				$(document).ready(function() {
-				    var table = $('#resultTable').DataTable( {
-				        lengthChange: false,
-				        buttons: [ 'copy', 'excel', {extend:'pdf',
-				        	
-							customize : function(doc) {
-								doc.defaultStyle['font'] = 'THSarabun';
-							}}, 'colvis']
-				        });
-				    table.buttons().container()
-			        .appendTo( '#page-wrapper .col-sm-6:eq(0)' );
-				} );
+					if (data[i].vil_year == year) {
+								html += "<tr>";
+								html += "<td>"
+										+ data[i].vil_year
+										+ "</td>"
+										+ "<td>"
+										+ data[i].vil_number
+										+ "</td>"
+										+ "<td>"
+										+ data[i].vil_name
+										+ "</td>"
+										+ "<td>"
+										+ data[i].vil_chief
+										+ "</td>"
+										+ "<td style=\"text-align: center;\"><button href=\"#editVillage\" data-toggle=\"tab\" onclick=\"setEditVillage("
+										+ data[i].vil_id
+										+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteVillage("
+										+ data[i].vil_id
+										+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
-				$("#loader").hide();
-			},
-			error : function(data, status, er) {
-				alert('ไม่สามารถโหลดข้อมูลได้');
-				$("#loader").hide();
-			}
-		});
+								html += "</tr>";
+							}
+						}
+						$('#listVillages').html(html);
+						$(document).ready(function() {
+							var table = $('#resultTable').DataTable({
+								lengthChange : false,
+								buttons : ['excel',{extend : 'pdf',exportOptions : {
+								columns : [ 0, 1, 2, 3 ]},customize : function(doc) {
+								doc.defaultStyle['font'] = 'THSarabun';
+										}
+									},
+								]
+						});
+						table.buttons().container().appendTo('#page-wrapper .col-sm-6:eq(0)');
+					});
+						$("#loader").hide();
+					},
+					error : function(data, status, er) {
+						alert('ไม่สามารถโหลดข้อมูลได้');
+						$("#loader").hide();
+					}
+			});
 	}
 </script>
 <script type='text/javascript'>
@@ -107,66 +115,66 @@
 			document.getElementById('vil_chief').style.borderColor = "red";
 			return false;
 		} else {
-		$("#loader").show();
-		var errDetectMsg = 'ไม่สามารถบันทึกข้อมูลได้';
-		var errDetec = false;
-		var obj = {
-			vil_id : 0,
-			vil_year : $('#vil_year').val(),
-			vil_name : $('#vil_name').val(),
-			vil_number : $('#vil_number').val(),
-			vil_chief : $('#vil_chief').val()
-		};
-		$.ajax({
-			url : "../NanglaeGov/saveVillage.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					  title: 'บันทึกข้อมูลสำเร็จ',
-					  type: 'success'
-					}).then(function () {
+			$("#loader").show();
+			var errDetectMsg = 'ไม่สามารถบันทึกข้อมูลได้';
+			var errDetec = false;
+			var obj = {
+				vil_id : 0,
+				vil_year : $('#vil_year').val(),
+				vil_name : $('#vil_name').val(),
+				vil_number : $('#vil_number').val(),
+				vil_chief : $('#vil_chief').val()
+			};
+			$.ajax({
+				url : "../NanglaeGov/saveVillage.do",
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
 						location.reload();
 					});
-				
-			},
-			error : function(data, status, er) {
-				alert(errDetectMsg);
-				$("#loader").hide();
-			}
-		});
+
+				},
+				error : function(data, status, er) {
+					alert(errDetectMsg);
+					$("#loader").hide();
+				}
+			});
 		}
 	}
 	function deleteVillage(vil_id) {
 		swal({
-			  title: 'Are you sure?',
-			  text: "You won't be able to revert this!",
-			  type: 'warning',
-			  showCancelButton: true,
-			  confirmButtonColor: '#3085d6',
-			  cancelButtonColor: '#d33',
-			  confirmButtonText: 'Yes, delete it!'
-			}).then(function () {
-				var id = vil_id;
-				var obj = {
-					vil_id : id
-				};
-				$.ajax({
-					url : "../NanglaeGov/deleteVillage.do",
-					type : "POST",
-					dataType : "JSON",
-					data : JSON.stringify(obj),
-					contentType : "application/json",
-					mimeType : "application/json",
-					success : function(data) {
-						location.reload();
-					}
-				});
+			title : 'คุณต้องการลบข้อมูลหรือไม่?',
+			type : 'warning',
+			showCancelButton : true,
+			confirmButtonColor : '#3085d6',
+			cancelButtonColor : '#d33',
+			confirmButtonText : 'ตกลง',
+			cancelButtonText : 'ยกเลิก'
+		}).then(function() {
+			var id = vil_id;
+			var obj = {
+				vil_id : id
+			};
+			$.ajax({
+				url : "../NanglaeGov/deleteVillage.do",
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					location.reload();
+				}
 			});
-		
+		});
+
 	}
 	function editVillage() {
 		var obj = {
@@ -187,11 +195,11 @@
 			mimeType : "application/json",
 			success : function(data) {
 				swal({
-					  title: 'บันทึกข้อมูลสำเร็จ',
-					  type: 'success'
-					}).then(function () {
-						location.reload();
-					});
+					title : 'บันทึกข้อมูลสำเร็จ',
+					type : 'success'
+				}).then(function() {
+					location.reload();
+				});
 			},
 			error : function(data, status, er) {
 				alert('ไม่สามารถบันทึกข้อมูลได้');
@@ -226,12 +234,12 @@
 	}
 </script>
 <script type="text/javascript">
-  function validate() {
-  if(vilForm.vil-number.value.length==0){
-   document.getElementById("vil_number").innerHTML="this is invalid name ";
-  	}
-  }
-  </script>
+	function validate() {
+		if (vilForm.vil - number.value.length == 0) {
+			document.getElementById("vil_number").innerHTML = "this is invalid name ";
+		}
+	}
+</script>
 </head>
 
 <body onload="listVillage()">
@@ -590,36 +598,6 @@
 											</table>
 										</form>
 									</div>
-									<!-- Start modal -->
-									<div>
-										<div class="modal fade" id="DeleteModal" tabindex="-1"
-											role="dialog" aria-labelledby="myModalLabel"
-											aria-hidden="true">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header">
-														<button type="button" class="close" data-dismiss="modal"
-															aria-hidden="true">&times;</button>
-														<h4 class="modal-title" id="H3">-----
-															ยืนยันการลบข้อมูล !! -----</h4>
-													</div>
-													<div class="modal-body">
-														<p>คุณต้องการลบข้อมูลชุดนี้?</p>
-														<input type="hidden" name="vil_id" id="vil_id" value="" />
-													</div>
-
-													<div class="modal-footer">
-														<button type="button" class="btn btn-default"
-															data-dismiss="modal">ยกเลิก</button>
-														<button type="button" id="deleteVillage"
-															class="btn btn-danger" onclick="deleteVillage();">ลบข้อมูล</button>
-
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!-- End modal -->
 									<div class="tab-pane fade" id="editVillage">
 										<form role="form">
 											<input type="hidden" id="editVilId">
@@ -681,31 +659,23 @@
 		<!-- DataTables JavaScript -->
 		<script
 			src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
-		<script
-			src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
-		<script
-			src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js"></script>
+		<script src="../NanglaeGov/js/dataTables.buttons.min.js"></script>
+		<script src="../NanglaeGov/js/pdfmake.min.js"></script>
 		<script src="../NanglaeGov/vendor/datatables/js/vfs_fonts.js"></script>
-		<script
-			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
-		<script
-			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
+		<script src="../NanglaeGov/js/buttons.html5.min.js"></script>
+		<script src="../NanglaeGov/js/buttons.print.min.js"></script>
 		<script
 			src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
 		<script
 			src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script>
-		<script
-			src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.bootstrap.min.js"></script>
-		<script
-			src="//cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
-		<script
-			src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+		<script src="../NanglaeGov/js/buttons.bootstrap.min.js"></script>
+		<script src="../NanglaeGov/js/buttons.colVis.min.js"></script>
+		<script src="../NanglaeGov/js/jszip.min.js"></script>
 
 		<!-- Custom Theme JavaScript -->
 		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
+		<!-- Sweetalert2 JavaScript -->
 		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
-
-
 </body>
 
 </html>
