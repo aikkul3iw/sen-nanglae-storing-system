@@ -280,7 +280,7 @@
 						<li><a href="#"><i class="fa fa-gear fa-fw"></i> ตั้งค่า</a>
 						</li>
 						<li class="divider"></li>
-						<li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i>
+						<li><a href="index.do"><i class="fa fa-sign-out fa-fw"></i>
 								ออกจากระบบ</a></li>
 					</ul> <!-- /.dropdown-user --></li>
 				<!-- /.dropdown -->

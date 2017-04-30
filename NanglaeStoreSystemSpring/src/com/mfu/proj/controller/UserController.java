@@ -35,6 +35,12 @@ import com.proj.ejb.face.UserService;
 			
 			return model;
 		}
+		@RequestMapping(value="/userIndex",method=RequestMethod.GET)
+		public ModelAndView displayuserIndex(HttpServletRequest request, HttpServletResponse response) {
+			ModelAndView model = new ModelAndView("userIndex");
+			
+			return model;
+		}
 		
 		@RequestMapping(value="/login",method=RequestMethod.GET)
 		public ModelAndView displayLogin(HttpServletRequest request, HttpServletResponse response) {
