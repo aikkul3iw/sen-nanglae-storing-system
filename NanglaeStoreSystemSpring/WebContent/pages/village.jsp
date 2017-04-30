@@ -48,15 +48,14 @@
 <script type='text/javascript'>
 	function listVillage() {
 		$("#loader").show();
-		$
-				.ajax({
-					url : "../NanglaeGov/listVillage.do",
-					type : "POST",
-					success : function(data) {
-						var html = '';
-						var year = document.getElementById("selectedYear").value;
-						for (var i = 0; i < data.length; i++) {
-							if (data[i].vil_year == year) {
+		$.ajax({
+			url : "../NanglaeGov/listVillage.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				var year = document.getElementById("selectedYear").value;
+				for (var i = 0; i < data.length; i++) {
+					if (data[i].vil_year == year) {
 								html += "<tr>";
 								html += "<td>"
 										+ data[i].vil_year
@@ -80,45 +79,25 @@
 							}
 						}
 						$('#listVillages').html(html);
-						$(document)
-								.ready(
-										function() {
-											var table = $('#resultTable')
-													.DataTable(
-															{
-																lengthChange : false,
-																buttons : [
-																		'excel',
-																		{
-																			extend : 'pdf',
-																			exportOptions : {
-																				columns : [
-																						0,
-																						1,
-																						2,
-																						3 ]
-																			},
-																			customize : function(
-																					doc) {
-																				doc.defaultStyle['font'] = 'THSarabun';
-																			}
-																		},
-																		'colvis' ]
-															});
-											table
-													.buttons()
-													.container()
-													.appendTo(
-															'#page-wrapper .col-sm-6:eq(0)');
-										});
-
+						$(document).ready(function() {
+							var table = $('#resultTable').DataTable({
+								lengthChange : false,
+								buttons : ['excel',{extend : 'pdf',exportOptions : {
+								columns : [ 0, 1, 2, 3 ]},customize : function(doc) {
+								doc.defaultStyle['font'] = 'THSarabun';
+										}
+									},
+								]
+						});
+						table.buttons().container().appendTo('#page-wrapper .col-sm-6:eq(0)');
+					});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
 						alert('ไม่สามารถโหลดข้อมูลได้');
 						$("#loader").hide();
 					}
-				});
+			});
 	}
 </script>
 <script type='text/javascript'>
