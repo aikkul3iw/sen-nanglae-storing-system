@@ -494,6 +494,10 @@
 		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
 		<!-- Sweetalert2 JavaScript -->
 		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
+		
+		<script>
+
+</script>
 </body>
 
 </html>

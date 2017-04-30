@@ -489,7 +489,7 @@
 			src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
 		<script src="../NanglaeGov/js/dataTables.buttons.min.js"></script>
 		<script src="../NanglaeGov/js/pdfmake.min.js"></script>
-		<script src="../NanglaeGov/vendor/datatables/js/vfs_fonts.js"></script>
+		<!--<script src="../NanglaeGov/vendor/datatables/js/vfs_fonts.js"></script>-->
 		<script src="../NanglaeGov/js/buttons.html5.min.js"></script>
 		<script src="../NanglaeGov/js/buttons.print.min.js"></script>
 		<script
@@ -504,6 +504,11 @@
 		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
 		<!-- Sweetalert2 JavaScript -->
 		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
+
+<script>
+
+</script>
+
 </body>
 
 </html>

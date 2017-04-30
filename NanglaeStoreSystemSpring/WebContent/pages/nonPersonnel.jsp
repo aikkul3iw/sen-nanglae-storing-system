@@ -419,15 +419,6 @@
 		<script
 			src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
 
-	<!-- Mask plug-in -->
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/qunit/qunit-1.11.0.js"></script>
-    
-    <script type="text/javascript" src="../NanglaeGov/js/sinon-1.10.3.js"></script>
-    <script type="text/javascript" src="../NanglaeGov/js/sinon-qunit-1.0.0.js"></script>
-    
-    <script type="text/javascript" src="../NanglaeGov/js/jquery.mask.js"></script>
-    <script type="text/javascript" src="../NanglaeGov/js/jquery.mask.test.js"></script>
 	
 	<!-- Custom Theme JavaScript -->
 	<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
