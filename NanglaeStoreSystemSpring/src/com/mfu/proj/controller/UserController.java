@@ -54,7 +54,7 @@ import com.proj.ejb.face.UserService;
 		@RequestMapping(value="/createUser",method=RequestMethod.GET)
 		public ModelAndView displaycreateUser(HttpServletRequest request, HttpServletResponse response) {
 			
-				ModelAndView model = new ModelAndView("createuser");
+				ModelAndView model = new ModelAndView("createUser");
 
 				return model;
 
@@ -93,7 +93,7 @@ import com.proj.ejb.face.UserService;
 				if(isValidUser.getRole().equalsIgnoreCase("Superuser")){
 						System.out.println("Login Superuser Successful");
 						request.setAttribute("loggedInUser", loginBean.getUsername());
-						model = new ModelAndView("createuser");
+						model = new ModelAndView("createUser");
 						
 				}else if(isValidUser.getRole().equalsIgnoreCase("User")){
 						System.out.println("Login User Successful");
