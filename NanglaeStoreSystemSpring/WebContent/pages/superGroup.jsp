@@ -315,7 +315,7 @@
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="copy.do"><i class="fa fa-copy"></i>
 								คัดลอกข้อมูล</a></li>
-						<li><a href="createuser.do"><i class="glyphicon glyphicon-user"></i>
+						<li><a href="createUser.do"><i class="glyphicon glyphicon-user"></i>
 								จัดการผู้ใช้งาน</a></li>
 					</ul>
 				</div>
