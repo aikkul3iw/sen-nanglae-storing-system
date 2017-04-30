@@ -96,4 +96,10 @@ public class VillageController {
 		
 		return model;
 	}
+	@RequestMapping(value="/superVillage",method=RequestMethod.GET)
+	public ModelAndView displaysuperVillage(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superVillage");
+		
+		return model;
+	}
 }

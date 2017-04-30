@@ -92,4 +92,10 @@ public class InventoryController {
 		
 		return model;
 	}
+	@RequestMapping(value="/superInventory",method=RequestMethod.GET)
+	public ModelAndView displaysuperInventory(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superInventory");
+		
+		return model;
+	}
 }

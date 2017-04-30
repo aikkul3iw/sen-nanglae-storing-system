@@ -100,4 +100,10 @@ public class Population1Controller {
 		
 		return model;
 	}
+	@RequestMapping(value="/superPopulation",method=RequestMethod.GET)
+	public ModelAndView displaysuperPopulation(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superPopulation");
+		
+		return model;
+	}
 }

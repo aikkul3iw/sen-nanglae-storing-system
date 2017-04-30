@@ -103,4 +103,10 @@ public class HealthController {
 		
 		return model;
 	}
+	@RequestMapping(value="/superHealth",method=RequestMethod.GET)
+	public ModelAndView displaysuperHealth(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superHealth");
+		
+		return model;
+	}
 }

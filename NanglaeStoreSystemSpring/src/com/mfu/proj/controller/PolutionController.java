@@ -95,4 +95,10 @@ public class PolutionController {
 		
 		return model;
 	}
+	@RequestMapping(value="/superPolution",method=RequestMethod.GET)
+	public ModelAndView displaysuperPolution(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superPolution");
+		
+		return model;
+	}
 }

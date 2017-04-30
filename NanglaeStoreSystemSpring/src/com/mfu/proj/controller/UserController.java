@@ -29,6 +29,12 @@ import com.proj.ejb.face.UserService;
 			
 			return model;
 		}
+		@RequestMapping(value="/superIndex",method=RequestMethod.GET)
+		public ModelAndView displaysuperIndex(HttpServletRequest request, HttpServletResponse response) {
+			ModelAndView model = new ModelAndView("superIndex");
+			
+			return model;
+		}
 		
 		@RequestMapping(value="/login",method=RequestMethod.GET)
 		public ModelAndView displayLogin(HttpServletRequest request, HttpServletResponse response) {

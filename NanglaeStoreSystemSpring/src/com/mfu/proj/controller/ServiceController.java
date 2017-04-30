@@ -94,4 +94,10 @@ public class ServiceController {
 		
 		return model;
 	}
+	@RequestMapping(value="/superService",method=RequestMethod.GET)
+	public ModelAndView displaysuperService(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superService");
+		
+		return model;
+	}
 }

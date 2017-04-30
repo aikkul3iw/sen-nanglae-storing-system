@@ -93,4 +93,10 @@ public class LocalgController {
 		
 		return model;
 	}
+	@RequestMapping(value="/superGroup",method=RequestMethod.GET)
+	public ModelAndView displaysuperGroup(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superGroup");
+		
+		return model;
+	}
 }

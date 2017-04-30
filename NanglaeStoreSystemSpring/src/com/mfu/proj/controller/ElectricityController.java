@@ -105,4 +105,10 @@ public class ElectricityController {
 		
 		return model;
 	}
+	@RequestMapping(value="/superElectric",method=RequestMethod.GET)
+	public ModelAndView displaysuperElectric(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superElectric");
+		
+		return model;
+	}
 }

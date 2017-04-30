@@ -103,4 +103,10 @@ public class EducationController {
 		
 		return model;
 	}
+	@RequestMapping(value="/superEducation",method=RequestMethod.GET)
+	public ModelAndView displaysuperEducation(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superEducation");
+		
+		return model;
+	}
 }

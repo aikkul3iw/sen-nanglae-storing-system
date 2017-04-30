@@ -100,4 +100,10 @@ public class TourismController {
 		
 		return model;
 	}
+	@RequestMapping(value="/superTourism",method=RequestMethod.GET)
+	public ModelAndView displaysuperTourism(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superTourism");
+		
+		return model;
+	}
 }

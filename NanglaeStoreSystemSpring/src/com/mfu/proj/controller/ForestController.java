@@ -103,4 +103,10 @@ public class ForestController {
 		
 		return model;
 	}
+	@RequestMapping(value="/superForestresource",method=RequestMethod.GET)
+	public ModelAndView displaysuperForestresource(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superForestresource");
+		
+		return model;
+	}
 }

@@ -95,4 +95,10 @@ public class LandResourceController {
 		
 		return model;
 	}
+	@RequestMapping(value="/superLandresource",method=RequestMethod.GET)
+	public ModelAndView displaysuperLandresource(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superLandresource");
+		
+		return model;
+	}
 }

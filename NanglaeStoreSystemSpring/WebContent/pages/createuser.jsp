@@ -218,165 +218,6 @@
 
 			<ul class="nav navbar-top-links navbar-right">
 				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#"> <i
-						class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
-				</a>
-					<ul class="dropdown-menu dropdown-messages">
-						<li><a href="#">
-								<div>
-									<strong>John Smith</strong> <span class="pull-right text-muted">
-										<em>Yesterday</em>
-									</span>
-								</div>
-								<div>Lorem ipsum dolor sit amet, consectetur adipiscing
-									elit. Pellentesque eleifend...</div>
-						</a></li>
-						<li class="divider"></li>
-						<li><a href="#">
-								<div>
-									<strong>John Smith</strong> <span class="pull-right text-muted">
-										<em>Yesterday</em>
-									</span>
-								</div>
-								<div>Lorem ipsum dolor sit amet, consectetur adipiscing
-									elit. Pellentesque eleifend...</div>
-						</a></li>
-						<li class="divider"></li>
-						<li><a href="#">
-								<div>
-									<strong>John Smith</strong> <span class="pull-right text-muted">
-										<em>Yesterday</em>
-									</span>
-								</div>
-								<div>Lorem ipsum dolor sit amet, consectetur adipiscing
-									elit. Pellentesque eleifend...</div>
-						</a></li>
-						<li class="divider"></li>
-						<li><a class="text-center" href="#"> <strong>Read
-									All Messages</strong> <i class="fa fa-angle-right"></i>
-						</a></li>
-					</ul> <!-- /.dropdown-messages --></li>
-				<!-- /.dropdown -->
-				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#"> <i class="fa fa-tasks fa-fw"></i>
-						<i class="fa fa-caret-down"></i>
-				</a>
-					<ul class="dropdown-menu dropdown-tasks">
-						<li><a href="#">
-								<div>
-									<p>
-										<strong>Task 1</strong> <span class="pull-right text-muted">40%
-											Complete</span>
-									</p>
-									<div class="progress progress-striped active">
-										<div class="progress-bar progress-bar-success"
-											role="progressbar" aria-valuenow="40" aria-valuemin="0"
-											aria-valuemax="100" style="width: 40%">
-											<span class="sr-only">40% Complete (success)</span>
-										</div>
-									</div>
-								</div>
-						</a></li>
-						<li class="divider"></li>
-						<li><a href="#">
-								<div>
-									<p>
-										<strong>Task 2</strong> <span class="pull-right text-muted">20%
-											Complete</span>
-									</p>
-									<div class="progress progress-striped active">
-										<div class="progress-bar progress-bar-info" role="progressbar"
-											aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
-											style="width: 20%">
-											<span class="sr-only">20% Complete</span>
-										</div>
-									</div>
-								</div>
-						</a></li>
-						<li class="divider"></li>
-						<li><a href="#">
-								<div>
-									<p>
-										<strong>Task 3</strong> <span class="pull-right text-muted">60%
-											Complete</span>
-									</p>
-									<div class="progress progress-striped active">
-										<div class="progress-bar progress-bar-warning"
-											role="progressbar" aria-valuenow="60" aria-valuemin="0"
-											aria-valuemax="100" style="width: 60%">
-											<span class="sr-only">60% Complete (warning)</span>
-										</div>
-									</div>
-								</div>
-						</a></li>
-						<li class="divider"></li>
-						<li><a href="#">
-								<div>
-									<p>
-										<strong>Task 4</strong> <span class="pull-right text-muted">80%
-											Complete</span>
-									</p>
-									<div class="progress progress-striped active">
-										<div class="progress-bar progress-bar-danger"
-											role="progressbar" aria-valuenow="80" aria-valuemin="0"
-											aria-valuemax="100" style="width: 80%">
-											<span class="sr-only">80% Complete (danger)</span>
-										</div>
-									</div>
-								</div>
-						</a></li>
-						<li class="divider"></li>
-						<li><a class="text-center" href="#"> <strong>See
-									All Tasks</strong> <i class="fa fa-angle-right"></i>
-						</a></li>
-					</ul> <!-- /.dropdown-tasks --></li>
-				<!-- /.dropdown -->
-				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#"> <i class="fa fa-bell fa-fw"></i>
-						<i class="fa fa-caret-down"></i>
-				</a>
-					<ul class="dropdown-menu dropdown-alerts">
-						<li><a href="#">
-								<div>
-									<i class="fa fa-comment fa-fw"></i> New Comment <span
-										class="pull-right text-muted small">4 minutes ago</span>
-								</div>
-						</a></li>
-						<li class="divider"></li>
-						<li><a href="#">
-								<div>
-									<i class="fa fa-twitter fa-fw"></i> 3 New Followers <span
-										class="pull-right text-muted small">12 minutes ago</span>
-								</div>
-						</a></li>
-						<li class="divider"></li>
-						<li><a href="#">
-								<div>
-									<i class="fa fa-envelope fa-fw"></i> Message Sent <span
-										class="pull-right text-muted small">4 minutes ago</span>
-								</div>
-						</a></li>
-						<li class="divider"></li>
-						<li><a href="#">
-								<div>
-									<i class="fa fa-tasks fa-fw"></i> New Task <span
-										class="pull-right text-muted small">4 minutes ago</span>
-								</div>
-						</a></li>
-						<li class="divider"></li>
-						<li><a href="#">
-								<div>
-									<i class="fa fa-upload fa-fw"></i> Server Rebooted <span
-										class="pull-right text-muted small">4 minutes ago</span>
-								</div>
-						</a></li>
-						<li class="divider"></li>
-						<li><a class="text-center" href="#"> <strong>See
-									All Alerts</strong> <i class="fa fa-angle-right"></i>
-						</a></li>
-					</ul> <!-- /.dropdown-alerts --></li>
-				<!-- /.dropdown -->
-				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<i class="fa fa-caret-down"></i>
 				</a>
@@ -399,54 +240,56 @@
 						<li><a href="#"><i class="fa fa-child fa-fw"></i> บุคคล<span
 								class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="personnel.do">บุคลากร</a></li>
-								<li><a href="population.do">ประชากร</a></li>
-								<li><a href="labor.do">แรงงาน</a></li>
+								<li><a href="superPersonnel.do">บุคลากร</a></li>
+								<li><a href="superPopulation.do">ประชากร</a></li>
+								<li><a href="superLabor.do">แรงงาน</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-road fa-fw"></i>
 								สาธารณูปโภค<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="transport.do">ระบบคมนาคมขนส่ง</a></li>
-								<li><a href="electric.do">ระบบไฟฟ้า</a></li>
-								<li><a href="pipeline.do">ระบบประปา</a></li>
-								<li><a href="drainange.do">ระบบระบายน้ำ</a></li>
+								<li><a href="superTransport.do">ระบบคมนาคมขนส่ง</a></li>
+								<li><a href="superElectric.do">ระบบไฟฟ้า</a></li>
+								<li><a href="superPipeline.do">ระบบประปา</a></li>
+								<li><a href="superDrainange.do">ระบบระบายน้ำ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-home fa-fw"></i>
 								สาธารณุปการ<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li><a href="#">เคหะ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="village.do">หมู่บ้าน</a></li>
-										<li><a href="industry.do">การอุตสาหกรรม</a></li>
-										<li><a href="education.do">การศึกษา</a></li>
-										<li><a href="religion.do">การศาสนา</a></li>
-										<li><a href="commerce.do">การพาณิชย์</a></li>
-										<li><a href="tourism.do">แหล่งท่องเที่ยว</a></li>
+										<li><a href="superVillage.do">หมู่บ้าน</a></li>
+										<li><a href="superIndustry.do">การอุตสาหกรรม</a></li>
+										<li><a href="superEducation.do">การศึกษา</a></li>
+										<li><a href="superReligion.do">การศาสนา</a></li>
+										<li><a href="superCommerce.do">การพาณิชย์</a></li>
+										<li><a href="superTourism.do">แหล่งท่องเที่ยว</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 								<li><a href="#">บริการ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="health.do">การสาธารสุข</a></li>
-										<li><a href="security.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
+										<li><a href="superHealth.do">การสาธารสุข</a></li>
+										<li><a href="superSecurity.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
 										</li>
-										<li><a href="group.do">กลุ่มในชุมชน</a></li>
-										<li><a href="service.do">ศูนย์บริการประชาชน</a></li>
-										<li><a href="inventory.do">การคลัง</a></li>
+										<li><a href="superGroup.do">กลุ่มในชุมชน</a></li>
+										<li><a href="superService.do">ศูนย์บริการประชาชน</a></li>
+										<li><a href="superInventory.do">การคลัง</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="glyphicon glyphicon-leaf"></i>
 								ธรรมชาติและสิ่งแวดล้อม<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="agriculture.do">การเกษตรกรรม</a></li>
+								<li><a href="superAgriculture.do">การเกษตรกรรม</a></li>
 								<li><a href="#">ทรัพยากรธรรมชาติ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="waterresource.do">ทรัพยากรณ์น้ำ</a></li>
-										<li><a href="landresource.do">ทรัพยากรณ์ดิน</a></li>
-										<li><a href="forrestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
+										<li><a href="superWaterresource.do">ทรัพยากรณ์น้ำ</a></li>
+										<li><a href="superLandresource.do">ทรัพยากรณ์ดิน</a></li>
+										<li><a href="superForrestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
 									</ul></li>
-								<li><a href="polution.do">มลพิษ</a></li>
+								<li><a href="superPolution.do">มลพิษ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="copy.do"><i class="fa fa-copy"></i>
 								คัดลอกข้อมูล</a></li>
+						<li><a href="createuser.do"><i class="glyphicon glyphicon-user"></i>
+								สร้างผู้ใช้งาน</a></li>
 					</ul>
 				</div>
 				<!-- /.sidebar-collapse -->

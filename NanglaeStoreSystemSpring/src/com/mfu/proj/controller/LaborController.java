@@ -93,4 +93,10 @@ public class LaborController {
 		
 		return model;
 	}
+	@RequestMapping(value="/superLabor",method=RequestMethod.GET)
+	public ModelAndView displaysuperLabor(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superLabor");
+		
+		return model;
+	}
 }

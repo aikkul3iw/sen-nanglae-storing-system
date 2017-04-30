@@ -100,4 +100,10 @@ public class ReligionController {
 		
 		return model;
 	}
+	@RequestMapping(value="/superReligion",method=RequestMethod.GET)
+	public ModelAndView displaysuperReligion(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superReligion");
+		
+		return model;
+	}
 }

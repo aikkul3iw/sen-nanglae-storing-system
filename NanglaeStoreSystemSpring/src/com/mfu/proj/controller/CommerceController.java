@@ -100,4 +100,10 @@ public class CommerceController {
 		
 		return model;
 	}
+	@RequestMapping(value="/superCommerce",method=RequestMethod.GET)
+	public ModelAndView displaysuperCommerce(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superCommerce");
+		
+		return model;
+	}
 }

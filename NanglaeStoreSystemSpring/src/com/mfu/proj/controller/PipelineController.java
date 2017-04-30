@@ -105,4 +105,10 @@ public class PipelineController {
 		
 		return model;
 	}
+	@RequestMapping(value="/superPipeline",method=RequestMethod.GET)
+	public ModelAndView displaysuperPipeline(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superPipeline");
+		
+		return model;
+	}
 }

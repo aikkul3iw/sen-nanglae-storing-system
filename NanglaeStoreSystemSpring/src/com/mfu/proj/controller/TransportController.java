@@ -95,4 +95,10 @@ public class TransportController {
 		
 		return model;
 	}
+	@RequestMapping(value="/superTransport",method=RequestMethod.GET)
+	public ModelAndView displaysuperTransport(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superTransport");
+		
+		return model;
+	}
 }

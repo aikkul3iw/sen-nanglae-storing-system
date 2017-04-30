@@ -94,4 +94,10 @@ public class LASucrityController {
 		
 		return model;
 	}
+	@RequestMapping(value="/superSecurity",method=RequestMethod.GET)
+	public ModelAndView displaysuperSecurity(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superSecurity");
+		
+		return model;
+	}
 }

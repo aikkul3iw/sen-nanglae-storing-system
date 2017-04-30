@@ -100,4 +100,10 @@ public class IndustryController {
 		
 		return model;
 	}
+	@RequestMapping(value="/superIndustry",method=RequestMethod.GET)
+	public ModelAndView displaysuperIndustry(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superIndustry");
+		
+		return model;
+	}
 }

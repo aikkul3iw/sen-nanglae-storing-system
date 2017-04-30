@@ -101,4 +101,10 @@ public class WaterController {
 		
 		return model;
 	}
+	@RequestMapping(value="/superWaterresource",method=RequestMethod.GET)
+	public ModelAndView displaysuperWaterresource(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superWaterresource");
+		
+		return model;
+	}
 }

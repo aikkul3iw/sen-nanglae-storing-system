@@ -105,4 +105,10 @@ public class DrainageController {
 		
 		return model;
 	}
+	@RequestMapping(value="/superDrainage",method=RequestMethod.GET)
+	public ModelAndView displaysuperDrainage(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superDrainage");
+		
+		return model;
+	}
 }

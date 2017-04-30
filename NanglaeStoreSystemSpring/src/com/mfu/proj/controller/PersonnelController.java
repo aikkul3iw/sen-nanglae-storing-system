@@ -93,4 +93,10 @@ public class PersonnelController {
 		
 		return model;
 	}
+	@RequestMapping(value="/superPersonnel",method=RequestMethod.GET)
+	public ModelAndView displaysuperPersonnel(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superPersonnel");
+		
+		return model;
+	}
 }
