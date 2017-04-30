@@ -129,7 +129,7 @@
 						html2 += "<tr>";
 								
 						$('#listPopulation11').html(html);
-						$("#resultTable").DataTable({
+						$('#resultTable').DataTable({
 
 							dom : 'Bfrtip',
 							buttons : [ {
@@ -143,7 +143,7 @@
 							}, 'excelHtml5' ]
 						});
 						$('#resultlistPopulation11').html(html2);
-						$("#resultTable1").DataTable({
+						$('#resultTable1').DataTable({
 
 							dom : 'Bfrtip',
 							buttons : [ {
@@ -300,7 +300,7 @@
 						html4 += "</tr>";
 								
 						$('#listPopulation12').html(html3);
-						$("#resultTable2-1").DataTable({
+						$('#resultTable2-1').DataTable({
 
 							dom : 'Bfrtip',
 							buttons : [ {
@@ -314,7 +314,7 @@
 							}, 'excelHtml5' ]
 						});
 						$('#resultlistPopulation12').html(html4);
-						$("#resultTable2-2").DataTable({
+						$('#resultTable2-2').DataTable({
 
 							dom : 'Bfrtip',
 							buttons : [ {
@@ -456,7 +456,7 @@
 						html6 += "</tr>";
 								
 								$('#listPopulation13').html(html5);
-								$("#resultTable3-1").DataTable({
+								$('#resultTable3-1').DataTable({
 
 									dom : 'Bfrtip',
 									buttons : [ {
@@ -470,7 +470,7 @@
 									}, 'excelHtml5' ]
 								});
 								$('#resultlistPopulation13').html(html6);
-								$("#resultTable3-2").DataTable({
+								$('#resultTable3-2').DataTable({
 
 									dom : 'Bfrtip',
 									buttons : [ {
