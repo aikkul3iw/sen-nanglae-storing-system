@@ -65,7 +65,7 @@ import com.proj.ejb.face.UserService;
 			request.setAttribute("loggedInUser", null);
 			User loginBean = new User();
 			model.addObject("loginBean", loginBean);
-			
+			 
 			return model;
 		}
 		
