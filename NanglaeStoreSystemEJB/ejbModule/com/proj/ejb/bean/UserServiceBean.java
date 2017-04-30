@@ -48,40 +48,22 @@ public class UserServiceBean implements UserService{
 	}
 	
 	@Override
-	public boolean login(String username,String password){
-		boolean  isLoginSuccess = false;
+	public User login(String username,String password){
 		
 		List<User> list = em.createQuery("SELECT user FROM User user WHERE user.username = :username AND user.password = :password")
 				.setParameter("username", username).setParameter("password", password).getResultList();
 		System.out.println("intro"+list.size());
-		if(!list.isEmpty()){
-			isLoginSuccess = true;
-		}
-		return isLoginSuccess;
+		return list.get(0);
 	}
 	
-	public boolean RoleSuperuser(String role){
-		boolean  isLoginSuccess = false;
-		
-		List<User> list = em.createQuery("SELECT user FROM User user WHERE user.role = :1")
-				.setParameter("role", role).getResultList();
-		System.out.println("intro"+list.size());
+	public String Checkrole(String username,String password,String role) {
+		List<User> list = em.createQuery("SELECT user FROM user.username = :username AND user.password = :password AND user.role = :role")
+				.setParameter("username", username).setParameter("password", password).setParameter("role", role).getResultList();
 		if(!list.isEmpty()){
-			isLoginSuccess = true;
+			
 		}
-		return isLoginSuccess;
-	}
-	
-	public boolean RoleUser(String role){
-		boolean  isLoginSuccess = false;
+		return role;
 		
-		List<User> list = em.createQuery("SELECT user FROM User user WHERE user.role = :2")
-				.setParameter("role", role).getResultList();
-		System.out.println("intro"+list.size());
-		if(!list.isEmpty()){
-			isLoginSuccess = true;
-		}
-		return isLoginSuccess;
 	}
 	
 	public String Role(String role) {
