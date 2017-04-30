@@ -11,8 +11,7 @@ public interface UserService {
 	public void delete(long id);
 	public User findUserById(long id);
 	public List<User> listAllUser();
-	public boolean login(String username,String password);
-	public boolean RoleSuperuser(String role);
-	public boolean RoleUser(String role);
+	public  User login(String username,String password);
+	public String Checkrole(String username,String password,String role);
 	public String Role(String role);
 }

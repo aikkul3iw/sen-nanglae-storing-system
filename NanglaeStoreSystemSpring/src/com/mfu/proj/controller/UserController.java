@@ -65,7 +65,7 @@ import com.proj.ejb.face.UserService;
 			request.setAttribute("loggedInUser", null);
 			User loginBean = new User();
 			model.addObject("loginBean", loginBean);
-			
+			 
 			return model;
 		}
 		
@@ -79,29 +79,32 @@ import com.proj.ejb.face.UserService;
 					System.out.println(user.getUser_id()+" ID "+user.getUsername()+" username "+user.getPassword()+" password ");
 				}
 				
-				boolean isValidUser = userServ.login(loginBean.getUsername(),
+				User isValidUser = userServ.login(loginBean.getUsername(),
 						loginBean.getPassword());
 				System.out.println(loginBean.getUsername()+" "+loginBean.getPassword());
-				//String username  = (String) request.getAttribute("loggedInUser");
-				
-				String role = userServ.Role(loginBean.getRole());
-				if(isValidUser){
-					if(role.equalsIgnoreCase("1")){
+			
+				if(isValidUser!=null){
+					System.out.println("000 ");
+					System.out.println(isValidUser.getRole());
+						
+				if(isValidUser.getRole().equalsIgnoreCase("Superuser")){
 						System.out.println("Login Superuser Successful");
 						request.setAttribute("loggedInUser", loginBean.getUsername());
 						model = new ModelAndView("createuser");
-					}else if(role.equalsIgnoreCase("2")){
+						
+				}else if(isValidUser.getRole().equalsIgnoreCase("User")){
 						System.out.println("Login User Successful");
 						request.setAttribute("loggedInUser", loginBean.getUsername());
-						model = new ModelAndView("index");
-					}else{
+						model = new ModelAndView("agriculture");
+							
+				}else{
 						System.out.println("Fail");
 						model = new ModelAndView("loginUser");
 						model.addObject("loginBean", loginBean);
 						request.setAttribute("loginBean", "Invalid credentials!!");
-					}
-				}
-				
+							
+							}
+						}
 				else{
 					System.out.println("Fail");
 					model = new ModelAndView("loginUser");
