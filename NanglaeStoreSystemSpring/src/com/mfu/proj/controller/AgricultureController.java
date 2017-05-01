@@ -115,18 +115,7 @@ public class AgricultureController {
 		return model;
 	}
 
-	@RequestMapping(value = "/copyAgriculture", method = RequestMethod.POST)
-	public void copyAgriculture(HttpServletRequest request, HttpServletResponse response) {
-		String oldYear = request.getParameter("oldYear");
-		String newYear = request.getParameter("newYear");
-
-		System.out.println(oldYear + " " + newYear);
-		try {
-			agrServ.copyAgriculture(oldYear, newYear);
-		} catch (Exception e) {
-			e.getMessage();
-		}
-	}
+	
 
 	
 }
