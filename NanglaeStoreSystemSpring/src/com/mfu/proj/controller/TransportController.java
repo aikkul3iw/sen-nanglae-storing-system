@@ -83,9 +83,9 @@ public class TransportController {
 		return result;
 	}
 	
-	@RequestMapping(value="/transport",method=RequestMethod.GET)
-	public ModelAndView displayTransport(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("transport");
+	@RequestMapping(value="/userTransport",method=RequestMethod.GET)
+	public ModelAndView displayuserTransport(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userTransport");
 		
 		return model;
 	}

@@ -87,9 +87,9 @@ public class AgricultureController {
 		return result;
 	}
 
-	@RequestMapping(value = "/agriculture", method = RequestMethod.GET)
-	public ModelAndView displayAgriculture(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("agriculture");
+	@RequestMapping(value = "/userAgriculture", method = RequestMethod.GET)
+	public ModelAndView displayuserAgriculture(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userAgriculture");
 
 		return model;
 	}
@@ -108,9 +108,9 @@ public class AgricultureController {
 		return model;
 	}
 
-	@RequestMapping(value = "/copy", method = RequestMethod.GET)
-	public ModelAndView displaycopy(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("copy");
+	@RequestMapping(value = "/userCopy", method = RequestMethod.GET)
+	public ModelAndView displayuserCopy(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userCopy");
 
 		return model;
 	}

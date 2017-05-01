@@ -89,9 +89,9 @@ public class WaterController {
 		return result;
 	}
 	
-	@RequestMapping(value="/waterresource",method=RequestMethod.GET)
-	public ModelAndView displayWaterresource(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("waterresource");
+	@RequestMapping(value="/userWaterresource",method=RequestMethod.GET)
+	public ModelAndView displayuserWaterresource(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userWaterresource");
 		
 		return model;
 	}

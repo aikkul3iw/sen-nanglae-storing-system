@@ -88,9 +88,9 @@ public class CommerceController {
 		return result;
 	}
 	
-	@RequestMapping(value="/commerce",method=RequestMethod.GET)
-	public ModelAndView displayCommerce(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("commerce");
+	@RequestMapping(value="/userCommerce",method=RequestMethod.GET)
+	public ModelAndView displayuserCommerce(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userCommerce");
 		
 		return model;
 	}

@@ -81,9 +81,9 @@ public class LaborController {
 		return result;
 	}
 	
-	@RequestMapping(value="/labor",method=RequestMethod.GET)
-	public ModelAndView displayLabor(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("labor");
+	@RequestMapping(value="/userLabor",method=RequestMethod.GET)
+	public ModelAndView displayuserLabor(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userLabor");
 		
 		return model;
 	}

@@ -88,9 +88,9 @@ public class Population1Controller {
 		return result;
 	}
 	
-	@RequestMapping(value="/population",method=RequestMethod.GET)
-	public ModelAndView displayPopulation(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("population");
+	@RequestMapping(value="/userPopulation",method=RequestMethod.GET)
+	public ModelAndView displayuserPopulation(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userPopulation");
 		
 		return model;
 	}

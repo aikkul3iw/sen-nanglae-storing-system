@@ -46,37 +46,39 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-	function listTransport() {
+	function listVillage() {
 		$("#loader").show();
-		$
-				.ajax({
-					url : "../NanglaeGov/listTransport.do",
-					type : "POST",
-					success : function(data) {
-						var html = '';
-						for (var i = 0; i < data.length; i++) {
-							html += "<tr>";
-							html += "<td>"
-									+ data[i].tran_year
-									+ "</td>"
-									+ "<td>"
-									+ data[i].tran_name
-									+ "</td>"
-									+ "<td>"
-									+ data[i].type
-									+ "</td>"
-									+ "<td>"
-									+ data[i].description
-									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editTransport\" data-toggle=\"tab\" onclick=\"setEditTransport("
-									+ data[i].tran_id
-									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteTransport("
-									+ data[i].tran_id
-									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
+		$.ajax({
+			url : "../NanglaeGov/listVillage.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				var year = document.getElementById("selectedYear").value;
+				for (var i = 0; i < data.length; i++) {
+					if (data[i].vil_year == year) {
+								html += "<tr>";
+								html += "<td>"
+										+ data[i].vil_year
+										+ "</td>"
+										+ "<td>"
+										+ data[i].vil_number
+										+ "</td>"
+										+ "<td>"
+										+ data[i].vil_name
+										+ "</td>"
+										+ "<td>"
+										+ data[i].vil_chief
+										+ "</td>"
+										+ "<td style=\"text-align: center;\"><button href=\"#editVillage\" data-toggle=\"tab\" onclick=\"setEditVillage("
+										+ data[i].vil_id
+										+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteVillage("
+										+ data[i].vil_id
+										+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
-							html += "</tr>";
+								html += "</tr>";
+							}
 						}
-						$('#listTransports').html(html);
+						$('#listVillages').html(html);
 						$(document).ready(function() {
 							var table = $('#resultTable').DataTable({
 								lengthChange : false,
@@ -92,37 +94,39 @@
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
-						alert('error');
+						alert('ไม่สามารถโหลดข้อมูลได้');
 						$("#loader").hide();
 					}
-				});
+			});
 	}
 </script>
 <script type='text/javascript'>
-	function createTransport() {
-		$("#loader").show();
-		if ($('#tran_year').val() == "") {
-			document.getElementById('tran_year').style.borderColor = "red";
+	function createVillage() {
+		if ($('#vil_year').val() == "") {
+			document.getElementById('vil_year').style.borderColor = "red";
 			return false;
-		} else if ($('#tran_name').val() == "") {
-			document.getElementById('tran_name').style.borderColor = "red";
+		} else if ($('#vil_number').val() == "") {
+			document.getElementById('vil_number').style.borderColor = "red";
 			return false;
-		} else if ($('#type').val() == "") {
-			document.getElementById('type').style.borderColor = "red";
+		} else if ($('#vil_name').val() == "") {
+			document.getElementById('vil_name').style.borderColor = "red";
 			return false;
-		} else if ($('#description').val() == "") {
-			document.getElementById('description').style.borderColor = "red";
+		} else if ($('#vil_chief').val() == "") {
+			document.getElementById('vil_chief').style.borderColor = "red";
 			return false;
 		} else {
+			$("#loader").show();
+			var errDetectMsg = 'ไม่สามารถบันทึกข้อมูลได้';
+			var errDetec = false;
 			var obj = {
-				tran_id : 0,
-				tran_year : $('#tran_year').val(),
-				tran_name : $('#tran_name').val(),
-				type : $('#type').val(),
-				description : $('#description').val()
+				vil_id : 0,
+				vil_year : $('#vil_year').val(),
+				vil_name : $('#vil_name').val(),
+				vil_number : $('#vil_number').val(),
+				vil_chief : $('#vil_chief').val()
 			};
 			$.ajax({
-				url : "../NanglaeGov/saveTransport.do",
+				url : "../NanglaeGov/saveVillage.do",
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -135,15 +139,16 @@
 					}).then(function() {
 						location.reload();
 					});
+
 				},
 				error : function(data, status, er) {
-					alert('error');
+					alert(errDetectMsg);
 					$("#loader").hide();
 				}
 			});
 		}
 	}
-	function deleteTransport(tran_id) {
+	function deleteVillage(vil_id) {
 		swal({
 			title : 'คุณต้องการลบข้อมูลหรือไม่?',
 			type : 'warning',
@@ -153,35 +158,36 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = tran_id;
-		var obj = {
-			tran_id : id
+			var id = vil_id;
+			var obj = {
+				vil_id : id
+			};
+			$.ajax({
+				url : "../NanglaeGov/deleteVillage.do",
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					location.reload();
+				}
+			});
+		});
 
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteTransport.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
-		});
 	}
-	function editTransport() {
+	function editVillage() {
 		var obj = {
-			tran_id : $("#editTranId").val(),
-			tran_year : $('#editTranYear').val(),
-			tran_name : $('#editTranName').val(),
-			type : $('#editType').val(),
-			description : $('#editDescription').val()
+			vil_id : $("#editVilId").val(),
+			vil_year : $('#editVilYear').val(),
+			vil_name : $('#editVilName').val(),
+			vil_number : $('#editVilNumber').val(),
+			vil_chief : $('#editVilChief').val()
 		};
+
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/saveTransport.do",
+			url : "../NanglaeGov/saveVillage.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -196,18 +202,18 @@
 				});
 			},
 			error : function(data, status, er) {
-				alert('error');
+				alert('ไม่สามารถบันทึกข้อมูลได้');
 			}
 		});
 	}
-	function setEditTransport(tran_id) {
+	function setEditVillage(vil_id) {
 
 		var obj = {
-			tran_id : tran_id
+			vil_id : vil_id
 		};
 
 		$.ajax({
-			url : "../NanglaeGov/findTransport.do",
+			url : "../NanglaeGov/findVillage.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -215,27 +221,34 @@
 			mimeType : "application/json",
 			success : function(data) {
 				//alert(JSON.stringify(data));
-				$("#editTranId").val(data.tran_id);
-				$("#editTranYear").val(data.tran_year);
-				$("#editTranName").val(data.tran_name);
-				$("#editType").val(data.type);
-				$("#editDescription").val(data.description);
+				$("#editVilId").val(data.vil_id);
+				$("#editVilYear").val(data.vil_year);
+				$("#editVilName").val(data.vil_name);
+				$("#editVilNumber").val(data.vil_number);
+				$("#editVilChief").val(data.vil_chief);
 			},
 			error : function(data, status, er) {
-				alert('error');
+				alert('ไม่สามารถโหลดข้อมูลได้');
 			}
 		});
 	}
 </script>
+<script type="text/javascript">
+	function validate() {
+		if (vilForm.vil - number.value.length == 0) {
+			document.getElementById("vil_number").innerHTML = "this is invalid name ";
+		}
+	}
+</script>
 </head>
 
-<body onload="listTransport()">
+<body onload="listVillage()">
 
 	<div id="wrapper">
 
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
-			style="margin-bottom: 0;background-color: #98c3e8">
+			style="margin-bottom: 0; background-color: #98c3e8">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-collapse">
@@ -243,8 +256,8 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<img src="../NanglaeGov/images/logo-nanglae.png">
-				<a class="navbar-brand" href="index.do">เทศบาลตำบลนางแล</a>
+				<img src="../NanglaeGov/images/logo-nanglae.png"> <a
+					class="navbar-brand" href="userIndex.do">เทศบาลตำบลนางแล</a>
 			</div>
 			<!-- /.navbar-header -->
 
@@ -272,53 +285,53 @@
 						<li><a href="#"><i class="fa fa-child fa-fw"></i> บุคคล<span
 								class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="personnel.do">บุคลากร</a></li>
-								<li><a href="population.do">ประชากร</a></li>
-								<li><a href="labor.do">แรงงาน</a></li>
+								<li><a href="userPersonnel.do">บุคลากร</a></li>
+								<li><a href="userPopulation.do">ประชากร</a></li>
+								<li><a href="userLabor.do">แรงงาน</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-road fa-fw"></i>
 								สาธารณูปโภค<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="transport.do">ระบบคมนาคมขนส่ง</a></li>
-								<li><a href="electric.do">ระบบไฟฟ้า</a></li>
-								<li><a href="pipeline.do">ระบบประปา</a></li>
-								<li><a href="drainange.do">ระบบระบายน้ำ</a></li>
+								<li><a href="userTransport.do">ระบบคมนาคมขนส่ง</a></li>
+								<li><a href="userElectric.do">ระบบไฟฟ้า</a></li>
+								<li><a href="userPipeline.do">ระบบประปา</a></li>
+								<li><a href="userDrainage.do">ระบบระบายน้ำ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-home fa-fw"></i>
 								สาธารณุปการ<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li><a href="#">เคหะ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="village.do">หมู่บ้าน</a></li>
-										<li><a href="industry.do">การอุตสาหกรรม</a></li>
-										<li><a href="education.do">การศึกษา</a></li>
-										<li><a href="religion.do">การศาสนา</a></li>
-										<li><a href="commerce.do">การพาณิชย์</a></li>
-										<li><a href="tourism.do">แหล่งท่องเที่ยว</a></li>
+										<li><a href="userVillage.do">หมู่บ้าน</a></li>
+										<li><a href="userIndustry.do">การอุตสาหกรรม</a></li>
+										<li><a href="userEducation.do">การศึกษา</a></li>
+										<li><a href="userReligion.do">การศาสนา</a></li>
+										<li><a href="userCommerce.do">การพาณิชย์</a></li>
+										<li><a href="userTourism.do">แหล่งท่องเที่ยว</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 								<li><a href="#">บริการ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="health.do">การสาธารสุข</a></li>
-										<li><a href="security.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
+										<li><a href="userHealth.do">การสาธารสุข</a></li>
+										<li><a href="userSecurity.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
 										</li>
-										<li><a href="group.do">กลุ่มในชุมชน</a></li>
-										<li><a href="service.do">ศูนย์บริการประชาชน</a></li>
-										<li><a href="inventory.do">การคลัง</a></li>
+										<li><a href="userGroup.do">กลุ่มในชุมชน</a></li>
+										<li><a href="userService.do">ศูนย์บริการประชาชน</a></li>
+										<li><a href="userInventory.do">การคลัง</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="glyphicon glyphicon-leaf"></i>
 								ธรรมชาติและสิ่งแวดล้อม<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="agriculture.do">การเกษตรกรรม</a></li>
+								<li><a href="userAgriculture.do">การเกษตรกรรม</a></li>
 								<li><a href="#">ทรัพยากรธรรมชาติ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="waterresource.do">ทรัพยากรณ์น้ำ</a></li>
-										<li><a href="landresource.do">ทรัพยากรณ์ดิน</a></li>
-										<li><a href="forrestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
+										<li><a href="userWaterresource.do">ทรัพยากรณ์น้ำ</a></li>
+										<li><a href="userLandresource.do">ทรัพยากรณ์ดิน</a></li>
+										<li><a href="userForestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
 									</ul></li>
-								<li><a href="polution.do">มลพิษ</a></li>
+								<li><a href="userPolution.do">มลพิษ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
-						<li><a href="copy.do"><i class="fa fa-copy"></i>
+						<li><a href="userCopy.do"><i class="fa fa-copy"></i>
 								คัดลอกข้อมูล</a></li>
 					</ul>
 				</div>
@@ -328,7 +341,7 @@
 		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">ระบบคมนาคมขนส่ง</h1>
+					<h1 class="page-header">หมู่บ้าน</h1>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
@@ -338,124 +351,135 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#listTransport"
-									data-toggle="tab">รายชื่อระบบคมนาคมขนส่ง</a></li>
-								<li><a href="#addTransport" data-toggle="tab">เพิ่มระบบคมนาคมขนส่ง</a>
+								<li class="active"><a href="#listVillage" data-toggle="tab">รายชื่อหมู่บ้าน</a>
+								</li>
+								<li><a href="#addVillage" data-toggle="tab">เพิ่มหมู่บ้าน</a>
 								</li>
 							</ul>
 							<div class="panel-body">
 
 								<!-- Tab panes -->
 								<div class="tab-content">
-									<div class="tab-pane fade in active" id="listTransport">
-										พ.ศ. <select>
-											<option value="2558">2558</option>
-											<option value="2559">2559</option>
-										</select> <br>
+									<div class="tab-pane fade in active" id="listVillage">
+
+										<form>
+											พ.ศ. <select id="selectedYear" onchange='listVillage()'>
+												<option value="2558">2558</option>
+												<option value="2559">2559</option>
+											</select>
+										</form>
 										<br>
 										<div class="table-responsive">
-											<table id="resultTable"
-												class="table table-striped table-bordered table-hover">
-<!-- Start change table -->
+											<table class="table table-striped table-bordered table-hover"
+												id="resultTable">
+												<!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่บันทึกข้อมูล</th>
-														<th>การคมนาคม</th>
-														<th>ประเภท</th>
-														<th>รายละเอียด</th>
+														<th>ปีข้อมูล</th>
+														<th>หมู่ที่</th>
+														<th>ชื่อหมู่บ้าน</th>
+														<th>ชื่อกำนัน/ผู้ใหญ่บ้าน</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
 												</thead>
-												<tbody id="listTransports">
+												<tbody id="listVillages">
 												</tbody>
-<!-- End change table -->
+												<!-- End change table -->
 											</table>
 										</div>
 									</div>
-									<div class="tab-pane fade" id="addTransport">
-										<form role="form">
-											<table width="70%" align="center">
+									<div class="tab-pane fade" id="addVillage">
+										<form role="form" name="vilForm" id="formCreate">
+											<table width="50%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input class="form-control" maxlength="4"
-														id="tran_year" placeholder="" value="2558"
-														name="tran-year" required="true" style="width: 70%"></td>
+													<td><input class="form-control" placeholder=""
+														value="2558" maxlength="4" id="vil_year" name="vil-year"></td>
 												</tr>
 												<tr>
 
-													<td align="pull-right" style="padding: 15px">การคมนาคม</td>
-													<td><input class="form-control" maxlength="50"
-														id="tran_name" placeholder="ระบุการคมนาคม"
-														name="tran-name" required="true" style="width: 70%"></td>
+													<td align="pull-right" style="padding: 15px">หมู่ที่</td>
+													<td><input class="form-control"
+														placeholder="ระบุเลขที่หมู่บ้าน" name="vil-number"
+														maxlength="2" id="vil_number" required onblur="validate()"></td>
 
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ประเภท</td>
-													<td><input class="form-control" maxlength="50"
-														id="type" placeholder="" name="tran-distance"
-														required="true" style="width: 70%"></td>
+													<td align="pull-right" style="padding: 15px">ชื่อหมู่บ้าน</td>
+													<td><input class="form-control"
+														placeholder="ระบุชื่อหมู่บ้าน" name="vil-name"
+														maxlength="50" id="vil_name" required></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">รายละเอียด</td>
-													<td><textarea class="form-control" maxlength="255"
-															id="description" rows="3" name="tran-connect"
-															required="true" placeholder="ระบุรายละเอียดเพิ่มเติม"></textarea></td>
+													<td align="pull-right" style="padding: 15px">ชื่อกำนัน/ผู้ใหญ่บ้าน</td>
+													<td><input class="form-control"
+														placeholder="ระบุชื่อผู้ใหญ่บ้าน" name="vilChief"
+														maxlength="50" id="vil_chief" required></td>
+												</tr>
+
+												<tr>
+													<td></td>
+													<td>
+														<div class="form-group">
+															<div class="col-md-9 col-md-offset-3">
+																<div id="messages"></div>
+															</div>
+														</div>
+													</td>
 												</tr>
 												<tr>
 													<td></td>
 													<td align="center" style="padding: 15px">
 														<button style="width: 100px" type="reset"
 															class="btn btn-warning">ล้างข้อมูล</button> <input
-														style="width: 100px" type="button" class="btn btn-success"
-														value="บันทึก" onclick="createTransport()" />
+														style="width: 100px" type="button" value="บันทึก"
+														onclick="createVillage()" class="btn btn-success" />
 													</td>
 												</tr>
 											</table>
 										</form>
 									</div>
-									<div class="tab-pane fade" id="editTransport">
+									<div class="tab-pane fade" id="editVillage">
 										<form role="form">
-											<input type="hidden" id="editTranId">
-											<table width="70%" align="center">
+											<input type="hidden" id="editVilId">
+											<table width="50%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input class="form-control" maxlength="4"
-														id="editTranYear" placeholder="" value="2558"
-														name="tran-year" required="true" style="width: 70%"></td>
+													<td><input class="form-control" placeholder=""
+														value="2558" maxlength="4" id="editVilYear"
+														name="vil-year"></td>
 												</tr>
 												<tr>
 
-													<td align="pull-right" style="padding: 15px">การคมนาคม</td>
-													<td><input class="form-control" maxlength="50"
-														id="editTranName" placeholder="" name="tran-name"
-														required="true" style="width: 70%"></td>
+													<td align="pull-right" style="padding: 15px">หมู่ที่</td>
+													<td><input class="form-control" placeholder=""
+														name="vil-number" maxlength="2" id="editVilNumber"
+														required=""></td>
 
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ประเภท</td>
-													<td><input class="form-control" maxlength="50"
-														id="editType" placeholder="" name="tran-distance"
-														required="true" style="width: 70%"></td>
+													<td align="pull-right" style="padding: 15px">ชื่อหมู่บ้าน</td>
+													<td><input class="form-control" placeholder=""
+														name="vil-name" maxlength="50" id="editVilName"
+														required=""></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">รายละเอียด</td>
-													<td><textarea class="form-control" maxlength="255"
-															id="editDescription" rows="3" name="tran-connect"
-															required="true"></textarea></td>
+													<td align="pull-right" style="padding: 15px">ชื่อกำนัน/ผู้ใหญ่บ้าน</td>
+													<td><input class="form-control" placeholder=""
+														name="vilChief" maxlength="50" id="editVilChief"
+														required=""></td>
 												</tr>
 												<tr>
 													<td></td>
 													<td align="center" style="padding: 15px"><a
-														href="#listTransport" data-toggle="tab"><button
+														href="#listVillage" data-toggle="tab"><button
 																style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
-														<input style="width: 100px" type="button"
-														class="btn btn-success" value="บันทึก"
-														onclick="editTransport()" /></td>
+														<input style="width: 100px" type="button" value="บันทึก"
+														onclick="editVillage()" class="btn btn-success" /></td>
 												</tr>
 											</table>
 										</form>
 									</div>
-
 								</div>
 							</div>
 						</div>

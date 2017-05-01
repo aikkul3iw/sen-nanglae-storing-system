@@ -91,9 +91,9 @@ public class EducationController {
 		return result;
 	}
 	
-	@RequestMapping(value="/education",method=RequestMethod.GET)
-	public ModelAndView displayEducation(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("education");
+	@RequestMapping(value="/userEducation",method=RequestMethod.GET)
+	public ModelAndView displayuserEducation(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userEducation");
 		
 		return model;
 	}

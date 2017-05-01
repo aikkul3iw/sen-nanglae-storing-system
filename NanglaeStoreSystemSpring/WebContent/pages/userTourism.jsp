@@ -46,46 +46,45 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-	function listElectricity() {
+	function listTourism() {
 		$("#loader").show();
 		$
 				.ajax({
-					url : "../NanglaeGov/listElectricity.do",
+					url : "../NanglaeGov/listTourism.do",
 					type : "POST",
 					success : function(data) {
 						var html = '';
-						
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].elec_year
+									+ data[i].tour_year
 									+ "</td>"
 									+ "<td>"
+									+ data[i].tour_name
+									+ "</td>"
+									+ "<td>"
+									+ data[i].tour_description
+									+ "</td>"
+									+ "<td>"
+									+ "หมู่ที่ "
 									+ data[i].location.vil_number
-									+ "</td>"
-									+ "<td>"
+									+ " บ้าน"
 									+ data[i].location.vil_name
 									+ "</td>"
-									+ "<td>"
-									+ data[i].elec_status
-									+ "</td>"
-									+ "<td>"
-									+ data[i].elec_area
-									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editElection\" data-toggle=\"tab\" onclick=\"setEditElectricity("
-									+ data[i].elec_id
-									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteElectricity("
-									+ data[i].elec_id
+									+ "<td style=\"text-align: center;\"><button href=\"#editTourism\" data-toggle=\"tab\" onclick=\"setEditTourism("
+									+ data[i].tour_id
+									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteTourism("
+									+ data[i].tour_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 							html += "</tr>";
 						}
-						$('#listElectricitys').html(html);
+						$('#listTourisms').html(html);
 						$(document).ready(function() {
 							var table = $('#resultTable').DataTable({
 								lengthChange : false,
 								buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2, 3, 4 ]},customize : function(doc) {
+								columns : [ 0, 1, 2, 3 ]},customize : function(doc) {
 								doc.defaultStyle['font'] = 'THSarabun';
 										}
 									},
@@ -103,28 +102,28 @@
 	}
 </script>
 <script type='text/javascript'>
-	function createElectricity() {
+	function createTourism() {
 		$("#loader").show();
-		if ($('#elec_year').val() == "") {
-			document.getElementById('elec_year').style.borderColor = "red";
+		if ($('#tour_year').val() == "") {
+			document.getElementById('tour_year').style.borderColor = "red";
 			return false;
-		} else if ($('#elec_area').val() == "") {
-			document.getElementById('elec_area').style.borderColor = "red";
+		} else if ($('#tour_name').val() == "") {
+			document.getElementById('tour_name').style.borderColor = "red";
 			return false;
-		} else if ($('#elec_status').val() == "") {
-			document.getElementById('elec_status').style.borderColor = "red";
+		} else if ($('#tour_description').val() == "") {
+			document.getElementById('tour_description').style.borderColor = "red";
 			return false;
 		} else {
 			var obj = {
-				elec_id : 0,
-				elec_year : $('#elec_year').val(),
-				elec_area : $('#elec_area').val(),
-				elec_status : $('#elec_status').val()
+				tour_id : 0,
+				tour_year : $('#tour_year').val(),
+				tour_name : $('#tour_name').val(),
+				tour_description : $('#tour_description').val()
 
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/saveElectricity.do?id=" + $("#villageSelect").val(),
+				url : "../NanglaeGov/saveTourism.do?id=" + $("#villageSelect").val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -165,7 +164,7 @@
 			}
 		});
 	}
-	function deleteElectricity(elec_id) {
+	function deleteTourism(tour_id) {
 		swal({
 			title : 'คุณต้องการลบข้อมูลหรือไม่?',
 			type : 'warning',
@@ -175,15 +174,13 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = elec_id
+		var id = tour_id;
 		var obj = {
-			elec_id : id
+			tour_id : id
 
 		};
-		//alert(id);
-		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/deleteElectricity.do",
+			url : "../NanglaeGov/deleteTourism.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -195,16 +192,16 @@
 		});
 		});
 	}
-	function editElectricity() {
+	function editTourism() {
 		var obj = {
-			elec_id : $("#editElecId").val(),
-			elec_year : $('#editElecYear').val(),
-			elec_area : $('#editElecArea').val(),
-			elec_status : $('#editElecStatus').val()
+			tour_id : $("#editTourId").val(),
+			tour_year : $('#editTourYear').val(),
+			tour_name : $('#editTourName').val(),
+			tour_description : $('#editTourDescription').val()
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/saveElectricity.do?id=" + $("#editVillageSelect").val(),
+			url : "../NanglaeGov/saveTourism.do?id=" + $("#editVillageSelect").val(),
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -223,14 +220,14 @@
 			}
 		});
 	}
-	function setEditElectricity(elec_id) {
+	function setEditTourism(tour_id) {
 
 		var obj = {
-			elec_id : elec_id
+			tour_id : tour_id
 		};
 
 		$.ajax({
-			url : "../NanglaeGov/findElectricity.do",
+			url : "../NanglaeGov/findTourism.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -238,10 +235,10 @@
 			mimeType : "application/json",
 			success : function(data) {
 				//alert(JSON.stringify(data));
-				$("#editElecId").val(data.elec_id);
-				$("#editElecYear").val(data.elec_year);
-				$("#editElecArea").val(data.elec_area);
-				$("#editElecStatus").val(data.elec_status);
+				$("#editTourId").val(data.tour_id);
+				$("#editTourYear").val(data.tour_year);
+				$("#editTourName").val(data.tour_name);
+				$("#editTourDescription").val(data.tour_description);
 				$('#editVillageSelect').val(data.location.vil_id);
 			},
 			error : function(data, status, er) {
@@ -272,13 +269,13 @@
 </script>
 </head>
 
-<body onload="listElectricity();listVillage();editVillageSelect();">
+<body onload="listTourism();listVillage();editVillageSelect();">
 
 	<div id="wrapper">
 
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
-			style="margin-bottom: 0;background-color: #98c3e8">
+			style="margin-bottom: 0; background-color: #98c3e8">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-collapse">
@@ -286,8 +283,8 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<img src="../NanglaeGov/images/logo-nanglae.png">
-				<a class="navbar-brand" href="index.do">เทศบาลตำบลนางแล</a>
+				<img src="../NanglaeGov/images/logo-nanglae.png"> <a
+					class="navbar-brand" href="userIndex.do">เทศบาลตำบลนางแล</a>
 			</div>
 			<!-- /.navbar-header -->
 
@@ -315,53 +312,53 @@
 						<li><a href="#"><i class="fa fa-child fa-fw"></i> บุคคล<span
 								class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="personnel.do">บุคลากร</a></li>
-								<li><a href="population.do">ประชากร</a></li>
-								<li><a href="labor.do">แรงงาน</a></li>
+								<li><a href="userPersonnel.do">บุคลากร</a></li>
+								<li><a href="userPopulation.do">ประชากร</a></li>
+								<li><a href="userLabor.do">แรงงาน</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-road fa-fw"></i>
 								สาธารณูปโภค<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="transport.do">ระบบคมนาคมขนส่ง</a></li>
-								<li><a href="electric.do">ระบบไฟฟ้า</a></li>
-								<li><a href="pipeline.do">ระบบประปา</a></li>
-								<li><a href="drainange.do">ระบบระบายน้ำ</a></li>
+								<li><a href="userTransport.do">ระบบคมนาคมขนส่ง</a></li>
+								<li><a href="userElectric.do">ระบบไฟฟ้า</a></li>
+								<li><a href="userPipeline.do">ระบบประปา</a></li>
+								<li><a href="userDrainage.do">ระบบระบายน้ำ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-home fa-fw"></i>
 								สาธารณุปการ<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li><a href="#">เคหะ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="village.do">หมู่บ้าน</a></li>
-										<li><a href="industry.do">การอุตสาหกรรม</a></li>
-										<li><a href="education.do">การศึกษา</a></li>
-										<li><a href="religion.do">การศาสนา</a></li>
-										<li><a href="commerce.do">การพาณิชย์</a></li>
-										<li><a href="tourism.do">แหล่งท่องเที่ยว</a></li>
+										<li><a href="userVillage.do">หมู่บ้าน</a></li>
+										<li><a href="userIndustry.do">การอุตสาหกรรม</a></li>
+										<li><a href="userEducation.do">การศึกษา</a></li>
+										<li><a href="userReligion.do">การศาสนา</a></li>
+										<li><a href="userCommerce.do">การพาณิชย์</a></li>
+										<li><a href="userTourism.do">แหล่งท่องเที่ยว</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 								<li><a href="#">บริการ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="health.do">การสาธารสุข</a></li>
-										<li><a href="security.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
+										<li><a href="userHealth.do">การสาธารสุข</a></li>
+										<li><a href="userSecurity.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
 										</li>
-										<li><a href="group.do">กลุ่มในชุมชน</a></li>
-										<li><a href="service.do">ศูนย์บริการประชาชน</a></li>
-										<li><a href="inventory.do">การคลัง</a></li>
+										<li><a href="userGroup.do">กลุ่มในชุมชน</a></li>
+										<li><a href="userService.do">ศูนย์บริการประชาชน</a></li>
+										<li><a href="userInventory.do">การคลัง</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="glyphicon glyphicon-leaf"></i>
 								ธรรมชาติและสิ่งแวดล้อม<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="agriculture.do">การเกษตรกรรม</a></li>
+								<li><a href="userAgriculture.do">การเกษตรกรรม</a></li>
 								<li><a href="#">ทรัพยากรธรรมชาติ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="waterresource.do">ทรัพยากรณ์น้ำ</a></li>
-										<li><a href="landresource.do">ทรัพยากรณ์ดิน</a></li>
-										<li><a href="forrestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
+										<li><a href="userWaterresource.do">ทรัพยากรณ์น้ำ</a></li>
+										<li><a href="userLandresource.do">ทรัพยากรณ์ดิน</a></li>
+										<li><a href="userForestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
 									</ul></li>
-								<li><a href="polution.do">มลพิษ</a></li>
+								<li><a href="userPolution.do">มลพิษ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
-						<li><a href="copy.do"><i class="fa fa-copy"></i>
+						<li><a href="userCopy.do"><i class="fa fa-copy"></i>
 								คัดลอกข้อมูล</a></li>
 					</ul>
 				</div>
@@ -371,7 +368,7 @@
 		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">ระบบไฟฟ้า</h1>
+					<h1 class="page-header">แหล่งท่องเที่ยว</h1>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
@@ -381,16 +378,16 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#listElection"
-									data-toggle="tab">ข้อมูลระบบไฟฟ้า</a></li>
-								<li><a href="#addElection" data-toggle="tab">เพิ่มระบบไฟฟ้า</a>
+								<li class="active"><a href="#listTourism" data-toggle="tab">ข้อมูลแหล่งท่องเที่ยว</a>
+								</li>
+								<li><a href="#addTourism" data-toggle="tab">เพิ่มแหล่งท่องเที่ยว</a>
 								</li>
 							</ul>
 							<div class="panel-body">
 
 								<!-- Tab panes -->
 								<div class="tab-content">
-									<div class="tab-pane fade in active" id="listElection">
+									<div class="tab-pane fade in active" id="listTourism">
 										พ.ศ. <select>
 											<option value="2558">2558</option>
 											<option value="2559">2559</option>
@@ -403,51 +400,48 @@
 												<thead>
 													<tr>
 														<th>ปีที่บันทึกข้อมูล</th>
-														<th>หมู่ที่</th>
-														<th>ชื่อหมู่บ้าน</th>
-														<th>ระบบไฟฟ้า</th>
-														<th>พื้นที่ขาดแคลน</th>
+														<th>แหล่งท่องเที่ยว</th>
+														<th>รายละเอียด</th>
+														<th>ที่ตั้ง</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
 												</thead>
-												<tbody id="listElectricitys">
+												<tbody id="listTourisms">
 												</tbody>
 <!-- End change table -->
 											</table>
 										</div>
 									</div>
-									<div class="tab-pane fade" id="addElection">
+									<div class="tab-pane fade" id="addTourism">
 										<form role="form">
 											<table width="50%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="elec_year" maxlength="4"
-														class="form-control" placeholder="" value="2558"
-														name="vil-year"></td>
+													<td><input class="form-control" maxlength="4"
+														id="tour_year" placeholder="" value="2558" name="vil-year"></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">หมู่บ้าน</td>
+
+													<td align="pull-right" style="padding: 15px">ชื่อ</td>
+													<td><input class="form-control" maxlength="100"
+														id="tour_name" placeholder="ระบุชื่อสถานที่ท่องเที่ยว"
+														name="vil-number" required="true"></td>
+
+												</tr>
+												<tr>
+													<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
 													<td><select class="form-control" id="villageSelect"
 														placeholder="" name="vil-name" required="true">
 
 													</select></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">สถานะระบบไฟฟ้า</td>
-													<td><select id="elec_status" class="form-control"
-														placeholder="" name="vil-name" required="true">
-															<option>กรุณาเลือก</option>
-															<option value="มีระบบไฟฟ้าทั่วถึง">มีระบบไฟฟ้าทั่วถึง</option>
-															<option value="มีระบบไฟฟ้าเกือบทั่วถึง">มีระบบไฟฟ้าเกือบทั่วถึง</option>
-															<option value="ไม่มีระบบไฟฟ้า">ไม่มีระบบไฟฟ้า</option>
-													</select></td>
-												</tr>
-												<tr>
 
-													<td align="pull-right" style="padding: 15px">พื้นที่ขาดแคลนไฟฟ้า</td>
-													<td><textarea class="form-control" maxlength="100"
-															id="elec_area" placeholder="ระบุหมู่บ้านที่ขาดแคลนไฟฟ้า"
-															name="vil-number" required="true"></textarea></td>
+													<td align="pull-right" style="padding: 15px">รายละเอียด</td>
+													<td><textarea class="form-control" maxlength="255"
+															id="tour_description"
+															placeholder="ระบุรายละเอียดเพิ่มเติม" name="vil-number"
+															required="true"></textarea></td>
 
 												</tr>
 												<tr>
@@ -456,24 +450,32 @@
 														<button style="width: 100px" type="reset"
 															class="btn btn-warning">ล้างข้อมูล</button> <input
 														style="width: 100px" type="button" class="btn btn-success"
-														value="บันทึก" onclick="createElectricity()" />
+														value="บันทึก" onclick="createTourism()" />
 													</td>
 												</tr>
 											</table>
 										</form>
 									</div>
-									<div class="tab-pane fade" id="editElection">
+									<div class="tab-pane fade" id="editTourism">
 										<form role="form">
-											<input type="hidden" id="editElecId">
+											<input type="hidden" id="editTourId">
 											<table width="50%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="editElecYear" maxlength="4"
-														class="form-control" placeholder="" value="2558"
+													<td><input class="form-control" maxlength="4"
+														id="editTourYear" placeholder="" value="2558"
 														name="vil-year"></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">หมู่บ้าน</td>
+
+													<td align="pull-right" style="padding: 15px">ชื่อ</td>
+													<td><input class="form-control" maxlength="100"
+														id="editTourName" placeholder="" name="vil-number"
+														required="true"></td>
+
+												</tr>
+												<tr>
+													<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
 													<td><select class="form-control"
 														id="editVillageSelect" placeholder="" name="vil-name"
 														required="true">
@@ -481,31 +483,21 @@
 													</select></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">สถานะระบบไฟฟ้า</td>
-													<td><select id="editElecStatus" class="form-control"
-														placeholder="" name="vil-name" required="true">
-															<option>กรุณาเลือก</option>
-															<option value="มีระบบไฟฟ้าทั่วถึง">มีระบบไฟฟ้าทั่วถึง</option>
-															<option value="มีระบบไฟฟ้าเกือบทั่วถึง">มีระบบไฟฟ้าเกือบทั่วถึง</option>
-															<option value="ไม่มีระบบไฟฟ้า">ไม่มีระบบไฟฟ้า</option>
-													</select></td>
-												</tr>
-												<tr>
 
-													<td align="pull-right" style="padding: 15px">พื้นที่ขาดแคลนไฟฟ้า</td>
-													<td><textarea class="form-control" maxlength="100"
-															id="editElecArea" placeholder="" name="vil-number"
+													<td align="pull-right" style="padding: 15px">รายละเอียด</td>
+													<td><textarea class="form-control" maxlength="255"
+															id="editTourDescription" placeholder="" name="vil-number"
 															required="true"></textarea></td>
 
 												</tr>
 												<tr>
 													<td></td>
 													<td align="center" style="padding: 15px"><a
-														href="#listElection" data-toggle="tab"><button
+														href="#listTourism" data-toggle="tab"><button
 																style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
 														<input style="width: 100px" type="button"
 														class="btn btn-success" value="บันทึก"
-														onclick="editElectricity()" /></td>
+														onclick="editTourism()" /></td>
 												</tr>
 											</table>
 										</form>

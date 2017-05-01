@@ -46,38 +46,46 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-	function listLandResource() {
+	function listForest() {
 		$("#loader").show();
 		$
 				.ajax({
-					url : "../NanglaeGov/listLandResource.do",
+					url : "../NanglaeGov/listForest.do",
 					type : "POST",
 					success : function(data) {
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
+
 							html += "<td>"
-									+ data[i].land_year
+									+ data[i].frs_year
 									+ "</td>"
 									+ "<td>"
-									+ data[i].land_name
+									+ data[i].frs_name
 									+ "</td>"
 									+ "<td>"
-									+ data[i].land_usage
+									+ "หมู่ที่ "
+									+ data[i].location.vil_number
+									+ " บ้าน"
+									+ data[i].location.vil_name
 									+ "</td>"
-									+ "<td><center><button href=\"#editLand\" data-toggle=\"tab\" onclick=\"setEditLandResource("
-									+ data[i].land_id
-									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteLandResource("
-									+ data[i].land_id
+									+ "<td>"
+									+ data[i].frs_usage
+									+ "</td>"
+									+ "<td style=\"text-align: center;\"><button href=\"#editForest\" data-toggle=\"tab\" onclick=\"setEditForest("
+									+ data[i].frs_id
+									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteForest("
+									+ data[i].frs_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
+
 							html += "</tr>";
 						}
-						$('#listLandResources').html(html);
+						$('#listForests').html(html);
 						$(document).ready(function() {
 							var table = $('#resultTable').DataTable({
 								lengthChange : false,
 								buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2 ]},customize : function(doc) {
+								columns : [ 0, 1, 2, 3 ]},customize : function(doc) {
 								doc.defaultStyle['font'] = 'THSarabun';
 										}
 									},
@@ -95,27 +103,28 @@
 	}
 </script>
 <script type='text/javascript'>
-	function createLandResource() {
+	function createForest() {
 		$("#loader").show();
-		if ($('#land_year').val() == "") {
-			document.getElementById('land_year').style.borderColor = "red";
+		if ($('#frs_year').val() == "") {
+			document.getElementById('frs_year').style.borderColor = "red";
 			return false;
-		} else if ($('#land_name').val() == "") {
-			document.getElementById('land_name').style.borderColor = "red";
+		} else if ($('#frs_name').val() == "") {
+			document.getElementById('frs_name').style.borderColor = "red";
 			return false;
-		} else if ($('#land_usage').val() == "") {
-			document.getElementById('land_usage').style.borderColor = "red";
+		} else if ($('#frs_usage').val() == "") {
+			document.getElementById('frs_usage').style.borderColor = "red";
 			return false;
 		} else {
 			var obj = {
-				land_id : 0,
-				land_year : $('#land_year').val(),
-				land_name : $('#land_name').val(),
-				land_usage : $('#land_usage').val()
+				frs_id : 0,
+				frs_year : $('#frs_year').val(),
+				frs_name : $('#frs_name').val(),
+				frs_usage : $('#frs_usage').val()
+
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/saveLandResource.do",
+				url : "../NanglaeGov/saveForest.do?id=" + $("#villageSelect").val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -135,9 +144,28 @@
 				}
 			});
 		}
-
 	}
-	function deleteLandResource(land_id) {
+	function listVillage() {
+		$("#loader").show();
+		$.ajax({
+			url : "../NanglaeGov/listVillage.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<option value=\""+data[i].vil_id+"\">"
+							+ data[i].vil_name + "</option>";
+				}
+				$('#villageSelect').html(html);
+
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+	function deleteForest(frs_id) {
 		swal({
 			title : 'คุณต้องการลบข้อมูลหรือไม่?',
 			type : 'warning',
@@ -147,13 +175,13 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = land_id;
+		var id = frs_id
 		var obj = {
-			land_id : id
+			frs_id : id
 
 		};
 		$.ajax({
-			url : "../NanglaeGov/deleteLandResource.do",
+			url : "../NanglaeGov/deleteForest.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -165,16 +193,17 @@
 		});
 		});
 	}
-	function editLandResource() {
+	function editForest() {
 		var obj = {
-			land_id : $('#editLandId').val(),
-			land_year : $('#editLandYear').val(),
-			land_name : $('#editLandName').val(),
-			land_usage : $('#editLandUsage').val()
+			frs_id : $("#editFrsId").val(),
+			frs_year : $('#editFrsYear').val(),
+			frs_name : $('#editFrsName').val(),
+			frs_usage : $('#editFrsUsage').val()
+
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/saveLandResource.do",
+			url : "../NanglaeGov/saveForest.do?id=" + $("#editVillageSelect").val(),
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -193,14 +222,14 @@
 			}
 		});
 	}
-	function setEditLandResource(land_id) {
+	function setEditForest(frs_id) {
 
 		var obj = {
-			land_id : land_id
+			frs_id : frs_id
 		};
 
 		$.ajax({
-			url : "../NanglaeGov/findLandResource.do",
+			url : "../NanglaeGov/findForest.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -208,26 +237,48 @@
 			mimeType : "application/json",
 			success : function(data) {
 				//alert(JSON.stringify(data));
-				$("#editLandId").val(data.land_id);
-				$("#editLandYear").val(data.land_year);
-				$("#editLandName").val(data.land_name);
-				$("#editLandUsage").val(data.land_usage);
+				$("#editFrsId").val(data.frs_id);
+				$("#editFrsYear").val(data.frs_year);
+				$("#editFrsName").val(data.frs_name);
+				$("#editFrsUsage").val(data.frs_usage);
+				$('#editVillageSelect').val(data.location.vil_id);
+
 			},
 			error : function(data, status, er) {
 				alert('error');
 			}
 		});
 	}
+	function editVillageSelect() {
+		$("#loader").show();
+		$.ajax({
+			url : "../NanglaeGov/listVillage.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<option value=\""+data[i].vil_id+"\">"
+							+ data[i].vil_name + "</option>";
+				}
+				$('#editVillageSelect').html(html);
+
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
 </script>
 </head>
 
-<body onload="listLandResource();">
+<body onload="listForest();listVillage();editVillageSelect();">
 
 	<div id="wrapper">
 
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
-			style="margin-bottom: 0;background-color: #98c3e8">
+			style="margin-bottom: 0; background-color: #98c3e8">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-collapse">
@@ -235,8 +286,8 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<img src="../NanglaeGov/images/logo-nanglae.png">
-				<a class="navbar-brand" href="index.do">เทศบาลตำบลนางแล</a>
+				<img src="../NanglaeGov/images/logo-nanglae.png"> <a
+					class="navbar-brand" href="userIndex.do">เทศบาลตำบลนางแล</a>
 			</div>
 			<!-- /.navbar-header -->
 
@@ -264,53 +315,53 @@
 						<li><a href="#"><i class="fa fa-child fa-fw"></i> บุคคล<span
 								class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="personnel.do">บุคลากร</a></li>
-								<li><a href="population.do">ประชากร</a></li>
-								<li><a href="labor.do">แรงงาน</a></li>
+								<li><a href="userPersonnel.do">บุคลากร</a></li>
+								<li><a href="userPopulation.do">ประชากร</a></li>
+								<li><a href="userLabor.do">แรงงาน</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-road fa-fw"></i>
 								สาธารณูปโภค<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="transport.do">ระบบคมนาคมขนส่ง</a></li>
-								<li><a href="electric.do">ระบบไฟฟ้า</a></li>
-								<li><a href="pipeline.do">ระบบประปา</a></li>
-								<li><a href="drainange.do">ระบบระบายน้ำ</a></li>
+								<li><a href="userTransport.do">ระบบคมนาคมขนส่ง</a></li>
+								<li><a href="userElectric.do">ระบบไฟฟ้า</a></li>
+								<li><a href="userPipeline.do">ระบบประปา</a></li>
+								<li><a href="userDrainage.do">ระบบระบายน้ำ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-home fa-fw"></i>
 								สาธารณุปการ<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li><a href="#">เคหะ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="village.do">หมู่บ้าน</a></li>
-										<li><a href="industry.do">การอุตสาหกรรม</a></li>
-										<li><a href="education.do">การศึกษา</a></li>
-										<li><a href="religion.do">การศาสนา</a></li>
-										<li><a href="commerce.do">การพาณิชย์</a></li>
-										<li><a href="tourism.do">แหล่งท่องเที่ยว</a></li>
+										<li><a href="userVillage.do">หมู่บ้าน</a></li>
+										<li><a href="userIndustry.do">การอุตสาหกรรม</a></li>
+										<li><a href="userEducation.do">การศึกษา</a></li>
+										<li><a href="userReligion.do">การศาสนา</a></li>
+										<li><a href="userCommerce.do">การพาณิชย์</a></li>
+										<li><a href="userTourism.do">แหล่งท่องเที่ยว</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 								<li><a href="#">บริการ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="health.do">การสาธารสุข</a></li>
-										<li><a href="security.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
+										<li><a href="userHealth.do">การสาธารสุข</a></li>
+										<li><a href="userSecurity.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
 										</li>
-										<li><a href="group.do">กลุ่มในชุมชน</a></li>
-										<li><a href="service.do">ศูนย์บริการประชาชน</a></li>
-										<li><a href="inventory.do">การคลัง</a></li>
+										<li><a href="userGroup.do">กลุ่มในชุมชน</a></li>
+										<li><a href="userService.do">ศูนย์บริการประชาชน</a></li>
+										<li><a href="userInventory.do">การคลัง</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="glyphicon glyphicon-leaf"></i>
 								ธรรมชาติและสิ่งแวดล้อม<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="agriculture.do">การเกษตรกรรม</a></li>
+								<li><a href="userAgriculture.do">การเกษตรกรรม</a></li>
 								<li><a href="#">ทรัพยากรธรรมชาติ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="waterresource.do">ทรัพยากรณ์น้ำ</a></li>
-										<li><a href="landresource.do">ทรัพยากรณ์ดิน</a></li>
-										<li><a href="forrestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
+										<li><a href="userWaterresource.do">ทรัพยากรณ์น้ำ</a></li>
+										<li><a href="userLandresource.do">ทรัพยากรณ์ดิน</a></li>
+										<li><a href="userForestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
 									</ul></li>
-								<li><a href="polution.do">มลพิษ</a></li>
+								<li><a href="userPolution.do">มลพิษ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
-						<li><a href="copy.do"><i class="fa fa-copy"></i>
+						<li><a href="userCopy.do"><i class="fa fa-copy"></i>
 								คัดลอกข้อมูล</a></li>
 					</ul>
 				</div>
@@ -320,7 +371,7 @@
 		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">ทรัพยากรดิน</h1>
+					<h1 class="page-header">ทรัพยากรป่าไม้</h1>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
@@ -330,16 +381,16 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#listLand" data-toggle="tab">ทรัพยากรดิน</a>
+								<li class="active"><a href="#listForest" data-toggle="tab">ทรัพยากรป่าไม้</a>
 								</li>
-								<li><a href="#addLand" data-toggle="tab">เพิ่มทรัพยากรดิน</a>
+								<li><a href="#addForest" data-toggle="tab">เพิ่มทรัพยากรป่าไม้</a>
 								</li>
 							</ul>
 							<div class="panel-body">
 
 								<!-- Tab panes -->
 								<div class="tab-content">
-									<div class="tab-pane fade in active" id="listLand">
+									<div class="tab-pane fade in active" id="listForest">
 										พ.ศ. <select>
 											<option value="2558">2558</option>
 											<option value="2559">2559</option>
@@ -351,39 +402,46 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่ข้อมูล</th>
-														<th>ทรัพยากรดิน</th>
-														<th>การใช้ประโยชน์</th>
+														<th>ปีข้อมูล</th>
+														<th>ป่าไม้</th>
+														<th>ที่ตั้ง</th>
+														<th>การใช้ประโยนช์</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
 												</thead>
-												<tbody id="listLandResources">
+												<tbody id="listForests">
 												</tbody>
 <!-- End change table -->
 											</table>
 										</div>
 									</div>
-									<div class="tab-pane fade" id="addLand">
+									<div class="tab-pane fade" id="addForest">
 										<form role="form">
 											<table width="50%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="land_year" maxlength="4"
-														class="form-control" maxlength="4" placeholder=""
-														value="2558" name="pipe-year" required></td>
+													<td><input id="frs_year" maxlength="4"
+														class="form-control" placeholder="" value="2558"
+														name="pipe-year" required="true"></td>
 												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">ชื่อ</td>
-													<td><input id="land_name" maxlength="50"
-														class="form-control" maxlength="100"
-														placeholder="ระบุชื่อทรัพยากรดิน" name="water-name"
-														required></td>
+													<td><input id="frs_name" maxlength="100"
+														class="form-control" placeholder="" name="water-name"
+														required="true"></td>
+												</tr>
+												<tr>
+													<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
+													<td><select id="villageSelect" class="form-control"
+														name="edu-location">
+
+													</select></td>
 												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">ประเภทการใช้ประโยชน์</td>
-													<td><input id="land_usage" maxlength="100"
-														class="form-control" maxlength="255" placeholder=""
-														name="water-name" required="true"></td>
+													<td><input id="frs_usage" maxlength="255"
+														class="form-control" placeholder="" name="water-name"
+														required="true"></td>
 												</tr>
 												<tr>
 													<td></td>
@@ -391,47 +449,53 @@
 														<button style="width: 100px" type="reset"
 															class="btn btn-warning">ล้างข้อมูล</button> <input
 														style="width: 100px" type="button" class="btn btn-success"
-														value="บันทึก" onclick="createLandResource()" />
+														value="บันทึก" onclick="createForest()" />
 													</td>
 												</tr>
 											</table>
 										</form>
 									</div>
-									<div class="tab-pane fade" id="editLand">
+									<div class="tab-pane fade" id="editForest">
 										<form role="form">
-											<input type="hidden" id="editLandId">
+											<input type="hidden" id="editFrsId">
 											<table width="50%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="editLandYear" maxlength="4"
-														class="form-control" maxlength="4" placeholder=""
-														value="2558" name="pipe-year" required></td>
+													<td><input id="editFrsYear" maxlength="4"
+														class="form-control" placeholder="" value="2558"
+														name="pipe-year" required="true"></td>
 												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">ชื่อ</td>
-													<td><input id="editLandName" maxlength="50"
-														class="form-control" maxlength="100" placeholder=""
-														name="water-name" required></td>
+													<td><input id="editFrsName" maxlength="100"
+														class="form-control" placeholder="" name="water-name"
+														required="true"></td>
+												</tr>
+												<tr>
+													<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
+													<td><select id="editVillageSelect"
+														class="form-control" name="edu-location">
+
+													</select></td>
 												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">ประเภทการใช้ประโยชน์</td>
-													<td><input id="editLandUsage" maxlength="100"
-														class="form-control" maxlength="255" placeholder=""
-														name="water-name" required="true"></td>
+													<td><input id="editFrsUsage" maxlength="255"
+														class="form-control" placeholder="" name="water-name"
+														required="true"></td>
 												</tr>
 												<tr>
 													<td></td>
 													<td align="center" style="padding: 15px"><a
-														href="#listLand" data-toggle="tab"><button
+														href="#listForest" data-toggle="tab"><button
 																style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
 														<input style="width: 100px" type="button"
 														class="btn btn-success" value="บันทึก"
-														onclick="editLandResource()" /></td>
+														onclick="editForest()" /></td>
 												</tr>
 											</table>
 										</form>
 									</div>
-
 								</div>
 							</div>
 						</div>

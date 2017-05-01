@@ -82,9 +82,9 @@ public class ServiceController {
 		return result;
 	}
 	
-	@RequestMapping(value="/service",method=RequestMethod.GET)
-	public ModelAndView displayService(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("service");
+	@RequestMapping(value="/userService",method=RequestMethod.GET)
+	public ModelAndView displayuserService(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userService");
 		
 		return model;
 	}

@@ -88,9 +88,9 @@ public class IndustryController {
 		return result;
 	}
 	
-	@RequestMapping(value="/industry",method=RequestMethod.GET)
-	public ModelAndView displayIndustry(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("industry");
+	@RequestMapping(value="/userIndustry",method=RequestMethod.GET)
+	public ModelAndView displayuserIndustry(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userIndustry");
 		
 		return model;
 	}

@@ -91,9 +91,9 @@ public class HealthController {
 		return result;
 	}
 	
-	@RequestMapping(value="/health",method=RequestMethod.GET)
-	public ModelAndView displayHealth(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("health");
+	@RequestMapping(value="/userHealth",method=RequestMethod.GET)
+	public ModelAndView displayuserHealth(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userHealth");
 		
 		return model;
 	}

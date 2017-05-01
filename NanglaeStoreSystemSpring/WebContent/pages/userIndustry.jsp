@@ -46,24 +46,22 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-	function listWater() {
+	function listIndustry() {
 		$("#loader").show();
 		$
 				.ajax({
-					url : "../NanglaeGov/listWater.do",
+					url : "../NanglaeGov/listIndustry.do",
 					type : "POST",
 					success : function(data) {
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
+
 							html += "<td>"
-									+ data[i].water_year
+									+ data[i].ins_year
 									+ "</td>"
 									+ "<td>"
-									+ data[i].water_name
-									+ "</td>"
-									+ "<td>"
-									+ data[i].water_type
+									+ data[i].ins_name
 									+ "</td>"
 									+ "<td>"
 									+ "หมู่ที่ "
@@ -71,20 +69,28 @@
 									+ " บ้าน"
 									+ data[i].location.vil_name
 									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editResourceWater\" data-toggle=\"tab\" onclick=\"setEditWater("
-									+ data[i].water_id
-									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteWater("
-									+ data[i].water_id
+									+ "<td>"
+									+ data[i].ins_size
+									+ "</td>"
+									+ "<td>"
+									+ data[i].ins_type
+									+ "</td>"
+									+ "<td>"
+									+ data[i].ins_labor
+									+ "</td>"
+									+ "<td style=\"text-align: center;\"><button href=\"#editIndustry\" data-toggle=\"tab\" onclick=\"setEditIndustry("
+									+ data[i].ins_id
+									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteIndustry("
+									+ data[i].ins_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
-
 							html += "</tr>";
 						}
-						$('#listWaters').html(html);
+						$('#listIndustrys').html(html);
 						$(document).ready(function() {
 							var table = $('#resultTable').DataTable({
 								lengthChange : false,
 								buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2, 3 ]},customize : function(doc) {
+								columns : [ 0, 1, 2, 3, 4, 5 ]},customize : function(doc) {
 								doc.defaultStyle['font'] = 'THSarabun';
 										}
 									},
@@ -102,28 +108,36 @@
 	}
 </script>
 <script type='text/javascript'>
-	function createWater() {
+	function createIndustry() {
 		$("#loader").show();
-		if ($('#water_year').val() == "") {
-			document.getElementById('water_year').style.borderColor = "red";
+		if ($('#ins_year').val() == "") {
+			document.getElementById('ins_year').style.borderColor = "red";
 			return false;
-		} else if ($('#water_name').val() == "") {
-			document.getElementById('water_name').style.borderColor = "red";
+		} else if ($('#ins_name').val() == "") {
+			document.getElementById('ins_name').style.borderColor = "red";
 			return false;
-		} else if ($('#water_type').val() == "") {
-			document.getElementById('water_type').style.borderColor = "red";
+		} else if ($('#ins_size').val() == "") {
+			document.getElementById('ins_size').style.borderColor = "red";
+			return false;
+		} else if ($('#ins_type').val() == "") {
+			document.getElementById('ins_type').style.borderColor = "red";
+			return false;
+		} else if ($('#ins_labor').val() == "") {
+			document.getElementById('ins_labor').style.borderColor = "red";
 			return false;
 		} else {
 			var obj = {
-				water_id : 0,
-				water_year : $('#water_year').val(),
-				water_name : $('#water_name').val(),
-				water_type : $('#water_type').val()
+				ins_id : 0,
+				ins_year : $('#ins_year').val(),
+				ins_name : $('#ins_name').val(),
+				ins_size : $('#ins_size').val(),
+				ins_type : $('#ins_type').val(),
+				ins_labor : $('#ins_labor').val()
 
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/saveWater.do?id=" + $("#villageSelect").val(),
+				url : "../NanglaeGov/saveIndustry.do?id=" + $("#villageSelect").val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -164,7 +178,7 @@
 			}
 		});
 	}
-	function deleteWater(water_id) {
+	function deleteIndustry(ins_id) {
 		swal({
 			title : 'คุณต้องการลบข้อมูลหรือไม่?',
 			type : 'warning',
@@ -174,13 +188,13 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = water_id;
+		var id = ins_id;
 		var obj = {
-			water_id : id
+			ins_id : id
 
 		};
 		$.ajax({
-			url : "../NanglaeGov/deleteWater.do",
+			url : "../NanglaeGov/deleteIndustry.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -192,16 +206,18 @@
 		});
 		});
 	}
-	function editWater() {
+	function editIndustry() {
 		var obj = {
-			water_id : $("#editId").val(),
-			water_year : $('#editWaterYear').val(),
-			water_name : $('#editWaterName').val(),
-			water_type : $('#editWaterType').val()
+			ins_id : $("#editInsId").val(),
+			ins_year : $('#editInsYear').val(),
+			ins_name : $('#editInsName').val(),
+			ins_size : $('#editInsSize').val(),
+			ins_type : $('#editInsType').val(),
+			ins_labor : $('#editInsLabor').val()
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/saveWater.do?id=" + $("#editVillageSelect").val(),
+			url : "../NanglaeGov/saveIndustry.do?id=" + $("#editVillageSelect").val(),
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -220,14 +236,14 @@
 			}
 		});
 	}
-	function setEditWater(water_id) {
+	function setEditIndustry(ins_id) {
 
 		var obj = {
-			water_id : water_id
+			ins_id : ins_id
 		};
 
 		$.ajax({
-			url : "../NanglaeGov/findWater.do",
+			url : "../NanglaeGov/findIndustry.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -235,10 +251,12 @@
 			mimeType : "application/json",
 			success : function(data) {
 				//alert(JSON.stringify(data));
-				$("#editId").val(data.water_id);
-				$("#editWaterYear").val(data.water_year);
-				$("#editWaterName").val(data.water_name);
-				$("#editWaterType").val(data.water_type);
+				$("#editInsId").val(data.ins_id);
+				$("#editInsYear").val(data.ins_year);
+				$("#editInsName").val(data.ins_name);
+				$("#editInsSize").val(data.ins_size);
+				$("#editInsType").val(data.ins_type);
+				$("#editInsLabor").val(data.ins_labor);
 				$('#editVillageSelect').val(data.location.vil_id);
 			},
 			error : function(data, status, er) {
@@ -269,13 +287,13 @@
 </script>
 </head>
 
-<body onload="listWater();listVillage();editVillageSelect();">
+<body onload="listIndustry();listVillage();editVillageSelect();">
 
 	<div id="wrapper">
 
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
-			style="margin-bottom: 0;background-color: #98c3e8">
+			style="margin-bottom: 0; background-color: #98c3e8">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-collapse">
@@ -283,8 +301,8 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<img src="../NanglaeGov/images/logo-nanglae.png">
-				<a class="navbar-brand" href="index.do">เทศบาลตำบลนางแล</a>
+				<img src="../NanglaeGov/images/logo-nanglae.png"> <a
+					class="navbar-brand" href="userIndex.do">เทศบาลตำบลนางแล</a>
 			</div>
 			<!-- /.navbar-header -->
 
@@ -312,53 +330,53 @@
 						<li><a href="#"><i class="fa fa-child fa-fw"></i> บุคคล<span
 								class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="personnel.do">บุคลากร</a></li>
-								<li><a href="population.do">ประชากร</a></li>
-								<li><a href="labor.do">แรงงาน</a></li>
+								<li><a href="userPersonnel.do">บุคลากร</a></li>
+								<li><a href="userPopulation.do">ประชากร</a></li>
+								<li><a href="userLabor.do">แรงงาน</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-road fa-fw"></i>
 								สาธารณูปโภค<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="transport.do">ระบบคมนาคมขนส่ง</a></li>
-								<li><a href="electric.do">ระบบไฟฟ้า</a></li>
-								<li><a href="pipeline.do">ระบบประปา</a></li>
-								<li><a href="drainange.do">ระบบระบายน้ำ</a></li>
+								<li><a href="userTransport.do">ระบบคมนาคมขนส่ง</a></li>
+								<li><a href="userElectric.do">ระบบไฟฟ้า</a></li>
+								<li><a href="userPipeline.do">ระบบประปา</a></li>
+								<li><a href="userDrainage.do">ระบบระบายน้ำ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-home fa-fw"></i>
 								สาธารณุปการ<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li><a href="#">เคหะ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="village.do">หมู่บ้าน</a></li>
-										<li><a href="industry.do">การอุตสาหกรรม</a></li>
-										<li><a href="education.do">การศึกษา</a></li>
-										<li><a href="religion.do">การศาสนา</a></li>
-										<li><a href="commerce.do">การพาณิชย์</a></li>
-										<li><a href="tourism.do">แหล่งท่องเที่ยว</a></li>
+										<li><a href="userVillage.do">หมู่บ้าน</a></li>
+										<li><a href="userIndustry.do">การอุตสาหกรรม</a></li>
+										<li><a href="userEducation.do">การศึกษา</a></li>
+										<li><a href="userReligion.do">การศาสนา</a></li>
+										<li><a href="userCommerce.do">การพาณิชย์</a></li>
+										<li><a href="userTourism.do">แหล่งท่องเที่ยว</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 								<li><a href="#">บริการ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="health.do">การสาธารสุข</a></li>
-										<li><a href="security.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
+										<li><a href="userHealth.do">การสาธารสุข</a></li>
+										<li><a href="userSecurity.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
 										</li>
-										<li><a href="group.do">กลุ่มในชุมชน</a></li>
-										<li><a href="service.do">ศูนย์บริการประชาชน</a></li>
-										<li><a href="inventory.do">การคลัง</a></li>
+										<li><a href="userGroup.do">กลุ่มในชุมชน</a></li>
+										<li><a href="userService.do">ศูนย์บริการประชาชน</a></li>
+										<li><a href="userInventory.do">การคลัง</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="glyphicon glyphicon-leaf"></i>
 								ธรรมชาติและสิ่งแวดล้อม<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="agriculture.do">การเกษตรกรรม</a></li>
+								<li><a href="userAgriculture.do">การเกษตรกรรม</a></li>
 								<li><a href="#">ทรัพยากรธรรมชาติ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="waterresource.do">ทรัพยากรณ์น้ำ</a></li>
-										<li><a href="landresource.do">ทรัพยากรณ์ดิน</a></li>
-										<li><a href="forrestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
+										<li><a href="userWaterresource.do">ทรัพยากรณ์น้ำ</a></li>
+										<li><a href="userLandresource.do">ทรัพยากรณ์ดิน</a></li>
+										<li><a href="userForestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
 									</ul></li>
-								<li><a href="polution.do">มลพิษ</a></li>
+								<li><a href="userPolution.do">มลพิษ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
-						<li><a href="copy.do"><i class="fa fa-copy"></i>
+						<li><a href="userCopy.do"><i class="fa fa-copy"></i>
 								คัดลอกข้อมูล</a></li>
 					</ul>
 				</div>
@@ -369,7 +387,7 @@
 	<div id="page-wrapper" style="background-color: #d7f0f5">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">ทรัพยากรน้ำ</h1>
+				<h1 class="page-header">การอุตสาหกรรม</h1>
 			</div>
 			<!-- /.col-lg-12 -->
 		</div>
@@ -379,16 +397,16 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<ul class="nav nav-tabs">
-							<li class="active"><a href="#listResourceWater"
-								data-toggle="tab">ทรัพยากรน้ำ</a></li>
-							<li><a href="#addResourceWater" data-toggle="tab">เพิ่มทรัพยากรน้ำ</a>
+							<li class="active"><a href="#listIndust" data-toggle="tab">ข้อมูลการอุตสาหกรรม</a>
+							</li>
+							<li><a href="#addIndustry" data-toggle="tab">เพิ่มการอุตสาหกรรม</a>
 							</li>
 						</ul>
 						<div class="panel-body">
 
 							<!-- Tab panes -->
 							<div class="tab-content">
-								<div class="tab-pane fade in active" id="listResourceWater">
+								<div class="tab-pane fade in active" id="listIndust">
 									พ.ศ. <select>
 										<option value="2558">2558</option>
 										<option value="2559">2559</option>
@@ -396,121 +414,67 @@
 									<br>
 									<div class="table-responsive">
 										<table id="resultTable"
-											class="table table-striped table-bordered table-hover">
-<!-- Start change table -->
-												<thead>
-													<tr>
-														<th>ปีข้อมูล</th>
-														<th>ชื่อแหล่งน้ำ</th>
-														<th>ประเภท</th>
-														<th>ที่ตั้ง</th>
-														<th style="text-align: center;">ตัวเลือก</th>
-													</tr>
-												</thead>
-												<tbody id="listWaters">
-												</tbody>
-<!-- End change table -->
-										</table>
-									</div>
-								</div>
-								<div class="tab-pane fade" id="listResourceSoli">
-									พ.ศ. <select>
-										<option value="2558">2558</option>
-										<option value="2559">2559</option>
-									</select> <br>
-									<br>
-									<div class="table-responsive">
-										<table class="table table-striped table-bordered table-hover">
+											class="table table-striped table-bordered table-hover" style="white-space:nowrap;">
+											<!-- Start change table -->
 											<thead>
 												<tr>
-													<th>ดิน</th>
-													<th>บริเวรที่ตั้ง</th>
-													<th>การใช้ประโยนช์</th>
+													<th>ปีข้อมูล</th>
+													<th>ชื่ออุตสาหกรรม</th>
+													<th>ที่ตั้ง</th>
+													<th>ขนาด</th>
+													<th>มูลค่าอุตสาหกรรม(ล้านบาท)</th>
+													<th>จำนวนแรงงาน(คน)</th>
+													<th style="text-align: center;">ตัวเลือก</th>
 												</tr>
 											</thead>
-											<tbody>
-												<tr>
-													<td>ดินแดงปนดิ</td>
-													<td>ทิศตะวันตกบริเวรป่าสงวน</td>
-													<td>พื้นที่ทำการเกษตร</td>
-												</tr>
-												<tr>
-													<td>ดินร่วนปนทราย</td>
-													<td>ทิศตะวันตกบริเวรป่าสงวน</td>
-													<td>พื้นที่ทำการเกษตร</td>
-												</tr>
-												<tr>
-													<td>ดินที่สูงที่ราบสูง</td>
-													<td>ทิศตะวันตกบริเวรป่าสงวน</td>
-													<td>พื้นที่ทำการเกษตร</td>
-												</tr>
-												<tr>
-													<td>ดินปนหิน</td>
-													<td>ทิศตะวันตกบริเวรป่าสงวน</td>
-													<td>พื้นที่ทำการเกษตร</td>
-												</tr>
+											<tbody id="listIndustrys">
 											</tbody>
+											<!-- End change table -->
 										</table>
 									</div>
 								</div>
-								<div class="tab-pane fade" id="listResourceWood">
-									พ.ศ. <select>
-										<option value="2558">2558</option>
-										<option value="2559">2559</option>
-									</select> <br>
-									<br>
-									<div class="table-responsive">
-										<table class="table table-striped table-bordered table-hover">
-											<thead>
-												<tr>
-													<th>ป่าไม้</th>
-													<th>บริเวรที่ตั้ง</th>
-													<th>การใช้ประโยนช์</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>ป่าสงวนแห่งชาติ</td>
-													<td>หมู่ที่ 7</td>
-													<td>แหล่งต้นน้ำ และทรัพยากรที่อุดมสมบูรณ์</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-								<div class="tab-pane fade" id="addResourceWater">
+								<div class="tab-pane fade" id="addIndustry">
 									<form role="form">
 										<table width="50%" align="center">
 											<tr>
 												<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 												<td><input class="form-control" maxlength="4"
-													id="water_year" placeholder="" value="2558"
-													name="pipe-year" required="true"></td>
+													id="ins_year" placeholder="" value="2558" name="vil-year"></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ชื่อแหล่งน้ำ</td>
-												<td><input id="water_name" maxlength="50"
-													class="form-control" placeholder="ระบุชื่อแหล่งน้ำ"
-													name="water-name" required="true"></td>
-											</tr>
-											<tr>
-												<td align="pull-right" style="padding: 15px">ประเภท</td>
-												<td><select id="water_type" class="form-control"
-													name="water-location">
-														<option value="">เลือกประเภท</option>
-														<option value="ลำห้วย">ลำห้วย</option>
-														<option value="สระน้ำ">สระน้ำ</option>
-														<option value="ลำคลอง">ลำคลอง</option>
-														<option value="แม่น้ำ">แม่น้ำ</option>
-														<option value="อ่างเก็บน้ำ">อ่างเก็บน้ำ</option>
-												</select></td>
+												<td align="pull-right" style="padding: 15px">ชื่อ</td>
+												<td><input class="form-control" maxlength="100"
+													id="ins_name" placeholder="ระบุชื่อ" name="vil-year"></td>
 											</tr>
 											<tr>
 												<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
 												<td><select id="villageSelect" class="form-control"
-													name="water-location">
+													name="vil-name" required="true">
 
 												</select></td>
+											</tr>
+											<tr>
+												<td align="pull-right" style="padding: 15px">ขนาด</td>
+												<td><select id="ins_size" class="form-control"
+													name="water-location">
+														<option value="เล็ก">เล็ก</option>
+														<option value="กลาง">กลาง</option>
+														<option value="ใหญ่">ใหญ่</option>
+												</select></td>
+											</tr>
+											<tr>
+												<td align="pull-right" style="padding: 15px">มูลค่าอุตสาหกรรม</td>
+												<td><input id="ins_type" maxlength="4"
+													class="form-control" placeholder="ระบุมูลค่าอุตสาหกรรม"
+													name="vil-year"></td>
+												<td style="padding: 10px">ล้านบาท</td>
+											</tr>
+											<tr>
+												<td align="pull-right" style="padding: 15px">จำนวนแรงงาน</td>
+												<td><input id="ins_labor" maxlength="4"
+													class="form-control" placeholder="ระบุจำนวนแรงงาน"
+													name="vil-year"></td>
+												<td style="padding: 10px">คน</td>
 											</tr>
 											<tr>
 												<td></td>
@@ -518,55 +482,65 @@
 													<button style="width: 100px" type="reset"
 														class="btn btn-warning">ล้างข้อมูล</button> <input
 													style="width: 100px" type="button" class="btn btn-success"
-													value="บันทึก" onclick="createWater()" />
+													value="บันทึก" onclick="createIndustry()" />
 												</td>
 											</tr>
 										</table>
 									</form>
 								</div>
-								<div class="tab-pane fade" id="editResourceWater">
+								<div class="tab-pane fade" id="editIndustry">
 									<form role="form">
-										<input type="hidden" id="editId">
+										<input type="hidden" id="editInsId">
 										<table width="50%" align="center">
 											<tr>
 												<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 												<td><input class="form-control" maxlength="4"
-													id="editWaterYear" placeholder="" value="2558"
-													name="pipe-year" required="true"></td>
+													id="editInsYear" placeholder="" value="2558"
+													name="vil-year"></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ชื่อแหล่งน้ำ</td>
-												<td><input id="editWaterName" maxlength="50"
-													class="form-control" placeholder="" name="water-name"
-													required="true"></td>
-											</tr>
-											<tr>
-												<td align="pull-right" style="padding: 15px">ประเภท</td>
-												<td><select id="editWaterType" class="form-control"
-													name="water-location">
-														<option value="">เลือกประเภท</option>
-														<option value="ลำห้วย">ลำห้วย</option>
-														<option value="สระน้ำ">สระน้ำ</option>
-														<option value="ลำคลอง">ลำคลอง</option>
-														<option value="แม่น้ำ">แม่น้ำ</option>
-														<option value="อ่างเก็บน้ำ">อ่างเก็บน้ำ</option>
-												</select></td>
+												<td align="pull-right" style="padding: 15px">ชื่อ</td>
+												<td><input class="form-control" maxlength="100"
+													id="editInsName" placeholder="ระบุชื่อ" name="vil-year"></td>
 											</tr>
 											<tr>
 												<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
 												<td><select id="editVillageSelect" class="form-control"
-													name="water-location">
+													name="vil-name" required="true">
 
 												</select></td>
 											</tr>
 											<tr>
+												<td align="pull-right" style="padding: 15px">ขนาด</td>
+												<td><select id="editInsSize" class="form-control"
+													name="water-location">
+														<option value="เล็ก">เล็ก</option>
+														<option value="กลาง">กลาง</option>
+														<option value="ใหญ่">ใหญ่</option>
+												</select></td>
+											</tr>
+											<tr>
+												<td align="pull-right" style="padding: 15px">มูลค่าอุตสาหกรรม</td>
+												<td><input id="editInsType" maxlength="4"
+													class="form-control" placeholder="ระบุมูลค่าอุตสาหกรรม"
+													name="vil-year"></td>
+												<td style="padding: 10px">ล้านบาท</td>
+											</tr>
+											<tr>
+												<td align="pull-right" style="padding: 15px">จำนวนแรงงาน</td>
+												<td><input id="editInsLabor" maxlength="4"
+													class="form-control" placeholder="ระบุจำนวนแรงงาน"
+													name="vil-year"></td>
+												<td style="padding: 10px">คน</td>
+											</tr>
+											<tr>
 												<td></td>
 												<td align="center" style="padding: 15px"><a
-													href="#listResourceWater" data-toggle="tab"><button
+													href="#listIndust" data-toggle="tab"><button
 															style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
 													<input style="width: 100px" type="button"
 													class="btn btn-success" value="บันทึก"
-													onclick="editWater()" /></td>
+													onclick="editIndustry()" /></td>
 											</tr>
 										</table>
 									</form>
@@ -579,7 +553,7 @@
 		</div>
 	</div>
 
-		<!-- jQuery -->
+	<!-- jQuery -->
 		<script src="../NanglaeGov/vendor/jquery/jquery.min.js"></script>
 
 		<!-- Bootstrap Core JavaScript -->

@@ -88,9 +88,9 @@ public class ReligionController {
 		return result;
 	}
 	
-	@RequestMapping(value="/religion",method=RequestMethod.GET)
-	public ModelAndView displayReligion(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("religion");
+	@RequestMapping(value="/userReligion",method=RequestMethod.GET)
+	public ModelAndView displayuserReligion(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userReligion");
 		
 		return model;
 	}

@@ -46,40 +46,42 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-	function listService() {
+	function listTransport() {
 		$("#loader").show();
 		$
 				.ajax({
-					url : "../NanglaeGov/listService.do",
+					url : "../NanglaeGov/listTransport.do",
 					type : "POST",
 					success : function(data) {
 						var html = '';
-						
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].ser_year
+									+ data[i].tran_year
 									+ "</td>"
 									+ "<td>"
-									+ data[i].ser_name
+									+ data[i].tran_name
 									+ "</td>"
 									+ "<td>"
-									+ data[i].ser_capacity
+									+ data[i].type
 									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editService\" data-toggle=\"tab\" onclick=\"setEditService("
-									+ data[i].ser_id
-									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteService("
-									+ data[i].ser_id
+									+ "<td>"
+									+ data[i].description
+									+ "</td>"
+									+ "<td style=\"text-align: center;\"><button href=\"#editTransport\" data-toggle=\"tab\" onclick=\"setEditTransport("
+									+ data[i].tran_id
+									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteTransport("
+									+ data[i].tran_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 							html += "</tr>";
 						}
-						$('#listServices').html(html);
+						$('#listTransports').html(html);
 						$(document).ready(function() {
 							var table = $('#resultTable').DataTable({
 								lengthChange : false,
 								buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2 ]},customize : function(doc) {
+								columns : [ 0, 1, 2, 3 ]},customize : function(doc) {
 								doc.defaultStyle['font'] = 'THSarabun';
 										}
 									},
@@ -97,27 +99,30 @@
 	}
 </script>
 <script type='text/javascript'>
-	function createService() {
+	function createTransport() {
 		$("#loader").show();
-		if ($('#ser_year').val() == "") {
-			document.getElementById('ser_year').style.borderColor = "red";
+		if ($('#tran_year').val() == "") {
+			document.getElementById('tran_year').style.borderColor = "red";
 			return false;
-		} else if ($('#ser_name').val() == "") {
-			document.getElementById('ser_name').style.borderColor = "red";
+		} else if ($('#tran_name').val() == "") {
+			document.getElementById('tran_name').style.borderColor = "red";
 			return false;
-		} else if ($('#ser_capacity').val() == "") {
-			document.getElementById('ser_capacity').style.borderColor = "red";
+		} else if ($('#type').val() == "") {
+			document.getElementById('type').style.borderColor = "red";
+			return false;
+		} else if ($('#description').val() == "") {
+			document.getElementById('description').style.borderColor = "red";
 			return false;
 		} else {
 			var obj = {
-				ser_id : 0,
-				ser_year : $('#ser_year').val(),
-				ser_name : $('#ser_name').val(),
-				ser_capacity : $('#ser_capacity').val()
-
+				tran_id : 0,
+				tran_year : $('#tran_year').val(),
+				tran_name : $('#tran_name').val(),
+				type : $('#type').val(),
+				description : $('#description').val()
 			};
 			$.ajax({
-				url : "../NanglaeGov/saveService.do",
+				url : "../NanglaeGov/saveTransport.do",
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -132,13 +137,13 @@
 					});
 				},
 				error : function(data, status, er) {
-					alert('ไม่สามารถบันทึกข้อมูลได้');
+					alert('error');
 					$("#loader").hide();
 				}
 			});
 		}
 	}
-	function deleteService(ser_id) {
+	function deleteTransport(tran_id) {
 		swal({
 			title : 'คุณต้องการลบข้อมูลหรือไม่?',
 			type : 'warning',
@@ -148,13 +153,13 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = ser_id;
+		var id = tran_id;
 		var obj = {
-			ser_id : id
+			tran_id : id
 
 		};
 		$.ajax({
-			url : "../NanglaeGov/deleteService.do",
+			url : "../NanglaeGov/deleteTransport.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -166,16 +171,17 @@
 		});
 		});
 	}
-	function editService() {
+	function editTransport() {
 		var obj = {
-			ser_id : $("#editSerId").val(),
-			ser_year : $('#editSerYear').val(),
-			ser_name : $('#editSerName').val(),
-			ser_capacity : $('#editSerCapacity').val()
+			tran_id : $("#editTranId").val(),
+			tran_year : $('#editTranYear').val(),
+			tran_name : $('#editTranName').val(),
+			type : $('#editType').val(),
+			description : $('#editDescription').val()
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/saveService.do",
+			url : "../NanglaeGov/saveTransport.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -194,14 +200,14 @@
 			}
 		});
 	}
-	function setEditService(ser_id) {
+	function setEditTransport(tran_id) {
 
 		var obj = {
-			ser_id : ser_id
+			tran_id : tran_id
 		};
 
 		$.ajax({
-			url : "../NanglaeGov/findService.do",
+			url : "../NanglaeGov/findTransport.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -209,10 +215,11 @@
 			mimeType : "application/json",
 			success : function(data) {
 				//alert(JSON.stringify(data));
-				$("#editSerId").val(data.ser_id);
-				$("#editSerYear").val(data.ser_year);
-				$("#editSerName").val(data.ser_name);
-				$("#editSerCapacity").val(data.ser_capacity);
+				$("#editTranId").val(data.tran_id);
+				$("#editTranYear").val(data.tran_year);
+				$("#editTranName").val(data.tran_name);
+				$("#editType").val(data.type);
+				$("#editDescription").val(data.description);
 			},
 			error : function(data, status, er) {
 				alert('error');
@@ -222,13 +229,13 @@
 </script>
 </head>
 
-<body onload="listService();">
+<body onload="listTransport()">
 
 	<div id="wrapper">
 
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
-			style="margin-bottom: 0;background-color: #98c3e8">
+			style="margin-bottom: 0; background-color: #98c3e8">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-collapse">
@@ -236,8 +243,8 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<img src="../NanglaeGov/images/logo-nanglae.png">
-				<a class="navbar-brand" href="index.do">เทศบาลตำบลนางแล</a>
+				<img src="../NanglaeGov/images/logo-nanglae.png"> <a
+					class="navbar-brand" href="userIndex.do">เทศบาลตำบลนางแล</a>
 			</div>
 			<!-- /.navbar-header -->
 
@@ -265,53 +272,53 @@
 						<li><a href="#"><i class="fa fa-child fa-fw"></i> บุคคล<span
 								class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="personnel.do">บุคลากร</a></li>
-								<li><a href="population.do">ประชากร</a></li>
-								<li><a href="labor.do">แรงงาน</a></li>
+								<li><a href="userPersonnel.do">บุคลากร</a></li>
+								<li><a href="userPopulation.do">ประชากร</a></li>
+								<li><a href="userLabor.do">แรงงาน</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-road fa-fw"></i>
 								สาธารณูปโภค<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="transport.do">ระบบคมนาคมขนส่ง</a></li>
-								<li><a href="electric.do">ระบบไฟฟ้า</a></li>
-								<li><a href="pipeline.do">ระบบประปา</a></li>
-								<li><a href="drainange.do">ระบบระบายน้ำ</a></li>
+								<li><a href="userTransport.do">ระบบคมนาคมขนส่ง</a></li>
+								<li><a href="userElectric.do">ระบบไฟฟ้า</a></li>
+								<li><a href="userPipeline.do">ระบบประปา</a></li>
+								<li><a href="userDrainage.do">ระบบระบายน้ำ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-home fa-fw"></i>
 								สาธารณุปการ<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li><a href="#">เคหะ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="village.do">หมู่บ้าน</a></li>
-										<li><a href="industry.do">การอุตสาหกรรม</a></li>
-										<li><a href="education.do">การศึกษา</a></li>
-										<li><a href="religion.do">การศาสนา</a></li>
-										<li><a href="commerce.do">การพาณิชย์</a></li>
-										<li><a href="tourism.do">แหล่งท่องเที่ยว</a></li>
+										<li><a href="userVillage.do">หมู่บ้าน</a></li>
+										<li><a href="userIndustry.do">การอุตสาหกรรม</a></li>
+										<li><a href="userEducation.do">การศึกษา</a></li>
+										<li><a href="userReligion.do">การศาสนา</a></li>
+										<li><a href="userCommerce.do">การพาณิชย์</a></li>
+										<li><a href="userTourism.do">แหล่งท่องเที่ยว</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 								<li><a href="#">บริการ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="health.do">การสาธารสุข</a></li>
-										<li><a href="security.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
+										<li><a href="userHealth.do">การสาธารสุข</a></li>
+										<li><a href="userSecurity.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
 										</li>
-										<li><a href="group.do">กลุ่มในชุมชน</a></li>
-										<li><a href="service.do">ศูนย์บริการประชาชน</a></li>
-										<li><a href="inventory.do">การคลัง</a></li>
+										<li><a href="userGroup.do">กลุ่มในชุมชน</a></li>
+										<li><a href="userService.do">ศูนย์บริการประชาชน</a></li>
+										<li><a href="userInventory.do">การคลัง</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="glyphicon glyphicon-leaf"></i>
 								ธรรมชาติและสิ่งแวดล้อม<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="agriculture.do">การเกษตรกรรม</a></li>
+								<li><a href="userAgriculture.do">การเกษตรกรรม</a></li>
 								<li><a href="#">ทรัพยากรธรรมชาติ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="waterresource.do">ทรัพยากรณ์น้ำ</a></li>
-										<li><a href="landresource.do">ทรัพยากรณ์ดิน</a></li>
-										<li><a href="forrestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
+										<li><a href="userWaterresource.do">ทรัพยากรณ์น้ำ</a></li>
+										<li><a href="userLandresource.do">ทรัพยากรณ์ดิน</a></li>
+										<li><a href="userForestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
 									</ul></li>
-								<li><a href="polution.do">มลพิษ</a></li>
+								<li><a href="userPolution.do">มลพิษ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
-						<li><a href="copy.do"><i class="fa fa-copy"></i>
+						<li><a href="userCopy.do"><i class="fa fa-copy"></i>
 								คัดลอกข้อมูล</a></li>
 					</ul>
 				</div>
@@ -321,7 +328,7 @@
 		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">ศูนย์บริการประชาชน</h1>
+					<h1 class="page-header">ระบบคมนาคมขนส่ง</h1>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
@@ -331,16 +338,16 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#listService" data-toggle="tab">ข้อมูลศูนย์บริการประชาชน</a>
-								</li>
-								<li><a href="#addService" data-toggle="tab">เพิ่มข้อมูลศูนย์บริการประชาชน</a>
+								<li class="active"><a href="#listTransport"
+									data-toggle="tab">รายชื่อระบบคมนาคมขนส่ง</a></li>
+								<li><a href="#addTransport" data-toggle="tab">เพิ่มระบบคมนาคมขนส่ง</a>
 								</li>
 							</ul>
 							<div class="panel-body">
 
 								<!-- Tab panes -->
 								<div class="tab-content">
-									<div class="tab-pane fade in active" id="listService">
+									<div class="tab-pane fade in active" id="listTransport">
 										พ.ศ. <select>
 											<option value="2558">2558</option>
 											<option value="2559">2559</option>
@@ -352,41 +359,47 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีข้อมูล</th>
-														<th>ชื่อ</th>
-														<th>การให้บริการ</th>
+														<th>ปีที่บันทึกข้อมูล</th>
+														<th>การคมนาคม</th>
+														<th>ประเภท</th>
+														<th>รายละเอียด</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
 												</thead>
-												<tbody id="listServices">
+												<tbody id="listTransports">
 												</tbody>
 <!-- End change table -->
 											</table>
 										</div>
 									</div>
-									<div class="tab-pane fade" id="addService">
+									<div class="tab-pane fade" id="addTransport">
 										<form role="form">
-											<table width="50%" align="center">
+											<table width="70%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="ser_year" maxlength="4"
-														class="form-control" placeholder="" value="2558"
-														name="ser_year"></td>
-												</tr>
-												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อ</td>
-													<td><input id="ser_name" maxlength="100"
-														class="form-control" placeholder="ระบุชื่อศูนย์บริการ"
-														name="ser_name" required="true"></td>
-
+													<td><input class="form-control" maxlength="4"
+														id="tran_year" placeholder="" value="2558"
+														name="tran-year" required="true" style="width: 70%"></td>
 												</tr>
 												<tr>
 
-													<td align="pull-right" style="padding: 15px">ขอบเขตการให้บริการ</td>
-													<td><textarea id="ser_capacity" maxlength="255"
-															class="form-control" placeholder="ระบุขอบเขตการให้บริการ"
-															name="ser_capacity" required="true"></textarea></td>
+													<td align="pull-right" style="padding: 15px">การคมนาคม</td>
+													<td><input class="form-control" maxlength="50"
+														id="tran_name" placeholder="ระบุการคมนาคม"
+														name="tran-name" required="true" style="width: 70%"></td>
 
+												</tr>
+												<tr>
+													<td align="pull-right" style="padding: 15px">ประเภท</td>
+													<td><input class="form-control" maxlength="50"
+														id="type" placeholder="" name="tran-distance"
+														required="true" style="width: 70%"></td>
+												</tr>
+												<tr>
+													<td align="pull-right" style="padding: 15px">รายละเอียด</td>
+													<td><textarea class="form-control" maxlength="255"
+															id="description" rows="3" name="tran-connect"
+															required="true" placeholder="ระบุรายละเอียดเพิ่มเติม"></textarea></td>
 												</tr>
 												<tr>
 													<td></td>
@@ -394,49 +407,55 @@
 														<button style="width: 100px" type="reset"
 															class="btn btn-warning">ล้างข้อมูล</button> <input
 														style="width: 100px" type="button" class="btn btn-success"
-														value="บันทึก" onclick="createService()" />
+														value="บันทึก" onclick="createTransport()" />
 													</td>
 												</tr>
 											</table>
 										</form>
 									</div>
-									<div class="tab-pane fade" id="editService">
+									<div class="tab-pane fade" id="editTransport">
 										<form role="form">
-											<input type="hidden" id="editSerId">
-											<table width="50%" align="center">
+											<input type="hidden" id="editTranId">
+											<table width="70%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="editSerYear" maxlength="4"
-														class="form-control" placeholder="" value="2558"
-														name="editSerYear"></td>
-												</tr>
-												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อ</td>
-													<td><input id="editSerName" maxlength="100"
-														class="form-control" placeholder="ระบุชื่อศูนย์บริการ"
-														name="editSerName" required></td>
-
+													<td><input class="form-control" maxlength="4"
+														id="editTranYear" placeholder="" value="2558"
+														name="tran-year" required="true" style="width: 70%"></td>
 												</tr>
 												<tr>
 
-													<td align="pull-right" style="padding: 15px">ขอบเขตการให้บริการ</td>
-													<td><textarea id="editSerCapacity" maxlength="255"
-															class="form-control" placeholder="ระบุขอบเขตการให้บริการ"
-															name="editSerCapacity" required></textarea></td>
+													<td align="pull-right" style="padding: 15px">การคมนาคม</td>
+													<td><input class="form-control" maxlength="50"
+														id="editTranName" placeholder="" name="tran-name"
+														required="true" style="width: 70%"></td>
 
+												</tr>
+												<tr>
+													<td align="pull-right" style="padding: 15px">ประเภท</td>
+													<td><input class="form-control" maxlength="50"
+														id="editType" placeholder="" name="tran-distance"
+														required="true" style="width: 70%"></td>
+												</tr>
+												<tr>
+													<td align="pull-right" style="padding: 15px">รายละเอียด</td>
+													<td><textarea class="form-control" maxlength="255"
+															id="editDescription" rows="3" name="tran-connect"
+															required="true"></textarea></td>
 												</tr>
 												<tr>
 													<td></td>
 													<td align="center" style="padding: 15px"><a
-														href="#listService" data-toggle="tab"><button
+														href="#listTransport" data-toggle="tab"><button
 																style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
 														<input style="width: 100px" type="button"
 														class="btn btn-success" value="บันทึก"
-														onclick="editService()" /></td>
+														onclick="editTransport()" /></td>
 												</tr>
 											</table>
 										</form>
 									</div>
+
 								</div>
 							</div>
 						</div>

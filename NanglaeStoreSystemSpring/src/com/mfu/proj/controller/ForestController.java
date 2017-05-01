@@ -91,9 +91,9 @@ public class ForestController {
 		return result;
 	}
 	
-	@RequestMapping(value="/forestresource",method=RequestMethod.GET)
-	public ModelAndView displayForest(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("forestresource");
+	@RequestMapping(value="/userForestresource",method=RequestMethod.GET)
+	public ModelAndView displayuserForestresource(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userForestresource");
 		
 		return model;
 	}

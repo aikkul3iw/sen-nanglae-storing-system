@@ -87,9 +87,9 @@ public class PersonnelController {
 		return model;
 	}
 	
-	@RequestMapping(value="/personnel",method=RequestMethod.GET)
-	public ModelAndView displayPersonnel(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("personnel");
+	@RequestMapping(value="/userPersonnel",method=RequestMethod.GET)
+	public ModelAndView displayuserPersonnel(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userPersonnel");
 		
 		return model;
 	}
