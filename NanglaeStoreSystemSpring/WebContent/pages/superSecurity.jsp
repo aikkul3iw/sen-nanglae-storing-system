@@ -253,7 +253,7 @@
 						<li><a href="#"><i class="fa fa-gear fa-fw"></i> ตั้งค่า</a>
 						</li>
 						<li class="divider"></li>
-						<li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i>
+						<li><a href="index.do"><i class="fa fa-sign-out fa-fw"></i>
 								ออกจากระบบ</a></li>
 					</ul> <!-- /.dropdown-user --></li>
 				<!-- /.dropdown -->
@@ -314,7 +314,7 @@
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="copy.do"><i class="fa fa-copy"></i>
 								คัดลอกข้อมูล</a></li>
-						<li><a href="createuser.do"><i class="glyphicon glyphicon-user"></i>
+						<li><a href="createUser.do"><i class="glyphicon glyphicon-user"></i>
 								จัดการผู้ใช้งาน</a></li>
 					</ul>
 				</div>

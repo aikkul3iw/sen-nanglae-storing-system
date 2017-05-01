@@ -35,6 +35,12 @@ import com.proj.ejb.face.UserService;
 			
 			return model;
 		}
+		@RequestMapping(value="/userIndex",method=RequestMethod.GET)
+		public ModelAndView displayuserIndex(HttpServletRequest request, HttpServletResponse response) {
+			ModelAndView model = new ModelAndView("userIndex");
+			
+			return model;
+		}
 		
 		@RequestMapping(value="/login",method=RequestMethod.GET)
 		public ModelAndView displayLogin(HttpServletRequest request, HttpServletResponse response) {
@@ -47,20 +53,11 @@ import com.proj.ejb.face.UserService;
 		
 		@RequestMapping(value="/createUser",method=RequestMethod.GET)
 		public ModelAndView displaycreateUser(HttpServletRequest request, HttpServletResponse response) {
-			String username  = (String) request.getAttribute("loggedInUser");
 			
-			if(username != null){
-				ModelAndView model = new ModelAndView("createuser");
-				model.addObject("loginBean", username);
+				ModelAndView model = new ModelAndView("createUser");
+
 				return model;
-			}else{
-				ModelAndView model = new ModelAndView("loginUser");
-				request.setAttribute("loggedInUser", null);
-				User loginBean = new User();
-				model.addObject("loginBean", loginBean);
-				return model;
-			}
-			
+
 		}
 		
 		@RequestMapping(value="/logout",method=RequestMethod.GET)
@@ -96,7 +93,7 @@ import com.proj.ejb.face.UserService;
 				if(isValidUser.getRole().equalsIgnoreCase("Superuser")){
 						System.out.println("Login Superuser Successful");
 						request.setAttribute("loggedInUser", loginBean.getUsername());
-						model = new ModelAndView("createuser");
+						model = new ModelAndView("createUser");
 						
 				}else if(isValidUser.getRole().equalsIgnoreCase("User")){
 						System.out.println("Login User Successful");
