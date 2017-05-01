@@ -302,7 +302,7 @@
 						class="icon-bar"></span>
 				</button>
 				<img src="../NanglaeGov/images/logo-nanglae.png"> <a
-					class="navbar-brand" href="index.do">เทศบาลตำบลนางแล</a>
+					class="navbar-brand" href="superIndex.do">เทศบาลตำบลนางแล</a>
 			</div>
 			<!-- /.navbar-header -->
 
@@ -376,9 +376,9 @@
 									</ul></li>
 								<li><a href="superPolution.do">มลพิษ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
-						<li><a href="copy.do"><i class="fa fa-copy"></i>
+						<li><a href="superCopy.do"><i class="fa fa-copy"></i>
 								คัดลอกข้อมูล</a></li>
-						<li><a href="createUser.do"><i class="glyphicon glyphicon-user"></i>
+						<li><a href="superCreateUser.do"><i class="glyphicon glyphicon-user"></i>
 								จัดการผู้ใช้งาน</a></li>
 					</ul>
 				</div>

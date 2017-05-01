@@ -114,8 +114,11 @@ public class AgricultureController {
 
 		return model;
 	}
+	@RequestMapping(value = "/superCopy", method = RequestMethod.GET)
+	public ModelAndView displaysuperCopy(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("superCopy");
 
-	
-
+		return model;
+	}
 	
 }

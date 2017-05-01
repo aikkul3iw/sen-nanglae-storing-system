@@ -51,10 +51,10 @@ import com.proj.ejb.face.UserService;
 			return model;
 		}
 		
-		@RequestMapping(value="/createUser",method=RequestMethod.GET)
-		public ModelAndView displaycreateUser(HttpServletRequest request, HttpServletResponse response) {
+		@RequestMapping(value="/superCreateUser",method=RequestMethod.GET)
+		public ModelAndView displaysuperCreateUser(HttpServletRequest request, HttpServletResponse response) {
 			
-				ModelAndView model = new ModelAndView("createUser");
+				ModelAndView model = new ModelAndView("superCreateUser");
 
 				return model;
 
