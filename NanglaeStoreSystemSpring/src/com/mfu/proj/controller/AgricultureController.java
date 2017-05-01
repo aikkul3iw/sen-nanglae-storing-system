@@ -1,5 +1,9 @@
 package com.mfu.proj.controller;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -82,23 +86,47 @@ public class AgricultureController {
 
 		return result;
 	}
-	
-	@RequestMapping(value="/agriculture",method=RequestMethod.GET)
+
+	@RequestMapping(value = "/agriculture", method = RequestMethod.GET)
 	public ModelAndView displayAgriculture(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView model = new ModelAndView("agriculture");
-		
+
 		return model;
 	}
-	@RequestMapping(value="/nonAgriculture",method=RequestMethod.GET)
+
+	@RequestMapping(value = "/nonAgriculture", method = RequestMethod.GET)
 	public ModelAndView displaynonAgriculture(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView model = new ModelAndView("nonAgriculture");
-		
+
 		return model;
 	}
-	@RequestMapping(value="/superAgriculture",method=RequestMethod.GET)
+
+	@RequestMapping(value = "/superAgriculture", method = RequestMethod.GET)
 	public ModelAndView displaysuperAgriculture(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView model = new ModelAndView("superAgriculture");
-		
+
 		return model;
 	}
+
+	@RequestMapping(value = "/copy", method = RequestMethod.GET)
+	public ModelAndView displaycopy(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("copy");
+
+		return model;
+	}
+
+	@RequestMapping(value = "/copyAgriculture", method = RequestMethod.POST)
+	public void copyAgriculture(HttpServletRequest request, HttpServletResponse response) {
+		String oldYear = request.getParameter("oldYear");
+		String newYear = request.getParameter("newYear");
+
+		System.out.println(oldYear + " " + newYear);
+		try {
+			agrServ.copyAgriculture(oldYear, newYear);
+		} catch (Exception e) {
+			e.getMessage();
+		}
+	}
+
+	
 }
