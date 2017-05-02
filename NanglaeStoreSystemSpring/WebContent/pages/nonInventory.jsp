@@ -42,6 +42,7 @@
     <![endif]-->
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
 	function numberWithCommas(x) {
 		var parts = x.toString().split(".");
 		parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -60,6 +61,7 @@
 						var totalOutcome = 0;
 						var balance = 0;
 						for (var i = 0; i < data.length; i++) {
+							if(data[i].ivn_year == year){
 							totalIncome += data[i].ivn_collect
 									+ data[i].ivn_gov_provide
 									+ data[i].ivn_gor_purchase;
@@ -82,6 +84,7 @@
 									+ "</td>"
 
 							html += "</tr>";
+							}
 						}
 						balance = totalOutcome - totalIncome;
 						htmls += "<tr>";
@@ -353,12 +356,6 @@
 								<!-- Tab panes -->
 								<div class="tab-content">
 									<div class="tab-pane fade in active" id="listInven">
-										พ.ศ. <select>
-											<option value="2558">2558</option>
-											<option value="2559">2559</option>
-										</select> <br>
-										<br>
-										
 										<div class="table-responsive">
 											<table id="resultTable"
 												class="table table-striped table-bordered table-hover">

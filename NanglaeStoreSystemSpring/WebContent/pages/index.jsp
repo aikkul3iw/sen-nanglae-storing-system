@@ -54,7 +54,7 @@
 	});
 	google.charts.setOnLoadCallback(drawChart);
 
-	var year = new Date().getFullYear();
+	var year = new Date().getFullYear()+543;
 	//alert(year);
 
 	var totalThai = 0;
@@ -67,13 +67,14 @@
 		type : "POST",
 		success : function(data) {
 			for (var i = 0; i < data.length; i++) {
+				if(data[i].pop_year == year){
 				totalThai += data[i].pop_thai_nation_m
 						+ data[i].pop_thai_nation_f;
 				totalChinese += data[i].pop_chinese_nation_m
 						+ data[i].pop_chinese_nation_f;
 				totalOther += data[i].pop_other_nation_m
 						+ data[i].pop_other_nation_f;
-				
+				}
 			}
 			totalAllNation = totalThai + totalChinese + totalOther;
 		},
@@ -182,6 +183,7 @@
 			type : "POST",
 			success : function(data) {
 				for (var i = 0; i < data.length; i++) {
+					if(data[i].pop_year == year){
 					var allMale = 0;
 					var allFemale = 0;
 					var allPop = 0;
@@ -190,6 +192,7 @@
 					allPop = allMale+allFemale;
 					var popData = [[data[i].location.vil_name,allMale,allFemale,allPop]];
 					testData = testData.concat(popData);
+					}
 				}
 				//alert(popPerVil);
 				$("#loader").hide();

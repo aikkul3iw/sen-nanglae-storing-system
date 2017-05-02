@@ -42,6 +42,7 @@
     <![endif]-->
 <script type='text/javascript' src="js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
 	function listDrainage() {
 		$("#loader").show();
 		$
@@ -51,6 +52,7 @@
 					success : function(data) {
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
+							if(data[i].drain_year == year){
 							html += "<tr>";
 							html += "<td>"
 									+ data[i].drain_year
@@ -68,6 +70,7 @@
 									+ data[i].drain_location_connected
 									+ "</td>"
 							html += "</tr>";
+							}
 						}
 						$('#listDrainages').html(html);
 						$("#resultTable").DataTable({});
@@ -334,8 +337,6 @@
 						<ul class="nav nav-tabs">
 							<li class="active"><a href="#listDrain" data-toggle="tab">ข้อมูลระบบระบายน้ำ</a>
 							</li>
-							<li><a href="#addDrain" data-toggle="tab">เพิ่มระบบระบายน้ำ</a>
-							</li>
 						</ul>
 						<div class="panel-body">
 
@@ -343,11 +344,6 @@
 
 							<div class="tab-content">
 								<div class="tab-pane fade in active" id="listDrain">
-									พ.ศ. <select>
-										<option value="2558">2558</option>
-										<option value="2559">2559</option>
-									</select> <br>
-									<br>
 									<div class="table-responsive">
 										<table id="resultTable"
 											class="table table-striped table-bordered table-hover">
