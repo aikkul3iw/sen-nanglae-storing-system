@@ -43,6 +43,7 @@
     <![endif]-->
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+	var year = new Date().getFullYear()+543;
 	function listPersonnel() {
 		$("#loader").show();
 		$
@@ -54,6 +55,7 @@
 						var errorMsg = '';
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
+							if(data[i].per_year == year){
 							html += "<tr>";
 							html += "<td>"
 									+ data[i].per_year
@@ -67,17 +69,8 @@
 									+ "<td>"
 									+ data[i].per_position
 									+ "</td>"
-									+ "<td>"
-									+ data[i].per_tel_number
-									+ "</td>"
-									+ "<td>"
-									+ data[i].per_address
-									+ "</td>"
-									+ "<td>"
-									+ data[i].per_email
-									+ "</td>"
-
 							html += "</tr>";
+							}
 						}
 						$('#listPersonnels').html(html);
 						$("#resultTable").DataTable({});
@@ -240,7 +233,7 @@
 </script>
 </head>
 
-<body onload="listPersonnel()">
+<body onload="listPersonnel();">
 
 	<div id="wrapper">
 
@@ -350,30 +343,16 @@
 							<!-- Tab panes -->
 							<div class="tab-content">
 								<div class="tab-pane fade in active" id="listPersonnel">
-									<center>
-										<p id="successMsg"></p>
-									</center>
-									พ.ศ. <select>
-										<option value="2558">2558</option>
-										<option value="2559">2559</option>
-
-									</select> <br><br>
-									
-
-									<br> 
 
 									<div class="table-responsive">
 										<table class="table table-striped table-bordered table-hover"
 											id="resultTable">
 <!-- Start change table -->
 												<thead>
-													<tr>
+													<tr>	
 														<th>ปีที่บันทึกข้อมูล</th>
 														<th>ชื่อ</th>
 														<th>ตำแหน่ง</th>
-														<th>เบอร์โทรศัพท์</th>
-														<th>ที่อยู่</th>
-														<th>อีเมลล์</th>
 													</tr>
 												</thead>
 												<tbody id="listPersonnels">

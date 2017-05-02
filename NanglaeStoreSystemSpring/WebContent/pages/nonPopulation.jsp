@@ -42,6 +42,7 @@
     <![endif]-->
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
 	function numberWithCommas(x) {
 		var parts = x.toString().split(".");
 		parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -61,6 +62,7 @@
 						var totalAllPop = 0;
 						var totalAllPopHouse = 0;
 						for (var i = 0; i < data.length; i++) {
+							if(data[i].pop_year == year){
 							var allMale = 0;
 							var allFemale = 0;
 							var allPop = 0;
@@ -105,9 +107,9 @@
 									+ "</td>"
 
 							html += "</tr>";
-							
+							}
 						}
-						html2 += "<tr>";
+						html2 += "<tr><td>รวม</td>";
 						html2 += "<td>" + numberWithCommas(totalAllPopMale)
 								+ "</td>";
 						html2 += "<td>" + numberWithCommas(totalAllPopFemale)
@@ -154,6 +156,7 @@
 						var totalAllNationF = 0;
 						var totalAllNation = 0;
 						for (var i = 0; i < data.length; i++) {
+							if(data[i].pop_year == year){
 							var thaiAll = 0;
 							var otherAll = 0;
 							var chineseAll = 0;
@@ -237,8 +240,9 @@
 									+ allPopNation
 									+ "</td>"
 							html3 += "</tr>";
+							}
 						}
-						html4 += "<tr>";
+						html4 += "<tr><td>รวม</td>";
 						html4 += "<td>" + numberWithCommas(totalOtherM)
 								+ "</td>";
 						html4 += "<td>" + numberWithCommas(totalOtherF)
@@ -264,7 +268,6 @@
 						$('#listPopulation12').html(html3);
 						$("#resultTable2-1").DataTable({});
 						$('#resultlistPopulation12').html(html4);
-						$("#resultTable2-2").DataTable({});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -294,6 +297,7 @@
 						var totalMilReg = 0;
 						var totalMilJoin = 0;
 						for (var i = 0; i < data.length; i++) {
+							if(data[i].pop_year == year){
 							var all15 = 0;
 							var all18 = 0;
 							var all20 = 0;
@@ -362,8 +366,9 @@
 									+ "</center>"
 									+ "</td>"
 							html5 += "</tr>";
+							}
 						}
-						html6 += "<tr>";
+						html6 += "<tr><td>รวม</td>";
 						html6 += "<td>" + numberWithCommas(totalElect15M)
 								+ "</td>";
 						html6 += "<td>" + numberWithCommas(totalElect15F)
@@ -391,7 +396,6 @@
 								$('#listPopulation13').html(html5);
 								$("#resultTable3-1").DataTable({});
 								$('#resultlistPopulation13').html(html6);
-								$("#resultTable3-2").DataTable({});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -754,11 +758,6 @@
 								<!-- Tab panes -->
 								<div class="tab-content">
 									<div class="tab-pane fade in active" id="listAllPop">
-										พ.ศ. <select>
-											<option value="2558">2558</option>
-											<option value="2559">2559</option>
-										</select> <br>
-										<br>
 										<div class="table-responsive">
 											<table id="resultTable"
 												class="table table-striped table-bordered table-hover">
@@ -790,10 +789,14 @@
 <!-- Start change result table1 -->
 												<thead>
 													<tr>
+														<th rowspan="2">รวมทั้งหมด</th>
+														<th style="text-align: center;" colspan="3">ประชากร</th>
+														<th rowspan="2">ครัวเรือน</th>
+													</tr>
+													<tr>
 														<th>ชาย</th>
 														<th>หญิง</th>
 														<th>รวม</th>
-														<th>ครัวเรือน</th>
 													</tr>
 												</thead>
 												<tbody id="resultlistPopulation11">
@@ -804,11 +807,6 @@
 										
 									</div>
 									<div class="tab-pane fade" id="listNationPop">
-										พ.ศ. <select>
-											<option value="2558">2558</option>
-											<option value="2559">2559</option>
-										</select> <br>
-										<br>
 										<div class="table-responsive">
 											<table id="resultTable2-1"
 												class="table table-striped table-bordered table-hover">
@@ -850,6 +848,7 @@
 <!-- Start change result table2 -->
 												<thead>
 													<tr>
+														<th rowspan="2">รวมทั้งหมด</th>
 														<th style="text-align: center;" colspan="3">สัญชาติที่ไม่ใช่สัญชาติไทย</th>
 														<th style="text-align: center;" colspan="3">สัญชาติไทย</th>
 														<th style="text-align: center;" colspan="3">สัญชาติจีน</th>
@@ -878,11 +877,6 @@
 									</div>
 									
 									<div class="tab-pane fade" id="listElectionPop">
-										พ.ศ. <select>
-											<option value="2558">2558</option>
-											<option value="2559">2559</option>
-										</select> <br>
-										<br>
 										<div class="table-responsive">
 											<table id="resultTable3-1"
 												class="table table-striped table-bordered table-hover">
@@ -922,6 +916,7 @@
 <!-- Start change result table3 -->
 												<thead>
 													<tr>
+														<th rowspan="2">รวมทั้งหมด</th>
 														<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ 15 ปี</th>
 														<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ 18 ปี</th>
 														<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ 20 ปี</th>

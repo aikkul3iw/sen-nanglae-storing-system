@@ -42,6 +42,7 @@
     <![endif]-->
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
 	function listLocalg() {
 		$("#loader").show();
 		$
@@ -51,6 +52,7 @@
 					success : function(data) {
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
+							if(data[i].grp_year == year){
 							html += "<tr>";
 							html += "<td>"
 									+ data[i].grp_year
@@ -63,6 +65,7 @@
 									+ "</td>"
 
 							html += "</tr>";
+							}
 						}
 						$('#listLocalgs').html(html);
 						$("#resultTable").DataTable({});
@@ -296,11 +299,6 @@
 								<!-- Tab panes -->
 								<div class="tab-content">
 									<div class="tab-pane fade in active" id="listGroup">
-										พ.ศ. <select>
-											<option value="2558">2558</option>
-											<option value="2559">2559</option>
-										</select> <br>
-										<br>
 										<div class="table-responsive">
 											<table id="resultTable"
 												class="table table-striped table-bordered table-hover">

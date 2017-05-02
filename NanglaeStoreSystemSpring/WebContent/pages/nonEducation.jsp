@@ -42,8 +42,8 @@
     <![endif]-->
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
 	function listEducation() {
-
 		$("#loader").show();
 		$
 				.ajax({
@@ -53,6 +53,7 @@
 						var html = '';
 
 						for (var i = 0; i < data.length; i++) {
+							if(data[i].edu_year == year){
 							html += "<tr>";
 							html += "<td>"
 									+ data[i].edu_year
@@ -70,6 +71,7 @@
 									+ data[i].location.vil_name
 									+ "</td>"
 							html += "</tr>";
+							}
 						}
 						$('#listEducation').html(html);
 						$("#resultTable").DataTable({});
@@ -347,11 +349,6 @@
 
 								<div class="tab-content">
 									<div class="tab-pane fade in active" id="listEduPrime">
-										พ.ศ. <select>
-											<option value="2558">2558</option>
-											<option value="2559">2559</option>
-										</select> <br>
-										<br>
 										<div class="table-responsive">
 											<table id="resultTable"
 												class="table table-striped table-bordered table-hover">

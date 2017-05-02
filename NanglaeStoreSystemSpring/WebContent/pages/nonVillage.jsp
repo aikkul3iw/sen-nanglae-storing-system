@@ -42,6 +42,7 @@
     <![endif]-->
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
 	function listVillage() {
 		$("#loader").show();
 		$.ajax({
@@ -49,7 +50,6 @@
 			type : "POST",
 			success : function(data) {
 				var html = '';
-				var year =  document.getElementById("selectedYear").value;
 				for (var i = 0; i < data.length; i++) {
 					if(data[i].vil_year == year){
 					html += "<tr>";
@@ -196,7 +196,7 @@
   </script>
 </head>
 
-<body onload="listVillage()">
+<body onload="listVillage();">
 
 	<div id="wrapper">
 
@@ -305,14 +305,6 @@
 								<!-- Tab panes -->
 								<div class="tab-content">
 									<div class="tab-pane fade in active" id="listVillage">
-
-										<form>
-											พ.ศ. <select id="selectedYear" onchange='listVillage()'>
-												<option value="2558">2558</option>
-												<option value="2559">2559</option>
-											</select>
-										</form>
-										<br>
 										<div class="table-responsive">
 											<table class="table table-striped table-bordered table-hover"
 												id="resultTable">
