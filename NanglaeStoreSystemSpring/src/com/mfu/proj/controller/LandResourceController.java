@@ -83,9 +83,9 @@ public class LandResourceController {
 		return result;
 	}
 	
-	@RequestMapping(value="/landresource",method=RequestMethod.GET)
-	public ModelAndView displayLandResource(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("landresource");
+	@RequestMapping(value="/userLandresource",method=RequestMethod.GET)
+	public ModelAndView displayuserLandresource(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userLandresource");
 		
 		return model;
 	}

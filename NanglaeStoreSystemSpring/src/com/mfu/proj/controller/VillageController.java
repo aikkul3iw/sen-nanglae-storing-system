@@ -21,9 +21,9 @@ public class VillageController {
 	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//VillageServiceBean!com.proj.ejb.face.VillageService")
 	VillageService vilServ;
 	
-	@RequestMapping(value="/village",method=RequestMethod.GET)
-	public ModelAndView displayIndex(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("village");
+	@RequestMapping(value="/userVillage",method=RequestMethod.GET)
+	public ModelAndView displayuserVillage(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userVillage");
 		
 		return model;
 	}

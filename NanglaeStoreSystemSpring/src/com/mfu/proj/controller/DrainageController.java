@@ -93,9 +93,9 @@ public class DrainageController {
 		return result;
 	}
 	
-	@RequestMapping(value="/drainage",method=RequestMethod.GET)
-	public ModelAndView displayDrainage(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("drainage");
+	@RequestMapping(value="/userDrainage",method=RequestMethod.GET)
+	public ModelAndView displayuserDrainage(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userDrainage");
 		
 		return model;
 	}

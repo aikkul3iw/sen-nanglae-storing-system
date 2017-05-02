@@ -80,9 +80,9 @@ public class InventoryController {
 		return result;
 	}
 	
-	@RequestMapping(value="/inventory",method=RequestMethod.GET)
-	public ModelAndView displayInventory(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("inventory");
+	@RequestMapping(value="/userInventory",method=RequestMethod.GET)
+	public ModelAndView displayuserInventory(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userInventory");
 		
 		return model;
 	}

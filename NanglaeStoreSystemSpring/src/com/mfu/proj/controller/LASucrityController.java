@@ -82,9 +82,9 @@ public class LASucrityController {
 		return result;
 	}
 	
-	@RequestMapping(value="/security",method=RequestMethod.GET)
-	public ModelAndView displaySecurity(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("security");
+	@RequestMapping(value="/userSecurity",method=RequestMethod.GET)
+	public ModelAndView displayuserSecurity(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userSecurity");
 		
 		return model;
 	}

@@ -93,9 +93,9 @@ public class ElectricityController {
 		return result;
 	}
 	
-	@RequestMapping(value="/electric",method=RequestMethod.GET)
-	public ModelAndView displayElectricity(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("electric");
+	@RequestMapping(value="/userElectric",method=RequestMethod.GET)
+	public ModelAndView displayuserElectric(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userElectric");
 		
 		return model;
 	}

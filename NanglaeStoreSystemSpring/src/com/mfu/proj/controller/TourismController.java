@@ -88,9 +88,9 @@ public class TourismController {
 		return result;
 	}
 	
-	@RequestMapping(value="/tourism",method=RequestMethod.GET)
-	public ModelAndView displayTourism(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("tourism");
+	@RequestMapping(value="/userTourism",method=RequestMethod.GET)
+	public ModelAndView displayuserTourism(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userTourism");
 		
 		return model;
 	}

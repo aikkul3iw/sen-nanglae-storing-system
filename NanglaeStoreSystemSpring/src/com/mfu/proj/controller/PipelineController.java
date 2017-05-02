@@ -93,9 +93,9 @@ public class PipelineController {
 		return result;
 	}
 	
-	@RequestMapping(value="/pipeline",method=RequestMethod.GET)
-	public ModelAndView displayPipeline(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("pipeline");
+	@RequestMapping(value="/userPipeline",method=RequestMethod.GET)
+	public ModelAndView displayuserPipeline(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userPipeline");
 		
 		return model;
 	}

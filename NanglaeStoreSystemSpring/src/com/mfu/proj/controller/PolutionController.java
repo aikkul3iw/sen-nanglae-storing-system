@@ -83,9 +83,9 @@ public class PolutionController {
 		return result;
 	}
 	
-	@RequestMapping(value="/polution",method=RequestMethod.GET)
-	public ModelAndView displayPolution(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("polution");
+	@RequestMapping(value="/userPolution",method=RequestMethod.GET)
+	public ModelAndView displayuserPolution(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userPolution");
 		
 		return model;
 	}

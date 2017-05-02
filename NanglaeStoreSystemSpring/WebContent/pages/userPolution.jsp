@@ -45,42 +45,53 @@
 
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.1.1/jquery-confirm.min.js"></script>
+
+
 <script type='text/javascript'>
-	function listReligion() {
+	function listPolution() {
 		$("#loader").show();
+
 		$
 				.ajax({
-					url : "../NanglaeGov/listReligion.do",
+					url : "../NanglaeGov/listPolution.do",
 					type : "POST",
 					success : function(data) {
 						var html = '';
-
 						for (var i = 0; i < data.length; i++) {
+
+							var id = data[i].pol_id;
+							function loader() {
+								document.getElementById("myLink").innerHTML = id;
+							}
+
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].rel_year
+									+ data[i].pol_year
 									+ "</td>"
 									+ "<td>"
-									+ data[i].rel_name
+									+ data[i].pol_name
 									+ "</td>"
 									+ "<td>"
-									+ data[i].rel_type
+									+ data[i].pol_effect
 									+ "</td>"
 									+ "<td>"
-									+ "หมู่ที่ "
-									+ data[i].location.vil_number
-									+ " บ้าน"
-									+ data[i].location.vil_name
+									+ data[i].pol_area
 									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editReligion\" data-toggle=\"tab\" onclick=\"setEditReligion("
-									+ data[i].rel_id
-									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteReligion("
-									+ data[i].rel_id
+									+ "<td style=\"text-align: center;\"><button href=\"#editPolution\" data-toggle=\"tab\" onclick=\"setEditPolution("
+									+ data[i].pol_id
+									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deletePolution("
+									+ data[i].pol_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 							html += "</tr>";
 						}
-						$('#listReligions').html(html);
+						$('#listPolutions').html(html);
 						$(document).ready(function() {
 							var table = $('#resultTable').DataTable({
 								lengthChange : false,
@@ -102,29 +113,33 @@
 				});
 	}
 </script>
+
 <script type='text/javascript'>
-	function createReligion() {
+	function createPolution() {
 		$("#loader").show();
-		if ($('#rel_year').val() == "") {
-			document.getElementById('rel_year').style.borderColor = "red";
+		if ($('#pol_year').val() == "") {
+			document.getElementById('pol_year').style.borderColor = "red";
 			return false;
-		} else if ($('#rel_name').val() == "") {
-			document.getElementById('rel_name').style.borderColor = "red";
+		} else if ($('#pol_name').val() == "") {
+			document.getElementById('pol_name').style.borderColor = "red";
 			return false;
-		} else if ($('#rel_type').val() == "") {
-			document.getElementById('rel_type').style.borderColor = "red";
+		} else if ($('#pol_effect').val() == "") {
+			document.getElementById('pol_effect').style.borderColor = "red";
+			return false;
+		} else if ($('#pol_area').val() == "") {
+			document.getElementById('pol_area').style.borderColor = "red";
 			return false;
 		} else {
 			var obj = {
-				rel_id : 0,
-				rel_year : $('#rel_year').val(),
-				rel_name : $('#rel_name').val(),
-				rel_type : $('#rel_type').val()
-
+				pol_id : 0,
+				pol_year : $('#pol_year').val(),
+				pol_name : $('#pol_name').val(),
+				pol_effect : $('#pol_effect').val(),
+				pol_area : $('#pol_area').val()
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/saveReligion.do?id=" + $("#villageSelect").val(),
+				url : "../NanglaeGov/savePolution.do",
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -144,28 +159,10 @@
 				}
 			});
 		}
-	}
-	function listVillage() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#villageSelect').html(html);
 
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
 	}
-	function deleteReligion(rel_id) {
+
+	function deletePolution(pol_id) {
 		swal({
 			title : 'คุณต้องการลบข้อมูลหรือไม่?',
 			type : 'warning',
@@ -175,34 +172,36 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = rel_id;
+		var id = pol_id;
 		var obj = {
-			rel_id : id
-
+			pol_id : id
 		};
+
 		$.ajax({
-			url : "../NanglaeGov/deleteReligion.do",
+			url : "../NanglaeGov/deletePolution.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
 			contentType : "application/json",
 			mimeType : "application/json",
 			success : function(data) {
+				//alert('success');
 				location.reload();
 			}
 		});
 		});
 	}
-	function editReligion() {
+	function editPolution() {
 		var obj = {
-			rel_id : $("#editReligionId").val(),
-			rel_year : $('#editReligionYear').val(),
-			rel_name : $('#editReligionName').val(),
-			rel_type : $('#editReligionType').val()
+			pol_id : $('#editPolId').val(),
+			pol_year : $('#editPolYear').val(),
+			pol_name : $('#editPolName').val(),
+			pol_effect : $('#editPolEffect').val(),
+			pol_area : $('#editPolArea').val()
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/saveReligion.do?id=" + $("#editVillageSelect").val(),
+			url : "../NanglaeGov/savePolution.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -221,14 +220,15 @@
 			}
 		});
 	}
-	function setEditReligion(rel_id) {
+
+	function setEditPolution(pol_id) {
 
 		var obj = {
-			rel_id : rel_id
+			pol_id : pol_id
 		};
 
 		$.ajax({
-			url : "../NanglaeGov/findReligion.do",
+			url : "../NanglaeGov/findPolution.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -236,47 +236,27 @@
 			mimeType : "application/json",
 			success : function(data) {
 				//alert(JSON.stringify(data));
-				$("#editReligionId").val(data.rel_id);
-				$("#editReligionYear").val(data.rel_year);
-				$("#editReligionName").val(data.rel_name);
-				$("#editReligionType").val(data.rel_type);
-				$('#editVillageSelect').val(data.location.vil_id);
+				$("#editPolId").val(data.pol_id);
+				$("#editPolYear").val(data.pol_year);
+				$("#editPolName").val(data.pol_name);
+				$("#editPolEffect").val(data.pol_effect);
+				$("#editPolArea").val(data.pol_area);
 			},
 			error : function(data, status, er) {
 				alert('error');
-			}
-		});
-	}
-	function editVillageSelect() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#editVillageSelect').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
 			}
 		});
 	}
 </script>
 </head>
 
-<body onload="listReligion();listVillage();editVillageSelect();">
+<body onload="listPolution()">
 
 	<div id="wrapper">
 
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
-			style="margin-bottom: 0;background-color: #98c3e8">
+			style="margin-bottom: 0; background-color: #98c3e8">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-collapse">
@@ -284,8 +264,8 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<img src="../NanglaeGov/images/logo-nanglae.png">
-				<a class="navbar-brand" href="index.do">เทศบาลตำบลนางแล</a>
+				<img src="../NanglaeGov/images/logo-nanglae.png"> <a
+					class="navbar-brand" href="userIndex.do">เทศบาลตำบลนางแล</a>
 			</div>
 			<!-- /.navbar-header -->
 
@@ -313,53 +293,53 @@
 						<li><a href="#"><i class="fa fa-child fa-fw"></i> บุคคล<span
 								class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="personnel.do">บุคลากร</a></li>
-								<li><a href="population.do">ประชากร</a></li>
-								<li><a href="labor.do">แรงงาน</a></li>
+								<li><a href="userPersonnel.do">บุคลากร</a></li>
+								<li><a href="userPopulation.do">ประชากร</a></li>
+								<li><a href="userLabor.do">แรงงาน</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-road fa-fw"></i>
 								สาธารณูปโภค<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="transport.do">ระบบคมนาคมขนส่ง</a></li>
-								<li><a href="electric.do">ระบบไฟฟ้า</a></li>
-								<li><a href="pipeline.do">ระบบประปา</a></li>
-								<li><a href="drainange.do">ระบบระบายน้ำ</a></li>
+								<li><a href="userTransport.do">ระบบคมนาคมขนส่ง</a></li>
+								<li><a href="userElectric.do">ระบบไฟฟ้า</a></li>
+								<li><a href="userPipeline.do">ระบบประปา</a></li>
+								<li><a href="userDrainage.do">ระบบระบายน้ำ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-home fa-fw"></i>
 								สาธารณุปการ<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li><a href="#">เคหะ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="village.do">หมู่บ้าน</a></li>
-										<li><a href="industry.do">การอุตสาหกรรม</a></li>
-										<li><a href="education.do">การศึกษา</a></li>
-										<li><a href="religion.do">การศาสนา</a></li>
-										<li><a href="commerce.do">การพาณิชย์</a></li>
-										<li><a href="tourism.do">แหล่งท่องเที่ยว</a></li>
+										<li><a href="userVillage.do">หมู่บ้าน</a></li>
+										<li><a href="userIndustry.do">การอุตสาหกรรม</a></li>
+										<li><a href="userEducation.do">การศึกษา</a></li>
+										<li><a href="userReligion.do">การศาสนา</a></li>
+										<li><a href="userCommerce.do">การพาณิชย์</a></li>
+										<li><a href="userTourism.do">แหล่งท่องเที่ยว</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 								<li><a href="#">บริการ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="health.do">การสาธารสุข</a></li>
-										<li><a href="security.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
+										<li><a href="userHealth.do">การสาธารสุข</a></li>
+										<li><a href="userSecurity.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
 										</li>
-										<li><a href="group.do">กลุ่มในชุมชน</a></li>
-										<li><a href="service.do">ศูนย์บริการประชาชน</a></li>
-										<li><a href="inventory.do">การคลัง</a></li>
+										<li><a href="userGroup.do">กลุ่มในชุมชน</a></li>
+										<li><a href="userService.do">ศูนย์บริการประชาชน</a></li>
+										<li><a href="userInventory.do">การคลัง</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="glyphicon glyphicon-leaf"></i>
 								ธรรมชาติและสิ่งแวดล้อม<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="agriculture.do">การเกษตรกรรม</a></li>
+								<li><a href="userAgriculture.do">การเกษตรกรรม</a></li>
 								<li><a href="#">ทรัพยากรธรรมชาติ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="waterresource.do">ทรัพยากรณ์น้ำ</a></li>
-										<li><a href="landresource.do">ทรัพยากรณ์ดิน</a></li>
-										<li><a href="forrestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
+										<li><a href="userWaterresource.do">ทรัพยากรณ์น้ำ</a></li>
+										<li><a href="userLandresource.do">ทรัพยากรณ์ดิน</a></li>
+										<li><a href="userForestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
 									</ul></li>
-								<li><a href="polution.do">มลพิษ</a></li>
+								<li><a href="userPolution.do">มลพิษ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
-						<li><a href="copy.do"><i class="fa fa-copy"></i>
+						<li><a href="userCopy.do"><i class="fa fa-copy"></i>
 								คัดลอกข้อมูล</a></li>
 					</ul>
 				</div>
@@ -370,7 +350,7 @@
 	<div id="page-wrapper" style="background-color: #d7f0f5">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">การศาสนา</h1>
+				<h1 class="page-header">มลพิษ</h1>
 			</div>
 			<!-- /.col-lg-12 -->
 		</div>
@@ -380,16 +360,16 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<ul class="nav nav-tabs">
-							<li class="active"><a href="#listVillage" data-toggle="tab">ข้อมูลการศาสนา</a>
+							<li class="active"><a href="#listPolution" data-toggle="tab">ข้อมูลมลพิษ</a>
 							</li>
-							<li><a href="#addReligion" data-toggle="tab">เพิ่มการศาสนา</a>
+							<li><a href="#addPolution" data-toggle="tab">เพิ่มมลพิษ</a>
 							</li>
 						</ul>
 						<div class="panel-body">
 
 							<!-- Tab panes -->
 							<div class="tab-content">
-								<div class="tab-pane fade in active" id="listVillage">
+								<div class="tab-pane fade in active" id="listPolution">
 									พ.ศ. <select>
 										<option value="2558">2558</option>
 										<option value="2559">2559</option>
@@ -399,55 +379,50 @@
 										<table id="resultTable"
 											class="table table-striped table-bordered table-hover">
 <!-- Start change table -->
-											<thead>
-												<tr>
-													<th>ปีที่บันทึกข้อมูล</th>
-													<th>ชื่อ</th>
-													<th>ศาสนา</th>
-													<th>ที่ตั้ง</th>
-													<th style="text-align: center;">ตัวเลือก</th>
-												</tr>
-											</thead>
-											<tbody id="listReligions">
-											</tbody>
+												<thead>
+													<tr>
+														<th>ปีที่ข้อมูล</th>
+														<th>มลพิษ</th>
+														<th>ผลกระทบ</th>
+														<th>พิ้นที่ได้รับผลกระทบ</th>
+														<th style="text-align: center;">ตัวเลือก</th>
+													</tr>
+												</thead>
+												<tbody id="listPolutions">
+												</tbody>
 <!-- End change table -->
 										</table>
 									</div>
 								</div>
-								<div class="tab-pane fade" id="addReligion">
+								<div class="tab-pane fade" id="addPolution">
 									<form role="form">
-										<table width="50%" align="center">
+										<table width="70%" align="center">
 											<tr>
-												<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-												<td><input class="form-control" maxlength="4"
-													id="rel_year" placeholder="" value="2558" name="vil-year"></td>
+												<td style="padding: 15px">ปีข้อมูล</td>
+												<td><input id="pol_year" maxlength="4"
+													class="form-control" placeholder="" value="2558"
+													name="vil-year"></td>
 											</tr>
 											<tr>
 
-												<td align="pull-right" style="padding: 15px">ชื่อ</td>
-												<td><input class="form-control" maxlength="100"
-													id="rel_name"
-													placeholder="ระบุชื่อสถานที่ประกอบพิธีกรรมทางศาสนา"
-													name="vil-number" required="true"></td>
+												<td style="padding: 15px">มลพิษ</td>
+												<td><input id="pol_name" maxlength="50"
+													class="form-control" placeholder="" name="vil-number"
+													required="true"></td>
 
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ศาสนา</td>
-												<td><select class="form-control" id="rel_type"
-													placeholder="" name="vil-name" required="true">
-														<option value="">เลือกศาสนา</option>
-														<option value="พุทธ">พุทธ</option>
-														<option value="คริสต์">คริสต์</option>
-														<option value="อิสลาม">อิสลาม</option>
-														<option value="อื่นๆ">อื่นๆ</option>
-												</select></td>
+												<td style="padding: 15px">ผลกระทบ</td>
+												<td><textarea id="pol_effect" maxlength="100"
+														class="form-control" placeholder="ระบุรายละเอียด"
+														name="vil-name" required="true"></textarea></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
-												<td><select class="form-control" id="villageSelect"
-													placeholder="" name="vil-name" required="true">
-
-												</select></td>
+												<td style="padding: 15px">พื้นที่ประสบปัญหา</td>
+												<td style="padding-top: 10px"><textarea id="pol_area"
+														maxlength="100" class="form-control"
+														placeholder="ระบุรายละเอียด" name="vil-name"
+														required="true"></textarea></td>
 											</tr>
 											<tr>
 												<td></td>
@@ -455,57 +430,51 @@
 													<button style="width: 100px" type="reset"
 														class="btn btn-warning">ล้างข้อมูล</button> <input
 													style="width: 100px" type="button" class="btn btn-success"
-													value="บันทึก" onclick="createReligion()" />
+													value="บันทึก" onclick="createPolution()" />
 												</td>
 											</tr>
 										</table>
 									</form>
 								</div>
-								<div class="tab-pane fade" id="editReligion">
+								<div class="tab-pane fade" id="editPolution">
 									<form role="form">
-										<input type="hidden" id="editReligionId">
-										<table width="50%" align="center">
+										<input type="hidden" id="editPolId">
+										<table width="65%" align="center">
 											<tr>
-												<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-												<td><input class="form-control" maxlength="4"
-													id="editReligionYear" placeholder="" value="2558"
+												<td style="padding: 15px">ปีข้อมูล</td>
+												<td><input id="editPolYear" maxlength="4"
+													class="form-control" placeholder="" value="2558"
 													name="vil-year"></td>
 											</tr>
 											<tr>
 
-												<td align="pull-right" style="padding: 15px">ชื่อ</td>
-												<td><input class="form-control" maxlength="100"
-													id="editReligionName"
-													placeholder="ระบุชื่อสถานที่ประกอบพิธีกรรมทางศาสนา"
-													name="vil-number" required="true"></td>
+												<td style="padding: 15px">มลพิษ</td>
+												<td><input id="editPolName" maxlength="50"
+													class="form-control" placeholder="ระบุชื่อมลพิษ"
+													name=" required="true"></td>
 
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ศาสนา</td>
-												<td><select class="form-control" id="editReligionType"
-													placeholder="" name="vil-name" required="true">
-														<option value="">เลือกศาสนา</option>
-														<option value="พุทธ">พุทธ</option>
-														<option value="คริสต์">คริสต์</option>
-														<option value="อิสลาม">อิสลาม</option>
-														<option value="อื่นๆ">อื่นๆ</option>
-												</select></td>
+												<td style="padding: 15px">ผลกระทบ</td>
+												<td><textarea id="editPolEffect" maxlength="100"
+														class="form-control" placeholder="ระบุผลกระทบ" name=""
+														required="true"></textarea></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
-												<td><select class="form-control" id="editVillageSelect"
-													placeholder="" name="vil-name" required="true">
-
-												</select></td>
+												<td style="padding: 15px">พื้นที่ประสบปัญหา</td>
+												<td style="padding-top: 10px"><textarea
+														id="editPolArea" maxlength="100" class="form-control"
+														placeholder="ระบุพื้นที่ประสบปัญหา" name=""
+														required="true"></textarea></td>
 											</tr>
 											<tr>
 												<td></td>
 												<td align="center" style="padding: 15px"><a
-													href="#listVillage" data-toggle="tab"><button
+													href="#listPolution" data-toggle="tab"><button
 															style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
 													<input style="width: 100px" type="button"
 													class="btn btn-success" value="บันทึก"
-													onclick="editReligion()" /></td>
+													onclick="editPolution()" /></td>
 											</tr>
 										</table>
 									</form>
@@ -547,7 +516,6 @@
 		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
 		<!-- Sweetalert2 JavaScript -->
 		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
-</body>
 
 </body>
 

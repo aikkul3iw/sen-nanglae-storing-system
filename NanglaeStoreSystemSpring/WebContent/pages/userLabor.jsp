@@ -46,39 +46,37 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-	function listVillage() {
+	function listLabor() {
 		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				var year = document.getElementById("selectedYear").value;
-				for (var i = 0; i < data.length; i++) {
-					if (data[i].vil_year == year) {
-								html += "<tr>";
-								html += "<td>"
-										+ data[i].vil_year
-										+ "</td>"
-										+ "<td>"
-										+ data[i].vil_number
-										+ "</td>"
-										+ "<td>"
-										+ data[i].vil_name
-										+ "</td>"
-										+ "<td>"
-										+ data[i].vil_chief
-										+ "</td>"
-										+ "<td style=\"text-align: center;\"><button href=\"#editVillage\" data-toggle=\"tab\" onclick=\"setEditVillage("
-										+ data[i].vil_id
-										+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteVillage("
-										+ data[i].vil_id
-										+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
+		$
+				.ajax({
+					url : "../NanglaeGov/listLabor.do",
+					type : "POST",
+					success : function(data) {
+						var html = '';
+						for (var i = 0; i < data.length; i++) {
+							html += "<tr>";
+							html += "<td>"
+									+ data[i].lab_year
+									+ "</td>"
+									+ "<td>"
+									+ data[i].lab_type
+									+ "</td>"
+									+ "<td>"
+									+ data[i].lab_work
+									+ "</td>"
+									+ "<td>"
+									+ data[i].lab_amount
+									+ "</td>"
+									+ "<td style=\"text-align: center;\"><button href=\"#editLabor\" data-toggle=\"tab\" onclick=\"setEditLabor("
+									+ data[i].lab_id
+									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteLabor("
+									+ data[i].lab_id
+									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
-								html += "</tr>";
-							}
+							html += "</tr>";
 						}
-						$('#listVillages').html(html);
+						$('#listLabors').html(html);
 						$(document).ready(function() {
 							var table = $('#resultTable').DataTable({
 								lengthChange : false,
@@ -97,36 +95,34 @@
 						alert('ไม่สามารถโหลดข้อมูลได้');
 						$("#loader").hide();
 					}
-			});
+				});
 	}
 </script>
 <script type='text/javascript'>
-	function createVillage() {
-		if ($('#vil_year').val() == "") {
-			document.getElementById('vil_year').style.borderColor = "red";
+	function createLabor() {
+		$("#loader").show();
+		if ($('#lab_year').val() == "") {
+			document.getElementById('lab_year').style.borderColor = "red";
 			return false;
-		} else if ($('#vil_number').val() == "") {
-			document.getElementById('vil_number').style.borderColor = "red";
+		} else if ($('#lab_type').val() == "") {
+			document.getElementById('lab_type').style.borderColor = "red";
 			return false;
-		} else if ($('#vil_name').val() == "") {
-			document.getElementById('vil_name').style.borderColor = "red";
+		} else if ($('#lab_amount').val() == "") {
+			document.getElementById('lab_amount').style.borderColor = "red";
 			return false;
-		} else if ($('#vil_chief').val() == "") {
-			document.getElementById('vil_chief').style.borderColor = "red";
+		} else if ($('#lab_work').val() == "") {
+			document.getElementById('lab_work').style.borderColor = "red";
 			return false;
 		} else {
-			$("#loader").show();
-			var errDetectMsg = 'ไม่สามารถบันทึกข้อมูลได้';
-			var errDetec = false;
 			var obj = {
-				vil_id : 0,
-				vil_year : $('#vil_year').val(),
-				vil_name : $('#vil_name').val(),
-				vil_number : $('#vil_number').val(),
-				vil_chief : $('#vil_chief').val()
+				lab_id : 0,
+				lab_year : $('#lab_year').val(),
+				lab_type : $('#lab_type').val(),
+				lab_amount : $('#lab_amount').val(),
+				lab_work : $('#lab_work').val()
 			};
 			$.ajax({
-				url : "../NanglaeGov/saveVillage.do",
+				url : "../NanglaeGov/saveLabor.do",
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -139,16 +135,15 @@
 					}).then(function() {
 						location.reload();
 					});
-
 				},
 				error : function(data, status, er) {
-					alert(errDetectMsg);
+					alert('ไม่สามารถบันทึกข้อมูลได้');
 					$("#loader").hide();
 				}
 			});
 		}
 	}
-	function deleteVillage(vil_id) {
+	function deleteLabor(lab_id) {
 		swal({
 			title : 'คุณต้องการลบข้อมูลหรือไม่?',
 			type : 'warning',
@@ -158,36 +153,35 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-			var id = vil_id;
-			var obj = {
-				vil_id : id
-			};
-			$.ajax({
-				url : "../NanglaeGov/deleteVillage.do",
-				type : "POST",
-				dataType : "JSON",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				mimeType : "application/json",
-				success : function(data) {
-					location.reload();
-				}
-			});
-		});
-
-	}
-	function editVillage() {
+		var id = lab_id;
 		var obj = {
-			vil_id : $("#editVilId").val(),
-			vil_year : $('#editVilYear').val(),
-			vil_name : $('#editVilName').val(),
-			vil_number : $('#editVilNumber').val(),
-			vil_chief : $('#editVilChief').val()
-		};
+			lab_id : id
 
+		};
+		$.ajax({
+			url : "../NanglaeGov/deleteLabor.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				location.reload();
+			}
+		});
+		});
+	}
+	function editLabor() {
+		var obj = {
+			lab_id : $("#editLabId").val(),
+			lab_year : $('#editLabYear').val(),
+			lab_type : $('#editLabType').val(),
+			lab_amount : $('#editLabAmount').val(),
+			lab_work : $('#editLabWork').val(),
+		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/saveVillage.do",
+			url : "../NanglaeGov/saveLabor.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -202,18 +196,18 @@
 				});
 			},
 			error : function(data, status, er) {
-				alert('ไม่สามารถบันทึกข้อมูลได้');
+				alert('ไม่สามารถบนนทึกข้อมูลได้');
 			}
 		});
 	}
-	function setEditVillage(vil_id) {
+	function setEditLabor(lab_id) {
 
 		var obj = {
-			vil_id : vil_id
+			lab_id : lab_id
 		};
 
 		$.ajax({
-			url : "../NanglaeGov/findVillage.do",
+			url : "../NanglaeGov/findLabor.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -221,28 +215,21 @@
 			mimeType : "application/json",
 			success : function(data) {
 				//alert(JSON.stringify(data));
-				$("#editVilId").val(data.vil_id);
-				$("#editVilYear").val(data.vil_year);
-				$("#editVilName").val(data.vil_name);
-				$("#editVilNumber").val(data.vil_number);
-				$("#editVilChief").val(data.vil_chief);
+				$("#editLabId").val(data.lab_id);
+				$("#editLabYear").val(data.lab_year);
+				$("#editLabType").val(data.lab_type);
+				$("#editLabAmount").val(data.lab_amount);
+				$("#editLabWork").val(data.lab_work);
 			},
 			error : function(data, status, er) {
-				alert('ไม่สามารถโหลดข้อมูลได้');
+				alert('error');
 			}
 		});
 	}
 </script>
-<script type="text/javascript">
-	function validate() {
-		if (vilForm.vil - number.value.length == 0) {
-			document.getElementById("vil_number").innerHTML = "this is invalid name ";
-		}
-	}
-</script>
 </head>
 
-<body onload="listVillage()">
+<body onload="listLabor()">
 
 	<div id="wrapper">
 
@@ -257,7 +244,7 @@
 						class="icon-bar"></span>
 				</button>
 				<img src="../NanglaeGov/images/logo-nanglae.png"> <a
-					class="navbar-brand" href="index.do">เทศบาลตำบลนางแล</a>
+					class="navbar-brand" href="userIndex.do">เทศบาลตำบลนางแล</a>
 			</div>
 			<!-- /.navbar-header -->
 
@@ -285,53 +272,53 @@
 						<li><a href="#"><i class="fa fa-child fa-fw"></i> บุคคล<span
 								class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="personnel.do">บุคลากร</a></li>
-								<li><a href="population.do">ประชากร</a></li>
-								<li><a href="labor.do">แรงงาน</a></li>
+								<li><a href="userPersonnel.do">บุคลากร</a></li>
+								<li><a href="userPopulation.do">ประชากร</a></li>
+								<li><a href="userLabor.do">แรงงาน</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-road fa-fw"></i>
 								สาธารณูปโภค<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="transport.do">ระบบคมนาคมขนส่ง</a></li>
-								<li><a href="electric.do">ระบบไฟฟ้า</a></li>
-								<li><a href="pipeline.do">ระบบประปา</a></li>
-								<li><a href="drainange.do">ระบบระบายน้ำ</a></li>
+								<li><a href="userTransport.do">ระบบคมนาคมขนส่ง</a></li>
+								<li><a href="userElectric.do">ระบบไฟฟ้า</a></li>
+								<li><a href="userPipeline.do">ระบบประปา</a></li>
+								<li><a href="userDrainage.do">ระบบระบายน้ำ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-home fa-fw"></i>
 								สาธารณุปการ<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li><a href="#">เคหะ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="village.do">หมู่บ้าน</a></li>
-										<li><a href="industry.do">การอุตสาหกรรม</a></li>
-										<li><a href="education.do">การศึกษา</a></li>
-										<li><a href="religion.do">การศาสนา</a></li>
-										<li><a href="commerce.do">การพาณิชย์</a></li>
-										<li><a href="tourism.do">แหล่งท่องเที่ยว</a></li>
+										<li><a href="userVillage.do">หมู่บ้าน</a></li>
+										<li><a href="userIndustry.do">การอุตสาหกรรม</a></li>
+										<li><a href="userEducation.do">การศึกษา</a></li>
+										<li><a href="userReligion.do">การศาสนา</a></li>
+										<li><a href="userCommerce.do">การพาณิชย์</a></li>
+										<li><a href="userTourism.do">แหล่งท่องเที่ยว</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 								<li><a href="#">บริการ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="health.do">การสาธารสุข</a></li>
-										<li><a href="security.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
+										<li><a href="userHealth.do">การสาธารสุข</a></li>
+										<li><a href="userSecurity.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
 										</li>
-										<li><a href="group.do">กลุ่มในชุมชน</a></li>
-										<li><a href="service.do">ศูนย์บริการประชาชน</a></li>
-										<li><a href="inventory.do">การคลัง</a></li>
+										<li><a href="userGroup.do">กลุ่มในชุมชน</a></li>
+										<li><a href="userService.do">ศูนย์บริการประชาชน</a></li>
+										<li><a href="userInventory.do">การคลัง</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="glyphicon glyphicon-leaf"></i>
 								ธรรมชาติและสิ่งแวดล้อม<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="agriculture.do">การเกษตรกรรม</a></li>
+								<li><a href="userAgriculture.do">การเกษตรกรรม</a></li>
 								<li><a href="#">ทรัพยากรธรรมชาติ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="waterresource.do">ทรัพยากรณ์น้ำ</a></li>
-										<li><a href="landresource.do">ทรัพยากรณ์ดิน</a></li>
-										<li><a href="forrestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
+										<li><a href="userWaterresource.do">ทรัพยากรณ์น้ำ</a></li>
+										<li><a href="userLandresource.do">ทรัพยากรณ์ดิน</a></li>
+										<li><a href="userForestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
 									</ul></li>
-								<li><a href="polution.do">มลพิษ</a></li>
+								<li><a href="userPolution.do">มลพิษ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
-						<li><a href="copy.do"><i class="fa fa-copy"></i>
+						<li><a href="userCopy.do"><i class="fa fa-copy"></i>
 								คัดลอกข้อมูล</a></li>
 					</ul>
 				</div>
@@ -341,7 +328,7 @@
 		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">หมู่บ้าน</h1>
+					<h1 class="page-header">แรงงาน</h1>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
@@ -351,131 +338,121 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#listVillage" data-toggle="tab">รายชื่อหมู่บ้าน</a>
+								<li class="active"><a href="#listLabor" data-toggle="tab">รายชื่อแรงงาน</a>
 								</li>
-								<li><a href="#addVillage" data-toggle="tab">เพิ่มหมู่บ้าน</a>
-								</li>
+								<li><a href="#addLabor" data-toggle="tab">เพิ่มแรงงาน</a></li>
 							</ul>
 							<div class="panel-body">
 
 								<!-- Tab panes -->
 								<div class="tab-content">
-									<div class="tab-pane fade in active" id="listVillage">
-
-										<form>
-											พ.ศ. <select id="selectedYear" onchange='listVillage()'>
-												<option value="2558">2558</option>
-												<option value="2559">2559</option>
-											</select>
-										</form>
+									<div class="tab-pane fade in active" id="listLabor">
+										พ.ศ. <select>
+											<option value="2558">2558</option>
+											<option value="2559">2559</option>
+										</select> <br>
 										<br>
 										<div class="table-responsive">
 											<table class="table table-striped table-bordered table-hover"
 												id="resultTable">
-												<!-- Start change table -->
+<!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีข้อมูล</th>
-														<th>หมู่ที่</th>
-														<th>ชื่อหมู่บ้าน</th>
-														<th>ชื่อกำนัน/ผู้ใหญ่บ้าน</th>
+														<th>ปีที่บันทึกข้อมูล</th>
+														<th>แรงงาน</th>
+														<th>การใช้แรงงาน</th>
+														<th>จำนวน</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
 												</thead>
-												<tbody id="listVillages">
+												<tbody id="listLabors">
 												</tbody>
-												<!-- End change table -->
+<!-- End change table -->
 											</table>
 										</div>
 									</div>
-									<div class="tab-pane fade" id="addVillage">
-										<form role="form" name="vilForm" id="formCreate">
+									<div class="tab-pane fade" id="addLabor">
+										<form role="form" data-toggle="validator" id="testform">
 											<table width="50%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input class="form-control" placeholder=""
-														value="2558" maxlength="4" id="vil_year" name="vil-year"></td>
+													<td><input maxlength="4" class="form-control"
+														id="lab_year" placeholder="" value="2558" name="vil-year"></td>
 												</tr>
 												<tr>
 
-													<td align="pull-right" style="padding: 15px">หมู่ที่</td>
-													<td><input class="form-control"
-														placeholder="ระบุเลขที่หมู่บ้าน" name="vil-number"
-														maxlength="2" id="vil_number" required onblur="validate()"></td>
+													<td align="pull-right" style="padding: 15px">ชื่อ</td>
+													<td><input class="form-control" maxlength="100"
+														id="lab_type" placeholder="ระบุชื่อแรงงาน" required></td>
 
-												</tr>
-												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อหมู่บ้าน</td>
-													<td><input class="form-control"
-														placeholder="ระบุชื่อหมู่บ้าน" name="vil-name"
-														maxlength="50" id="vil_name" required></td>
-												</tr>
-												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อกำนัน/ผู้ใหญ่บ้าน</td>
-													<td><input class="form-control"
-														placeholder="ระบุชื่อผู้ใหญ่บ้าน" name="vilChief"
-														maxlength="50" id="vil_chief" required></td>
 												</tr>
 
 												<tr>
-													<td></td>
-													<td>
-														<div class="form-group">
-															<div class="col-md-9 col-md-offset-3">
-																<div id="messages"></div>
-															</div>
-														</div>
-													</td>
+
+													<td align="pull-right" style="padding: 15px">จำนวนแรงงาน</td>
+													<td><input class="form-control" maxlength="5"
+														id="lab_amount" placeholder="ระบุจำนวนแรงงาน" required></td>
+													<td style="padding: 15px">คน</td>
+
+												</tr>
+												<tr>
+													<td align="pull-right" style="padding: 15px">การใช้แรงงาน</td>
+													<td><textarea class="form-control" maxlength="255"
+															id="lab_work" placeholder="ระบุรายละเอียดการใช้แรงงาน"
+															name="per-address" required></textarea></td>
 												</tr>
 												<tr>
 													<td></td>
 													<td align="center" style="padding: 15px">
 														<button style="width: 100px" type="reset"
 															class="btn btn-warning">ล้างข้อมูล</button> <input
-														style="width: 100px" type="button" value="บันทึก"
-														onclick="createVillage()" class="btn btn-success" />
+														style="width: 100px" type="button" class="btn btn-success"
+														value="บันทึก" onclick="createLabor()" />
 													</td>
 												</tr>
 											</table>
 										</form>
 									</div>
-									<div class="tab-pane fade" id="editVillage">
+									<div class="tab-pane fade" id="editLabor">
 										<form role="form">
-											<input type="hidden" id="editVilId">
+											<input type="hidden" id="editLabId">
 											<table width="50%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input class="form-control" placeholder=""
-														value="2558" maxlength="4" id="editVilYear"
+													<td><input class="form-control" maxlength="4"
+														id="editLabYear" placeholder="" value="2558"
 														name="vil-year"></td>
 												</tr>
 												<tr>
 
-													<td align="pull-right" style="padding: 15px">หมู่ที่</td>
-													<td><input class="form-control" placeholder=""
-														name="vil-number" maxlength="2" id="editVilNumber"
-														required=""></td>
+													<td align="pull-right" style="padding: 15px">ชื่อ</td>
+													<td><input class="form-control" maxlength="100"
+														id="editLabType" placeholder="" required="true"></td>
+
+												</tr>
+
+												<tr>
+
+													<td align="pull-right" style="padding: 15px">จำนวนแรงงาน</td>
+													<td><input class="form-control" maxlength="5"
+														id="editLabAmount" placeholder="" required="true"></td>
+													<td style="padding: 15px">คน</td>
 
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อหมู่บ้าน</td>
-													<td><input class="form-control" placeholder=""
-														name="vil-name" maxlength="50" id="editVilName"
-														required=""></td>
-												</tr>
-												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อกำนัน/ผู้ใหญ่บ้าน</td>
-													<td><input class="form-control" placeholder=""
-														name="vilChief" maxlength="50" id="editVilChief"
-														required=""></td>
+													<td align="pull-right" style="padding: 15px">การใช้แรงงาน</td>
+													<td><textarea class="form-control" maxlength="255"
+															id="editLabWork" placeholder="" name="per-address"
+															required="true"></textarea></td>
 												</tr>
 												<tr>
 													<td></td>
 													<td align="center" style="padding: 15px"><a
-														href="#listVillage" data-toggle="tab"><button
+														href="#listLabor" data-toggle="tab"><button
 																style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
-														<input style="width: 100px" type="button" value="บันทึก"
-														onclick="editVillage()" class="btn btn-success" /></td>
+														<input style="width: 100px" type="button"
+														class="btn btn-success" value="บันทึก"
+														onclick="editLabor()" /></td>
 												</tr>
 											</table>
 										</form>
@@ -517,6 +494,10 @@
 		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
 		<!-- Sweetalert2 JavaScript -->
 		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
+		
+		<script>
+
+</script>
 </body>
 
 </html>

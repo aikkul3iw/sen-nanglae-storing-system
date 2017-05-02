@@ -81,9 +81,9 @@ public class LocalgController {
 		return result;
 	}
 	
-	@RequestMapping(value="/group",method=RequestMethod.GET)
-	public ModelAndView displayGroup(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("group");
+	@RequestMapping(value="/userGroup",method=RequestMethod.GET)
+	public ModelAndView displayuserGroup(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView model = new ModelAndView("userGroup");
 		
 		return model;
 	}

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en" manifest="cache.manifest">
+<html lang="en">
 
 <head>
 
@@ -46,43 +46,46 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-	function listAgriculture() {
+	function listElectricity() {
 		$("#loader").show();
 		$
 				.ajax({
-					url : "../NanglaeGov/listAgriculture.do",
+					url : "../NanglaeGov/listElectricity.do",
 					type : "POST",
 					success : function(data) {
 						var html = '';
+						
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].agi_year
+									+ data[i].elec_year
 									+ "</td>"
 									+ "<td>"
-									+ data[i].agi_name
+									+ data[i].location.vil_number
 									+ "</td>"
 									+ "<td>"
-									+ data[i].agi_area
+									+ data[i].location.vil_name
 									+ "</td>"
 									+ "<td>"
-									+ data[i].agi_description
+									+ data[i].elec_status
 									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editAgri\" data-toggle=\"tab\" onclick=\"setEditAgriculture("
-									+ data[i].agi_id
-									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteAgriculture("
-									+ data[i].agi_id
+									+ "<td>"
+									+ data[i].elec_area
+									+ "</td>"
+									+ "<td style=\"text-align: center;\"><button href=\"#editElection\" data-toggle=\"tab\" onclick=\"setEditElectricity("
+									+ data[i].elec_id
+									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteElectricity("
+									+ data[i].elec_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 							html += "</tr>";
-
 						}
-						$('#listAgriculture').html(html);
+						$('#listElectricitys').html(html);
 						$(document).ready(function() {
 							var table = $('#resultTable').DataTable({
 								lengthChange : false,
 								buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2, 3]},customize : function(doc) {
+								columns : [ 0, 1, 2, 3, 4 ]},customize : function(doc) {
 								doc.defaultStyle['font'] = 'THSarabun';
 										}
 									},
@@ -93,39 +96,35 @@
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
-						alert('ไม่สามารถโหลดข้อมูลได้');
+						alert('error');
 						$("#loader").hide();
 					}
 				});
 	}
 </script>
 <script type='text/javascript'>
-	function createAgriculture() {
-		if ($('#agi_year').val() == "") {
-			document.getElementById('agi_year').style.borderColor = "red";
+	function createElectricity() {
+		$("#loader").show();
+		if ($('#elec_year').val() == "") {
+			document.getElementById('elec_year').style.borderColor = "red";
 			return false;
-		} else if ($('#agi_name').val() == "") {
-			document.getElementById('agi_name').style.borderColor = "red";
+		} else if ($('#elec_area').val() == "") {
+			document.getElementById('elec_area').style.borderColor = "red";
 			return false;
-		} else if ($('#agi_area').val() == "") {
-			document.getElementById('agi_area').style.borderColor = "red";
-			return false;
-		} else if ($('#agi_description').val() == "") {
-			document.getElementById('agi_description').style.borderColor = "red";
+		} else if ($('#elec_status').val() == "") {
+			document.getElementById('elec_status').style.borderColor = "red";
 			return false;
 		} else {
-			$("#loader").show();
-			var errDetectMsg = 'ไม่สามารถบันทึกข้อมูลได้';
-			var errDetec = false;
 			var obj = {
-				agi_id : 0,
-				agi_year : $('#agi_year').val(),
-				agi_name : $('#agi_name').val(),
-				agi_area : $('#agi_area').val(),
-				agi_description : $('#agi_description').val()
+				elec_id : 0,
+				elec_year : $('#elec_year').val(),
+				elec_area : $('#elec_area').val(),
+				elec_status : $('#elec_status').val()
+
 			};
+			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/saveAgriculture.do",
+				url : "../NanglaeGov/saveElectricity.do?id=" + $("#villageSelect").val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -140,14 +139,33 @@
 					});
 				},
 				error : function(data, status, er) {
-					alert(errDetectMsg);
+					alert('error');
 					$("#loader").hide();
 				}
 			});
 		}
-
 	}
-	function deleteAgriculture(agi_id) {
+	function listVillage() {
+		$("#loader").show();
+		$.ajax({
+			url : "../NanglaeGov/listVillage.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<option value=\""+data[i].vil_id+"\">"
+							+ data[i].vil_name + "</option>";
+				}
+				$('#villageSelect').html(html);
+
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+	function deleteElectricity(elec_id) {
 		swal({
 			title : 'คุณต้องการลบข้อมูลหรือไม่?',
 			type : 'warning',
@@ -157,38 +175,36 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-			var id = agi_id
-			var obj = {
-				agi_id : id
+		var id = elec_id
+		var obj = {
+			elec_id : id
 
-			};
-			//alert(id);
-			//alert(JSON.stringify(obj));
-			$.ajax({
-				url : "../NanglaeGov/deleteAgriculture.do",
-				type : "POST",
-				dataType : "JSON",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				mimeType : "application/json",
-				success : function(data) {
-					//alert('success');
-					location.reload();
-				}
-			});
+		};
+		//alert(id);
+		//alert(JSON.stringify(obj));
+		$.ajax({
+			url : "../NanglaeGov/deleteElectricity.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				location.reload();
+			}
+		});
 		});
 	}
-	function editAgriculture() {
+	function editElectricity() {
 		var obj = {
-			agi_id : $("#editAgiId").val(),
-			agi_year : $('#editAgiYear').val(),
-			agi_name : $('#editAgiName').val(),
-			agi_area : $('#editAgiArea').val(),
-			agi_description : $('#editAgiDescription').val()
+			elec_id : $("#editElecId").val(),
+			elec_year : $('#editElecYear').val(),
+			elec_area : $('#editElecArea').val(),
+			elec_status : $('#editElecStatus').val()
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/saveAgriculture.do",
+			url : "../NanglaeGov/saveElectricity.do?id=" + $("#editVillageSelect").val(),
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -207,14 +223,14 @@
 			}
 		});
 	}
-	function setEditAgriculture(agi_id) {
+	function setEditElectricity(elec_id) {
 
 		var obj = {
-			agi_id : agi_id
+			elec_id : elec_id
 		};
 
 		$.ajax({
-			url : "../NanglaeGov/findAgriculture.do",
+			url : "../NanglaeGov/findElectricity.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -222,21 +238,41 @@
 			mimeType : "application/json",
 			success : function(data) {
 				//alert(JSON.stringify(data));
-				$("#editAgiId").val(data.agi_id);
-				$("#editAgiYear").val(data.agi_year);
-				$("#editAgiName").val(data.agi_name);
-				$("#editAgiArea").val(data.agi_area);
-				$("#editAgiDescription").val(data.agi_description);
+				$("#editElecId").val(data.elec_id);
+				$("#editElecYear").val(data.elec_year);
+				$("#editElecArea").val(data.elec_area);
+				$("#editElecStatus").val(data.elec_status);
+				$('#editVillageSelect').val(data.location.vil_id);
 			},
 			error : function(data, status, er) {
 				alert('error');
 			}
 		});
 	}
+	function editVillageSelect() {
+		$("#loader").show();
+		$.ajax({
+			url : "../NanglaeGov/listVillage.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<option value=\""+data[i].vil_id+"\">"
+							+ data[i].vil_name + "</option>";
+				}
+				$('#editVillageSelect').html(html);
+
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
 </script>
 </head>
 
-<body onload="listAgriculture()">
+<body onload="listElectricity();listVillage();editVillageSelect();">
 
 	<div id="wrapper">
 
@@ -251,7 +287,7 @@
 						class="icon-bar"></span>
 				</button>
 				<img src="../NanglaeGov/images/logo-nanglae.png"> <a
-					class="navbar-brand" href="index.do">เทศบาลตำบลนางแล</a>
+					class="navbar-brand" href="userIndex.do">เทศบาลตำบลนางแล</a>
 			</div>
 			<!-- /.navbar-header -->
 
@@ -279,53 +315,53 @@
 						<li><a href="#"><i class="fa fa-child fa-fw"></i> บุคคล<span
 								class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="personnel.do">บุคลากร</a></li>
-								<li><a href="population.do">ประชากร</a></li>
-								<li><a href="labor.do">แรงงาน</a></li>
+								<li><a href="userPersonnel.do">บุคลากร</a></li>
+								<li><a href="userPopulation.do">ประชากร</a></li>
+								<li><a href="userLabor.do">แรงงาน</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-road fa-fw"></i>
 								สาธารณูปโภค<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="transport.do">ระบบคมนาคมขนส่ง</a></li>
-								<li><a href="electric.do">ระบบไฟฟ้า</a></li>
-								<li><a href="pipeline.do">ระบบประปา</a></li>
-								<li><a href="drainange.do">ระบบระบายน้ำ</a></li>
+								<li><a href="userTransport.do">ระบบคมนาคมขนส่ง</a></li>
+								<li><a href="userElectric.do">ระบบไฟฟ้า</a></li>
+								<li><a href="userPipeline.do">ระบบประปา</a></li>
+								<li><a href="userDrainage.do">ระบบระบายน้ำ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-home fa-fw"></i>
 								สาธารณุปการ<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li><a href="#">เคหะ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="village.do">หมู่บ้าน</a></li>
-										<li><a href="industry.do">การอุตสาหกรรม</a></li>
-										<li><a href="education.do">การศึกษา</a></li>
-										<li><a href="religion.do">การศาสนา</a></li>
-										<li><a href="commerce.do">การพาณิชย์</a></li>
-										<li><a href="tourism.do">แหล่งท่องเที่ยว</a></li>
+										<li><a href="userVillage.do">หมู่บ้าน</a></li>
+										<li><a href="userIndustry.do">การอุตสาหกรรม</a></li>
+										<li><a href="userEducation.do">การศึกษา</a></li>
+										<li><a href="userReligion.do">การศาสนา</a></li>
+										<li><a href="userCommerce.do">การพาณิชย์</a></li>
+										<li><a href="userTourism.do">แหล่งท่องเที่ยว</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 								<li><a href="#">บริการ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="health.do">การสาธารสุข</a></li>
-										<li><a href="security.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
+										<li><a href="userHealth.do">การสาธารสุข</a></li>
+										<li><a href="userSecurity.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
 										</li>
-										<li><a href="group.do">กลุ่มในชุมชน</a></li>
-										<li><a href="service.do">ศูนย์บริการประชาชน</a></li>
-										<li><a href="inventory.do">การคลัง</a></li>
+										<li><a href="userGroup.do">กลุ่มในชุมชน</a></li>
+										<li><a href="userService.do">ศูนย์บริการประชาชน</a></li>
+										<li><a href="userInventory.do">การคลัง</a></li>
 									</ul> <!-- /.nav-third-level --></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="glyphicon glyphicon-leaf"></i>
 								ธรรมชาติและสิ่งแวดล้อม<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="agriculture.do">การเกษตรกรรม</a></li>
+								<li><a href="userAgriculture.do">การเกษตรกรรม</a></li>
 								<li><a href="#">ทรัพยากรธรรมชาติ<span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
-										<li><a href="waterresource.do">ทรัพยากรณ์น้ำ</a></li>
-										<li><a href="landresource.do">ทรัพยากรณ์ดิน</a></li>
-										<li><a href="forrestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
+										<li><a href="userWaterresource.do">ทรัพยากรณ์น้ำ</a></li>
+										<li><a href="userLandresource.do">ทรัพยากรณ์ดิน</a></li>
+										<li><a href="userForestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
 									</ul></li>
-								<li><a href="polution.do">มลพิษ</a></li>
+								<li><a href="userPolution.do">มลพิษ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
-						<li><a href="copy.do"><i class="fa fa-copy"></i>
+						<li><a href="userCopy.do"><i class="fa fa-copy"></i>
 								คัดลอกข้อมูล</a></li>
 					</ul>
 				</div>
@@ -335,7 +371,7 @@
 		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">การเกษตรกรรม</h1>
+					<h1 class="page-header">ระบบไฟฟ้า</h1>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
@@ -345,72 +381,74 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#listAgri" data-toggle="tab">การเกษตรกรรม</a>
-								</li>
-								<li><a href="#addAgri" data-toggle="tab">เพิ่มการเกษตรกรรม</a>
+								<li class="active"><a href="#listElection"
+									data-toggle="tab">ข้อมูลระบบไฟฟ้า</a></li>
+								<li><a href="#addElection" data-toggle="tab">เพิ่มระบบไฟฟ้า</a>
 								</li>
 							</ul>
 							<div class="panel-body">
 
 								<!-- Tab panes -->
-
 								<div class="tab-content">
-									<div class="tab-pane fade in active" id="listAgri">
+									<div class="tab-pane fade in active" id="listElection">
 										พ.ศ. <select>
 											<option value="2558">2558</option>
 											<option value="2559">2559</option>
 										</select> <br>
-										<h1></h1>
+										<br>
 										<div class="table-responsive">
 											<table id="resultTable"
 												class="table table-striped table-bordered table-hover">
-
-												<!-- Start change table -->
+<!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่ข้อมูล</th>
-														<th>พื้นที่เกษตรกรรม</th>
-														<th>จำนวน(ไร่)</th>
-														<th>การทำการเกษตร</th>
+														<th>ปีที่บันทึกข้อมูล</th>
+														<th>หมู่ที่</th>
+														<th>ชื่อหมู่บ้าน</th>
+														<th>ระบบไฟฟ้า</th>
+														<th>พื้นที่ขาดแคลน</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
 												</thead>
-												<tbody id="listAgriculture">
+												<tbody id="listElectricitys">
 												</tbody>
-												<!-- End change table -->
+<!-- End change table -->
 											</table>
 										</div>
 									</div>
-									<div class="tab-pane fade" id="addAgri">
+									<div class="tab-pane fade" id="addElection">
 										<form role="form">
 											<table width="50%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="agi_year" maxlength="4"
+													<td><input id="elec_year" maxlength="4"
 														class="form-control" placeholder="" value="2558"
 														name="vil-year"></td>
 												</tr>
 												<tr>
+													<td align="pull-right" style="padding: 15px">หมู่บ้าน</td>
+													<td><select class="form-control" id="villageSelect"
+														placeholder="" name="vil-name" required="true">
 
-													<td align="pull-right" style="padding: 15px">พื้นที่การเกษตร</td>
-													<td><input id="agi_name" maxlength="100"
-														class="form-control" placeholder="ระบุพื้นที่การเกษตร"
-														name="vil-number" required="true"></td>
-
+													</select></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">จำนวนพื้นที่</td>
-													<td><input id="agi_area" maxlength="5"
-														class="form-control" placeholder="ระบุจำนวนพื้นที่"
-														name="vil-name" required="true"></td>
-													<td style="padding: 15px">ไร่</td>
+													<td align="pull-right" style="padding: 15px">สถานะระบบไฟฟ้า</td>
+													<td><select id="elec_status" class="form-control"
+														placeholder="" name="vil-name" required="true">
+															<option>กรุณาเลือก</option>
+															<option value="มีระบบไฟฟ้าทั่วถึง">มีระบบไฟฟ้าทั่วถึง</option>
+															<option value="มีระบบไฟฟ้าเกือบทั่วถึง">มีระบบไฟฟ้าเกือบทั่วถึง</option>
+															<option value="ไม่มีระบบไฟฟ้า">ไม่มีระบบไฟฟ้า</option>
+													</select></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">การทำการเกษตร</td>
-													<td><textarea id="agi_description" maxlength="255"
-															class="form-control"
-															placeholder="ระบุรายละเอียดเพิ่มเติม" name="vil-name"
-															required="true"></textarea></td>
+
+													<td align="pull-right" style="padding: 15px">พื้นที่ขาดแคลนไฟฟ้า</td>
+													<td><textarea class="form-control" maxlength="100"
+															id="elec_area" placeholder="ระบุหมู่บ้านที่ขาดแคลนไฟฟ้า"
+															name="vil-number" required="true"></textarea></td>
+
 												</tr>
 												<tr>
 													<td></td>
@@ -418,51 +456,56 @@
 														<button style="width: 100px" type="reset"
 															class="btn btn-warning">ล้างข้อมูล</button> <input
 														style="width: 100px" type="button" class="btn btn-success"
-														value="บันทึก" onclick="createAgriculture()" />
+														value="บันทึก" onclick="createElectricity()" />
 													</td>
 												</tr>
 											</table>
 										</form>
 									</div>
-									<div class="tab-pane fade" id="editAgri">
+									<div class="tab-pane fade" id="editElection">
 										<form role="form">
-											<input type="hidden" id="editAgiId">
+											<input type="hidden" id="editElecId">
 											<table width="50%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="editAgiYear" maxlength="4"
+													<td><input id="editElecYear" maxlength="4"
 														class="form-control" placeholder="" value="2558"
 														name="vil-year"></td>
 												</tr>
 												<tr>
+													<td align="pull-right" style="padding: 15px">หมู่บ้าน</td>
+													<td><select class="form-control"
+														id="editVillageSelect" placeholder="" name="vil-name"
+														required="true">
 
-													<td align="pull-right" style="padding: 15px">พื้นที่การเกษตร</td>
-													<td><input id="editAgiName" maxlength="100"
-														class="form-control" placeholder="" name="vil-number"
-														required="true"></td>
-
+													</select></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">จำนวนพื้นที่</td>
-													<td><input id="editAgiArea" maxlength="5"
-														class="form-control" placeholder="" name="vil-name"
-														required="true"></td>
-													<td style="padding: 15px">ไร่</td>
+													<td align="pull-right" style="padding: 15px">สถานะระบบไฟฟ้า</td>
+													<td><select id="editElecStatus" class="form-control"
+														placeholder="" name="vil-name" required="true">
+															<option>กรุณาเลือก</option>
+															<option value="มีระบบไฟฟ้าทั่วถึง">มีระบบไฟฟ้าทั่วถึง</option>
+															<option value="มีระบบไฟฟ้าเกือบทั่วถึง">มีระบบไฟฟ้าเกือบทั่วถึง</option>
+															<option value="ไม่มีระบบไฟฟ้า">ไม่มีระบบไฟฟ้า</option>
+													</select></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">การทำการเกษตร</td>
-													<td><textarea id="editAgiDescription" maxlength="255"
-															class="form-control" placeholder="" name="vil-name"
+
+													<td align="pull-right" style="padding: 15px">พื้นที่ขาดแคลนไฟฟ้า</td>
+													<td><textarea class="form-control" maxlength="100"
+															id="editElecArea" placeholder="" name="vil-number"
 															required="true"></textarea></td>
+
 												</tr>
 												<tr>
 													<td></td>
 													<td align="center" style="padding: 15px"><a
-														href="#listAgri" data-toggle="tab"><button
+														href="#listElection" data-toggle="tab"><button
 																style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
 														<input style="width: 100px" type="button"
 														class="btn btn-success" value="บันทึก"
-														onclick="editAgriculture()" /></td>
+														onclick="editElectricity()" /></td>
 												</tr>
 											</table>
 										</form>
@@ -504,11 +547,6 @@
 		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
 		<!-- Sweetalert2 JavaScript -->
 		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
-
-<script>
-
-</script>
-
 </body>
 
 </html>

@@ -233,7 +233,7 @@
 						class="icon-bar"></span>
 				</button>
 				<img src="../NanglaeGov/images/logo-nanglae.png"> <a
-					class="navbar-brand" href="index.do">เทศบาลตำบลนางแล</a>
+					class="navbar-brand" href="superIndex.do">เทศบาลตำบลนางแล</a>
 			</div>
 			<!-- /.navbar-header -->
 
@@ -271,7 +271,7 @@
 								<li><a href="superTransport.do">ระบบคมนาคมขนส่ง</a></li>
 								<li><a href="superElectric.do">ระบบไฟฟ้า</a></li>
 								<li><a href="superPipeline.do">ระบบประปา</a></li>
-								<li><a href="superDrainange.do">ระบบระบายน้ำ</a></li>
+								<li><a href="superDrainage.do">ระบบระบายน้ำ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<li><a href="#"><i class="fa fa-home fa-fw"></i>
 								สาธารณุปการ<span class="fa arrow"></span></a>
@@ -303,14 +303,14 @@
 									<ul class="nav nav-third-level">
 										<li><a href="superWaterresource.do">ทรัพยากรณ์น้ำ</a></li>
 										<li><a href="superLandresource.do">ทรัพยากรณ์ดิน</a></li>
-										<li><a href="superForrestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
+										<li><a href="superForestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
 									</ul></li>
 								<li><a href="superPolution.do">มลพิษ</a></li>
 							</ul> <!-- /.nav-second-level --></li>
-						<li><a href="copy.do"><i class="fa fa-copy"></i>
+						<li><a href="superCopy.do"><i class="fa fa-copy"></i>
 								คัดลอกข้อมูล</a></li>
-						<li><a href="createUser.do"><i class="glyphicon glyphicon-user"></i>
-								สร้างผู้ใช้งาน</a></li>
+						<li><a href="superCreateUser.do"><i class="glyphicon glyphicon-user"></i>
+								จัดการผู้ใช้งาน</a></li>
 					</ul>
 				</div>
 				<!-- /.sidebar-collapse -->
