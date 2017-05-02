@@ -395,18 +395,6 @@
 							<!-- Tab panes -->
 							<div class="tab-content">
 								<div class="tab-pane fade in active" id="listPersonnel">
-									<center>
-										<p id="successMsg"></p>
-									</center>
-									พ.ศ. <select>
-										<option value="2558">2558</option>
-										<option value="2559">2559</option>
-
-									</select> <br><br>
-									
-
-									<br> 
-
 									<div class="table-responsive">
 										<table class="table table-striped table-bordered table-hover"
 											id="resultTable">
