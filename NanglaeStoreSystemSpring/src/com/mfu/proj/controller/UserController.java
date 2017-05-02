@@ -93,12 +93,12 @@ import com.proj.ejb.face.UserService;
 				if(isValidUser.getRole().equalsIgnoreCase("Superuser")){
 						System.out.println("Login Superuser Successful");
 						request.setAttribute("loggedInUser", loginBean.getUsername());
-						model = new ModelAndView("createUser");
+						model = new ModelAndView("superIndex");
 						
 				}else if(isValidUser.getRole().equalsIgnoreCase("User")){
 						System.out.println("Login User Successful");
 						request.setAttribute("loggedInUser", loginBean.getUsername());
-						model = new ModelAndView("agriculture");
+						model = new ModelAndView("userIndex");
 							
 				}else{
 						System.out.println("Fail");
