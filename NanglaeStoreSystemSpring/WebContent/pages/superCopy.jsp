@@ -178,7 +178,7 @@
 												<tr>
 													<td style="padding: 15px">สร้างข้อมูลใหม่ พ.ศ.</td>
 													<td><input type="text" class="form-control"
-														name="newYear" id="newYear" required></td>
+														data-mask="0000"name="newYear" id="newYear" required></td>
 												</tr>
 												<tr>
 													<td style="padding: 15px"></td>
@@ -223,6 +223,9 @@
 		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
 		<!-- Sweetalert2 JavaScript -->
 		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
+		<!-- Mask plug in -->
+		<script src="../NanglaeGov/js/jquery.mask.js"></script>
+		<script src="../NanglaeGov/js/jquery.mask.min.js"></script>
 </body>
 
 </html>

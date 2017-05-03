@@ -415,6 +415,9 @@
 				$('#DeleteModal').modal('show');
 			}
 		</script>
+		<!-- Mask plug in -->
+		<script src="../NanglaeGov/js/jquery.mask.js"></script>
+		<script src="../NanglaeGov/js/jquery.mask.min.js"></script>
 </body>
 
 </html>

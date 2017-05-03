@@ -473,7 +473,7 @@
 											</tr>
 											<tr>
 												<td align="pull-right" style="padding: 15px">เบอร์โทรติดต่อ</td>
-												<td><input class="form-control" placeholder="ต.ย. 089-8998999" maxlength="10"
+												<td><input class="form-control" data-mask="000-000-0000"placeholder="ต.ย. 089-8998999" maxlength="10"
 													id="per_tel_number" 
 													name="pertelnumber" required ></td>
 											</tr>
@@ -545,8 +545,8 @@
 											</tr>
 											<tr>
 												<td align="pull-right" style="padding: 15px">เบอร์โทรติดต่อ</td>
-												<td><input class="form-control" maxlength="12"
-													id="editPerTelNumber" placeholder="" name="per-tel"
+												<td><input class="form-control" 
+													id="editPerTelNumber" data-mask="000-000-0000" placeholder="" name="per-tel"
 													required="true"></td>
 											</tr>
 											<tr>
@@ -613,6 +613,9 @@
 		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
 		<!-- Sweetalert2 JavaScript -->
 		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
+		<!-- Mask plug in -->
+		<script src="../NanglaeGov/js/jquery.mask.js"></script>
+		<script src="../NanglaeGov/js/jquery.mask.min.js"></script>
 
 </body>
 

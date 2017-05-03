@@ -389,7 +389,7 @@
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 													<td><input id="agi_year" maxlength="4"
-														class="form-control" placeholder="" value="2558"
+														class="form-control" data-mask="0000"placeholder="" value="2558"
 														name="vil-year"></td>
 												</tr>
 												<tr>
@@ -403,7 +403,7 @@
 												<tr>
 													<td align="pull-right" style="padding: 15px">จำนวนพื้นที่</td>
 													<td><input id="agi_area" maxlength="5"
-														class="form-control" placeholder="ระบุจำนวนพื้นที่"
+														class="form-control" data-mask="00000" placeholder="ระบุจำนวนพื้นที่"
 														name="vil-name" required="true"></td>
 													<td style="padding: 15px">ไร่</td>
 												</tr>
@@ -433,7 +433,7 @@
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 													<td><input id="editAgiYear" maxlength="4"
-														class="form-control" placeholder="" value="2558"
+														class="form-control" data-mask="0000"placeholder="" value="2558"
 														name="vil-year"></td>
 												</tr>
 												<tr>
@@ -447,7 +447,7 @@
 												<tr>
 													<td align="pull-right" style="padding: 15px">จำนวนพื้นที่</td>
 													<td><input id="editAgiArea" maxlength="5"
-														class="form-control" placeholder="" name="vil-name"
+														class="form-control" data-mask="00000"placeholder="" name="vil-name"
 														required="true"></td>
 													<td style="padding: 15px">ไร่</td>
 												</tr>
@@ -506,6 +506,9 @@
 		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
 		<!-- Sweetalert2 JavaScript -->
 		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
+		<!-- Mask plug in -->
+		<script src="../NanglaeGov/js/jquery.mask.js"></script>
+		<script src="../NanglaeGov/js/jquery.mask.min.js"></script>
 </body>
 
 </html>

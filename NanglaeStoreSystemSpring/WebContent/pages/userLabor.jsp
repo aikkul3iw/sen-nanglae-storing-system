@@ -490,9 +490,9 @@
 		<!-- Sweetalert2 JavaScript -->
 		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
 		
-		<script>
-
-</script>
+		<!-- Mask plug in -->
+		<script src="../NanglaeGov/js/jquery.mask.js"></script>
+		<script src="../NanglaeGov/js/jquery.mask.min.js"></script>
 </body>
 
 </html>

@@ -48,12 +48,12 @@ public class UserServiceBean implements UserService{
 	}
 	
 	@Override
-	public User login(String username,String password){
+	public List<User> login(String username,String password){
 		
 		List<User> list = em.createQuery("SELECT user FROM User user WHERE user.username = :username AND user.password = :password")
 				.setParameter("username", username).setParameter("password", password).getResultList();
 		System.out.println("intro"+list.size());
-		return list.get(0);
+		return list;
 	}
 	
 	public String Checkrole(String username,String password,String role) {

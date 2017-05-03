@@ -378,7 +378,7 @@
 											<table width="50%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input maxlength="4" class="form-control"
+													<td><input maxlength="4" data-mask="0000"class="form-control"
 														id="lab_year" placeholder="" value="2558" name="vil-year"></td>
 												</tr>
 												<tr>
@@ -393,7 +393,7 @@
 
 													<td align="pull-right" style="padding: 15px">จำนวนแรงงาน</td>
 													<td><input class="form-control" maxlength="5"
-														id="lab_amount" placeholder="ระบุจำนวนแรงงาน" required></td>
+														id="lab_amount" data-mask="00000" placeholder="ระบุจำนวนแรงงาน" required></td>
 													<td style="padding: 15px">คน</td>
 
 												</tr>
@@ -422,7 +422,7 @@
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 													<td><input class="form-control" maxlength="4"
-														id="editLabYear" placeholder="" value="2558"
+														id="editLabYear" data-mask="00000"placeholder="" value="2558"
 														name="vil-year"></td>
 												</tr>
 												<tr>
@@ -437,7 +437,7 @@
 
 													<td align="pull-right" style="padding: 15px">จำนวนแรงงาน</td>
 													<td><input class="form-control" maxlength="5"
-														id="editLabAmount" placeholder="" required="true"></td>
+														id="editLabAmount" data-mask="000000" placeholder="" required="true"></td>
 													<td style="padding: 15px">คน</td>
 
 												</tr>
@@ -496,6 +496,10 @@
 		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
 		<!-- Sweetalert2 JavaScript -->
 		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
+		
+		<!-- Mask plug in -->
+		<script src="../NanglaeGov/js/jquery.mask.js"></script>
+		<script src="../NanglaeGov/js/jquery.mask.min.js"></script>
 </body>
 
 </html>

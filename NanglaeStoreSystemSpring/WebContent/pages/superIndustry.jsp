@@ -466,14 +466,14 @@
 											</tr>
 											<tr>
 												<td align="pull-right" style="padding: 15px">มูลค่าอุตสาหกรรม</td>
-												<td><input id="ins_type" maxlength="4"
+												<td><input id="ins_type" data-mask="000000000"
 													class="form-control" placeholder="ระบุมูลค่าอุตสาหกรรม"
 													name="vil-year"></td>
 												<td style="padding: 10px">ล้านบาท</td>
 											</tr>
 											<tr>
 												<td align="pull-right" style="padding: 15px">จำนวนแรงงาน</td>
-												<td><input id="ins_labor" maxlength="4"
+												<td><input id="ins_labor" data-mask="00000"
 													class="form-control" placeholder="ระบุจำนวนแรงงาน"
 													name="vil-year"></td>
 												<td style="padding: 10px">คน</td>
@@ -523,8 +523,8 @@
 											</tr>
 											<tr>
 												<td align="pull-right" style="padding: 15px">มูลค่าอุตสาหกรรม</td>
-												<td><input id="editInsType" maxlength="4"
-													class="form-control" placeholder="ระบุมูลค่าอุตสาหกรรม"
+												<td><input id="editInsType" 
+													class="form-control" data-mask="00000000" placeholder="ระบุมูลค่าอุตสาหกรรม"
 													name="vil-year"></td>
 												<td style="padding: 10px">ล้านบาท</td>
 											</tr>
@@ -584,6 +584,9 @@
 		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
 		<!-- Sweetalert2 JavaScript -->
 		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
+		<!-- Mask plug in -->
+		<script src="../NanglaeGov/js/jquery.mask.js"></script>
+		<script src="../NanglaeGov/js/jquery.mask.min.js"></script>
 
 </body>
 
