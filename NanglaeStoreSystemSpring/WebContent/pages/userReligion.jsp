@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
+function getCurrentYear(){
+	document.getElementById('rel_year').value = year;
+	}
 	function listReligion() {
 		$("#loader").show();
 		$
@@ -54,10 +58,10 @@
 					type : "POST",
 					success : function(data) {
 						var html = '';
-
-						for (var i = 0; i < data.length; i++) {
+						var count = 1;
+ 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
-							html += "<td>"
+							html += "<td>"+count+"</td><td>"
 									+ data[i].rel_year
 									+ "</td>"
 									+ "<td>"
@@ -72,13 +76,14 @@
 									+ " บ้าน"
 									+ data[i].location.vil_name
 									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editReligion\" data-toggle=\"tab\" onclick=\"setEditReligion("
+									+ "<td nowrap=\"nowrap\" style=\"text-align: center;\"><button href=\"#editReligion\" data-toggle=\"tab\" onclick=\"setEditReligion("
 									+ data[i].rel_id
 									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteReligion("
 									+ data[i].rel_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 							html += "</tr>";
+							count++;
 						}
 						$('#listReligions').html(html);
 						$(document).ready(function() {
@@ -270,7 +275,7 @@
 </script>
 </head>
 
-<body onload="listReligion();listVillage();editVillageSelect();">
+<body onload="listReligion();listVillage();editVillageSelect();getCurrentYear();">
 
 	<div id="wrapper">
 
@@ -395,7 +400,8 @@
 											class="table table-striped table-bordered table-hover">
 <!-- Start change table -->
 											<thead>
-												<tr>
+												<tr>	
+													<th>ที่</th>
 													<th>ปีที่บันทึกข้อมูล</th>
 													<th>ชื่อ</th>
 													<th>ศาสนา</th>
@@ -415,7 +421,7 @@
 											<tr>
 												<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 												<td><input class="form-control" maxlength="4"
-													id="rel_year" placeholder="" value="2558" name="vil-year"></td>
+													id="rel_year" placeholder="" value="" name="vil-year"></td>
 											</tr>
 											<tr>
 

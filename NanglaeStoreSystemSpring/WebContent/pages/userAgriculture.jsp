@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
+function getCurrentYear(){
+	document.getElementById('agi_year').value = year;
+	}
 	function listAgriculture() {
 		$("#loader").show();
 		$
@@ -54,9 +58,10 @@
 					type : "POST",
 					success : function(data) {
 						var html = '';
+						var count = 1;
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
-							html += "<td>"
+							html += "<td>"+count+"</td><td>"
 									+ data[i].agi_year
 									+ "</td>"
 									+ "<td>"
@@ -68,13 +73,14 @@
 									+ "<td>"
 									+ data[i].agi_description
 									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editAgri\" data-toggle=\"tab\" onclick=\"setEditAgriculture("
+									+ "<td nowrap=\"nowrap\" style=\"text-align: center;\"><button href=\"#editAgri\" data-toggle=\"tab\" onclick=\"setEditAgriculture("
 									+ data[i].agi_id
 									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteAgriculture("
 									+ data[i].agi_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 							html += "</tr>";
+							count++;
 
 						}
 						$('#listAgriculture').html(html);
@@ -236,7 +242,7 @@
 </script>
 </head>
 
-<body onload="listAgriculture()">
+<body onload="listAgriculture();getCurrentYear();">
 
 	<div id="wrapper">
 
@@ -363,6 +369,7 @@
 												<!-- Start change table -->
 												<thead>
 													<tr>
+														<th>ที่</th>
 														<th>ปีที่ข้อมูล</th>
 														<th>พื้นที่เกษตรกรรม</th>
 														<th>จำนวน(ไร่)</th>
@@ -382,7 +389,7 @@
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 													<td><input id="agi_year" maxlength="4"
-														class="form-control" placeholder="" value="2558"
+														class="form-control" placeholder="" value=""
 														name="vil-year"></td>
 												</tr>
 												<tr>

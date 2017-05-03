@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
+function getCurrentYear(){
+	document.getElementById('edu_year').value = year;
+	}
 	function listEducation() {
 
 		$("#loader").show();
@@ -55,10 +59,10 @@
 					type : "POST",
 					success : function(data) {
 						var html = '';
-
+						var count =1;
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
-							html += "<td>"
+							html += "<td>"+count+"</td><td>"
 									+ data[i].edu_year
 									+ "</td>"
 									+ "<td>"
@@ -79,6 +83,7 @@
 									+ data[i].edu_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 							html += "</tr>";
+							count++;
 						}
 						$('#listEducation').html(html);
 						$(document).ready(function() {
@@ -273,7 +278,7 @@
 </script>
 </head>
 
-<body onload="listEducation();listVillage();editVillageSelect();">
+<body onload="listEducation();listVillage();editVillageSelect();getCurrentYear();">
 
 	<div id="wrapper">
 
@@ -384,8 +389,6 @@
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#listEduPrime"
 									data-toggle="tab">รายชื่อโรงเรียนประถม</a></li>
-								<li><a href="#listEduKid" data-toggle="tab">รายชื่อศุนย์เด็กเล็ก</a>
-								</li>
 								<li><a href="#addEducation" data-toggle="tab">เพิ่มการศึกษา</a>
 								</li>
 							</ul>
@@ -402,6 +405,7 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
+														<th>ที่</th>
 														<th>ปีที่บันทึกข้อมูล</th>
 														<th>ชื่อสถานศึกษา</th>
 														<th>ประเภท</th>
@@ -418,11 +422,6 @@
 										</div>
 									</div>
 									<div class="tab-pane fade" id="listEduKid">
-										พ.ศ. <select>
-											<option value="2558">2558</option>
-											<option value="2559">2559</option>
-										</select> <br>
-										<br>
 										<div class="table-responsive">
 											<table class="table table-striped table-bordered table-hover">
 												<thead>
@@ -555,7 +554,7 @@
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 													<td><input id="edu_year" maxlength="4"
-														class="form-control" placeholder="" value="2558"
+														class="form-control" placeholder="" value=""
 														name="tran-year" required="true"></td>
 												</tr>
 												<tr>

@@ -42,7 +42,7 @@ public class ElectricityServiceBean implements ElectricityService {
 
 	@Override
 	public List<Electricity> listAllElectricity() {
-		List<Electricity> list = em.createQuery("SELECT e FROM Electricity e ORDER BY e.location.vil_number").getResultList();
+		List<Electricity> list = em.createQuery("SELECT e FROM Electricity e ORDER BY e.elec_year DESC, e.location.vil_number").getResultList();
 		return list;
 	}
 }

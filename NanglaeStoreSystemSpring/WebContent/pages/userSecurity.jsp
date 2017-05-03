@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
+function getCurrentYear(){
+	document.getElementById('sec_year').value = year;
+	}
 	function listLASucrity() {
 		$("#loader").show();
 		$
@@ -54,10 +58,10 @@
 					type : "POST",
 					success : function(data) {
 						var html = '';
-						
+						var count = 1;
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
-							html += "<td>"
+							html += "<td>"+count+"</td><td>"
 									+ data[i].sec_year
 									+ "</td>"
 									+ "<td>"
@@ -66,13 +70,14 @@
 									+ "<td>"
 									+ data[i].sec_member
 									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editSecurity\" data-toggle=\"tab\" onclick=\"setEditLASucrity("
+									+ "<td nowrap=\"nowrap\" style=\"text-align: center;\"><button href=\"#editSecurity\" data-toggle=\"tab\" onclick=\"setEditLASucrity("
 									+ data[i].sec_id
 									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteLASucrity("
 									+ data[i].sec_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 							html += "</tr>";
+							count++;
 						}
 						$('#listLASucritys').html(html);
 						$(document).ready(function() {
@@ -223,7 +228,7 @@
 </script>
 </head>
 
-<body onload="listLASucrity();">
+<body onload="listLASucrity();getCurrentYear();">
 
 	<div id="wrapper">
 
@@ -348,6 +353,7 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
+														<th>ที่</th>
 														<th>ปีข้อมูล</th>
 														<th>ชื่อ</th>
 														<th>จำนวน</th>
@@ -366,7 +372,7 @@
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 													<td><input id="sec_year" maxlength="4"
-														class="form-control" placeholder="" value="2558"
+														class="form-control" placeholder="" value=""
 														name="vil-year"></td>
 												</tr>
 												<tr>

@@ -164,7 +164,7 @@
 
 								<div class="tab-content">
 									<div class="tab-pane fade in active" id="listCommerce">
-										<form method="GET" action="testCopy.do">
+										<form method="GET" action="userCopyData.do">
 											<table>
 												<tr>
 													<td style="padding: 15px">คัดลอกข้อมูลจาก พ.ศ.</td>

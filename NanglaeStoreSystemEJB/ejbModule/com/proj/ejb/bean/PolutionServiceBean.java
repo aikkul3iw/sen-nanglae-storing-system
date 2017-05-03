@@ -47,7 +47,7 @@ public class PolutionServiceBean implements PolutionService {
 	@Override
 	public List<Polution> listAllPolution() {
 		// TODO Auto-generated method stub
-		List<Polution> list = em.createQuery("SELECT act FROM Polution act").getResultList();
+		List<Polution> list = em.createQuery("SELECT act FROM Polution act ORDER BY act.pol_year DESC").getResultList();
 		return list;
 	}
 

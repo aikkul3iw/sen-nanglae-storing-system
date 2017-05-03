@@ -46,7 +46,7 @@ public class TransportServiceBean implements TransportService {
 
 	@Override
 	public List<Transport> listAllTransport() {
-		List<Transport> list = em.createQuery("SELECT tsp FROM Transport tsp").getResultList();
+		List<Transport> list = em.createQuery("SELECT tsp FROM Transport tsp ORDER BY tsp.tran_year DESC").getResultList();
 		return list;
 	}
 

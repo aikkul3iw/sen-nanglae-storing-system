@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
+function getCurrentYear(){
+	document.getElementById('ser_year').value = year;
+	}
 	function listService() {
 		$("#loader").show();
 		$
@@ -54,10 +58,10 @@
 					type : "POST",
 					success : function(data) {
 						var html = '';
-						
+						var count = 1;
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
-							html += "<td>"
+							html += "<td>"+count+"</td><td>"
 									+ data[i].ser_year
 									+ "</td>"
 									+ "<td>"
@@ -66,13 +70,14 @@
 									+ "<td>"
 									+ data[i].ser_capacity
 									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editService\" data-toggle=\"tab\" onclick=\"setEditService("
+									+ "<td nowrap=\"nowrap\" style=\"text-align: center;\"><button href=\"#editService\" data-toggle=\"tab\" onclick=\"setEditService("
 									+ data[i].ser_id
 									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteService("
 									+ data[i].ser_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 							html += "</tr>";
+							count++;
 						}
 						$('#listServices').html(html);
 						$(document).ready(function() {
@@ -222,7 +227,7 @@
 </script>
 </head>
 
-<body onload="listService();">
+<body onload="listService();getCurrentYear();">
 
 	<div id="wrapper">
 
@@ -347,6 +352,7 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
+														<th>ที่</th>
 														<th>ปีข้อมูล</th>
 														<th>ชื่อ</th>
 														<th>การให้บริการ</th>
@@ -365,7 +371,7 @@
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 													<td><input id="ser_year" maxlength="4"
-														class="form-control" placeholder="" value="2558"
+														class="form-control" placeholder="" value=""
 														name="ser_year"></td>
 												</tr>
 												<tr>

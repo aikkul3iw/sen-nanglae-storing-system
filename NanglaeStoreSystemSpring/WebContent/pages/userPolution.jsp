@@ -45,15 +45,11 @@
 
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.1.1/jquery-confirm.min.js"></script>
-
-
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
+function getCurrentYear(){
+	document.getElementById('pol_year').value = year;
+	}
 	function listPolution() {
 		$("#loader").show();
 
@@ -63,6 +59,7 @@
 					type : "POST",
 					success : function(data) {
 						var html = '';
+						var count = 1;
 						for (var i = 0; i < data.length; i++) {
 
 							var id = data[i].pol_id;
@@ -70,8 +67,9 @@
 								document.getElementById("myLink").innerHTML = id;
 							}
 
+
 							html += "<tr>";
-							html += "<td>"
+							html += "<td>"+count+"</td><td>"
 									+ data[i].pol_year
 									+ "</td>"
 									+ "<td>"
@@ -83,13 +81,14 @@
 									+ "<td>"
 									+ data[i].pol_area
 									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editPolution\" data-toggle=\"tab\" onclick=\"setEditPolution("
+									+ "<td nowrap=\"nowrap\" style=\"text-align: center;\"><button href=\"#editPolution\" data-toggle=\"tab\" onclick=\"setEditPolution("
 									+ data[i].pol_id
 									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deletePolution("
 									+ data[i].pol_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 							html += "</tr>";
+							count++;
 						}
 						$('#listPolutions').html(html);
 						$(document).ready(function() {
@@ -250,7 +249,7 @@
 </script>
 </head>
 
-<body onload="listPolution()">
+<body onload="listPolution();getCurrentYear();">
 
 	<div id="wrapper">
 
@@ -376,6 +375,7 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
+														<th>ที่</th>
 														<th>ปีที่ข้อมูล</th>
 														<th>มลพิษ</th>
 														<th>ผลกระทบ</th>
@@ -395,7 +395,7 @@
 											<tr>
 												<td style="padding: 15px">ปีข้อมูล</td>
 												<td><input id="pol_year" maxlength="4"
-													class="form-control" placeholder="" value="2558"
+													class="form-control" placeholder="" value=""
 													name="vil-year"></td>
 											</tr>
 											<tr>

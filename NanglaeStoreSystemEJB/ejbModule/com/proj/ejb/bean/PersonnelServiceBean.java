@@ -46,7 +46,7 @@ public class PersonnelServiceBean implements PersonnelService {
 
 	@Override
 	public List<Personnel> listAllPersonnel() {
-		List<Personnel> list = em.createQuery("SELECT psn FROM Personnel psn").getResultList();
+		List<Personnel> list = em.createQuery("SELECT psn FROM Personnel psn ORDER BY psn.per_year DESC").getResultList();
 		return list;
 	}
 

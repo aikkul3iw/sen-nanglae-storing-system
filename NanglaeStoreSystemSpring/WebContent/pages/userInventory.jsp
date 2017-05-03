@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
+function getCurrentYear(){
+	document.getElementById('ivn_year').value = year;
+	}
 	function numberWithCommas(x) {
 		var parts = x.toString().split(".");
 		parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -293,7 +297,7 @@
 </script>
 </head>
 
-<body onload="listInventory();">
+<body onload="listInventory();getCurrentYear();">
 
 	<div id="wrapper">
 
@@ -449,7 +453,7 @@
 											<table width="50%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีงบประมาณ</td>
-													<td><input id="ivn_year" maxlength="4"
+													<td><input id="ivn_year" maxlength="4" value=""
 														class="form-control" placeholder="" name="vil-number"
 														required="true"></td>
 

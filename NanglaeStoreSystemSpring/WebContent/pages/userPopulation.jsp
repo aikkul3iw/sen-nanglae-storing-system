@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
+function getCurrentYear(){
+	document.getElementById('pop_year').value = year;
+	}
 	function numberWithCommas(x) {
 		var parts = x.toString().split(".");
 		parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -60,6 +64,7 @@
 					success : function(data) {
 						var html = '';
 						var html2 = '';
+						var count = 1;
 						var totalAllPopMale = 0;
 						var totalAllPopFemale = 0;
 						var totalAllPop = 0;
@@ -84,7 +89,7 @@
 							totalAllPop += allPop;
 							totalAllPopHouse += data[i].pop_house_amount;
 							html += "<tr>";
-							html += "<td>"
+							html += "<td>"+count+"</td><td>"
 									+ data[i].pop_year
 									+ "</td>"
 									+ "<td>"
@@ -107,13 +112,14 @@
 									+ data[i].pop_house_amount
 									+ "</center>"
 									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editPop\" data-toggle=\"tab\" onclick=\"setEditPopulation1("
+									+ "<td nowrap=\"nowrap\" style=\"text-align: center;\"><button href=\"#editPop\" data-toggle=\"tab\" onclick=\"setEditPopulation1("
 									+ data[i].pop_id
 									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deletePopulation1("
 									+ data[i].pop_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 							html += "</tr>";
+							count++
 							
 						}
 						html2 += "<tr>";
@@ -173,7 +179,7 @@
 					success : function(data) {
 						var html3 = '';
 						var html4 = '';
-						
+						var count = 1;
 						var totalThaiM = 0;
 						var totalThaiF = 0;
 						var totalThai = 0;
@@ -224,7 +230,7 @@
 							totalAllNation += allPopNation;
 
 							html3 += "<tr>";
-							html3 += "<td>"
+							html3 += "<td>"+count+"</td><td>"
 									+ data[i].pop_year
 									+ "</td>"
 									+ "<td>"
@@ -269,12 +275,13 @@
 									+ "<td>"
 									+ allPopNation
 									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editPop\" data-toggle=\"tab\" onclick=\"setEditPopulation1("
+									+ "<td nowrap=\"nowrap\" style=\"text-align: center;\"><button href=\"#editPop\" data-toggle=\"tab\" onclick=\"setEditPopulation1("
 									+ data[i].pop_id
 									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deletePopulation1("
 									+ data[i].pop_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 							html3 += "</tr>";
+							count++;
 						}
 						html4 += "<tr>";
 						html4 += "<td>" + numberWithCommas(totalOtherM)
@@ -344,6 +351,7 @@
 					success : function(data) {
 						var html5 = '';
 						var html6 = '';
+						var count = 1;
 						var totalElect15M = 0;
 						var totalElect15F = 0;
 						var totalElect15 = 0;
@@ -377,7 +385,7 @@
 							totalMilReg += data[i].pop_military_select_reg;
 							totalMilJoin += data[i].pop_military_select_join;
 							html5 += "<tr>";
-							html5 += "<td>"
+							html5 += "<td>"+count+"</td><td>"
 									+ data[i].pop_year
 									+ "</td>"
 									+ "<td>"
@@ -423,12 +431,13 @@
 									+ data[i].pop_military_select_join
 									+ "</center>"
 									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editPop\" data-toggle=\"tab\" onclick=\"setEditPopulation1("
+									+ "<td nowrap=\"nowrap\" style=\"text-align: center;\"><button href=\"#editPop\" data-toggle=\"tab\" onclick=\"setEditPopulation1("
 									+ data[i].pop_id
 									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deletePopulation1("
 									+ data[i].pop_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 							html5 += "</tr>";
+							count++;
 						}
 						html6 += "<tr>";
 						html6 += "<td>" + numberWithCommas(totalElect15M)
@@ -593,10 +602,13 @@
 			url : "../NanglaeGov/listVillage.do",
 			type : "POST",
 			success : function(data) {
+				var year = new Date().getFullYear()+543;
 				var html = '';
 				for (var i = 0; i < data.length; i++) {
+					if(data[i].vil_year == year){
 					html += "<option value=\""+data[i].vil_id+"\">"
 							+ data[i].vil_name + "</option>";
+					}
 				}
 				$('#villageSelect').html(html);
 
@@ -747,7 +759,7 @@
 </head>
 
 <body
-	onload="listVillage();listPopulation1();listPopulationByNation();listPopulationByElection();editVillageSelect();">
+	onload="listVillage();listPopulation1();listPopulationByNation();listPopulationByElection();editVillageSelect();getCurrentYear();">
 
 	<div id="wrapper">
 
@@ -862,8 +874,7 @@
 								</li>
 								<li><a href="#listElectionPop" data-toggle="tab">สถิติประชากรแบ่งตามเลือกตั้ง</a>
 								</li>
-								<li><a href="#listAgePop" data-toggle="tab">สถิติประชากรแบ่งตามอายุ</a>
-								</li>
+								<!--  <li><a href="#listAgePop" data-toggle="tab">สถิติประชากรแบ่งตามอายุ</a></li> -->
 								<li><a href="#addPop" data-toggle="tab">เพิ่มประชากร</a></li>
 							</ul>
 							<div class="panel-body">
@@ -877,6 +888,7 @@
 <!-- Start change table1 -->
 												<thead>
 													  <tr>
+													  	<th rowspan="2">ที่</th>
 														<th rowspan="2">ปีข้อมูล</th>
 														<th rowspan="2">หมู่ที่</th>
 														<th rowspan="2">ชื่อหมู่บ้าน</th>
@@ -917,17 +929,13 @@
 										
 									</div>
 									<div class="tab-pane fade" id="listNationPop">
-										พ.ศ. <select>
-											<option value="2558">2558</option>
-											<option value="2559">2559</option>
-										</select> <br>
-										<br>
 										<div class="table-responsive">
 											<table id="resultTable2-1"
 												class="table table-striped table-bordered table-hover">
 <!-- Start change table2 -->
 												<thead>
 													  <tr>
+													  	<th rowspan="2">ที่</th>
 														<th rowspan="2">ปีข้อมูล</th>
 														<th rowspan="2">หมู่ที่</th>
 														<th rowspan="2">ชื่อหมู่บ้าน</th>
@@ -1003,6 +1011,7 @@
 <!-- Start change table3 -->
 												<thead>
 													  <tr>
+													  	<th rowspan="2">ที่</th>
 														<th rowspan="2">ปีข้อมูล</th>
 														<th rowspan="2">หมู่ที่</th>
 														<th rowspan="2">ชื่อหมู่บ้าน</th>
@@ -1185,8 +1194,8 @@
 												<tr>
 													<td style="padding: 15px">ปีข้อมูล</td>
 													<td align="center"><input maxlength="4" id="pop_year"
-														class="form-control" placeholder="" value="2558"
-														name="pop-year" style="width: 70%" required></td>
+														class="form-control" placeholder="" value=""
+														name="pop_year" style="width: 70%" required></td>
 													<td></td>
 												</tr>
 												<tr>

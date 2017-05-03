@@ -46,7 +46,7 @@ public class Population1ServiceBean implements Population1Service {
 
 	@Override
 	public List<Population1> listAllPopulation1() {
-		List<Population1> list = em.createQuery("SELECT p FROM Population1 p ORDER BY p.location.vil_number").getResultList();
+		List<Population1> list = em.createQuery("SELECT p FROM Population1 p ORDER BY p.pop_year DESC, p.location.vil_number").getResultList();
 		return list;
 	}
 

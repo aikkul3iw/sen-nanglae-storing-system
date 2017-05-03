@@ -47,7 +47,7 @@ public class EducationServiceBean implements EducationService{
 
 	@Override
 	public List<Education> listAllEducation() {
-		List<Education> list = em.createQuery("SELECT e FROM Education e").getResultList();
+		List<Education> list = em.createQuery("SELECT e FROM Education e ORDER BY e.edu_year DESC").getResultList();
 		return list;
 	}
 

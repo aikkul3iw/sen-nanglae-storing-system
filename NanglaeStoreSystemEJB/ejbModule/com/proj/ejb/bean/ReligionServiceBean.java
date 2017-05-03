@@ -47,7 +47,7 @@ public class ReligionServiceBean implements ReligionService {
 	@Override
 	public List<Religion> listAllReligion() {
 		// TODO Auto-generated method stub
-		List<Religion> list = em.createQuery("SELECT rel FROM Religion rel").getResultList();
+		List<Religion> list = em.createQuery("SELECT rel FROM Religion rel ORDER BY rel.rel_year DESC").getResultList();
 		return list;
 	}
 

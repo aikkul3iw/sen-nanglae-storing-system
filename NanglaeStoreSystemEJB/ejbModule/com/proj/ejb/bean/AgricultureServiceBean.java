@@ -47,7 +47,7 @@ public class AgricultureServiceBean implements AgricultureService {
 	@Override
 	public List<Agriculture> listAllAgriculture() {
 		// TODO Auto-generated method stub
-		List<Agriculture> list = em.createQuery("SELECT act FROM Agriculture act").getResultList();
+		List<Agriculture> list = em.createQuery("SELECT act FROM Agriculture act ORDER BY act.agi_year DESC").getResultList();
 		return list;
 	}
 

@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
+function getCurrentYear(){
+	document.getElementById('lab_year').value = year;
+	}
 	function listLabor() {
 		$("#loader").show();
 		$
@@ -54,9 +58,10 @@
 					type : "POST",
 					success : function(data) {
 						var html = '';
+						var count = 1;
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
-							html += "<td>"
+							html += "<td>"+count+"</td><td>"
 									+ data[i].lab_year
 									+ "</td>"
 									+ "<td>"
@@ -75,6 +80,7 @@
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 							html += "</tr>";
+							count++;
 						}
 						$('#listLabors').html(html);
 						$(document).ready(function() {
@@ -229,7 +235,7 @@
 </script>
 </head>
 
-<body onload="listLabor()">
+<body onload="listLabor();getCurrentYear();">
 
 	<div id="wrapper">
 
@@ -353,6 +359,7 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
+														<th>ที่</th>
 														<th>ปีที่บันทึกข้อมูล</th>
 														<th>แรงงาน</th>
 														<th>การใช้แรงงาน</th>
@@ -372,7 +379,7 @@
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 													<td><input maxlength="4" class="form-control"
-														id="lab_year" placeholder="" value="2558" name="vil-year"></td>
+														id="lab_year" placeholder="" value="" name="vil-year"></td>
 												</tr>
 												<tr>
 

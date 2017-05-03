@@ -47,7 +47,7 @@ public class InventoryServiceBean implements InventoryService {
 	@Override
 	public List<Inventory> listAllInventory() {
 		// TODO Auto-generated method stub
-		List<Inventory> list = em.createQuery("SELECT inven FROM Inventory inven").getResultList();
+		List<Inventory> list = em.createQuery("SELECT inven FROM Inventory inven ORDER BY inven.ivn_year DESC").getResultList();
 		return list;
 	}
 

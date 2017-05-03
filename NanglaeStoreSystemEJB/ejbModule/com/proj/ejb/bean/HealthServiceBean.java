@@ -46,7 +46,7 @@ public class HealthServiceBean implements HealthService {
 
 	@Override
 	public List<Health> listAllHealth() {
-		List<Health> list = em.createQuery("SELECT h FROM Health h").getResultList();
+		List<Health> list = em.createQuery("SELECT h FROM Health h ORDER BY h.hlt_year DESC").getResultList();
 		return list;
 	}
 

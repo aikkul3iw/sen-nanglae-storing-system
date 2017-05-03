@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
+function getCurrentYear(){
+	document.getElementById('tour_year').value = year;
+	}
 	function listTourism() {
 		$("#loader").show();
 		$
@@ -54,9 +58,10 @@
 					type : "POST",
 					success : function(data) {
 						var html = '';
+						var count = 1;
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
-							html += "<td>"
+							html += "<td>"+count+"</td><td>"
 									+ data[i].tour_year
 									+ "</td>"
 									+ "<td>"
@@ -71,13 +76,14 @@
 									+ " บ้าน"
 									+ data[i].location.vil_name
 									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editTourism\" data-toggle=\"tab\" onclick=\"setEditTourism("
+									+ "<td nowrap=\"nowrap\" style=\"text-align: center;\"><button href=\"#editTourism\" data-toggle=\"tab\" onclick=\"setEditTourism("
 									+ data[i].tour_id
 									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteTourism("
 									+ data[i].tour_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 							html += "</tr>";
+							count++;
 						}
 						$('#listTourisms').html(html);
 						$(document).ready(function() {
@@ -269,7 +275,7 @@
 </script>
 </head>
 
-<body onload="listTourism();listVillage();editVillageSelect();">
+<body onload="listTourism();listVillage();editVillageSelect();getCurrentYear();">
 
 	<div id="wrapper">
 
@@ -394,6 +400,7 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
+														<th>ที่</th>
 														<th>ปีที่บันทึกข้อมูล</th>
 														<th>แหล่งท่องเที่ยว</th>
 														<th>รายละเอียด</th>
@@ -413,7 +420,7 @@
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 													<td><input class="form-control" maxlength="4"
-														id="tour_year" placeholder="" value="2558" name="vil-year"></td>
+														id="tour_year" placeholder="" value="" name="vil-year"></td>
 												</tr>
 												<tr>
 

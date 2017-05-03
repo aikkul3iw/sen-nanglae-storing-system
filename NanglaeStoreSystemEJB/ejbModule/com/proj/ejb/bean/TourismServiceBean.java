@@ -47,7 +47,7 @@ public class TourismServiceBean implements TourismService {
 	@Override
 	public List<Tourism> listAllTourism() {
 		// TODO Auto-generated method stub
-		List<Tourism> list = em.createQuery("SELECT tour FROM Tourism tour").getResultList();
+		List<Tourism> list = em.createQuery("SELECT tour FROM Tourism tour ORDER BY tour.tour_year DESC").getResultList();
 		return list;
 	}
 

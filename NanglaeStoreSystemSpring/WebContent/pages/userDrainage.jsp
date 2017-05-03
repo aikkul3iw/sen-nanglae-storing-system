@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
+function getCurrentYear(){
+	document.getElementById('drain_year').value = year;
+	}
 	function listDrainage() {
 		$("#loader").show();
 		$
@@ -54,9 +58,10 @@
 					type : "POST",
 					success : function(data) {
 						var html = '';
+						var count = 1;
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
-							html += "<td>"
+							html += "<td>"+count+"</td><td>"
 									+ data[i].drain_year
 									+ "</td>"
 									+ "<td>"
@@ -71,13 +76,14 @@
 									+ "<td>"
 									+ data[i].drain_location_connected
 									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editDrain\" data-toggle=\"tab\" onclick=\"setEditDrainage("
+									+ "<td nowrap=\"nowrap\" style=\"text-align: center;\"><button href=\"#editDrain\" data-toggle=\"tab\" onclick=\"setEditDrainage("
 									+ data[i].drain_id
 									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteDrainage("
 									+ data[i].drain_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 							html += "</tr>";
+							count++;
 						}
 						$('#listDrainages').html(html);
 						$(document).ready(function() {
@@ -267,7 +273,7 @@
 </script>
 </head>
 
-<body onload="listDrainage();listVillage();editVillageSelect();">
+<body onload="listDrainage();listVillage();editVillageSelect();getCurrentYear();">
 
 	<div id="wrapper">
 
@@ -394,6 +400,7 @@
 											<!-- Start change table -->
 											<thead>
 												<tr>
+													<th>ที่</th>
 													<th>ปีข้อมูล</th>
 													<th>ระบบระบายน้ำ</th>
 													<th>ที่ตั้ง</th>

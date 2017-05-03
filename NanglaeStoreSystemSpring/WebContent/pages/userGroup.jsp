@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
+function getCurrentYear(){
+	document.getElementById('grp_year').value = year;
+	}
 	function listLocalg() {
 		$("#loader").show();
 		$
@@ -54,9 +58,10 @@
 					type : "POST",
 					success : function(data) {
 						var html = '';
+						var count = 1;
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
-							html += "<td>"
+							html += "<td>"+count+"</td><td>"
 									+ data[i].grp_year
 									+ "</td>"
 									+ "<td>"
@@ -65,13 +70,14 @@
 									+ "<td>"
 									+ data[i].grp_member
 									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editGroup\" data-toggle=\"tab\" onclick=\"setEditLocalg("
+									+ "<td nowrap=\"nowrap\" style=\"text-align: center;\"><button href=\"#editGroup\" data-toggle=\"tab\" onclick=\"setEditLocalg("
 									+ data[i].grp_id
 									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteLocalg("
 									+ data[i].vil_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 							html += "</tr>";
+							count++;
 						}
 						$('#listLocalgs').html(html);
 						$(document).ready(function() {
@@ -224,7 +230,7 @@
 </script>
 </head>
 
-<body onload="listLocalg();">
+<body onload="listLocalg();getCurrentYear();">
 
 	<div id="wrapper">
 
@@ -349,6 +355,7 @@
 												<!-- Start change table -->
 												<thead>
 													<tr>
+														<th>ที่</th>
 														<th>ปีข้อมูล</th>
 														<th>ชื่อ</th>
 														<th>จำนวน</th>
@@ -367,7 +374,7 @@
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 													<td><input id="grp_year" maxlength="4"
-														class="form-control" placeholder="" value="2558"
+														class="form-control" placeholder="" value=""
 														name="vil-year"></td>
 												</tr>
 												<tr>

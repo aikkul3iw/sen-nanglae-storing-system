@@ -47,7 +47,7 @@ public class DrainageServiceBean implements DrainageService {
 	@Override
 	public List<Drainage> listAllDrainage() {
 		// TODO Auto-generated method stub
-		List<Drainage> list = em.createQuery("SELECT drn FROM Drainage drn").getResultList();
+		List<Drainage> list = em.createQuery("SELECT drn FROM Drainage drn ORDER BY drn.drain_year DESC").getResultList();
 		return list;
 	}
 

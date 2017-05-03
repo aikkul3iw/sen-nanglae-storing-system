@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
+function getCurrentYear(){
+	document.getElementById('ins_year').value = year;
+	}
 	function listIndustry() {
 		$("#loader").show();
 		$
@@ -54,10 +58,11 @@
 					type : "POST",
 					success : function(data) {
 						var html = '';
+						var count = 1;
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 
-							html += "<td>"
+							html += "<td>"+count+"</td><td>"
 									+ data[i].ins_year
 									+ "</td>"
 									+ "<td>"
@@ -78,7 +83,7 @@
 									+ "<td>"
 									+ data[i].ins_labor
 									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editIndustry\" data-toggle=\"tab\" onclick=\"setEditIndustry("
+									+ "<td nowrap=\"nowrap\" style=\"text-align: center;\"><button href=\"#editIndustry\" data-toggle=\"tab\" onclick=\"setEditIndustry("
 									+ data[i].ins_id
 									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteIndustry("
 									+ data[i].ins_id
@@ -287,7 +292,7 @@
 </script>
 </head>
 
-<body onload="listIndustry();listVillage();editVillageSelect();">
+<body onload="listIndustry();listVillage();editVillageSelect();getCurrentYear();">
 
 	<div id="wrapper">
 
@@ -413,6 +418,7 @@
 											<!-- Start change table -->
 											<thead>
 												<tr>
+													<th>ที่</th>
 													<th>ปีข้อมูล</th>
 													<th>ชื่ออุตสาหกรรม</th>
 													<th>ที่ตั้ง</th>
@@ -434,7 +440,7 @@
 											<tr>
 												<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 												<td><input class="form-control" maxlength="4"
-													id="ins_year" placeholder="" value="2558" name="vil-year"></td>
+													id="ins_year" placeholder="" value="" name="vil-year"></td>
 											</tr>
 											<tr>
 												<td align="pull-right" style="padding: 15px">ชื่อ</td>

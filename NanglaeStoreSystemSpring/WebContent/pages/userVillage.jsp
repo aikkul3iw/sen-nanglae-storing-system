@@ -46,18 +46,22 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
+function getCurrentYear(){
+	document.getElementById('vil_year').value = year;
+	}
 	function listVillage() {
 		$("#loader").show();
 		$.ajax({
 			url : "../NanglaeGov/listVillage.do",
 			type : "POST",
 			success : function(data) {
+				var count = 1;
 				var html = '';
-				var year = document.getElementById("selectedYear").value;
 				for (var i = 0; i < data.length; i++) {
-					if (data[i].vil_year == year) {
 								html += "<tr>";
-								html += "<td>"
+								html +=  "<td>"+count+"</td>"
+										+"<td>"
 										+ data[i].vil_year
 										+ "</td>"
 										+ "<td>"
@@ -76,7 +80,7 @@
 										+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 								html += "</tr>";
-							}
+								count++;
 						}
 						$('#listVillages').html(html);
 						$(document).ready(function() {
@@ -242,7 +246,7 @@
 </script>
 </head>
 
-<body onload="listVillage()">
+<body onload="listVillage();getCurrentYear();">
 
 	<div id="wrapper">
 
@@ -361,20 +365,13 @@
 								<!-- Tab panes -->
 								<div class="tab-content">
 									<div class="tab-pane fade in active" id="listVillage">
-
-										<form>
-											พ.ศ. <select id="selectedYear" onchange='listVillage()'>
-												<option value="2558">2558</option>
-												<option value="2559">2559</option>
-											</select>
-										</form>
-										<br>
 										<div class="table-responsive">
 											<table class="table table-striped table-bordered table-hover"
 												id="resultTable">
 												<!-- Start change table -->
 												<thead>
-													<tr>
+													<tr>	
+														<th>ที่</th>
 														<th>ปีข้อมูล</th>
 														<th>หมู่ที่</th>
 														<th>ชื่อหมู่บ้าน</th>
@@ -394,7 +391,7 @@
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 													<td><input class="form-control" placeholder=""
-														value="2558" maxlength="4" id="vil_year" name="vil-year"></td>
+														value="" maxlength="4" id="vil_year" name="vil-year"></td>
 												</tr>
 												<tr>
 

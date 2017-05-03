@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
+	function getCurrentYear(){
+		document.getElementById('per_year').value = year;
+		}
 	function listPersonnel() {
 		$("#loader").show();
 		$
@@ -55,10 +59,11 @@
 					success : function(data) {
 						var successMsg = '';
 						var errorMsg = '';
+						var count = 1;
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
-							html += "<td>"
+							html += "<td>"+count+"</td><td>"
 									+ data[i].per_year
 									+ "</td>"
 									+ "<td>"
@@ -79,13 +84,14 @@
 									+ "<td>"
 									+ data[i].per_email
 									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editPersonnel\" data-toggle=\"tab\" onclick=\"setEditPersonnel("
+									+ "<td nowrap=\"nowrap\" style=\"text-align: center;\"><button href=\"#editPersonnel\" data-toggle=\"tab\" onclick=\"setEditPersonnel("
 									+ data[i].per_id
 									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deletePersonnel("
 									+ data[i].per_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 							html += "</tr>";
+							count++;
 						}
 						$('#listPersonnels').html(html);
 						$(document).ready(function() {
@@ -275,7 +281,7 @@
 </script>
 </head>
 
-<body onload="listPersonnel()">
+<body onload="listPersonnel();getCurrentYear();">
 
 	<div id="wrapper">
 
@@ -401,6 +407,7 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
+														<th>ที่</th>
 														<th>ปีที่บันทึกข้อมูล</th>
 														<th>ชื่อ</th>
 														<th>ตำแหน่ง</th>
@@ -422,7 +429,7 @@
 											<tr>
 												<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 												<td><input class="form-control" maxlength="4"
-													id="per_year" placeholder="ต.ย. 2558" value="2558"
+													id="per_year" placeholder="ต.ย. 2558" value=""
 													name="peryear"></td>
 											</tr>
 											<tr>

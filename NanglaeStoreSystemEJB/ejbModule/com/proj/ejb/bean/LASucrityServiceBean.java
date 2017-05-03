@@ -45,7 +45,7 @@ public class LASucrityServiceBean implements LASucrityService {
 
 	@Override
 	public List<LASucrity> listAllLASucrity() {
-		List<LASucrity> list = em.createQuery("SELECT g FROM LASucrity g").getResultList();
+		List<LASucrity> list = em.createQuery("SELECT g FROM LASucrity g ORDER BY g.sec_year DESC").getResultList();
 		return list;
 	}
 }

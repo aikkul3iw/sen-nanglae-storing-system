@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
+function getCurrentYear(){
+	document.getElementById('land_year').value = year;
+	}
 	function listLandResource() {
 		$("#loader").show();
 		$
@@ -54,9 +58,10 @@
 					type : "POST",
 					success : function(data) {
 						var html = '';
+						var count = 1;
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
-							html += "<td>"
+							html += "<td>"+count+"</td><td>"
 									+ data[i].land_year
 									+ "</td>"
 									+ "<td>"
@@ -71,6 +76,7 @@
 									+ data[i].land_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 							html += "</tr>";
+							count++;
 						}
 						$('#listLandResources').html(html);
 						$(document).ready(function() {
@@ -221,7 +227,7 @@
 </script>
 </head>
 
-<body onload="listLandResource();">
+<body onload="listLandResource();getCurrentYear();">
 
 	<div id="wrapper">
 
@@ -346,6 +352,7 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
+														<th>ที่</th>
 														<th>ปีที่ข้อมูล</th>
 														<th>ทรัพยากรดิน</th>
 														<th>การใช้ประโยชน์</th>
@@ -365,7 +372,7 @@
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 													<td><input id="land_year" maxlength="4"
 														class="form-control" maxlength="4" placeholder=""
-														value="2558" name="pipe-year" required></td>
+														value="" name="pipe-year" required></td>
 												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">ชื่อ</td>

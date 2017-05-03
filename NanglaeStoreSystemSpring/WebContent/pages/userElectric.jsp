@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
+function getCurrentYear(){
+	document.getElementById('elec_year').value = year;
+	}
 	function listElectricity() {
 		$("#loader").show();
 		$
@@ -54,10 +58,10 @@
 					type : "POST",
 					success : function(data) {
 						var html = '';
-						
+						var count = 1;
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
-							html += "<td>"
+							html += "<td>"+count+"</td><td>"
 									+ data[i].elec_year
 									+ "</td>"
 									+ "<td>"
@@ -72,13 +76,14 @@
 									+ "<td>"
 									+ data[i].elec_area
 									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editElection\" data-toggle=\"tab\" onclick=\"setEditElectricity("
+									+ "<td nowrap=\"nowrap\" style=\"text-align: center;\"><button href=\"#editElection\" data-toggle=\"tab\" onclick=\"setEditElectricity("
 									+ data[i].elec_id
 									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteElectricity("
 									+ data[i].elec_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 							html += "</tr>";
+							count++;
 						}
 						$('#listElectricitys').html(html);
 						$(document).ready(function() {
@@ -272,7 +277,7 @@
 </script>
 </head>
 
-<body onload="listElectricity();listVillage();editVillageSelect();">
+<body onload="listElectricity();listVillage();editVillageSelect();getCurrentYear();">
 
 	<div id="wrapper">
 
@@ -397,6 +402,7 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
+														<th>ที่</th>
 														<th>ปีที่บันทึกข้อมูล</th>
 														<th>หมู่ที่</th>
 														<th>ชื่อหมู่บ้าน</th>
@@ -417,7 +423,7 @@
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 													<td><input id="elec_year" maxlength="4"
-														class="form-control" placeholder="" value="2558"
+														class="form-control" placeholder="" value=""
 														name="vil-year"></td>
 												</tr>
 												<tr>

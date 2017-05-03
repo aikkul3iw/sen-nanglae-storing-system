@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
+function getCurrentYear(){
+	document.getElementById('tran_year').value = year;
+	}
 	function listTransport() {
 		$("#loader").show();
 		$
@@ -54,9 +58,10 @@
 					type : "POST",
 					success : function(data) {
 						var html = '';
+						var count = 1;
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
-							html += "<td>"
+							html += "<td>"+count+"</td><td>"
 									+ data[i].tran_year
 									+ "</td>"
 									+ "<td>"
@@ -68,13 +73,14 @@
 									+ "<td>"
 									+ data[i].description
 									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editTransport\" data-toggle=\"tab\" onclick=\"setEditTransport("
+									+ "<td nowrap=\"nowrap\" style=\"text-align: center;\"><button href=\"#editTransport\" data-toggle=\"tab\" onclick=\"setEditTransport("
 									+ data[i].tran_id
 									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteTransport("
 									+ data[i].tran_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 							html += "</tr>";
+							count++;
 						}
 						$('#listTransports').html(html);
 						$(document).ready(function() {
@@ -229,7 +235,7 @@
 </script>
 </head>
 
-<body onload="listTransport()">
+<body onload="listTransport();getCurrentYear();">
 
 	<div id="wrapper">
 
@@ -354,6 +360,7 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
+														<th>ที่</th>
 														<th>ปีที่บันทึกข้อมูล</th>
 														<th>การคมนาคม</th>
 														<th>ประเภท</th>
@@ -373,8 +380,8 @@
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 													<td><input class="form-control" maxlength="4"
-														id="tran_year" placeholder="" value="2558"
-														name="tran-year" required="true" style="width: 70%"></td>
+														id="tran_year" placeholder="" value=""
+														name="tran_year" required="true" style="width: 70%"></td>
 												</tr>
 												<tr>
 

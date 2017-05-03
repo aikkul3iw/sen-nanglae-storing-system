@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
+function getCurrentYear(){
+	document.getElementById('frs_year').value = year;
+	}
 	function listForest() {
 		$("#loader").show();
 		$
@@ -54,10 +58,11 @@
 					type : "POST",
 					success : function(data) {
 						var html = '';
+						var count = 1;
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 
-							html += "<td>"
+							html += "<td>"+count+"</td><td>"
 									+ data[i].frs_year
 									+ "</td>"
 									+ "<td>"
@@ -72,13 +77,14 @@
 									+ "<td>"
 									+ data[i].frs_usage
 									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editForest\" data-toggle=\"tab\" onclick=\"setEditForest("
+									+ "<td nowrap=\"nowrap\" style=\"text-align: center;\"><button href=\"#editForest\" data-toggle=\"tab\" onclick=\"setEditForest("
 									+ data[i].frs_id
 									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteForest("
 									+ data[i].frs_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 							html += "</tr>";
+							count++;
 						}
 						$('#listForests').html(html);
 						$(document).ready(function() {
@@ -272,7 +278,7 @@
 </script>
 </head>
 
-<body onload="listForest();listVillage();editVillageSelect();">
+<body onload="listForest();listVillage();editVillageSelect();getCurrentYear();">
 
 	<div id="wrapper">
 
@@ -397,6 +403,7 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
+														<th>ที่</th>
 														<th>ปีข้อมูล</th>
 														<th>ป่าไม้</th>
 														<th>ที่ตั้ง</th>
@@ -416,7 +423,7 @@
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 													<td><input id="frs_year" maxlength="4"
-														class="form-control" placeholder="" value="2558"
+														class="form-control" placeholder="" value=""
 														name="pipe-year" required="true"></td>
 												</tr>
 												<tr>

@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+var year = new Date().getFullYear()+543;
+function getCurrentYear(){
+	document.getElementById('water_year').value = year;
+	}
 	function listWater() {
 		$("#loader").show();
 		$
@@ -54,9 +58,10 @@
 					type : "POST",
 					success : function(data) {
 						var html = '';
+						var count = 1;
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
-							html += "<td>"
+							html += "<td>"+count+"</td><td>"
 									+ data[i].water_year
 									+ "</td>"
 									+ "<td>"
@@ -71,13 +76,14 @@
 									+ " บ้าน"
 									+ data[i].location.vil_name
 									+ "</td>"
-									+ "<td style=\"text-align: center;\"><button href=\"#editResourceWater\" data-toggle=\"tab\" onclick=\"setEditWater("
+									+ "<td nowrap=\"nowrap\" style=\"text-align: center;\"><button href=\"#editResourceWater\" data-toggle=\"tab\" onclick=\"setEditWater("
 									+ data[i].water_id
 									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteWater("
 									+ data[i].water_id
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 							html += "</tr>";
+							count++;
 						}
 						$('#listWaters').html(html);
 						$(document).ready(function() {
@@ -269,7 +275,7 @@
 </script>
 </head>
 
-<body onload="listWater();listVillage();editVillageSelect();">
+<body onload="listWater();listVillage();editVillageSelect();getCurrentYear();">
 
 	<div id="wrapper">
 
@@ -395,6 +401,7 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
+														<th>ที่</th>
 														<th>ปีข้อมูล</th>
 														<th>ชื่อแหล่งน้ำ</th>
 														<th>ประเภท</th>
@@ -469,7 +476,7 @@
 											<tr>
 												<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 												<td><input class="form-control" maxlength="4"
-													id="water_year" placeholder="" value="2558"
+													id="water_year" placeholder="" value=""
 													name="pipe-year" required="true"></td>
 											</tr>
 											<tr>
