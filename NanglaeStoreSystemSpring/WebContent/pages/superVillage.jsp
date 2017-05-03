@@ -53,9 +53,7 @@
 			type : "POST",
 			success : function(data) {
 				var html = '';
-				var year = document.getElementById("selectedYear").value;
 				for (var i = 0; i < data.length; i++) {
-					if (data[i].vil_year == year) {
 								html += "<tr>";
 								html += "<td>"
 										+ data[i].vil_year
@@ -76,7 +74,6 @@
 										+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 								html += "</tr>";
-							}
 						}
 						$('#listVillages').html(html);
 						$(document).ready(function() {
@@ -363,14 +360,6 @@
 								<!-- Tab panes -->
 								<div class="tab-content">
 									<div class="tab-pane fade in active" id="listVillage">
-
-										<form>
-											พ.ศ. <select id="selectedYear" onchange='listVillage()'>
-												<option value="2558">2558</option>
-												<option value="2559">2559</option>
-											</select>
-										</form>
-										<br>
 										<div class="table-responsive">
 											<table class="table table-striped table-bordered table-hover"
 												id="resultTable">
