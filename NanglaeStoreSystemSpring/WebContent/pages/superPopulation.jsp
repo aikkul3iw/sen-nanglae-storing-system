@@ -864,8 +864,6 @@
 								</li>
 								<li><a href="#listElectionPop" data-toggle="tab">สถิติประชากรแบ่งตามเลือกตั้ง</a>
 								</li>
-								<li><a href="#listAgePop" data-toggle="tab">สถิติประชากรแบ่งตามอายุ</a>
-								</li>
 								<li><a href="#addPop" data-toggle="tab">เพิ่มประชากร</a></li>
 							</ul>
 							<div class="panel-body">
@@ -873,11 +871,6 @@
 								<!-- Tab panes -->
 								<div class="tab-content">
 									<div class="tab-pane fade in active" id="listAllPop">
-										พ.ศ. <select>
-											<option value="2558">2558</option>
-											<option value="2559">2559</option>
-										</select> <br>
-										<br>
 										<div class="table-responsive">
 											<table id="resultTable"
 												class="table table-striped table-bordered table-hover">
@@ -924,11 +917,6 @@
 										
 									</div>
 									<div class="tab-pane fade" id="listNationPop">
-										พ.ศ. <select>
-											<option value="2558">2558</option>
-											<option value="2559">2559</option>
-										</select> <br>
-										<br>
 										<div class="table-responsive">
 											<table id="resultTable2-1"
 												class="table table-striped table-bordered table-hover">
@@ -999,11 +987,6 @@
 									</div>
 									
 									<div class="tab-pane fade" id="listElectionPop">
-										พ.ศ. <select>
-											<option value="2558">2558</option>
-											<option value="2559">2559</option>
-										</select> <br>
-										<br>
 										<div class="table-responsive">
 											<table id="resultTable3-1"
 												class="table table-striped table-bordered table-hover">
@@ -1069,11 +1052,6 @@
 										</div>
 									</div>
 									<div class="tab-pane fade" id="listAgePop">
-										พ.ศ. <select>
-											<option value="2558">2558</option>
-											<option value="2559">2559</option>
-										</select> <br>
-										<br>
 										<div class="table-responsive">
 											<table class="table table-striped table-bordered table-hover">
 												<thead>

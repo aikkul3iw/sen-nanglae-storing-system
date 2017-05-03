@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.proj.ejb.entity.Health;
+import com.proj.ejb.entity.User;
 import com.proj.ejb.face.HealthService;
 import com.proj.ejb.face.VillageService;
 
@@ -92,21 +94,60 @@ public class HealthController {
 	}
 	
 	@RequestMapping(value="/userHealth",method=RequestMethod.GET)
-	public ModelAndView displayuserHealth(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("userHealth");
-		
-		return model;
-	}
+	public ModelAndView displayuserHealth(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("userHealth");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 	@RequestMapping(value="/nonHealth",method=RequestMethod.GET)
-	public ModelAndView displaynonHealth(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("nonHealth");
-		
-		return model;
-	}
+	public ModelAndView displaynonHealth(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("nonHealth");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 	@RequestMapping(value="/superHealth",method=RequestMethod.GET)
-	public ModelAndView displaysuperHealth(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("superHealth");
-		
-		return model;
-	}
+	public ModelAndView displaysuperHealth(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("superHealth");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 }

@@ -349,11 +349,6 @@
 								<!-- Tab panes -->
 								<div class="tab-content">
 									<div class="tab-pane fade in active" id="listLabor">
-										พ.ศ. <select>
-											<option value="2558">2558</option>
-											<option value="2559">2559</option>
-										</select> <br>
-										<br>
 										<div class="table-responsive">
 											<table class="table table-striped table-bordered table-hover"
 												id="resultTable">
@@ -437,7 +432,7 @@
 
 													<td align="pull-right" style="padding: 15px">จำนวนแรงงาน</td>
 													<td><input class="form-control" maxlength="5"
-														id="editLabAmount" data-mask="000000" placeholder="" required="true"></td>
+														id="editLabAmount" data-mask="0000000" placeholder="" required="true"></td>
 													<td style="padding: 15px">คน</td>
 
 												</tr>

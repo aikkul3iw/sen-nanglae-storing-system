@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.proj.ejb.entity.Commerce;
+import com.proj.ejb.entity.User;
 import com.proj.ejb.face.CommerceService;
 import com.proj.ejb.face.VillageService;
 
@@ -89,21 +91,63 @@ public class CommerceController {
 	}
 	
 	@RequestMapping(value="/userCommerce",method=RequestMethod.GET)
-	public ModelAndView displayuserCommerce(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("userCommerce");
+	public ModelAndView displayuserCommerce(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("userCommerce");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
 		
-		return model;
+		
+		
 	}
 	@RequestMapping(value="/nonCommerce",method=RequestMethod.GET)
-	public ModelAndView displaynonCommerce(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("nonCommerce");
-		
-		return model;
-	}
+	public ModelAndView displaynonCommerce(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("nonCommerce");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 	@RequestMapping(value="/superCommerce",method=RequestMethod.GET)
-	public ModelAndView displaysuperCommerce(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("superCommerce");
-		
-		return model;
-	}
+	public ModelAndView displaysuperCommerce(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("superCommerce");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 }

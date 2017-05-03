@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.proj.ejb.entity.Agriculture;
+import com.proj.ejb.entity.User;
 import com.proj.ejb.face.AgricultureService;
 
 @Controller
@@ -88,37 +90,107 @@ public class AgricultureController {
 	}
 
 	@RequestMapping(value = "/userAgriculture", method = RequestMethod.GET)
-	public ModelAndView displayuserAgriculture(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("userAgriculture");
+	public ModelAndView displayuserAgriculture(HttpServletRequest request, HttpServletResponse response,
+			HttpSession session) {
+		String getsession = "" + session.getAttribute("session");
+		System.out.println("getdatasession " + getsession);
 
-		return model;
+		if (!getsession.equals("null")) {
+			ModelAndView model = new ModelAndView("userAgriculture");
+			User loginBean = new User();
+			model.addObject("loginBean", loginBean);
+			return model;
+		} else {
+
+			System.out.println("Hello World 2");
+			ModelAndView model = new ModelAndView("loginUser");
+			User loginBean = new User();
+			model.addObject("loginBean", loginBean);
+			return model;
+		}
 	}
 
 	@RequestMapping(value = "/nonAgriculture", method = RequestMethod.GET)
-	public ModelAndView displaynonAgriculture(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("nonAgriculture");
+	public ModelAndView displaynonAgriculture(HttpServletRequest request, HttpServletResponse response,
+			HttpSession session) {
+		String getsession = "" + session.getAttribute("session");
+		System.out.println("getdatasession " + getsession);
 
-		return model;
+		if (!getsession.equals("null")) {
+			ModelAndView model = new ModelAndView("nonAgriculture");
+			User loginBean = new User();
+			model.addObject("loginBean", loginBean);
+			return model;
+		} else {
+
+			System.out.println("Hello World 2");
+			ModelAndView model = new ModelAndView("loginUser");
+			User loginBean = new User();
+			model.addObject("loginBean", loginBean);
+			return model;
+		}
 	}
 
 	@RequestMapping(value = "/superAgriculture", method = RequestMethod.GET)
-	public ModelAndView displaysuperAgriculture(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("superAgriculture");
+	public ModelAndView displaysuperAgriculture(HttpServletRequest request, HttpServletResponse response,
+			HttpSession session) {
+		String getsession = "" + session.getAttribute("session");
+		System.out.println("getdatasession " + getsession);
 
-		return model;
+		if (!getsession.equals("null")) {
+			ModelAndView model = new ModelAndView("superAgriculture");
+			User loginBean = new User();
+			model.addObject("loginBean", loginBean);
+			return model;
+		} else {
+
+			System.out.println("Hello World 2");
+			ModelAndView model = new ModelAndView("loginUser");
+			User loginBean = new User();
+			model.addObject("loginBean", loginBean);
+			return model;
+		}
 	}
 
 	@RequestMapping(value = "/userCopy", method = RequestMethod.GET)
-	public ModelAndView displayuserCopy(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("userCopy");
+	public ModelAndView displayuserCopy(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		String getsession = "" + session.getAttribute("session");
+		System.out.println("getdatasession " + getsession);
 
-		return model;
+		if (!getsession.equals("null")) {
+			ModelAndView model = new ModelAndView("userCopy");
+			User loginBean = new User();
+			model.addObject("loginBean", loginBean);
+			return model;
+		} else {
+
+			System.out.println("Hello World 2");
+			ModelAndView model = new ModelAndView("loginUser");
+			User loginBean = new User();
+			model.addObject("loginBean", loginBean);
+			return model;
+		}
 	}
+
 	@RequestMapping(value = "/superCopy", method = RequestMethod.GET)
-	public ModelAndView displaysuperCopy(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("superCopy");
+	public ModelAndView displaysuperCopy(HttpServletRequest request, HttpServletResponse response,
+			HttpSession session) {
+		String getsession = "" + session.getAttribute("session");
+		System.out.println("getdatasession " + getsession);
 
-		return model;
+		if (!getsession.equals("null")) {
+			ModelAndView model = new ModelAndView("superCopy");
+			User loginBean = new User();
+			model.addObject("loginBean", loginBean);
+			return model;
+		} else {
+
+			System.out.println("Hello World 2");
+			ModelAndView model = new ModelAndView("loginUser");
+			User loginBean = new User();
+			model.addObject("loginBean", loginBean);
+			return model;
+		}
 	}
-	
+
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -82,21 +83,61 @@ public class PersonnelController {
 		return result;
 	}
 	@RequestMapping(value="/nonPersonnel",method=RequestMethod.GET)
-	public ModelAndView displaynonPersonnel(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("nonPersonnel");
-		return model;
-	}
+	public ModelAndView displaynonPersonnel(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("nonPersonnel");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 	
 	@RequestMapping(value="/userPersonnel",method=RequestMethod.GET)
-	public ModelAndView displayuserPersonnel(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("userPersonnel");
-		
-		return model;
-	}
+	public ModelAndView displayuserPersonnel(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("userPersonnel");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 	@RequestMapping(value="/superPersonnel",method=RequestMethod.GET)
-	public ModelAndView displaysuperPersonnel(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("superPersonnel");
-		
-		return model;
-	}
+	public ModelAndView displaysuperPersonnel(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("superPersonnel");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 }

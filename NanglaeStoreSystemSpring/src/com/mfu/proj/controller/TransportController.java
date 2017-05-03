@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.proj.ejb.entity.Transport;
+import com.proj.ejb.entity.User;
 import com.proj.ejb.face.TransportService;
 
 @Controller
@@ -84,21 +86,60 @@ public class TransportController {
 	}
 	
 	@RequestMapping(value="/userTransport",method=RequestMethod.GET)
-	public ModelAndView displayuserTransport(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("userTransport");
-		
-		return model;
-	}
+	public ModelAndView displayuserTransport(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("userTransport");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 	@RequestMapping(value="/nonTransport",method=RequestMethod.GET)
-	public ModelAndView displaynonTransport(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("nonTransport");
-		
-		return model;
-	}
+	public ModelAndView displaynonTransport(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("nonTransport");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 	@RequestMapping(value="/superTransport",method=RequestMethod.GET)
-	public ModelAndView displaysuperTransport(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("superTransport");
-		
-		return model;
-	}
+	public ModelAndView displaysuperTransport(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("superTransport");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 }

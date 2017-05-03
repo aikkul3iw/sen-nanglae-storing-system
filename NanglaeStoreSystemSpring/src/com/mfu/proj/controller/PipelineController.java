@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.proj.ejb.entity.Pipeline;
+import com.proj.ejb.entity.User;
 import com.proj.ejb.face.PipelineService;
 import com.proj.ejb.face.VillageService;
 
@@ -94,21 +96,60 @@ public class PipelineController {
 	}
 	
 	@RequestMapping(value="/userPipeline",method=RequestMethod.GET)
-	public ModelAndView displayuserPipeline(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("userPipeline");
-		
-		return model;
-	}
+	public ModelAndView displayuserPipeline(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("userPipeline");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 	@RequestMapping(value="/nonPipeline",method=RequestMethod.GET)
-	public ModelAndView displaynonPipeline(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("nonPipeline");
-		
-		return model;
-	}
+	public ModelAndView displaynonPipeline(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("nonPipeline");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 	@RequestMapping(value="/superPipeline",method=RequestMethod.GET)
-	public ModelAndView displaysuperPipeline(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("superPipeline");
-		
-		return model;
-	}
+	public ModelAndView displaysuperPipeline(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("superPipeline");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 }
