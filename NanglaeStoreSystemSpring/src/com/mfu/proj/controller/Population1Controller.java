@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.proj.ejb.entity.Population1;
+import com.proj.ejb.entity.User;
 import com.proj.ejb.face.Population1Service;
 import com.proj.ejb.face.VillageService;
 
@@ -89,21 +91,60 @@ public class Population1Controller {
 	}
 	
 	@RequestMapping(value="/userPopulation",method=RequestMethod.GET)
-	public ModelAndView displayuserPopulation(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("userPopulation");
-		
-		return model;
-	}
+	public ModelAndView displayuserPopulation(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("userPopulation");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 	@RequestMapping(value="/nonPopulation",method=RequestMethod.GET)
-	public ModelAndView displaynonPopulation(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("nonPopulation");
-		
-		return model;
-	}
+	public ModelAndView displaynonPopulation(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("nonPopulation");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 	@RequestMapping(value="/superPopulation",method=RequestMethod.GET)
-	public ModelAndView displaysuperPopulation(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("superPopulation");
-		
-		return model;
-	}
+	public ModelAndView displaysuperPopulation(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("superPopulation");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 }

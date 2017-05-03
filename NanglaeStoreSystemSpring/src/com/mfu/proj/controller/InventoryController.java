@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.proj.ejb.entity.Inventory;
+import com.proj.ejb.entity.User;
 import com.proj.ejb.face.InventoryService;
 @Controller
 public class InventoryController {
@@ -81,21 +83,60 @@ public class InventoryController {
 	}
 	
 	@RequestMapping(value="/userInventory",method=RequestMethod.GET)
-	public ModelAndView displayuserInventory(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("userInventory");
-		
-		return model;
-	}
+	public ModelAndView displayuserInventory(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("userInventory");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 	@RequestMapping(value="/nonInventory",method=RequestMethod.GET)
-	public ModelAndView displaynonInventory(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("nonInventory");
-		
-		return model;
-	}
+	public ModelAndView displaynonInventory(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("nonInventory");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 	@RequestMapping(value="/superInventory",method=RequestMethod.GET)
-	public ModelAndView displaysuperInventory(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("superInventory");
-		
-		return model;
-	}
+	public ModelAndView displaysuperInventory(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("superInventory");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 }

@@ -437,7 +437,7 @@
 
 													<td align="pull-right" style="padding: 15px">จำนวนแรงงาน</td>
 													<td><input class="form-control" maxlength="5"
-														id="editLabAmount" data-mask="000000" placeholder="" required="true"></td>
+														id="editLabAmount" data-mask="0000000" placeholder="" required="true"></td>
 													<td style="padding: 15px">คน</td>
 
 												</tr>

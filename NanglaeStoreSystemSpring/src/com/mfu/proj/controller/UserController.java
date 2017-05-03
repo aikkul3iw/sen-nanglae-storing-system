@@ -3,8 +3,10 @@ package com.mfu.proj.controller;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.jms.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,22 +26,53 @@ import com.proj.ejb.face.UserService;
 		UserService userServ;
 		
 		@RequestMapping(value="/index",method=RequestMethod.GET)
-		public ModelAndView displayIndex(HttpServletRequest request, HttpServletResponse response) {
+		public ModelAndView displayIndex(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+			session.setAttribute("session", null);
+			System.out.println();
 			ModelAndView model = new ModelAndView("index");
 			
 			return model;
 		}
 		@RequestMapping(value="/superIndex",method=RequestMethod.GET)
-		public ModelAndView displaysuperIndex(HttpServletRequest request, HttpServletResponse response) {
-			ModelAndView model = new ModelAndView("superIndex");
+		public ModelAndView displaysuperIndex(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+			String getsession = ""+ session.getAttribute("session");
+			System.out.println("getdatasession "+getsession);
 			
-			return model;
+			if(!getsession.equals("null")){
+				
+				System.out.println("Hello World 1");
+				ModelAndView model = new ModelAndView("superIndex");
+				User loginBean = new User();
+				model.addObject("loginBean", loginBean);
+				return model;	
+			}else{
+				
+				System.out.println("Hello World 2");
+				ModelAndView model = new ModelAndView("loginUser");
+				User loginBean = new User();
+				model.addObject("loginBean", loginBean);
+				return model;	
+			}
 		}
 		@RequestMapping(value="/userIndex",method=RequestMethod.GET)
-		public ModelAndView displayuserIndex(HttpServletRequest request, HttpServletResponse response) {
-			ModelAndView model = new ModelAndView("userIndex");
+		public ModelAndView displayuserIndex(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+			String getsession = ""+ session.getAttribute("session");
+			System.out.println("getdatasession "+getsession);	
+			if(!getsession.equals("null")){
 			
+				ModelAndView model = new ModelAndView("userIndex");
+			User loginBean = new User();
+			model.addObject("loginBean", loginBean);
 			return model;
+			
+			}else{
+				
+				System.out.println("Hello World 2");
+				ModelAndView model = new ModelAndView("loginUser");
+				User loginBean = new User();
+				model.addObject("loginBean", loginBean);
+				return model;	
+			}
 		}
 		
 		@RequestMapping(value="/login",method=RequestMethod.GET)
@@ -52,18 +85,32 @@ import com.proj.ejb.face.UserService;
 		}
 		
 		@RequestMapping(value="/superCreateUser",method=RequestMethod.GET)
-		public ModelAndView displaysuperCreateUser(HttpServletRequest request, HttpServletResponse response) {
+		public ModelAndView displaysuperCreateUser(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+			String getsession = ""+ session.getAttribute("session");
+			System.out.println("getdatasession "+getsession);
 			
-				ModelAndView model = new ModelAndView("superCreateUser");
-
-				return model;
-
+			if(!getsession.equals("null")){
+			System.out.println("Hello World 1");
+			ModelAndView model = new ModelAndView("superCreateUser");
+			User loginBean = new User();
+			model.addObject("loginBean", loginBean);
+			return model;
+			}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}	
+				
 		}
 		
 		@RequestMapping(value="/logout",method=RequestMethod.GET)
-		public ModelAndView displayLogout(HttpServletRequest request, HttpServletResponse response) {
+		public ModelAndView displayLogout(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
 			ModelAndView model = new ModelAndView("index");
 			
+			session.setAttribute("session", null);
 			//String username  = (String) request.getAttribute("loggedInUser");
 			request.setAttribute("loggedInUser", null);
 			User loginBean = new User();
@@ -73,7 +120,7 @@ import com.proj.ejb.face.UserService;
 		}
 		
 		@RequestMapping(value="/login",method=RequestMethod.POST)
-		public ModelAndView executeLogin(HttpServletRequest request, HttpServletResponse response, 
+		public ModelAndView executeLogin(HttpServletRequest request, HttpServletResponse response,HttpSession session, 
 				@ModelAttribute("loginBean")User loginBean){
 			ModelAndView model= null;
 			
@@ -93,12 +140,13 @@ import com.proj.ejb.face.UserService;
 						
 				if(isValidUser.get(0).getRole().equalsIgnoreCase("Superuser")){
 						System.out.println("Login Superuser Successful");
-						request.setAttribute("loggedInUser", loginBean.getUsername());
+						session.setAttribute("session", loginBean.getUsername());;
+						System.out.println("getdatasession"+session.getAttribute("session"));
 						model = new ModelAndView("superIndex");
 						
 				}else if(isValidUser.get(0).getRole().equalsIgnoreCase("User")){
 						System.out.println("Login User Successful");
-						request.setAttribute("loggedInUser", loginBean.getUsername());
+						session.setAttribute("session", loginBean.getUsername());
 						model = new ModelAndView("userIndex");
 							
 				}else{

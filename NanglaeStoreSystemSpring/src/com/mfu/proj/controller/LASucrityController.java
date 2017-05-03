@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.proj.ejb.entity.LASucrity;
+import com.proj.ejb.entity.User;
 import com.proj.ejb.face.LASucrityService;
 
 @Controller
@@ -83,21 +85,60 @@ public class LASucrityController {
 	}
 	
 	@RequestMapping(value="/userSecurity",method=RequestMethod.GET)
-	public ModelAndView displayuserSecurity(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("userSecurity");
-		
-		return model;
-	}
+	public ModelAndView displayuserSecurity(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("userSecurity");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 	@RequestMapping(value="/nonSecurity",method=RequestMethod.GET)
-	public ModelAndView displaynonSecurity(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("nonSecurity");
-		
-		return model;
-	}
+	public ModelAndView displaynonSecurity(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("nonSecurity");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 	@RequestMapping(value="/superSecurity",method=RequestMethod.GET)
-	public ModelAndView displaysuperSecurity(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("superSecurity");
-		
-		return model;
-	}
+	public ModelAndView displaysuperSecurity(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("superSecurity");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 }

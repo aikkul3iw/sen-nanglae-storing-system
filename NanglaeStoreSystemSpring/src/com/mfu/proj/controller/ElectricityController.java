@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.proj.ejb.entity.Electricity;
+import com.proj.ejb.entity.User;
 import com.proj.ejb.face.ElectricityService;
 import com.proj.ejb.face.VillageService;
 
@@ -94,21 +96,60 @@ public class ElectricityController {
 	}
 	
 	@RequestMapping(value="/userElectric",method=RequestMethod.GET)
-	public ModelAndView displayuserElectric(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("userElectric");
-		
-		return model;
-	}
+	public ModelAndView displayuserElectric(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("userElectric");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 	@RequestMapping(value="/nonElectric",method=RequestMethod.GET)
-	public ModelAndView displaynonElectricity(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("nonElectric");
-		
-		return model;
-	}
+	public ModelAndView displaynonElectricity(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("nonElectric");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 	@RequestMapping(value="/superElectric",method=RequestMethod.GET)
-	public ModelAndView displaysuperElectric(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("superElectric");
-		
-		return model;
-	}
+	public ModelAndView displaysuperElectric(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		String getsession = ""+ session.getAttribute("session");
+		System.out.println("getdatasession "+getsession);
+
+		if(!getsession.equals("null")){
+					ModelAndView model = new ModelAndView("superElectric");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;
+				}else{
+					
+					System.out.println("Hello World 2");
+					ModelAndView model = new ModelAndView("loginUser");
+					User loginBean = new User();
+					model.addObject("loginBean", loginBean);
+					return model;	
+				}
+		}
 }
