@@ -277,7 +277,7 @@
 	<div id="wrapper">
 
 		<!-- Navigation -->
-		<<nav class="navbar navbar-default navbar-static-top" role="navigation"
+		<nav class="navbar navbar-default navbar-static-top" role="navigation"
 			style="margin-bottom: 0; background-color: #98c3e8">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -393,11 +393,6 @@
 								<!-- Tab panes -->
 								<div class="tab-content">
 									<div class="tab-pane fade in active" id="listForest">
-										พ.ศ. <select>
-											<option value="2558">2558</option>
-											<option value="2559">2559</option>
-										</select> <br>
-										<br>
 										<div class="table-responsive">
 											<table id="resultTable"
 												class="table table-striped table-bordered table-hover">

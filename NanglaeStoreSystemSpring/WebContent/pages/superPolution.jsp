@@ -45,14 +45,6 @@
 
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.1.1/jquery-confirm.min.js"></script>
-
-
 <script type='text/javascript'>
 	function listPolution() {
 		$("#loader").show();
@@ -372,11 +364,6 @@
 							<!-- Tab panes -->
 							<div class="tab-content">
 								<div class="tab-pane fade in active" id="listPolution">
-									พ.ศ. <select>
-										<option value="2558">2558</option>
-										<option value="2559">2559</option>
-									</select> <br>
-									<br>
 									<div class="table-responsive">
 										<table id="resultTable"
 											class="table table-striped table-bordered table-hover">
