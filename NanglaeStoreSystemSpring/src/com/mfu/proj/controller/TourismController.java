@@ -111,22 +111,9 @@ public class TourismController {
 		}
 	@RequestMapping(value="/nonTourism",method=RequestMethod.GET)
 	public ModelAndView displaynonTourism(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
-		String getsession = ""+ session.getAttribute("session");
-		System.out.println("getdatasession "+getsession);
-
-		if(!getsession.equals("null")){
+	
 					ModelAndView model = new ModelAndView("nonTourism");
-					User loginBean = new User();
-					model.addObject("loginBean", loginBean);
 					return model;
-				}else{
-					
-					System.out.println("Hello World 2");
-					ModelAndView model = new ModelAndView("loginUser");
-					User loginBean = new User();
-					model.addObject("loginBean", loginBean);
-					return model;	
-				}
 		}
 	@RequestMapping(value="/superTourism",method=RequestMethod.GET)
 	public ModelAndView displaysuperTourism(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
