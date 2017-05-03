@@ -391,11 +391,6 @@
 							<!-- Tab panes -->
 							<div class="tab-content">
 								<div class="tab-pane fade in active" id="listResourceWater">
-									พ.ศ. <select>
-										<option value="2558">2558</option>
-										<option value="2559">2559</option>
-									</select> <br>
-									<br>
 									<div class="table-responsive">
 										<table id="resultTable"
 											class="table table-striped table-bordered table-hover">
@@ -416,11 +411,6 @@
 									</div>
 								</div>
 								<div class="tab-pane fade" id="listResourceSoli">
-									พ.ศ. <select>
-										<option value="2558">2558</option>
-										<option value="2559">2559</option>
-									</select> <br>
-									<br>
 									<div class="table-responsive">
 										<table class="table table-striped table-bordered table-hover">
 											<thead>
@@ -456,11 +446,6 @@
 									</div>
 								</div>
 								<div class="tab-pane fade" id="listResourceWood">
-									พ.ศ. <select>
-										<option value="2558">2558</option>
-										<option value="2559">2559</option>
-									</select> <br>
-									<br>
 									<div class="table-responsive">
 										<table class="table table-striped table-bordered table-hover">
 											<thead>

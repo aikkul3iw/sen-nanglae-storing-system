@@ -302,7 +302,7 @@
 				<!-- /.sidebar-collapse -->
 			</div>
 		</nav>
-		<div id="page-wrapper">
+		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
 				<div class="col-lg-12">
 					<h1 class="page-header">จัดการผู้ใช้งาน</h1>
