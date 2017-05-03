@@ -754,8 +754,6 @@ var year = new Date().getFullYear()+543;
 								</li>
 								<li><a href="#listElectionPop" data-toggle="tab">สถิติประชากรแบ่งตามเลือกตั้ง</a>
 								</li>
-								<li><a href="#listAgePop" data-toggle="tab">สถิติประชากรแบ่งตามอายุ</a>
-								</li>
 							</ul>
 							<div class="panel-body">
 
