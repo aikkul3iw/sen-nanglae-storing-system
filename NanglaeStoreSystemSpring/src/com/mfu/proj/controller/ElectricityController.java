@@ -116,22 +116,9 @@ public class ElectricityController {
 		}
 	@RequestMapping(value="/nonElectric",method=RequestMethod.GET)
 	public ModelAndView displaynonElectricity(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
-		String getsession = ""+ session.getAttribute("session");
-		System.out.println("getdatasession "+getsession);
-
-		if(!getsession.equals("null")){
+		
 					ModelAndView model = new ModelAndView("nonElectric");
-					User loginBean = new User();
-					model.addObject("loginBean", loginBean);
 					return model;
-				}else{
-					
-					System.out.println("Hello World 2");
-					ModelAndView model = new ModelAndView("loginUser");
-					User loginBean = new User();
-					model.addObject("loginBean", loginBean);
-					return model;	
-				}
 		}
 	@RequestMapping(value="/superElectric",method=RequestMethod.GET)
 	public ModelAndView displaysuperElectric(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
