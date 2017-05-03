@@ -40,6 +40,7 @@ import com.proj.ejb.face.UserService;
 			
 			if(!getsession.equals("null")){
 				
+				
 				System.out.println("Hello World 1");
 				ModelAndView model = new ModelAndView("superIndex");
 				User loginBean = new User();
