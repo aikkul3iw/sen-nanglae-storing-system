@@ -43,8 +43,16 @@
 <link href="css/dataTable/dataTables.bootstrap.min.css" rel="stylesheet">
 <link href="css/dataTable/buttons.bootstrap.min.css" rel="stylesheet">
 
+ <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
+<script type="text/javascript">
+</script>
 <script type='text/javascript'>
 	function listTourism() {
 		$("#loader").show();
@@ -118,7 +126,9 @@
 				tour_id : 0,
 				tour_year : $('#tour_year').val(),
 				tour_name : $('#tour_name').val(),
-				tour_description : $('#tour_description').val()
+				tour_description : $('#tour_description').val(),
+				latitute : $('#latitute').val(),
+				longitute : $('#longitute').val()
 
 			};
 			//alert(JSON.stringify(obj));
@@ -240,6 +250,7 @@
 				$("#editTourName").val(data.tour_name);
 				$("#editTourDescription").val(data.tour_description);
 				$('#editVillageSelect').val(data.location.vil_id);
+				initMap(data.latitute, data.longitute);
 			},
 			error : function(data, status, er) {
 				alert('error');
@@ -433,6 +444,18 @@
 													</select></td>
 												</tr>
 												<tr>
+													<td align="pull-right" style="padding: 15px">ละติจูต</td>
+													<td><input class="form-control" maxlength="100"
+														id="latitute" placeholder="ระบุละติจูต"
+														name="vil-number" required="true"></td>
+												</tr>
+												<tr>
+													<td align="pull-right" style="padding: 15px">ลองจิจูต</td>
+													<td><input class="form-control" maxlength="100"
+														id="longitute" placeholder="ระบุลองจิจูต"
+														name="vil-number" required="true"></td>
+												</tr>
+												<tr>
 
 													<td align="pull-right" style="padding: 15px">รายละเอียด</td>
 													<td><textarea class="form-control" maxlength="255"
@@ -498,6 +521,23 @@
 												</tr>
 											</table>
 										</form>
+										<div id="map"></div>
+    <script>
+      function initMap(mLat,Mlng) {
+        var uluru = {lat: mLat, lng: Mlng};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 13,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZScEjmAYsz4H0pEy6sZOIzodhbkZCjk8&callback=initMap">
+    </script>
 									</div>
 								</div>
 							</div>

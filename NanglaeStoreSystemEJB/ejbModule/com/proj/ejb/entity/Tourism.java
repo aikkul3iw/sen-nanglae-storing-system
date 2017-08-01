@@ -18,6 +18,8 @@ public class Tourism implements Serializable {
 	private String tour_name;
 	private String tour_description;
 	private int tour_year;
+	private double latitute;
+	private double longitute;
 
 	// map with village
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -62,6 +64,22 @@ public class Tourism implements Serializable {
 
 	public void setLocation(Village location) {
 		this.location = location;
+	}
+
+	public double getLatitute() {
+		return latitute;
+	}
+
+	public void setLatitute(double latitute) {
+		this.latitute = latitute;
+	}
+
+	public double getLongitute() {
+		return longitute;
+	}
+
+	public void setLongitute(double longitute) {
+		this.longitute = longitute;
 	}
 
 }
