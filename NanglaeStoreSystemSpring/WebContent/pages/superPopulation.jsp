@@ -46,6 +46,11 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+function getCurrentYear(){
+	var year = new Date();
+	document.getElementById("pop_year").value=(year.getFullYear()+543);
+	}
+	
 	function numberWithCommas(x) {
 		var parts = x.toString().split(".");
 		parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -747,7 +752,7 @@
 </head>
 
 <body
-	onload="listVillage();listPopulation1();listPopulationByNation();listPopulationByElection();editVillageSelect();">
+	onload="listVillage();listPopulation1();listPopulationByNation();listPopulationByElection();editVillageSelect();getCurrentYear()">
 
 	<div id="wrapper">
 

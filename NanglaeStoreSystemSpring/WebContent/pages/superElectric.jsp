@@ -46,6 +46,11 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+function getCurrentYear(){
+	var year = new Date();
+	document.getElementById("elec_year").value=(year.getFullYear()+543);
+	}
+	
 	function listElectricity() {
 		$("#loader").show();
 		$
@@ -272,7 +277,7 @@
 </script>
 </head>
 
-<body onload="listElectricity();listVillage();editVillageSelect();">
+<body onload="listElectricity();listVillage();editVillageSelect();getCurrentYear()">
 
 	<div id="wrapper">
 

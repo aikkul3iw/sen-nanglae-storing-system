@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+function getCurrentYear(){
+	var year = new Date();
+	document.getElementById("land_year").value=(year.getFullYear()+543);
+	}
 	function listLandResource() {
 		$("#loader").show();
 		$
@@ -221,7 +225,7 @@
 </script>
 </head>
 
-<body onload="listLandResource();">
+<body onload="listLandResource();getCurrentYear()">
 
 	<div id="wrapper">
 

@@ -54,6 +54,11 @@
 <script type="text/javascript">
 </script>
 <script type='text/javascript'>
+	function getCurrentYear(){
+	var year = new Date();
+	document.getElementById("tour_year").value=(year.getFullYear()+543);
+	}
+	
 	function listTourism() {
 		$("#loader").show();
 		$
@@ -100,6 +105,29 @@
 						});
 						table.buttons().container().appendTo('#page-wrapper .col-sm-6:eq(0)');
 					});
+						$("#loader").hide();
+					},
+					error : function(data, status, er) {
+						alert('error');
+						$("#loader").hide();
+					}
+				});
+	}
+
+	function listPictureByTour(tour_id) {
+		var id = tour_id;
+		$("#loader").show();
+		$.ajax({
+					url : "../NanglaeGov/listPictureByTour.do?owner="+id,
+					type : "POST",
+					success : function(data) {
+						var html = '';
+						for (var i = 0; i < data.length; i++) {
+							html += "<img src=\""+data[i].pic_name+"\" height=\"250\" width=\"250\">";
+							alert(data[i].pic_name);
+							
+						}
+						$('#listPicture').html(html);
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -251,6 +279,7 @@
 				$("#editTourDescription").val(data.tour_description);
 				$('#editVillageSelect').val(data.location.vil_id);
 				initMap(data.latitute, data.longitute);
+				listPictureByTour(data.tour_id);
 			},
 			error : function(data, status, er) {
 				alert('error');
@@ -280,7 +309,7 @@
 </script>
 </head>
 
-<body onload="listTourism();listVillage();editVillageSelect();">
+<body onload="listTourism();listVillage();editVillageSelect();getCurrentYear()">
 
 	<div id="wrapper">
 
@@ -426,7 +455,7 @@
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
 													<td><input class="form-control" maxlength="4"
-														id="tour_year" placeholder="" value="2558" name="vil-year"></td>
+														id="tour_year" placeholder="" id="cyear" value="" name="vil-year"></td>
 												</tr>
 												<tr>
 
@@ -522,6 +551,7 @@
 											</table>
 										</form>
 										<div id="map"></div>
+										<div id="listPicture"></div>
     <script>
       function initMap(mLat,Mlng) {
         var uluru = {lat: parseFloat(mLat), lng: parseFloat(Mlng)};

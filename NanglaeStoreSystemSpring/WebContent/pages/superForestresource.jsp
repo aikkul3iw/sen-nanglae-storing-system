@@ -46,6 +46,11 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+function getCurrentYear(){
+	var year = new Date();
+	document.getElementById("frs_year").value=(year.getFullYear()+543);
+	}
+	
 	function listForest() {
 		$("#loader").show();
 		$
@@ -272,7 +277,7 @@
 </script>
 </head>
 
-<body onload="listForest();listVillage();editVillageSelect();">
+<body onload="listForest();listVillage();editVillageSelect();getCurrentYear()">
 
 	<div id="wrapper">
 

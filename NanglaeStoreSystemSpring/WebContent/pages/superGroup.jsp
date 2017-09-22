@@ -46,6 +46,11 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+function getCurrentYear(){
+	var year = new Date();
+	document.getElementById("grp_year").value=(year.getFullYear()+543);
+	}
+	
 	function listLocalg() {
 		$("#loader").show();
 		$
@@ -224,7 +229,7 @@
 </script>
 </head>
 
-<body onload="listLocalg();">
+<body onload="listLocalg();getCurrentYear()">
 
 	<div id="wrapper">
 

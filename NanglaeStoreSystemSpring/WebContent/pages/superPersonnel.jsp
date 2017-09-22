@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+function getCurrentYear(){
+	var year = new Date();
+	document.getElementById("per_year").value=(year.getFullYear()+543);
+	}
 	function listPersonnel() {
 		$("#loader").show();
 		$
@@ -275,7 +279,7 @@
 </script>
 </head>
 
-<body onload="listPersonnel()">
+<body onload="listPersonnel();getCurrentYear()">
 
 	<div id="wrapper">
 

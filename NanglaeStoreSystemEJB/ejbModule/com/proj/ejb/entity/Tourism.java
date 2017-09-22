@@ -1,13 +1,16 @@
 package com.proj.ejb.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Tourism implements Serializable {
@@ -25,6 +28,10 @@ public class Tourism implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	// @JsonIgnore
 	private Village location;
+	
+	@OneToMany(mappedBy = "tour_owner", cascade = { CascadeType.ALL })
+	// @JsonIgnore
+	private List<Picture> picture;
 
 	public long getTour_id() {
 		return tour_id;

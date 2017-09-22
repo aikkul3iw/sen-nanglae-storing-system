@@ -46,6 +46,11 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+	function getCurrentYear(){
+	var year = new Date();
+	document.getElementById("ivn_year").value=(year.getFullYear()+543);
+	}
+	
 	function numberWithCommas(x) {
 		var parts = x.toString().split(".");
 		parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -293,7 +298,7 @@
 </script>
 </head>
 
-<body onload="listInventory();">
+<body onload="listInventory();getCurrentYear()">
 
 	<div id="wrapper">
 

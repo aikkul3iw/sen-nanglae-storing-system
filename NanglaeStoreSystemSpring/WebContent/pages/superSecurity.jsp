@@ -46,6 +46,11 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+function getCurrentYear(){
+	var year = new Date();
+	document.getElementById("sec_year").value=(year.getFullYear()+543);
+	}
+	
 	function listLASucrity() {
 		$("#loader").show();
 		$
@@ -223,7 +228,7 @@
 </script>
 </head>
 
-<body onload="listLASucrity();">
+<body onload="listLASucrity();getCurrentYear()">
 
 	<div id="wrapper">
 

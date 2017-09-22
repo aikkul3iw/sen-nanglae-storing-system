@@ -46,6 +46,11 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+function getCurrentYear(){
+	var year = new Date();
+	document.getElementById("edu_year").value=(year.getFullYear()+543);
+	}
+	
 	function listEducation() {
 
 		$("#loader").show();
@@ -273,7 +278,7 @@
 </script>
 </head>
 
-<body onload="listEducation();listVillage();editVillageSelect();">
+<body onload="listEducation();listVillage();editVillageSelect();getCurrentYear()">
 
 	<div id="wrapper">
 

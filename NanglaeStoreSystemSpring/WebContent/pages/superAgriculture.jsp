@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+function getCurrentYear(){
+	var year = new Date();
+	document.getElementById("agi_year").value=(year.getFullYear()+543);
+	}
 	function listAgriculture() {
 		$("#loader").show();
 		$
@@ -236,7 +240,7 @@
 </script>
 </head>
 
-<body onload="listAgriculture()">
+<body onload="listAgriculture();getCurrentYear()">
 
 	<div id="wrapper">
 

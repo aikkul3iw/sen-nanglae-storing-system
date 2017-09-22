@@ -46,6 +46,11 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+function getCurrentYear(){
+	var year = new Date();
+	document.getElementById("lab_year").value=(year.getFullYear()+543);
+	}
+	
 	function listLabor() {
 		$("#loader").show();
 		$
@@ -229,7 +234,7 @@
 </script>
 </head>
 
-<body onload="listLabor()">
+<body onload="listLabor();getCurrentYear()">
 
 	<div id="wrapper">
 

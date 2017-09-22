@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+function getCurrentYear(){
+	var year = new Date();
+	document.getElementById("tran_year").value=(year.getFullYear()+543);
+	}
 	function listTransport() {
 		$("#loader").show();
 		$
@@ -229,7 +233,7 @@
 </script>
 </head>
 
-<body onload="listTransport()">
+<body onload="listTransport();getCurrentYear()">
 
 	<div id="wrapper">
 

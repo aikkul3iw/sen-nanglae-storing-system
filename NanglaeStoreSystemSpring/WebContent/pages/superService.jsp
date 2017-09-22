@@ -46,6 +46,10 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+function getCurrentYear(){
+	var year = new Date();
+	document.getElementById("ser_year").value=(year.getFullYear()+543);
+	}
 	function listService() {
 		$("#loader").show();
 		$
@@ -222,7 +226,7 @@
 </script>
 </head>
 
-<body onload="listService();">
+<body onload="listService();getCurrentYear()">
 
 	<div id="wrapper">
 

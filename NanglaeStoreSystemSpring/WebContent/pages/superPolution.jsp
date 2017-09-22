@@ -46,6 +46,11 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+function getCurrentYear(){
+	var year = new Date();
+	document.getElementById("pol_year").value=(year.getFullYear()+543);
+	}
+	
 	function listPolution() {
 		$("#loader").show();
 
@@ -242,7 +247,7 @@
 </script>
 </head>
 
-<body onload="listPolution()">
+<body onload="listPolution();getCurrentYear()">
 
 	<div id="wrapper">
 

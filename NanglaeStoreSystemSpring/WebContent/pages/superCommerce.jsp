@@ -46,6 +46,11 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
+function getCurrentYear(){
+	var year = new Date();
+	document.getElementById("com_year").value=(year.getFullYear()+543);
+	}
+	
 	function listCommerce() {
 		$("#loader").show();
 		$.ajax({
@@ -267,7 +272,7 @@
 </script>
 </head>
 
-<body onload="listCommerce();listVillage();editVillageSelect();">
+<body onload="listCommerce();listVillage();editVillageSelect();getCurrentYear()">
 
 	<div id="wrapper">
 
