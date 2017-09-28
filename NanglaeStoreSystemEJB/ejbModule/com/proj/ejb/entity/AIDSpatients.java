@@ -1,6 +1,7 @@
 package com.proj.ejb.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,10 +14,12 @@ public class AIDSpatients implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long AIDSpatientsId;
 
-	private String name;
+	private String title;
+	private String firstName;
+	private String lastName;
 	private String gender;
 	private int idCard;
-	private String birthday;
+	private Date birthday;
 	private int age;
 	private String address1;
 	private String address2;
@@ -24,10 +27,20 @@ public class AIDSpatients implements Serializable {
 	private String tel2;
 	private String regisDate;
 	private String donateSartDate;
-	private String offspring;
+	private String offspringTitle;
+	private String offspringFirstname;
+	private String offspringLastname;
 	private String offspringIdCard;
 	private String donateEndDate;
 	private String remark;
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
 	public long getAIDSpatientsId() {
 		return AIDSpatientsId;
@@ -37,12 +50,20 @@ public class AIDSpatients implements Serializable {
 		AIDSpatientsId = aIDSpatientsId;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getGender() {
@@ -61,11 +82,11 @@ public class AIDSpatients implements Serializable {
 		this.idCard = idCard;
 	}
 
-	public String getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(String birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 
@@ -125,12 +146,28 @@ public class AIDSpatients implements Serializable {
 		this.donateSartDate = donateSartDate;
 	}
 
-	public String getOffspring() {
-		return offspring;
+	public String getOffspringTitle() {
+		return offspringTitle;
 	}
 
-	public void setOffspring(String offspring) {
-		this.offspring = offspring;
+	public void setOffspringTitle(String offspringTitle) {
+		this.offspringTitle = offspringTitle;
+	}
+
+	public String getOffspringFirstname() {
+		return offspringFirstname;
+	}
+
+	public void setOffspringFirstname(String offspringFirstname) {
+		this.offspringFirstname = offspringFirstname;
+	}
+
+	public String getOffspringLastname() {
+		return offspringLastname;
+	}
+
+	public void setOffspringLastname(String offspringLastname) {
+		this.offspringLastname = offspringLastname;
 	}
 
 	public String getOffspringIdCard() {
