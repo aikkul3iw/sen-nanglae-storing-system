@@ -18,11 +18,14 @@ public class AIDSpatients implements Serializable {
 	private int idCard;
 	private String birthday;
 	private int age;
-	private String houseId;
-	private String address;
-	private String tel;
+	private String address1;
+	private String address2;
+	private String tel1;
+	private String tel2;
 	private String regisDate;
 	private String donateSartDate;
+	private String offspring;
+	private String offspringIdCard;
 	private String donateEndDate;
 	private String remark;
 
@@ -74,28 +77,36 @@ public class AIDSpatients implements Serializable {
 		this.age = age;
 	}
 
-	public String getHouseId() {
-		return houseId;
+	public String getAddress1() {
+		return address1;
 	}
 
-	public void setHouseId(String houseId) {
-		this.houseId = houseId;
+	public void setAddress1(String address1) {
+		this.address1 = address1;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getAddress2() {
+		return address2;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setAddress2(String address2) {
+		this.address2 = address2;
 	}
 
-	public String getTel() {
-		return tel;
+	public String getTel1() {
+		return tel1;
 	}
 
-	public void setTel(String tel) {
-		this.tel = tel;
+	public void setTel1(String tel1) {
+		this.tel1 = tel1;
+	}
+
+	public String getTel2() {
+		return tel2;
+	}
+
+	public void setTel2(String tel2) {
+		this.tel2 = tel2;
 	}
 
 	public String getRegisDate() {
@@ -112,6 +123,22 @@ public class AIDSpatients implements Serializable {
 
 	public void setDonateSartDate(String donateSartDate) {
 		this.donateSartDate = donateSartDate;
+	}
+
+	public String getOffspring() {
+		return offspring;
+	}
+
+	public void setOffspring(String offspring) {
+		this.offspring = offspring;
+	}
+
+	public String getOffspringIdCard() {
+		return offspringIdCard;
+	}
+
+	public void setOffspringIdCard(String offspringIdCard) {
+		this.offspringIdCard = offspringIdCard;
 	}
 
 	public String getDonateEndDate() {
