@@ -3,9 +3,11 @@ package com.proj.ejb.entity;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class User implements Serializable{
@@ -18,8 +20,17 @@ public class User implements Serializable{
 	private String password;
 	private String role;
 	
+	// map with personnel
+	@ManyToOne(fetch = FetchType.EAGER)
+	// @JsonIgnore
+	private Personnel location;
 	
-	
+	public Personnel getLocation() {
+		return location;
+	}
+	public void setLocation(Personnel location) {
+		this.location = location;
+	}
 	public String getRole() {
 		return role;
 	}

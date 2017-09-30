@@ -123,8 +123,9 @@
 					success : function(data) {
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
-							html += "<img src=\""+data[i].pic_name+"\" height=\"250\" width=\"250\">";
-							alert(data[i].pic_name);
+							html += "<img src=\"../NanglaeGov/images/"+data[i].pic_name+"\" height=\"250\" width=\"250\">";
+							//alert(data[i].pic_name);
+							//alert(html);
 							
 						}
 						$('#listPicture').html(html);
@@ -445,6 +446,12 @@
 												</tr>
 											</table>
 										</form>
+										
+										<form method="POST" action="../NanglaeGov/UploadServlet2" enctype="multipart/form-data">
+											File to upload: <input type="file" name="file">
+		 									Name: <input type="text" name="name">
+ 											<input type="submit" value="Upload"> Press here to upload the file!
+										</form>	
 									</div>
 									<div class="tab-pane fade" id="editTourism">
 										<form role="form">
@@ -493,6 +500,12 @@
 										</form>
 										<div id="map"></div>
 										<div id="listPicture"></div>
+										<br>
+										<form method="POST" action="../NanglaeGov/UploadServlet2" enctype="multipart/form-data">
+											File to upload: <input type="file" name="file">
+		 									<input type="hidden" id="editTourId" value="" name="tourId">
+ 											<input type="submit" value="Upload"> Press here to upload the file!
+										</form>	
     <script>
       function initMap(mLat,Mlng) {
         var uluru = {lat: parseFloat(mLat), lng: parseFloat(Mlng)};
