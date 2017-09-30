@@ -287,7 +287,7 @@ function getCurrentYear(){
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#listLabor" data-toggle="tab">รายชื่อแรงงาน</a>
+								<li class="active"><a href="#listLabor" data-toggle="tab">ข้อมูลแรงงาน</a>
 								</li>
 								<li><a href="#addLabor" data-toggle="tab">เพิ่มแรงงาน</a></li>
 							</ul>

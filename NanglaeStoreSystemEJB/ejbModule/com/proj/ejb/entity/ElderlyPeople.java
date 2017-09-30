@@ -1,6 +1,7 @@
 package com.proj.ejb.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,17 +14,23 @@ public class ElderlyPeople implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long elderPeId;
 
-	private String name;
+	private String title;
+	private String firstName;
+	private String lastNane;
 	private String gender;
 	private int idCard;
-	private String birthday;
+	private Date birthday;
 	private int age;
-	private String houseId;
-	private String address;
-	private String tel;
-	private String regisDate;
-	private String allowanceStartDate;
-	private String descendant;
+	private String address1;
+	private String address2;
+	private String tel1;
+	private String tel2;
+	private Date regisDate;
+	private Date allowanceStartDate;
+	private String offspringTitle;
+	private String offspringFirstname;
+	private String offspringLastname;
+	private String offspringIdCard;
 	private String allowanceEndDate;
 	private String remark;
 
@@ -33,14 +40,6 @@ public class ElderlyPeople implements Serializable {
 
 	public void setElderPeId(long elderPeId) {
 		this.elderPeId = elderPeId;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getGender() {
@@ -59,14 +58,6 @@ public class ElderlyPeople implements Serializable {
 		this.idCard = idCard;
 	}
 
-	public String getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(String birthday) {
-		this.birthday = birthday;
-	}
-
 	public int getAge() {
 		return age;
 	}
@@ -75,52 +66,116 @@ public class ElderlyPeople implements Serializable {
 		this.age = age;
 	}
 
-	public String getHouseId() {
-		return houseId;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setHouseId(String houseId) {
-		this.houseId = houseId;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getTel() {
-		return tel;
+	public String getLastNane() {
+		return lastNane;
 	}
 
-	public void setTel(String tel) {
-		this.tel = tel;
+	public void setLastNane(String lastNane) {
+		this.lastNane = lastNane;
 	}
 
-	public String getRegisDate() {
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getAddress1() {
+		return address1;
+	}
+
+	public void setAddress1(String address1) {
+		this.address1 = address1;
+	}
+
+	public String getAddress2() {
+		return address2;
+	}
+
+	public void setAddress2(String address2) {
+		this.address2 = address2;
+	}
+
+	public String getTel1() {
+		return tel1;
+	}
+
+	public void setTel1(String tel1) {
+		this.tel1 = tel1;
+	}
+
+	public String getTel2() {
+		return tel2;
+	}
+
+	public void setTel2(String tel2) {
+		this.tel2 = tel2;
+	}
+
+	public Date getRegisDate() {
 		return regisDate;
 	}
 
-	public void setRegisDate(String regisDate) {
+	public void setRegisDate(Date regisDate) {
 		this.regisDate = regisDate;
 	}
 
-	public String getAllowanceStartDate() {
+	public Date getAllowanceStartDate() {
 		return allowanceStartDate;
 	}
 
-	public void setAllowanceStartDate(String allowanceStartDate) {
+	public void setAllowanceStartDate(Date allowanceStartDate) {
 		this.allowanceStartDate = allowanceStartDate;
 	}
 
-	public String getDescendant() {
-		return descendant;
+	public String getOffspringTitle() {
+		return offspringTitle;
 	}
 
-	public void setDescendant(String descendant) {
-		this.descendant = descendant;
+	public void setOffspringTitle(String offspringTitle) {
+		this.offspringTitle = offspringTitle;
+	}
+
+	public String getOffspringFirstname() {
+		return offspringFirstname;
+	}
+
+	public void setOffspringFirstname(String offspringFirstname) {
+		this.offspringFirstname = offspringFirstname;
+	}
+
+	public String getOffspringLastname() {
+		return offspringLastname;
+	}
+
+	public void setOffspringLastname(String offspringLastname) {
+		this.offspringLastname = offspringLastname;
+	}
+
+	public String getOffspringIdCard() {
+		return offspringIdCard;
+	}
+
+	public void setOffspringIdCard(String offspringIdCard) {
+		this.offspringIdCard = offspringIdCard;
 	}
 
 	public String getAllowanceEndDate() {

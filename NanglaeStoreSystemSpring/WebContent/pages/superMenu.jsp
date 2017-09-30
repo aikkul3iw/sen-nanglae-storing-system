@@ -10,6 +10,7 @@
 					<li><a href="superPersonnel.do">บุคลากร</a></li>
 					<li><a href="superPopulation.do">ประชากร</a></li>
 					<li><a href="superLabor.do">แรงงาน</a></li>
+					<li><a href="superAIDSpatients.do">ผู้ป่วยเอดส์</a></li>
 				</ul> <!-- /.nav-second-level --></li>
 			<li><a href="#"><i class="fa fa-road fa-fw"></i> สาธารณูปโภค<span
 					class="fa arrow"></span></a>

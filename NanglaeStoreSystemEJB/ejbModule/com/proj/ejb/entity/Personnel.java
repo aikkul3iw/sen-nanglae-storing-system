@@ -14,9 +14,6 @@ public class Personnel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long per_id;
 
-	private String report = "Html";
-
-
 	private String per_title;
 	private String per_firstname;
 	private String per_lastname;
@@ -114,14 +111,6 @@ public class Personnel implements Serializable {
 
 	public void setPer_year(int per_year) {
 		this.per_year = per_year;
-	}
-
-	public String getReport() {
-		return report;
-	}
-
-	public void setReport(String report) {
-		this.report = report;
 	}
 
 }

@@ -1204,7 +1204,7 @@ function getCurrentYear(){
 													<td>คน</td>
 												</tr>
 												<tr>
-													<td style="padding: 15px"><b>บุคลมาสิทธิ์เลือกตั้ง</b></td>
+													<td style="padding: 15px"><b>บุคลมีสิทธิ์เลือกตั้ง</b></td>
 													<td align="center"><b>ชาย</b></td>
 													<td></td>
 													<td align="center"><b>หญิง</b></td>
@@ -1354,7 +1354,7 @@ function getCurrentYear(){
 													<td>คน</td>
 												</tr>
 												<tr>
-													<td style="padding: 15px"><b>บุคลมาสิทธิ์เลือกตั้ง</b></td>
+													<td style="padding: 15px"><b>บุคลมีสิทธิ์เลือกตั้ง</b></td>
 													<td></td>
 													<td></td>
 												</tr>
