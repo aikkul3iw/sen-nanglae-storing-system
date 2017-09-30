@@ -1,6 +1,7 @@
 package com.proj.ejb.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,18 +14,33 @@ public class AIDSpatients implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long AIDSpatientsId;
 
-	private String name;
+	private String title;
+	private String firstName;
+	private String lastName;
 	private String gender;
 	private int idCard;
-	private String birthday;
+	private Date birthday;
 	private int age;
-	private String houseId;
-	private String address;
-	private String tel;
+	private String address1;
+	private String address2;
+	private String tel1;
+	private String tel2;
 	private String regisDate;
 	private String donateSartDate;
+	private String offspringTitle;
+	private String offspringFirstname;
+	private String offspringLastname;
+	private String offspringIdCard;
 	private String donateEndDate;
 	private String remark;
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
 	public long getAIDSpatientsId() {
 		return AIDSpatientsId;
@@ -34,12 +50,20 @@ public class AIDSpatients implements Serializable {
 		AIDSpatientsId = aIDSpatientsId;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getGender() {
@@ -58,11 +82,11 @@ public class AIDSpatients implements Serializable {
 		this.idCard = idCard;
 	}
 
-	public String getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(String birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 
@@ -74,28 +98,36 @@ public class AIDSpatients implements Serializable {
 		this.age = age;
 	}
 
-	public String getHouseId() {
-		return houseId;
+	public String getAddress1() {
+		return address1;
 	}
 
-	public void setHouseId(String houseId) {
-		this.houseId = houseId;
+	public void setAddress1(String address1) {
+		this.address1 = address1;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getAddress2() {
+		return address2;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setAddress2(String address2) {
+		this.address2 = address2;
 	}
 
-	public String getTel() {
-		return tel;
+	public String getTel1() {
+		return tel1;
 	}
 
-	public void setTel(String tel) {
-		this.tel = tel;
+	public void setTel1(String tel1) {
+		this.tel1 = tel1;
+	}
+
+	public String getTel2() {
+		return tel2;
+	}
+
+	public void setTel2(String tel2) {
+		this.tel2 = tel2;
 	}
 
 	public String getRegisDate() {
@@ -112,6 +144,38 @@ public class AIDSpatients implements Serializable {
 
 	public void setDonateSartDate(String donateSartDate) {
 		this.donateSartDate = donateSartDate;
+	}
+
+	public String getOffspringTitle() {
+		return offspringTitle;
+	}
+
+	public void setOffspringTitle(String offspringTitle) {
+		this.offspringTitle = offspringTitle;
+	}
+
+	public String getOffspringFirstname() {
+		return offspringFirstname;
+	}
+
+	public void setOffspringFirstname(String offspringFirstname) {
+		this.offspringFirstname = offspringFirstname;
+	}
+
+	public String getOffspringLastname() {
+		return offspringLastname;
+	}
+
+	public void setOffspringLastname(String offspringLastname) {
+		this.offspringLastname = offspringLastname;
+	}
+
+	public String getOffspringIdCard() {
+		return offspringIdCard;
+	}
+
+	public void setOffspringIdCard(String offspringIdCard) {
+		this.offspringIdCard = offspringIdCard;
 	}
 
 	public String getDonateEndDate() {

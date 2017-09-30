@@ -1,6 +1,7 @@
 package com.proj.ejb.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,20 +13,26 @@ public class Disabled implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long DisabledId;
-
-	private String name;
+	
+	private String title;
+	private String firstName;
+	private String lastNane;
 	private String gender;
 	private int idCard;
-	private String birthday;
+	private Date birthday;
 	private int age;
 	private String disableType;
-	private String diableIdCardEndDate;
-	private String houseId;
-	private String address;
-	private String tel;
-	private String regisDate;
-	private String allowanceStartDate;
-	private String descendant;
+	private Date diableIdCardEndDate;
+	private String address1;
+	private String address2;
+	private String tel1;
+	private String tel2;
+	private Date regisDate;
+	private Date allowanceStartDate;
+	private String offspringTitle;
+	private String offspringFirstname;
+	private String offspringLastname;
+	private String offspringIdCard;
 	private String allowanceEndDate;
 	private String remark;
 
@@ -37,13 +44,6 @@ public class Disabled implements Serializable {
 		DisabledId = disabledId;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public String getGender() {
 		return gender;
@@ -59,14 +59,6 @@ public class Disabled implements Serializable {
 
 	public void setIdCard(int idCard) {
 		this.idCard = idCard;
-	}
-
-	public String getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(String birthday) {
-		this.birthday = birthday;
 	}
 
 	public int getAge() {
@@ -85,60 +77,125 @@ public class Disabled implements Serializable {
 		this.disableType = disableType;
 	}
 
-	public String getDiableIdCardEndDate() {
+	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastNane() {
+		return lastNane;
+	}
+
+	public void setLastNane(String lastNane) {
+		this.lastNane = lastNane;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public Date getDiableIdCardEndDate() {
 		return diableIdCardEndDate;
 	}
 
-	public void setDiableIdCardEndDate(String diableIdCardEndDate) {
+	public void setDiableIdCardEndDate(Date diableIdCardEndDate) {
 		this.diableIdCardEndDate = diableIdCardEndDate;
 	}
 
-	public String getHouseId() {
-		return houseId;
+	public String getAddress1() {
+		return address1;
 	}
 
-	public void setHouseId(String houseId) {
-		this.houseId = houseId;
+	public void setAddress1(String address1) {
+		this.address1 = address1;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getAddress2() {
+		return address2;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setAddress2(String address2) {
+		this.address2 = address2;
 	}
 
-	public String getTel() {
-		return tel;
+	public String getTel1() {
+		return tel1;
 	}
 
-	public void setTel(String tel) {
-		this.tel = tel;
+	public void setTel1(String tel1) {
+		this.tel1 = tel1;
 	}
 
-	public String getRegisDate() {
+	public String getTel2() {
+		return tel2;
+	}
+
+	public void setTel2(String tel2) {
+		this.tel2 = tel2;
+	}
+
+	public Date getRegisDate() {
 		return regisDate;
 	}
 
-	public void setRegisDate(String regisDate) {
+	public void setRegisDate(Date regisDate) {
 		this.regisDate = regisDate;
 	}
 
-	public String getAllowanceStartDate() {
+	public Date getAllowanceStartDate() {
 		return allowanceStartDate;
 	}
 
-	public void setAllowanceStartDate(String allowanceStartDate) {
+	public void setAllowanceStartDate(Date allowanceStartDate) {
 		this.allowanceStartDate = allowanceStartDate;
 	}
 
-	public String getDescendant() {
-		return descendant;
+	public String getOffspringTitle() {
+		return offspringTitle;
 	}
 
-	public void setDescendant(String descendant) {
-		this.descendant = descendant;
+	public void setOffspringTitle(String offspringTitle) {
+		this.offspringTitle = offspringTitle;
+	}
+
+	public String getOffspringFirstname() {
+		return offspringFirstname;
+	}
+
+	public void setOffspringFirstname(String offspringFirstname) {
+		this.offspringFirstname = offspringFirstname;
+	}
+
+	public String getOffspringLastname() {
+		return offspringLastname;
+	}
+
+	public void setOffspringLastname(String offspringLastname) {
+		this.offspringLastname = offspringLastname;
+	}
+
+	public String getOffspringIdCard() {
+		return offspringIdCard;
+	}
+
+	public void setOffspringIdCard(String offspringIdCard) {
+		this.offspringIdCard = offspringIdCard;
 	}
 
 	public String getAllowanceEndDate() {

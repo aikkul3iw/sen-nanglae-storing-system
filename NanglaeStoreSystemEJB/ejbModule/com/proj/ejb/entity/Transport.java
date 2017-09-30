@@ -35,14 +35,6 @@ public class Transport implements Serializable {
 		this.tran_name = tran_name;
 	}
 
-	public int getTran_year() {
-		return tran_year;
-	}
-
-	public void setTran_year(int tran_year) {
-		this.tran_year = tran_year;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -57,6 +49,14 @@ public class Transport implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public int getTran_year() {
+		return tran_year;
+	}
+
+	public void setTran_year(int tran_year) {
+		this.tran_year = tran_year;
 	}
 
 }

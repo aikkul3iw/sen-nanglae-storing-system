@@ -61,9 +61,6 @@ function getCurrentYear(){
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].tran_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].tran_name
 									+ "</td>"
 									+ "<td>"
@@ -105,10 +102,7 @@ function getCurrentYear(){
 <script type='text/javascript'>
 	function createTransport() {
 		$("#loader").show();
-		if ($('#tran_year').val() == "") {
-			document.getElementById('tran_year').style.borderColor = "red";
-			return false;
-		} else if ($('#tran_name').val() == "") {
+		if ($('#tran_name').val() == "") {
 			document.getElementById('tran_name').style.borderColor = "red";
 			return false;
 		} else if ($('#type').val() == "") {
@@ -120,7 +114,6 @@ function getCurrentYear(){
 		} else {
 			var obj = {
 				tran_id : 0,
-				tran_year : $('#tran_year').val(),
 				tran_name : $('#tran_name').val(),
 				type : $('#type').val(),
 				description : $('#description').val()
@@ -178,7 +171,6 @@ function getCurrentYear(){
 	function editTransport() {
 		var obj = {
 			tran_id : $("#editTranId").val(),
-			tran_year : $('#editTranYear').val(),
 			tran_name : $('#editTranName').val(),
 			type : $('#editType').val(),
 			description : $('#editDescription').val()
@@ -220,7 +212,6 @@ function getCurrentYear(){
 			success : function(data) {
 				//alert(JSON.stringify(data));
 				$("#editTranId").val(data.tran_id);
-				$("#editTranYear").val(data.tran_year);
 				$("#editTranName").val(data.tran_name);
 				$("#editType").val(data.type);
 				$("#editDescription").val(data.description);
@@ -318,13 +309,6 @@ function getCurrentYear(){
 										<form role="form">
 											<table width="70%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input class="form-control" maxlength="4"
-														id="tran_year" placeholder="" value="2558"
-														name="tran-year" required="true" style="width: 70%"></td>
-												</tr>
-												<tr>
-
 													<td align="pull-right" style="padding: 15px">การคมนาคม</td>
 													<td><input class="form-control" maxlength="50"
 														id="tran_name" placeholder="ระบุการคมนาคม"
@@ -332,10 +316,13 @@ function getCurrentYear(){
 
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ประเภท</td>
-													<td><input class="form-control" maxlength="50"
-														id="type" placeholder="" name="tran-distance"
-														required="true" style="width: 70%"></td>
+												<td align="pull-right" style="padding: 15px">ประเภท</td>
+												<td><select id="gander" class="form-control"
+													name="gander">
+														<option value="">เลือกประเภท</option>
+														<option value=""></option>
+														<option value=""></option>
+												</select></td>
 												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">รายละเอียด</td>
