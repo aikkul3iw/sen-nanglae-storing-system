@@ -20,12 +20,11 @@ public class Water implements Serializable {
 
 	private String water_name;
 	private String water_type;
-	private int water_year;
 
 	// map with village
 	@ManyToOne(fetch = FetchType.EAGER)
 	// @JsonIgnore
-	
+
 	private Village location;
 
 	public long getWater_id() {
@@ -58,14 +57,6 @@ public class Water implements Serializable {
 
 	public void setLocation(Village location) {
 		this.location = location;
-	}
-
-	public int getWater_year() {
-		return water_year;
-	}
-
-	public void setWater_year(int water_year) {
-		this.water_year = water_year;
 	}
 
 }

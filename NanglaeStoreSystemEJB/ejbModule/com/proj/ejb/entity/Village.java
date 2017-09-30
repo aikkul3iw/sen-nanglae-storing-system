@@ -22,7 +22,34 @@ public class Village implements Serializable {
 	private int vil_number;
 	private String vil_name;
 	private String vil_chief;
-	private int vil_year;
+
+	@OneToMany(mappedBy = "location", cascade = { CascadeType.ALL })
+	// @JsonIgnore
+	private List<Agriculture> agricultures;
+
+	@OneToMany(mappedBy = "location", cascade = { CascadeType.ALL })
+	// @JsonIgnore
+	private List<AIDSpatients> AIDSpatients;
+
+	@OneToMany(mappedBy = "location", cascade = { CascadeType.ALL })
+	// @JsonIgnore
+	private List<Disabled> disableds;
+
+	@OneToMany(mappedBy = "location", cascade = { CascadeType.ALL })
+	// @JsonIgnore
+	private List<ElderlyPeople> elderlyPeoples;
+
+	@OneToMany(mappedBy = "location", cascade = { CascadeType.ALL })
+	// @JsonIgnore
+	private List<LandResource> landResources;
+
+	@OneToMany(mappedBy = "location", cascade = { CascadeType.ALL })
+	// @JsonIgnore
+	private List<Otop> otops;
+
+	@OneToMany(mappedBy = "location", cascade = { CascadeType.ALL })
+	// @JsonIgnore
+	private List<Restaurant> restaurants;
 
 	@OneToMany(mappedBy = "location", cascade = { CascadeType.ALL })
 	// @JsonIgnore
@@ -63,11 +90,11 @@ public class Village implements Serializable {
 	@OneToMany(mappedBy = "location", cascade = { CascadeType.ALL })
 	// @JsonIgnore
 	private List<Tourism> tourisms;
-	
+
 	@OneToMany(mappedBy = "location", cascade = { CascadeType.ALL })
 	// @JsonIgnore
 	private List<Health> health;
-	
+
 	@OneToMany(mappedBy = "location", cascade = { CascadeType.ALL })
 	// @JsonIgnore
 	private List<Forest> forest;
@@ -103,13 +130,4 @@ public class Village implements Serializable {
 	public void setVil_chief(String vil_chief) {
 		this.vil_chief = vil_chief;
 	}
-
-	public int getVil_year() {
-		return vil_year;
-	}
-
-	public void setVil_year(int vil_year) {
-		this.vil_year = vil_year;
-	}
-
 }

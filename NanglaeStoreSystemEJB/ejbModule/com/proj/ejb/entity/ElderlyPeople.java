@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class ElderlyPeople implements Serializable {
@@ -23,16 +25,20 @@ public class ElderlyPeople implements Serializable {
 	private int age;
 	private String address1;
 	private String address2;
-	private String tel1;
-	private String tel2;
+	private String tel;
 	private Date regisDate;
 	private Date allowanceStartDate;
 	private String offspringTitle;
 	private String offspringFirstname;
 	private String offspringLastname;
 	private String offspringIdCard;
-	private String allowanceEndDate;
+	private Date allowanceEndDate;
 	private String remark;
+
+	// map with village
+	@ManyToOne(fetch = FetchType.EAGER)
+	// @JsonIgnore
+	private Village location;
 
 	public long getElderPeId() {
 		return elderPeId;
@@ -114,20 +120,28 @@ public class ElderlyPeople implements Serializable {
 		this.address2 = address2;
 	}
 
-	public String getTel1() {
-		return tel1;
+	public String getTel() {
+		return tel;
 	}
 
-	public void setTel1(String tel1) {
-		this.tel1 = tel1;
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 
-	public String getTel2() {
-		return tel2;
+	public Date getAllowanceEndDate() {
+		return allowanceEndDate;
 	}
 
-	public void setTel2(String tel2) {
-		this.tel2 = tel2;
+	public void setAllowanceEndDate(Date allowanceEndDate) {
+		this.allowanceEndDate = allowanceEndDate;
+	}
+
+	public Village getLocation() {
+		return location;
+	}
+
+	public void setLocation(Village location) {
+		this.location = location;
 	}
 
 	public Date getRegisDate() {
@@ -176,14 +190,6 @@ public class ElderlyPeople implements Serializable {
 
 	public void setOffspringIdCard(String offspringIdCard) {
 		this.offspringIdCard = offspringIdCard;
-	}
-
-	public String getAllowanceEndDate() {
-		return allowanceEndDate;
-	}
-
-	public void setAllowanceEndDate(String allowanceEndDate) {
-		this.allowanceEndDate = allowanceEndDate;
 	}
 
 	public String getRemark() {

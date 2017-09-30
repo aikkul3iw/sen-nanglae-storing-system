@@ -19,7 +19,6 @@ public class Religion implements Serializable {
 
 	private String rel_name;
 	private String rel_type;
-	private int rel_year;
 
 	// map with village
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -56,14 +55,6 @@ public class Religion implements Serializable {
 
 	public void setLocation(Village location) {
 		this.location = location;
-	}
-
-	public int getRel_year() {
-		return rel_year;
-	}
-
-	public void setRel_year(int rel_year) {
-		this.rel_year = rel_year;
 	}
 
 }

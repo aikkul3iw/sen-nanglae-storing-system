@@ -22,7 +22,6 @@ public class Commerce implements Serializable {
 	private String com_type;
 	private String com_house_number;
 	private String com_description;
-	private int com_year;
 
 	// map with village
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -75,14 +74,6 @@ public class Commerce implements Serializable {
 
 	public void setLocation(Village location) {
 		this.location = location;
-	}
-
-	public int getCom_year() {
-		return com_year;
-	}
-
-	public void setCom_year(int com_year) {
-		this.com_year = com_year;
 	}
 
 }

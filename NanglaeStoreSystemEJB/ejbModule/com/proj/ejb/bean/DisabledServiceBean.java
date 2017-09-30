@@ -7,7 +7,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.proj.ejb.entity.Agriculture;
 import com.proj.ejb.entity.Disabled;
 import com.proj.ejb.face.DisabledService;
 

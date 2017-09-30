@@ -18,7 +18,6 @@ public class Electricity implements Serializable {
 	private long elec_id;
 
 	private String elec_area;
-	private int elec_year;
 	private String elec_status;
 
 	// map with village
@@ -49,14 +48,6 @@ public class Electricity implements Serializable {
 
 	public void setElec_area(String elec_area) {
 		this.elec_area = elec_area;
-	}
-
-	public int getElec_year() {
-		return elec_year;
-	}
-
-	public void setElec_year(int elec_year) {
-		this.elec_year = elec_year;
 	}
 
 	public String getElec_status() {

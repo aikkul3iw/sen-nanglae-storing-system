@@ -18,16 +18,14 @@ public class Pipeline implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long pipe_id;
 
-	private int pipe_year;
+	private String pipe_system;
+	private String pipe_description;
 
 	// map with village
 	@ManyToOne(fetch = FetchType.EAGER)
 	// @JsonIgnore
-	
-	private Village location;
 
-	private String pipe_system;
-	private String pipe_use_from;
+	private Village location;
 
 	public long getPipe_id() {
 		return pipe_id;
@@ -45,20 +43,12 @@ public class Pipeline implements Serializable {
 		this.location = location;
 	}
 
-	public String getPipe_use_from() {
-		return pipe_use_from;
+	public String getPipe_description() {
+		return pipe_description;
 	}
 
-	public void setPipe_use_from(String pipe_use_from) {
-		this.pipe_use_from = pipe_use_from;
-	}
-
-	public int getPipe_year() {
-		return pipe_year;
-	}
-
-	public void setPipe_year(int pipe_year) {
-		this.pipe_year = pipe_year;
+	public void setPipe_description(String pipe_description) {
+		this.pipe_description = pipe_description;
 	}
 
 	public String getPipe_system() {

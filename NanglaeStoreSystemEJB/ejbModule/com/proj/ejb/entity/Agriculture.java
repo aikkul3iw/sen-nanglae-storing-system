@@ -3,9 +3,11 @@ package com.proj.ejb.entity;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Agriculture implements Serializable {
@@ -17,7 +19,11 @@ public class Agriculture implements Serializable {
 	private String agi_name;
 	private double agi_area;
 	private String agi_description;
-	private int agi_year;
+
+	// map with village
+	@ManyToOne(fetch = FetchType.EAGER)
+	// @JsonIgnore
+	private Village location;
 
 	public long getAgi_id() {
 		return agi_id;
@@ -51,12 +57,12 @@ public class Agriculture implements Serializable {
 		this.agi_description = agi_description;
 	}
 
-	public int getAgi_year() {
-		return agi_year;
+	public Village getLocation() {
+		return location;
 	}
 
-	public void setAgi_year(int agi_year) {
-		this.agi_year = agi_year;
+	public void setLocation(Village location) {
+		this.location = location;
 	}
 
 }

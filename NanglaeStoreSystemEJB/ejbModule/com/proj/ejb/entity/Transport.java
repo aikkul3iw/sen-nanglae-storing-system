@@ -17,7 +17,6 @@ public class Transport implements Serializable {
 	private String tran_name;
 	private String description;
 	private String type;
-	private int tran_year;
 
 	public long getTran_id() {
 		return tran_id;
@@ -49,14 +48,6 @@ public class Transport implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
-	}
-
-	public int getTran_year() {
-		return tran_year;
-	}
-
-	public void setTran_year(int tran_year) {
-		this.tran_year = tran_year;
 	}
 
 }

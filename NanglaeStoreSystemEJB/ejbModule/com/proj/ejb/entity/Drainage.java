@@ -19,8 +19,7 @@ public class Drainage implements Serializable {
 	private long drain_id;
 
 	private String drain_name;
-	private int drain_year;
-	private String drain_location_connected;
+	private String drain_description;
 
 	// map with village
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -51,20 +50,12 @@ public class Drainage implements Serializable {
 		this.location = location;
 	}
 
-	public String getDrain_location_connected() {
-		return drain_location_connected;
+	public String getDrain_description() {
+		return drain_description;
 	}
 
-	public void setDrain_location_connected(String drain_location_connected) {
-		this.drain_location_connected = drain_location_connected;
-	}
-
-	public int getDrain_year() {
-		return drain_year;
-	}
-
-	public void setDrain_year(int drain_year) {
-		this.drain_year = drain_year;
+	public void setDrain_description(String drain_description) {
+		this.drain_description = drain_description;
 	}
 
 }

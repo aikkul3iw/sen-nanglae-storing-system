@@ -1,13 +1,16 @@
 package com.proj.ejb.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -19,14 +22,16 @@ public class Education implements Serializable {
 
 	private String edu_name;
 	private String edu_type;
-	private int student;
-	private int edu_year;
 
 	// map with village
 	@ManyToOne(fetch = FetchType.EAGER)
 	// @JsonIgnore
-	
+
 	private Village location;
+	
+	@OneToMany(mappedBy = "location", cascade = { CascadeType.ALL })
+	// @JsonIgnore
+	private List<Student> students;
 
 	public long getEdu_id() {
 		return edu_id;
@@ -60,20 +65,4 @@ public class Education implements Serializable {
 		this.location = location;
 	}
 
-	public int getEdu_year() {
-		return edu_year;
-	}
-
-	public void setEdu_year(int edu_year) {
-		this.edu_year = edu_year;
-	}
-
-	public int getStudent() {
-		return student;
-	}
-
-	public void setStudent(int student) {
-		this.student = student;
-	}
-	
 }

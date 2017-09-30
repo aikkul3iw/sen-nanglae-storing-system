@@ -16,15 +16,13 @@ public class Health implements Serializable {
 	private long hlt_id;
 
 	private String hlt_name;
-	private String hlt_type;
-	private String hlt_service_area;
-	private int hlt_year;
-	
+	private String hlt_description;
+
 	// map with village
-		@ManyToOne(fetch = FetchType.EAGER)
-		// @JsonIgnore
-		
-		private Village location;
+	@ManyToOne(fetch = FetchType.EAGER)
+	// @JsonIgnore
+
+	private Village location;
 
 	public long getHlt_id() {
 		return hlt_id;
@@ -42,28 +40,12 @@ public class Health implements Serializable {
 		this.hlt_name = hlt_name;
 	}
 
-	public String getHlt_type() {
-		return hlt_type;
+	public String getHlt_description() {
+		return hlt_description;
 	}
 
-	public void setHlt_type(String hlt_type) {
-		this.hlt_type = hlt_type;
-	}
-
-	public String getHlt_service_area() {
-		return hlt_service_area;
-	}
-
-	public void setHlt_service_area(String hlt_service_area) {
-		this.hlt_service_area = hlt_service_area;
-	}
-
-	public int getHlt_year() {
-		return hlt_year;
-	}
-
-	public void setHlt_year(int hlt_year) {
-		this.hlt_year = hlt_year;
+	public void setHlt_description(String hlt_description) {
+		this.hlt_description = hlt_description;
 	}
 
 	public Village getLocation() {
@@ -73,7 +55,5 @@ public class Health implements Serializable {
 	public void setLocation(Village location) {
 		this.location = location;
 	}
-	
-	
 
 }

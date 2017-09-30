@@ -20,7 +20,6 @@ public class Tourism implements Serializable {
 
 	private String tour_name;
 	private String tour_description;
-	private int tour_year;
 	private double latitute;
 	private double longitute;
 
@@ -28,7 +27,7 @@ public class Tourism implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	// @JsonIgnore
 	private Village location;
-	
+
 	@OneToMany(mappedBy = "tour_owner", cascade = { CascadeType.ALL })
 	// @JsonIgnore
 	private List<Picture> picture;
@@ -55,14 +54,6 @@ public class Tourism implements Serializable {
 
 	public void setTour_description(String tour_description) {
 		this.tour_description = tour_description;
-	}
-
-	public int getTour_year() {
-		return tour_year;
-	}
-
-	public void setTour_year(int tour_year) {
-		this.tour_year = tour_year;
 	}
 
 	public Village getLocation() {

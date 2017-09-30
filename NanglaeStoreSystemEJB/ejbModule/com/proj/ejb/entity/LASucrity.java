@@ -14,8 +14,8 @@ public class LASucrity implements Serializable {
 	private long sec_id;
 
 	private String sec_name;
-	private String sec_member;
-	private int sec_year;
+	private int sec_member;
+	private String sec_unit;
 
 	public long getSec_id() {
 		return sec_id;
@@ -33,20 +33,20 @@ public class LASucrity implements Serializable {
 		this.sec_name = sec_name;
 	}
 
-	public String getSec_member() {
+	public int getSec_member() {
 		return sec_member;
 	}
 
-	public void setSec_member(String sec_member) {
+	public void setSec_member(int sec_member) {
 		this.sec_member = sec_member;
 	}
 
-	public int getSec_year() {
-		return sec_year;
+	public String getSec_unit() {
+		return sec_unit;
 	}
 
-	public void setSec_year(int sec_year) {
-		this.sec_year = sec_year;
+	public void setSec_unit(String sec_unit) {
+		this.sec_unit = sec_unit;
 	}
 
 }

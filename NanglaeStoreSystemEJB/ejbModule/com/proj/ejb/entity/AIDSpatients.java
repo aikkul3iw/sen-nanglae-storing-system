@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class AIDSpatients implements Serializable {
@@ -23,16 +25,20 @@ public class AIDSpatients implements Serializable {
 	private int age;
 	private String address1;
 	private String address2;
-	private String tel1;
-	private String tel2;
-	private String regisDate;
-	private String donateSartDate;
+	private String tel;
+	private Date regisDate;
+	private Date allowanceSartDate;
 	private String offspringTitle;
 	private String offspringFirstname;
 	private String offspringLastname;
 	private String offspringIdCard;
-	private String donateEndDate;
+	private Date allowanceEndDate;
 	private String remark;
+
+	// map with village
+	@ManyToOne(fetch = FetchType.EAGER)
+	// @JsonIgnore
+	private Village location;
 
 	public String getTitle() {
 		return title;
@@ -114,38 +120,6 @@ public class AIDSpatients implements Serializable {
 		this.address2 = address2;
 	}
 
-	public String getTel1() {
-		return tel1;
-	}
-
-	public void setTel1(String tel1) {
-		this.tel1 = tel1;
-	}
-
-	public String getTel2() {
-		return tel2;
-	}
-
-	public void setTel2(String tel2) {
-		this.tel2 = tel2;
-	}
-
-	public String getRegisDate() {
-		return regisDate;
-	}
-
-	public void setRegisDate(String regisDate) {
-		this.regisDate = regisDate;
-	}
-
-	public String getDonateSartDate() {
-		return donateSartDate;
-	}
-
-	public void setDonateSartDate(String donateSartDate) {
-		this.donateSartDate = donateSartDate;
-	}
-
 	public String getOffspringTitle() {
 		return offspringTitle;
 	}
@@ -178,12 +152,28 @@ public class AIDSpatients implements Serializable {
 		this.offspringIdCard = offspringIdCard;
 	}
 
-	public String getDonateEndDate() {
-		return donateEndDate;
+	public Date getRegisDate() {
+		return regisDate;
 	}
 
-	public void setDonateEndDate(String donateEndDate) {
-		this.donateEndDate = donateEndDate;
+	public void setRegisDate(Date regisDate) {
+		this.regisDate = regisDate;
+	}
+
+	public Date getAllowanceSartDate() {
+		return allowanceSartDate;
+	}
+
+	public void setAllowanceSartDate(Date allowanceSartDate) {
+		this.allowanceSartDate = allowanceSartDate;
+	}
+
+	public Date getAllowanceEndDate() {
+		return allowanceEndDate;
+	}
+
+	public void setAllowanceEndDate(Date allowanceEndDate) {
+		this.allowanceEndDate = allowanceEndDate;
 	}
 
 	public String getRemark() {
@@ -192,6 +182,22 @@ public class AIDSpatients implements Serializable {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public Village getLocation() {
+		return location;
+	}
+
+	public void setLocation(Village location) {
+		this.location = location;
 	}
 
 }

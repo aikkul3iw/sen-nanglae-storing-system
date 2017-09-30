@@ -21,7 +21,6 @@ public class Industry implements Serializable {
 	private String ins_size;
 	private String ins_type;
 	private int ins_labor;
-	private int ins_year;
 
 	// map with village
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -75,14 +74,6 @@ public class Industry implements Serializable {
 
 	public void setLocation(Village location) {
 		this.location = location;
-	}
-
-	public int getIns_year() {
-		return ins_year;
-	}
-
-	public void setIns_year(int ins_year) {
-		this.ins_year = ins_year;
 	}
 
 }
