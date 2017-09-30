@@ -1,11 +1,14 @@
 package com.proj.ejb.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Personnel implements Serializable {
@@ -24,6 +27,10 @@ public class Personnel implements Serializable {
 	private String per_email;
 	private String per_picture;
 	private int per_year;
+	
+	@OneToMany(mappedBy = "location", cascade = { CascadeType.ALL })
+	// @JsonIgnore
+	private List<User> user;
 
 	public long getPer_id() {
 		return per_id;

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.proj.ejb.entity.User;
+import com.proj.ejb.face.PersonnelService;
 import com.proj.ejb.face.UserService;
 
 
@@ -24,6 +25,9 @@ import com.proj.ejb.face.UserService;
 	public class UserController {
 		@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//UserServiceBean!com.proj.ejb.face.UserService")
 		UserService userServ;
+		
+		@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//PersonnelServiceBean!com.proj.ejb.face.PersonnelService")
+		PersonnelService perServ;
 		
 		@RequestMapping(value="/index",method=RequestMethod.GET)
 		public ModelAndView displayIndex(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
@@ -193,22 +197,27 @@ import com.proj.ejb.face.UserService;
 		}
 
 		@RequestMapping("/saveUser")
-		public @ResponseBody String saveAgriculture(@RequestBody User user) {
+		public @ResponseBody String saveAgriculture(@RequestBody User user, HttpServletRequest request) {
+			String use = request.getParameter("id");
+			
 			try {
 				if (user.getUser_id() == 0) {
+					user.setLocation(perServ.findPersonnelById(Long.parseLong(use)));
 					userServ.save(user);
+
 				} else {
+					user.setLocation(perServ.findPersonnelById(Long.parseLong(use)));
 					userServ.update(user);
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return "-1";
 			}
-			// 1 = sucess
-			// -1 = failure
 			return "1";
 		}
+			
+			// 1 = sucess
+			// -1 = failure
 
 		@RequestMapping("/deleteUser")
 		public @ResponseBody String deleteUser(@RequestBody User user) {

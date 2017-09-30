@@ -62,6 +62,9 @@
 									+ "<td>"
 									+ data[i].password
 									+ "</td>"
+									+ "<td>"
+									+ data[i].role
+									+ "</td>"
 									+ "<td style=\"text-align: center;\"><button href=\"#editUser\" data-toggle=\"tab\" onclick=\"setEditUser("
 									+ data[i].user_id
 									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteUser("
@@ -78,6 +81,8 @@
 						alert('error');
 						$("#loader").hide();
 					}
+					
+					
 				});
 	}
 </script>
@@ -90,14 +95,20 @@
 		} else if ($('#password').val() == "") {
 			document.getElementById('password').style.borderColor = "red";
 			return false;
+			
+		} else if ($('#role').val() == "") {
+			document.getElementById('role').style.borderColor = "red";
+			return false;
+			
 		} else {
 			var obj = {
 				user_id : 0,
 				username : $('#username').val(),
-				password : $('#password').val()
+				password : $('#password').val(),
+				role : $('#role').val()
 			};
 			$.ajax({
-				url : "../NanglaeGov/saveUser.do",
+				url : "../NanglaeGov/saveUser.do?id=" + $("#fullnameSelect").val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -116,9 +127,32 @@
 					$("#loader").hide();
 				}
 			});
+			
+			
 		}
 
 	}
+	function listPersonnelFullname() {
+		$("#loader").show();
+		$.ajax({
+			url : "../NanglaeGov/listPersonnel.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<option value=\""+data[i].per_id+"\">"
+					+ data[i].per_firstname +"  "+ data[i].per_lastname +"</option>";
+				}
+				$('#fullnameSelect').html(html);
+
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+	
 	function deleteUser(user_id) {
 		swal({
 			title : 'คุณต้องการลบข้อมูลหรือไม่?',
@@ -154,11 +188,12 @@
 		var obj = {
 			user_id : $("#editUserId").val(),
 			username : $('#editUsername').val(),
-			password : $('#editPassword').val()
+			password : $('#editPassword').val(),
+			role : $('#editRole').val()
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/saveUser.do",
+			url : "../NanglaeGov/saveUser.do?id=" + $("#editPerName").val(),
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -195,16 +230,40 @@
 				$("#editUserId").val(data.user_id);
 				$("#editUsername").val(data.username);
 				$("#editPassword").val(data.password);
+				$('#editPerName').val(data.location.per_title+data.location.per_firstname+' '+data.location.per_lastname);
+				
 			},
 			error : function(data, status, er) {
 				alert('error');
 			}
 		});
 	}
+	
+	function editPerName() {
+		$("#loader").show();
+		$.ajax({
+			url : "../NanglaeGov/listPersonnel.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<option value=\""+data[i].per_id+"\">"
+					+ data[i].per_firstname +"  "+ data[i].per_lastname +"</option>";
+				}
+				$('#editPerName').html(html);
+
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+	
 </script>
 </head>
 
-<body onload="listUser()">
+<body onload="listUser();editPerName();listPersonnelFullname()">
 
 	<div id="wrapper">
 
@@ -277,6 +336,7 @@
 													<tr>
 														<th>Username</th>
 														<th>Password</th>
+														<th>Status</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
 												</thead>
@@ -291,11 +351,24 @@
 											<table width="50%" align="center">
 												
 												<tr>
+													<td align="pull-right" style="padding: 15px">ชื่อผู้ใช้งาน</td>
+													<td><select id="fullnameSelect" class="form-control"
+														name="fullname">
+													</select></td>
+												</tr>
+												<tr>
+													<td align="pull-right" style="padding: 15px">สถนาะ</td>
+													<td><select id="role" class="form-control"
+														name="roleSelect">
+														<option value="superuser">superuser</option>
+  														<option value="user">user</option>
+													</select></td>
+												</tr>
+												<tr>
 													<td align="pull-right" style="padding: 15px">Username</td>
 													<td><input id="username" maxlength="100"
 														class="form-control" placeholder="Username"
 														name="User_name" required="true"></td>
-
 												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">Password</td>
@@ -319,7 +392,21 @@
 										<form role="form">
 											<input type="hidden" id="editUserId">
 											<table width="50%" align="center">
-												
+												<tr>
+													<td align="pull-right" style="padding: 15px">ชื่อผู้ใช้งาน</td>
+													<td><input id="editPerName"
+														class="form-control"
+														name="name" required="true" readonly="readonly">
+													</td>
+												</tr>
+												<tr>
+													<td align="pull-right" style="padding: 15px">สถนาะ</td>
+													<td><select id="editRole" class="form-control"
+														name="roleSelect">
+														<option value="superuser">superuser</option>
+  														<option value="user">user</option>
+													</select></td>
+												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">Username</td>
 													<td><input id="editUsername" maxlength="100"
