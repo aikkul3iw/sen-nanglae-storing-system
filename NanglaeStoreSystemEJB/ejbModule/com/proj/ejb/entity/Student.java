@@ -23,7 +23,7 @@ public class Student implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	// @JsonIgnore
 
-	private Education edu;
+	private Education location;
 
 	public long getStudentId() {
 		return studentId;
@@ -57,12 +57,13 @@ public class Student implements Serializable {
 		this.stu_female = stu_female;
 	}
 
-	public Education getEdu() {
-		return edu;
+	public Education getLocation() {
+		return location;
 	}
 
-	public void setEdu(Education edu) {
-		this.edu = edu;
+	public void setLocation(Education location) {
+		this.location = location;
 	}
+
 
 }

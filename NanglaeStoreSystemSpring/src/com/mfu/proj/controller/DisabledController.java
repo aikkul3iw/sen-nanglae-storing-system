@@ -137,7 +137,7 @@ public class DisabledController {
 		}
 	}
 
-	@RequestMapping(value = "/userCopy", method = RequestMethod.GET)
+	@RequestMapping(value = "/userCopyDisabled", method = RequestMethod.GET)
 	public ModelAndView displayuserCopy(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		String getsession = "" + session.getAttribute("session");
 		System.out.println("getdatasession " + getsession);
@@ -157,7 +157,7 @@ public class DisabledController {
 		}
 	}
 
-	@RequestMapping(value = "/superCopy", method = RequestMethod.GET)
+	@RequestMapping(value = "/superCopyDisabled", method = RequestMethod.GET)
 	public ModelAndView displaysuperCopy(HttpServletRequest request, HttpServletResponse response,
 			HttpSession session) {
 		String getsession = "" + session.getAttribute("session");
