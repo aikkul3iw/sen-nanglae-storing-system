@@ -197,7 +197,7 @@ import com.proj.ejb.face.UserService;
 		}
 
 		@RequestMapping("/saveUser")
-		public @ResponseBody String saveAgriculture(@RequestBody User user, HttpServletRequest request) {
+		public @ResponseBody String saveUser(@RequestBody User user, HttpServletRequest request) {
 			String use = request.getParameter("id");
 			
 			try {

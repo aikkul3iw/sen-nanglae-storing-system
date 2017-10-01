@@ -141,7 +141,7 @@
 				var html = '';
 				for (var i = 0; i < data.length; i++) {
 					html += "<option value=\""+data[i].per_id+"\">"
-					+ data[i].per_firstname +"  "+ data[i].per_lastname +"</option>";
+					+ data[i].per_title + data[i].per_firstname +"  "+ data[i].per_lastname +"</option>";
 				}
 				$('#fullnameSelect').html(html);
 
@@ -230,7 +230,9 @@
 				$("#editUserId").val(data.user_id);
 				$("#editUsername").val(data.username);
 				$("#editPassword").val(data.password);
-				$('#editPerName').val(data.location.per_title+data.location.per_firstname+' '+data.location.per_lastname);
+				$("#editRole").val(data.role);
+				$('#editPerName').val(data.location.per_id);
+				$('#showPerName').val(data.location.per_title+data.location.per_firstname+' '+data.location.per_lastname);
 				
 			},
 			error : function(data, status, er) {
@@ -239,31 +241,11 @@
 		});
 	}
 	
-	function editPerName() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listPersonnel.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].per_id+"\">"
-					+ data[i].per_firstname +"  "+ data[i].per_lastname +"</option>";
-				}
-				$('#editPerName').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
-	}
 	
 </script>
 </head>
 
-<body onload="listUser();editPerName();listPersonnelFullname()">
+<body onload="listUser();listPersonnelFullname()">
 
 	<div id="wrapper">
 
@@ -391,10 +373,11 @@
 									<div class="tab-pane fade" id="editUser">
 										<form role="form">
 											<input type="hidden" id="editUserId">
+											<input type="hidden" id="editPerName">
 											<table width="50%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ชื่อผู้ใช้งาน</td>
-													<td><input id="editPerName"
+													<td><input id="showPerName"
 														class="form-control"
 														name="name" required="true" readonly="readonly">
 													</td>
