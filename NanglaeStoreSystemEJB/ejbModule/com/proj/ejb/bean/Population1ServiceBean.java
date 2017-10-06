@@ -50,4 +50,40 @@ public class Population1ServiceBean implements Population1Service {
 		return list;
 	}
 
+	@Override
+	public List<Population1> searchPopulation1(String year, String vil) {
+		System.out.print("Start Searching ...>>");
+		System.out.println(vil + " bean");
+		
+		String select = "";
+		String from = "";
+		String where = "";
+		
+		select = "SELECT pop,vil";
+		from = " FROM Population1 pop";
+		
+		if(year != "" || vil != "") {
+			where += " WHERE";
+		}
+		
+		if(year != "") {
+			where += " pop.pop_year LIKE '%"+year+"%'";
+			if(vil != "") {
+				where = " AND";
+			}
+		}
+		
+		if(vil != "") {
+			where += " pop.location.vil_name LIKE '%"+vil+"%'";
+		}
+		
+		System.out.println(select+from+where);
+		System.out.println("เทสๆๆ");
+		
+		List<Population1> list = em.createQuery(select+from+where+" ORDER BY pop.pop_year DESC, pop.location.vil_number").getResultList();
+		
+		System.out.println("Search Success");
+		return list;
+	}
+
 }

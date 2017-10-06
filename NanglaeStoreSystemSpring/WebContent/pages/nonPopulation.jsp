@@ -126,9 +126,9 @@ var year = new Date().getFullYear()+543;
 						html2 += "<tr>";
 								
 						$('#listPopulation11').html(html);
-						$("#resultTable").DataTable({});
+						//$("#resultTable").DataTable({});
 						$('#resultlistPopulation11').html(html2);
-						$("#resultTable1").DataTable({});
+						//$("#resultTable1").DataTable({});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -623,7 +623,7 @@ var year = new Date().getFullYear()+543;
 					}
 				});
 	}
-	function editVillageSelect() {
+	function listVillage() {
 		$("#loader").show();
 		$.ajax({
 			url : "../NanglaeGov/listVillage.do",
@@ -634,7 +634,7 @@ var year = new Date().getFullYear()+543;
 					html += "<option value=\""+data[i].vil_id+"\">"
 							+ data[i].vil_name + "</option>";
 				}
-				$('#editVillageSelect').html(html);
+				$('#villageSelect').html(html);
 
 			},
 			error : function(data, status, er) {
@@ -644,10 +644,122 @@ var year = new Date().getFullYear()+543;
 		});
 	}
 </script>
+<script type="text/javascript">
+function searchAllPop() {
+	var year = document.getElementById("s_pop_year").value;
+	var vil = document.getElementById("s_pop_vil").value;
+	alert(year + " " + vil + " ajax");
+	$("#loader").show();
+	$
+			.ajax({
+				url : "../NanglaeGov/searchAllPop2.do?year="+year+"&vil="+vil,
+				type : "POST",
+				success : function(data) {
+					var html = '';
+					var html2 = '';
+					var totalAllPopMale = 0;
+					var totalAllPopFemale = 0;
+					var totalAllPop = 0;
+					var totalAllPopHouse = 0;
+					for (var i = 0; i < data.length; i++) {
+						if(data[i].pop_year == year){
+						var allMale = 0;
+						var allFemale = 0;
+						var allPop = 0;
+						allMale = data[i].pop_thai_nation_m
+								+ data[i].pop_chinese_nation_m
+								+ data[i].pop_other_nation_m;
+						allFemale = data[i].pop_thai_nation_f
+								+ data[i].pop_chinese_nation_f
+								+ data[i].pop_other_nation_f;
+						allPop = allMale + allFemale;
+						totalAllPopMale += data[i].pop_thai_nation_m
+								+ data[i].pop_chinese_nation_m
+								+ data[i].pop_other_nation_m;
+						totalAllPopFemale += data[i].pop_thai_nation_f
+								+ data[i].pop_chinese_nation_f
+								+ data[i].pop_other_nation_f;
+						totalAllPop += allPop;
+						totalAllPopHouse += data[i].pop_house_amount;
+						html += "<tr>";
+						html += "<td>"
+								+ data[i].pop_year
+								+ "</td>"
+								+ "<td>"
+								+ data[i].location.vil_number
+								+ "</td>"
+								+ "<td>"
+								+ data[i].location.vil_name
+								+ "</td>"
+								+ "<td>"
+								+ allMale
+								+ "</td>"
+								+ "<td>"
+								+ allFemale
+								+ "</td>"
+								+ "<td>"
+								+ allPop
+								+ "</td>"
+								+ "<td>"
+								+ "<center>"
+								+ data[i].pop_house_amount
+								+ "</center>"
+								+ "</td>"
+
+						html += "</tr>";
+						}
+					}
+					html2 += "<tr><td>รวม</td>";
+					html2 += "<td>" + numberWithCommas(totalAllPopMale)
+							+ "</td>";
+					html2 += "<td>" + numberWithCommas(totalAllPopFemale)
+							+ "</td>";
+					html2 += "<td>" + numberWithCommas(totalAllPop)
+							+ "</td>";
+					html2 += "<td>"
+							+ numberWithCommas(totalAllPopHouse)
+							+ "</td>";
+					html2 += "<tr>";
+							
+					$('#listPopulation11').html(html);
+					//$("#resultTable").DataTable({});
+					$('#resultlistPopulation11').html(html2);
+					//$("#resultTable1").DataTable({});
+					$("#loader").hide();
+				},
+				error : function(data, status, er) {
+					alert('error');
+					$("#loader").hide();
+				}
+			});
+}
+function listVillage() {
+	$("#loader").show();
+	$.ajax({
+		url : "../NanglaeGov/listVillage.do",
+		type : "POST",
+		success : function(data) {
+			var html = '';
+			html += "<option value=''>โปรดเลือก</option>";
+			for (var i = 0; i < data.length; i++) {
+				html += "<option value=\""+data[i].vil_id+"\">"
+						+ data[i].vil_name + "</option>";
+			}
+			$('#s_pop_vil').html(html);
+
+		},
+		error : function(data, status, er) {
+			alert('error');
+			$("#loader").hide();
+		}
+	});
+}
+</script>
+
 </head>
 
 <body
-	onload="listVillage();listPopulation1();listPopulationByNation();listPopulationByElection();editVillageSelect();">
+	onload="listVillage();listPopulation1();listPopulationByNation();listPopulationByElection();editVillageSelect();listVillage()">
 
 	<div id="wrapper">
 
@@ -705,6 +817,27 @@ var year = new Date().getFullYear()+543;
 								<!-- Tab panes -->
 								<div class="tab-content">
 									<div class="tab-pane fade in active" id="listAllPop">
+									<p>การค้นหา</p><hr>
+									<form role="form">
+									<table style="width: 100%">
+										<tr>
+											<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
+											<td><input id="s_pop_year" maxlength="4" class="form-control" data-mask="0000" placeholder="" value=""
+														name=s_pop_year></td>
+											<td align="pull-right" style="padding: 15px">หมู่บ้าน</td>
+											<td><td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
+											<td><input id="s_pop_vil" class="form-control" placeholder="" value="" name=s_pop_vil></td>
+										</tr>
+										<tr>
+											<td align="right" style="padding: 15px" colspan="4">
+											<input style="width: 100px" type="button" class="btn btn-primary" value="ค้นหา" onclick="searchAllPop()" />
+											<button style="width: 100px" type="reset" class="btn btn-warning">ล้างข้อมูล</button> 
+											<button style="width: 100px" class="btn btn-success">เพิ่มข้อมูล</button> 
+											</td>
+										</tr>
+									</table>
+									</form>
+									<p>การแสดงข้อมูล</p><hr>
 										<div class="table-responsive">
 											<table id="resultTable"
 												class="table table-striped table-bordered table-hover">
@@ -885,123 +1018,6 @@ var year = new Date().getFullYear()+543;
 												<tbody id="resultlistPopulation13">
 												</tbody>
 <!-- End change result table3 -->
-											</table>
-										</div>
-									</div>
-									<div class="tab-pane fade" id="listAgePop">
-										พ.ศ. <select>
-											<option value="2558">2558</option>
-											<option value="2559">2559</option>
-										</select> <br>
-										<br>
-										<div class="table-responsive">
-											<table class="table table-striped table-bordered table-hover">
-												<thead>
-													<tr>
-														<th><center>
-																ช่วงอายุ</b>
-															</center></th>
-														<th><center>
-																ชาย</b>
-															</center></th>
-														<th><center>
-																หญิง</b>
-															</center></th>
-														<th><center>
-																รวม</b>
-															</center></th>
-														<th><center>
-																ช่วงอายุ</b>
-															</center></th>
-														<th><center>
-																ชาย</b>
-															</center></th>
-														<th><center>
-																หญิง</b>
-															</center></th>
-														<th><center>
-																รวม</b>
-															</center></th>
-													</tr>
-
-												</thead>
-												<tbody>
-													<tr>
-														<td><center>
-																<b>น้อยกว่า 1 ปี</b>
-															</center></td>
-														<td><center>40</center></td>
-														<td><center>45</center></td>
-														<td><center>85</center></td>
-														<td><center>
-																<b>1 ปี</b>
-															</center></td>
-														<td><center>50</center></td>
-														<td><center>51</center></td>
-														<td><center>101</center></td>
-
-													</tr>
-													<tr>
-														<td><center>
-																<b>น้อยกว่า 2 ปี</b>
-															</center></td>
-														<td><center>59</center></td>
-														<td><center>47</center></td>
-														<td><center>106</center></td>
-														<td><center>
-																<b>3 ปี</b>
-															</center></td>
-														<td><center>57</center></td>
-														<td><center>41</center></td>
-														<td><center>98</center></td>
-
-
-													</tr>
-													<tr>
-														<td><center>
-																<b>น้อยกว่า 4 ปี</b>
-															</center></td>
-														<td><center>52</center></td>
-														<td><center>46</center></td>
-														<td><center>97</center></td>
-														<td><center>
-																<b>5 ปี</b>
-															</center></td>
-														<td><center>57</center></td>
-														<td><center>38</center></td>
-														<td><center>95</center></td>
-													</tr>
-													<tr>
-														<td><center>
-																<b>น้อยกว่า 6 ปี</b>
-															</center></td>
-														<td><center>53</center></td>
-														<td><center>46</center></td>
-														<td><center>85</center></td>
-														<td><center>
-																<b>7 ปี</b>
-															</center></td>
-														<td><center>42</center></td>
-														<td><center>48</center></td>
-														<td><center>90</center></td>
-													</tr>
-
-													<tr>
-														<td><center>
-																<b>น้อยกว่า 8 ปี</b>
-															</center></td>
-														<td><center>46</center></td>
-														<td><center>40</center></td>
-														<td><center>86</center></td>
-														<td><center>
-																<b>9 ปี</b>
-															</center></td>
-														<td><center>52</center></td>
-														<td><center>47</center></td>
-														<td><center>99</center></td>
-
-													</tr>
-												</tbody>
 											</table>
 										</div>
 									</div>

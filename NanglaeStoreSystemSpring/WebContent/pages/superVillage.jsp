@@ -350,11 +350,6 @@ function getCurrentYear(){
 										<form role="form" name="vilForm" id="formCreate">
 											<table width="50%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input class="form-control" placeholder=""
-														value="2558" maxlength="4" id="vil_year" name="vil-year"></td>
-												</tr>
-												<tr>
 
 													<td align="pull-right" style="padding: 15px">หมู่ที่</td>
 													<td><input class="form-control"
