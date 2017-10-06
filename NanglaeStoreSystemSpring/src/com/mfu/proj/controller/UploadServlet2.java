@@ -90,12 +90,12 @@ public class UploadServlet2 extends HttpServlet {
 				
 				System.out.println(afterpart);
 				
-				Tourism tour = tourServ.findTourismById(2);
+				Tourism tour = tourServ.findTourismById(Long.parseLong(id));
 				
 				Picture pic = new Picture();
 				pic.setPic_name(afterpart);
 				pic.setTour_owner(tour);
-				//picServ.save(pic);
+				picServ.save(pic);
 				
 
 			} catch (Exception e) {
@@ -104,7 +104,9 @@ public class UploadServlet2 extends HttpServlet {
 
 		}
 		
-		doGet(request, response);
+		//doGet(request, response);
+		
+		getServletContext().getRequestDispatcher("/superTourism.do").forward(request, response);
 	}
 	
 	private static String getFileName(Part part) {

@@ -70,9 +70,6 @@
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].tour_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].tour_name
 									+ "</td>"
 									+ "<td>"
@@ -141,10 +138,7 @@
 <script type='text/javascript'>
 	function createTourism() {
 		$("#loader").show();
-		if ($('#tour_year').val() == "") {
-			document.getElementById('tour_year').style.borderColor = "red";
-			return false;
-		} else if ($('#tour_name').val() == "") {
+		if ($('#tour_name').val() == "") {
 			document.getElementById('tour_name').style.borderColor = "red";
 			return false;
 		} else if ($('#tour_description').val() == "") {
@@ -153,7 +147,6 @@
 		} else {
 			var obj = {
 				tour_id : 0,
-				tour_year : $('#tour_year').val(),
 				tour_name : $('#tour_name').val(),
 				tour_description : $('#tour_description').val(),
 				latitute : $('#latitute').val(),
@@ -275,6 +268,7 @@
 			success : function(data) {
 				//alert(JSON.stringify(data));
 				$("#editTourId").val(data.tour_id);
+				$("#editTourIdPicture").val(data.tour_id);
 				$("#editTourYear").val(data.tour_year);
 				$("#editTourName").val(data.tour_name);
 				$("#editTourDescription").val(data.tour_description);
@@ -378,7 +372,6 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่บันทึกข้อมูล</th>
 														<th>แหล่งท่องเที่ยว</th>
 														<th>รายละเอียด</th>
 														<th>ที่ตั้ง</th>
@@ -503,7 +496,7 @@
 										<br>
 										<form method="POST" action="../NanglaeGov/UploadServlet2" enctype="multipart/form-data">
 											File to upload: <input type="file" name="file">
-		 									<input type="hidden" id="editTourId" value="" name="tourId">
+		 									<input type="hidden" id="editTourIdPicture" value="" name="tourId">
  											<input type="submit" value="Upload"> Press here to upload the file!
 										</form>	
     <script>
