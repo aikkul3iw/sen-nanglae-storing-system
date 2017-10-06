@@ -10,5 +10,6 @@ public interface Population1Service {
 	public void delete(long pop_id);
 	public Population1 findPopulation1ById(long pop_id);
 	public List<Population1> listAllPopulation1();
+	public List<Population1> searchPopulation1(String year, String vil);
 
 }

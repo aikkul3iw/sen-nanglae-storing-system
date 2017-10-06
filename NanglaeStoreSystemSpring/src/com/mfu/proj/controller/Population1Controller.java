@@ -1,5 +1,8 @@
 package com.mfu.proj.controller;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -33,6 +36,84 @@ public class Population1Controller {
 		List<Population1> pop1List = null;
 		try {
 			pop1List = pop1Serv.listAllPopulation1();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return pop1List;
+	}
+	
+	@RequestMapping("/searchAllPop2")
+	public @ResponseBody List<Population1> searchAllPop2(HttpServletRequest request) {
+		String year = request.getParameter("year");
+		String vil = request.getParameter("vil");
+		
+		
+		System.out.println(vil+" ctrl");
+		
+		List<Population1> pop1List = null;
+		try {
+			String vil2 = new String(vil.getBytes("UTF-8"),"UTF-8");
+			System.out.println(vil2+" ตัวใหม่");
+			pop1List = pop1Serv.searchPopulation1(year, vil);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return pop1List;
+	}
+	
+	@RequestMapping("/searchAllPop")
+	public @ResponseBody List<Population1> searchAllPop(HttpServletRequest request) {
+		String year = request.getParameter("year");
+		String vil = request.getParameter("vil");
+		
+		String driverName = "com.mysql.jdbc.Driver";
+
+		String url = "jdbc:mysql://localhost:3306/";
+		String db = "nanglaedb";
+		String user = "root";
+		String password = "1234";
+
+		Connection connect = null;
+		
+		List<Population1> pop1List = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			connect = DriverManager.getConnection(url + db, user, password);
+			if (connect != null) {
+				System.out.println("Database Connected.");
+				Statement st = connect.createStatement();
+				
+				System.out.print("Start Searching ...>>");
+				
+				String select = "";
+				String from = "";
+				String where = "";
+				
+				select = "SELECT pop";
+				from = " FROM POPULATION1 pop";
+				
+				if(year != "" || vil != "") {
+					where += " WHERE";
+				}
+				
+				if(year != "") {
+					where += " pop.pop_year LIKE '%"+year+"%'";
+					if(vil != "") {
+						where = " AND";
+					}
+				}
+				
+				if(vil != "") {
+					where += " pop.location.vil_number LIKE '%"+vil+"%'";
+				}
+				
+				st.execute(select+from+where);
+				
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
