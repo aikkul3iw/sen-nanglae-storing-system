@@ -17,6 +17,7 @@ public class Population1ServiceBean implements Population1Service {
 	@PersistenceContext(unitName = "EJBDatebase")
 	EntityManager em;
 
+	
 	@Override
 	public void save(Population1 pop) {
 		this.em.persist(pop);
