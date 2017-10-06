@@ -47,7 +47,7 @@ public class VillageServiceBean implements VillageService {
 	@Override
 	public List<Village> listAllVillage() {
 		// TODO Auto-generated method stub
-		List<Village> list = em.createQuery("SELECT vil FROM Village vil ORDER BY vil.vil_year DESC, vil.vil_number").getResultList();
+		List<Village> list = em.createQuery("SELECT vil FROM Village vil ORDER BY vil.vil_number").getResultList();
 		return list;
 	}
 
