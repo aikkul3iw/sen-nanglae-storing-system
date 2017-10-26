@@ -32,7 +32,7 @@ public class Village implements Serializable {
 	private List<AIDSpatients> AIDSpatients;
 
 	@OneToMany(mappedBy = "location", cascade = { CascadeType.ALL })
-	// @JsonIgnore
+	@JsonIgnore
 	private List<Disabled> disableds;
 
 	@OneToMany(mappedBy = "location", cascade = { CascadeType.ALL })

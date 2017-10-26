@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 public class Disabled implements Serializable {
 	@Id
@@ -18,7 +20,7 @@ public class Disabled implements Serializable {
 
 	private String title;
 	private String firstName;
-	private String lastNane;
+	private String lastName;
 	private String gender;
 	private int idCard;
 	private Date birthday;
@@ -39,7 +41,7 @@ public class Disabled implements Serializable {
 
 	// map with village
 	@ManyToOne(fetch = FetchType.EAGER)
-	// @JsonIgnore
+	@JsonIgnore
 	private Village location;
 
 	public long getDisabledId() {
@@ -98,12 +100,12 @@ public class Disabled implements Serializable {
 		this.firstName = firstName;
 	}
 
-	public String getLastNane() {
-		return lastNane;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLastNane(String lastNane) {
-		this.lastNane = lastNane;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public Date getBirthday() {
