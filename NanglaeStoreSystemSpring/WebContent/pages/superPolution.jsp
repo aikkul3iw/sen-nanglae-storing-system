@@ -69,9 +69,6 @@ function getCurrentYear(){
 
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].pol_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].pol_name
 									+ "</td>"
 									+ "<td>"
@@ -114,10 +111,7 @@ function getCurrentYear(){
 <script type='text/javascript'>
 	function createPolution() {
 		$("#loader").show();
-		if ($('#pol_year').val() == "") {
-			document.getElementById('pol_year').style.borderColor = "red";
-			return false;
-		} else if ($('#pol_name').val() == "") {
+		if ($('#pol_name').val() == "") {
 			document.getElementById('pol_name').style.borderColor = "red";
 			return false;
 		} else if ($('#pol_effect').val() == "") {
@@ -129,7 +123,6 @@ function getCurrentYear(){
 		} else {
 			var obj = {
 				pol_id : 0,
-				pol_year : $('#pol_year').val(),
 				pol_name : $('#pol_name').val(),
 				pol_effect : $('#pol_effect').val(),
 				pol_area : $('#pol_area').val()
@@ -191,7 +184,6 @@ function getCurrentYear(){
 	function editPolution() {
 		var obj = {
 			pol_id : $('#editPolId').val(),
-			pol_year : $('#editPolYear').val(),
 			pol_name : $('#editPolName').val(),
 			pol_effect : $('#editPolEffect').val(),
 			pol_area : $('#editPolArea').val()
@@ -234,7 +226,6 @@ function getCurrentYear(){
 			success : function(data) {
 				//alert(JSON.stringify(data));
 				$("#editPolId").val(data.pol_id);
-				$("#editPolYear").val(data.pol_year);
 				$("#editPolName").val(data.pol_name);
 				$("#editPolEffect").val(data.pol_effect);
 				$("#editPolArea").val(data.pol_area);
@@ -320,7 +311,6 @@ function getCurrentYear(){
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่ข้อมูล</th>
 														<th>มลพิษ</th>
 														<th>ผลกระทบ</th>
 														<th>พิ้นที่ได้รับผลกระทบ</th>
@@ -336,12 +326,6 @@ function getCurrentYear(){
 								<div class="tab-pane fade" id="addPolution">
 									<form role="form">
 										<table width="70%" align="center">
-											<tr>
-												<td style="padding: 15px">ปีข้อมูล</td>
-												<td><input id="pol_year" maxlength="4"
-													class="form-control" placeholder="" value="2558"
-													name="vil-year"></td>
-											</tr>
 											<tr>
 
 												<td style="padding: 15px">มลพิษ</td>
@@ -379,12 +363,6 @@ function getCurrentYear(){
 									<form role="form">
 										<input type="hidden" id="editPolId">
 										<table width="65%" align="center">
-											<tr>
-												<td style="padding: 15px">ปีข้อมูล</td>
-												<td><input id="editPolYear" maxlength="4"
-													class="form-control" placeholder="" value="2558"
-													name="vil-year"></td>
-											</tr>
 											<tr>
 
 												<td style="padding: 15px">มลพิษ</td>
