@@ -50,7 +50,7 @@
 		$("#loader").show();
 		$
 				.ajax({
-					url : "../NanglaeGov/listAgriculture.do",
+					url : "../NanglaeGov/listDisabled.do",
 					type : "POST",
 					success : function(data) {
 						var html = '';
