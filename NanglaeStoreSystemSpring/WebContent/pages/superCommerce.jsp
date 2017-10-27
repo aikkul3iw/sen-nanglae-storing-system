@@ -61,9 +61,6 @@ function getCurrentYear(){
 				for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].com_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].com_name
 									+ "</td>"
 									+ "<td>"
@@ -112,7 +109,6 @@ function getCurrentYear(){
 		$("#loader").show();
 		var obj = {
 			com_id : 0,
-			com_year : $('#com_year').val(),
 			com_name : $('#com_name').val(),
 			com_type : $('#com_type').val(),
 			com_house_number : $('#com_house_number').val(),
@@ -193,7 +189,6 @@ function getCurrentYear(){
 	function editCommerce() {
 		var obj = {
 			com_id : $("#editComId").val(),
-			com_year : $('#editComYear').val(),
 			com_name : $('#editComName').val(),
 			com_type : $('#editComType').val(),
 			com_house_number : $('#editComHouseNumber').val(),
@@ -237,7 +232,6 @@ function getCurrentYear(){
 			success : function(data) {
 				//alert(JSON.stringify(data));
 				$("#editComId").val(data.com_id);
-				$("#editComYear").val(data.com_year);
 				$("#editComName").val(data.com_name);
 				$("#editComType").val(data.com_type);
 				$("#editComHouseNumber").val(data.com_house_number);
@@ -345,7 +339,6 @@ function getCurrentYear(){
 												<!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่ข้อมูล</th>
 														<th>ชื่อ</th>
 														<th>ประเภท</th>
 														<th>ที่ตั้ง</th>
@@ -362,12 +355,6 @@ function getCurrentYear(){
 									<div class="tab-pane fade" id="addCommerce">
 										<form role="form">
 											<table width="50%" align="center">
-												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="com_year" maxlength="4"
-														class="form-control" placeholder="" value="2558"
-														name="vil-year"></td>
-												</tr>
 												<tr>
 
 													<td align="pull-right" style="padding: 15px">ชื่อ</td>
@@ -427,12 +414,6 @@ function getCurrentYear(){
 										<form role="form">
 											<input type="hidden" id="editComId">
 											<table width="50%" align="center">
-												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="editComYear" maxlength="4"
-														class="form-control" placeholder="" value="2558"
-														name="vil-year"></td>
-												</tr>
 												<tr>
 
 													<td align="pull-right" style="padding: 15px">ชื่อ</td>
