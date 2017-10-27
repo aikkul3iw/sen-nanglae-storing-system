@@ -47,7 +47,7 @@ public class CommerceServiceBean implements CommerceService {
 	@Override
 	public List<Commerce> listAllCommerce() {
 		// TODO Auto-generated method stub
-		List<Commerce> list = em.createQuery("SELECT cm FROM Commerce cm ORDER BY cm.com_year DESC").getResultList();
+		List<Commerce> list = em.createQuery("SELECT cm FROM Commerce cm").getResultList();
 		return list;
 	}
 

@@ -46,7 +46,7 @@ public class IndustryServiceBean implements IndustryService {
 
 	@Override
 	public List<Industry> listAllIndustry() {
-		List<Industry> list = em.createQuery("SELECT i FROM Industry i ORDER BY i.ins_year DESC").getResultList();
+		List<Industry> list = em.createQuery("SELECT i FROM Industry i").getResultList();
 		return list;
 	}
 

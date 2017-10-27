@@ -47,7 +47,7 @@ public class LandResourceServiceBean implements LandResourceService {
 	@Override
 	public List<LandResource> listAllLandResource() {
 		// TODO Auto-generated method stub
-		List<LandResource> list = em.createQuery("SELECT land FROM LandResource land ORDER BY land.land_year DESC").getResultList();
+		List<LandResource> list = em.createQuery("SELECT land FROM LandResource land").getResultList();
 		return list;
 	}
 

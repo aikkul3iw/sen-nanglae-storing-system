@@ -47,7 +47,7 @@ public class ForestServiceBean implements ForestService{
 
 	@Override
 	public List<Forest> listAllForest() {
-		List<Forest> list = em.createQuery("SELECT f FROM Forest f ORDER BY f.frs_year DESC").getResultList();
+		List<Forest> list = em.createQuery("SELECT f FROM Forest f").getResultList();
 		return list;
 	}
 

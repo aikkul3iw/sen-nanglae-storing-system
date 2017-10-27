@@ -42,7 +42,7 @@ public class ServiceServiceBean implements ServiceService {
 
 	@Override
 	public List<Service> listAllService() {
-		List<Service> list = em.createQuery("SELECT s FROM Service s ORDER BY s.ser_year DESC").getResultList();
+		List<Service> list = em.createQuery("SELECT s FROM Service s").getResultList();
 		return list;
 	}
 

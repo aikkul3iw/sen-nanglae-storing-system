@@ -47,7 +47,7 @@ public class PipelineServiceBean implements PipelineService {
 	@Override
 	public List<Pipeline> listAllPipeline() {
 		// TODO Auto-generated method stub
-		List<Pipeline> list = em.createQuery("SELECT ppl FROM Pipeline ppl ORDER BY ppl.pipe_year DESC, ppl.location.vil_number").getResultList();
+		List<Pipeline> list = em.createQuery("SELECT ppl FROM Pipeline ppl ORDER BY ppl.location.vil_number").getResultList();
 		return list;
 	}
 

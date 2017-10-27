@@ -47,7 +47,7 @@ public class LaborServiceBean implements LaborService{
 
 	@Override
 	public List<Labor> listAllLabor() {
-		List<Labor> list = em.createQuery("SELECT l FROM Labor l ORDER BY l.lab_year DESC").getResultList();
+		List<Labor> list = em.createQuery("SELECT l FROM Labor l").getResultList();
 		return list;
 	}
 

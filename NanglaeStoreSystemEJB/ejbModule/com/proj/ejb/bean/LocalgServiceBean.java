@@ -42,7 +42,7 @@ public class LocalgServiceBean implements LocalgService{
 
 	@Override
 	public List<Localg>listAllLocalg() {
-		List<Localg> list = em.createQuery("SELECT g FROM Localg g ORDER BY g.grp_year DESC").getResultList();
+		List<Localg> list = em.createQuery("SELECT g FROM Localg g").getResultList();
 		return list;
 	}
 	
