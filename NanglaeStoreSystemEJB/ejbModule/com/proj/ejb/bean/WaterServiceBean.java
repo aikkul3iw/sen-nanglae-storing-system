@@ -47,7 +47,7 @@ public class WaterServiceBean implements WaterService {
 	@Override
 	public List<Water> listAllWater() {
 		// TODO Auto-generated method stub
-		List<Water> list = em.createQuery("SELECT wt FROM Water wt ORDER BY wt.water_year DESC").getResultList();
+		List<Water> list = em.createQuery("SELECT wt FROM Water wt").getResultList();
 		return list;
 	}
 

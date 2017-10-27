@@ -62,9 +62,6 @@ function getCurrentYear(){
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].water_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].water_name
 									+ "</td>"
 									+ "<td>"
@@ -109,10 +106,7 @@ function getCurrentYear(){
 <script type='text/javascript'>
 	function createWater() {
 		$("#loader").show();
-		if ($('#water_year').val() == "") {
-			document.getElementById('water_year').style.borderColor = "red";
-			return false;
-		} else if ($('#water_name').val() == "") {
+		if ($('#water_name').val() == "") {
 			document.getElementById('water_name').style.borderColor = "red";
 			return false;
 		} else if ($('#water_type').val() == "") {
@@ -121,7 +115,6 @@ function getCurrentYear(){
 		} else {
 			var obj = {
 				water_id : 0,
-				water_year : $('#water_year').val(),
 				water_name : $('#water_name').val(),
 				water_type : $('#water_type').val()
 
@@ -200,7 +193,6 @@ function getCurrentYear(){
 	function editWater() {
 		var obj = {
 			water_id : $("#editId").val(),
-			water_year : $('#editWaterYear').val(),
 			water_name : $('#editWaterName').val(),
 			water_type : $('#editWaterType').val()
 		};
@@ -241,7 +233,6 @@ function getCurrentYear(){
 			success : function(data) {
 				//alert(JSON.stringify(data));
 				$("#editId").val(data.water_id);
-				$("#editWaterYear").val(data.water_year);
 				$("#editWaterName").val(data.water_name);
 				$("#editWaterType").val(data.water_type);
 				$('#editVillageSelect').val(data.location.vil_id);
@@ -348,7 +339,6 @@ function getCurrentYear(){
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีข้อมูล</th>
 														<th>ชื่อแหล่งน้ำ</th>
 														<th>ประเภท</th>
 														<th>ที่ตั้ง</th>
@@ -420,12 +410,6 @@ function getCurrentYear(){
 									<form role="form">
 										<table width="50%" align="center">
 											<tr>
-												<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-												<td><input class="form-control" maxlength="4"
-													id="water_year" placeholder="" value="2558"
-													name="pipe-year" required="true"></td>
-											</tr>
-											<tr>
 												<td align="pull-right" style="padding: 15px">ชื่อแหล่งน้ำ</td>
 												<td><input id="water_name" maxlength="50"
 													class="form-control" placeholder="ระบุชื่อแหล่งน้ำ"
@@ -466,12 +450,6 @@ function getCurrentYear(){
 									<form role="form">
 										<input type="hidden" id="editId">
 										<table width="50%" align="center">
-											<tr>
-												<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-												<td><input class="form-control" maxlength="4"
-													id="editWaterYear" placeholder="" value="2558"
-													name="pipe-year" required="true"></td>
-											</tr>
 											<tr>
 												<td align="pull-right" style="padding: 15px">ชื่อแหล่งน้ำ</td>
 												<td><input id="editWaterName" maxlength="50"
