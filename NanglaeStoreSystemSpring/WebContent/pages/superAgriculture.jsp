@@ -61,9 +61,6 @@ function getCurrentYear(){
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].agi_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].agi_name
 									+ "</td>"
 									+ "<td>"
@@ -105,10 +102,7 @@ function getCurrentYear(){
 </script>
 <script type='text/javascript'>
 	function createAgriculture() {
-		if ($('#agi_year').val() == "") {
-			document.getElementById('agi_year').style.borderColor = "red";
-			return false;
-		} else if ($('#agi_name').val() == "") {
+		if ($('#agi_name').val() == "") {
 			document.getElementById('agi_name').style.borderColor = "red";
 			return false;
 		} else if ($('#agi_area').val() == "") {
@@ -123,7 +117,6 @@ function getCurrentYear(){
 			var errDetec = false;
 			var obj = {
 				agi_id : 0,
-				agi_year : $('#agi_year').val(),
 				agi_name : $('#agi_name').val(),
 				agi_area : $('#agi_area').val(),
 				agi_description : $('#agi_description').val()
@@ -185,7 +178,6 @@ function getCurrentYear(){
 	function editAgriculture() {
 		var obj = {
 			agi_id : $("#editAgiId").val(),
-			agi_year : $('#editAgiYear').val(),
 			agi_name : $('#editAgiName').val(),
 			agi_area : $('#editAgiArea').val(),
 			agi_description : $('#editAgiDescription').val()
@@ -227,7 +219,6 @@ function getCurrentYear(){
 			success : function(data) {
 				//alert(JSON.stringify(data));
 				$("#editAgiId").val(data.agi_id);
-				$("#editAgiYear").val(data.agi_year);
 				$("#editAgiName").val(data.agi_name);
 				$("#editAgiArea").val(data.agi_area);
 				$("#editAgiDescription").val(data.agi_description);
@@ -332,12 +323,6 @@ function getCurrentYear(){
 										<form role="form">
 											<table width="50%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="agi_year" maxlength="4"
-														class="form-control" data-mask="0000"placeholder="" value="2558"
-														name="vil-year"></td>
-												</tr>
-												<tr>
 
 													<td align="pull-right" style="padding: 15px">พื้นที่การเกษตร</td>
 													<td><input id="agi_name" maxlength="100"
@@ -375,12 +360,6 @@ function getCurrentYear(){
 										<form role="form">
 											<input type="hidden" id="editAgiId">
 											<table width="50%" align="center">
-												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="editAgiYear" maxlength="4"
-														class="form-control" data-mask="0000"placeholder="" value="2558"
-														name="vil-year"></td>
-												</tr>
 												<tr>
 
 													<td align="pull-right" style="padding: 15px">พื้นที่การเกษตร</td>
