@@ -42,7 +42,6 @@
     <![endif]-->
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-var year = new Date().getFullYear()+543;
 	function listWater() {
 		$("#loader").show();
 		$
@@ -52,12 +51,8 @@ var year = new Date().getFullYear()+543;
 					success : function(data) {
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
-							if(data[i].water_year == year){
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].water_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].water_name
 									+ "</td>"
 									+ "<td>"
@@ -71,7 +66,6 @@ var year = new Date().getFullYear()+543;
 									+ "</td>"
 
 							html += "</tr>";
-							}
 						}
 						$('#listWaters').html(html);
 						$("#resultTable").DataTable({});
@@ -84,158 +78,9 @@ var year = new Date().getFullYear()+543;
 				});
 	}
 </script>
-<script type='text/javascript'>
-	function createWater() {
-		$("#loader").show();
-		if ($('#water_year').val() == "") {
-			document.getElementById('water_year').style.borderColor = "red";
-			return false;
-		} else if ($('#water_name').val() == "") {
-			document.getElementById('water_name').style.borderColor = "red";
-			return false;
-		} else if ($('#water_type').val() == "") {
-			document.getElementById('water_type').style.borderColor = "red";
-			return false;
-		} else {
-			var obj = {
-				water_id : 0,
-				water_year : $('#water_year').val(),
-				water_name : $('#water_name').val(),
-				water_type : $('#water_type').val()
-
-			};
-			//alert(JSON.stringify(obj));
-			$.ajax({
-				url : "../NanglaeGov/saveWater.do?id=" + $("#villageSelect").val(),
-				type : "POST",
-				dataType : "JSON",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				mimeType : "application/json",
-				success : function(data) {
-					//alert('success');
-					$("#loader").hide();
-					location.reload();
-				},
-				error : function(data, status, er) {
-					alert('error');
-					$("#loader").hide();
-				}
-			});
-		}
-	}
-	function listVillage() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#villageSelect').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
-	}
-	function deleteWater() {
-		var id = document.getElementById("water_id").value;
-		var obj = {
-			water_id : id
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteWater.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
-	}
-	function editWater() {
-		var obj = {
-			water_id : $("#editId").val(),
-			water_year : $('#editWaterYear').val(),
-			water_name : $('#editWaterName').val(),
-			water_type : $('#editWaterType').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveWater.do?id=" + $("#editVillageSelect").val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function setEditWater(water_id) {
-
-		var obj = {
-			water_id : water_id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/findWater.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert(JSON.stringify(data));
-				$("#editId").val(data.water_id);
-				$("#editWaterYear").val(data.water_year);
-				$("#editWaterName").val(data.water_name);
-				$("#editWaterType").val(data.water_type);
-				$('#editVillageSelect').val(data.location.vil_id);
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function editVillageSelect() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#editVillageSelect').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
-	}
-</script>
 </head>
 
-<body onload="listWater();listVillage();editVillageSelect();">
+<body onload="listWater()">
 
 	<div id="wrapper">
 
@@ -296,7 +141,6 @@ var year = new Date().getFullYear()+543;
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีข้อมูล</th>
 														<th>ชื่อแหล่งน้ำ</th>
 														<th>ประเภท</th>
 														<th>ที่ตั้ง</th>

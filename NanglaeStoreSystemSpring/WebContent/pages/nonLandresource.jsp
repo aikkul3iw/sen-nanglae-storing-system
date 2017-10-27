@@ -46,7 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-var year = new Date().getFullYear()+543;
 	function listLandResource() {
 		$("#loader").show();
 		$
@@ -56,12 +55,8 @@ var year = new Date().getFullYear()+543;
 					success : function(data) {
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
-							if(data[i].land_year == year){
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].land_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].land_name
 									+ "</td>"
 									+ "<td>"
@@ -69,7 +64,7 @@ var year = new Date().getFullYear()+543;
 									+ "</td>"
 
 							html += "</tr>";
-							}
+							
 						}
 						$('#listLandResources').html(html);
 						$("#resultTable").DataTable({});
@@ -82,117 +77,9 @@ var year = new Date().getFullYear()+543;
 				});
 	}
 </script>
-<script type='text/javascript'>
-	function createLandResource() {
-		$("#loader").show();
-		if ($('#land_year').val() == "") {
-			document.getElementById('land_year').style.borderColor = "red";
-			return false;
-		} else if ($('#land_name').val() == "") {
-			document.getElementById('land_name').style.borderColor = "red";
-			return false;
-		} else if ($('#land_usage').val() == "") {
-			document.getElementById('land_usage').style.borderColor = "red";
-			return false;
-		} else {
-			var obj = {
-				land_id : 0,
-				land_year : $('#land_year').val(),
-				land_name : $('#land_name').val(),
-				land_usage : $('#land_usage').val()
-			};
-			//alert(JSON.stringify(obj));
-			$.ajax({
-				url : "../NanglaeGov/saveLandResource.do",
-				type : "POST",
-				dataType : "JSON",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				mimeType : "application/json",
-				success : function(data) {
-					//alert('success');
-					$("#loader").hide();
-					location.reload();
-				},
-				error : function(data, status, er) {
-					alert('error');
-					$("#loader").hide();
-				}
-			});
-		}
-
-	}
-	function deleteLandResource() {
-		var id = document.getElementById("land_id").value;
-		var obj = {
-			land_id : id
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteLandResource.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
-	}
-	function editLandResource() {
-		var obj = {
-			land_id : $('#editLandId').val(),
-			land_year : $('#editLandYear').val(),
-			land_name : $('#editLandName').val(),
-			land_usage : $('#editLandUsage').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveLandResource.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function setEditLandResource(land_id) {
-
-		var obj = {
-			land_id : land_id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/findLandResource.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert(JSON.stringify(data));
-				$("#editLandId").val(data.land_id);
-				$("#editLandYear").val(data.land_year);
-				$("#editLandName").val(data.land_name);
-				$("#editLandUsage").val(data.land_usage);
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-</script>
 </head>
 
-<body onload="listLandResource();">
+<body onload="listLandResource()">
 
 	<div id="wrapper">
 
@@ -252,7 +139,6 @@ var year = new Date().getFullYear()+543;
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่ข้อมูล</th>
 														<th>ทรัพยากรดิน</th>
 														<th>การใช้ประโยชน์</th>
 													</tr>

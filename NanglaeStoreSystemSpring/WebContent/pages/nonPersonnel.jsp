@@ -46,7 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-	var year = new Date().getFullYear()+543;
 	function listPersonnel() {
 		$("#loader").show();
 		$
@@ -58,12 +57,8 @@
 						var errorMsg = '';
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
-							if(data[i].per_year == year){
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].per_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].per_title
 									+ data[i].per_firstname
 									+ " "
@@ -73,7 +68,6 @@
 									+ data[i].per_position
 									+ "</td>"
 							html += "</tr>";
-							}
 						}
 						$('#listPersonnels').html(html);
 						$("#resultTable").DataTable({});
@@ -84,154 +78,6 @@
 						$("#loader").hide();
 					}
 				});
-	}
-</script>
-<script type='text/javascript'>
-	function createPersonnel() {
-		$("#loader").show();
-		if ($('#per_year').val() == "") {
-			document.getElementById('per_year').style.borderColor = "red";
-			return false;
-		} else if ($('#per_title').val() == "") {
-			document.getElementById('per_title').style.borderColor = "red";
-			return false;
-		} else if ($('#per_firstname').val() == "") {
-			document.getElementById('per_firstname').style.borderColor = "red";
-			return false;
-		} else if ($('#per_lastname').val() == "") {
-			document.getElementById('per_lastname').style.borderColor = "red";
-			return false;
-		} else if ($('#per_position').val() == "") {
-			document.getElementById('per_position').style.borderColor = "red";
-			return false;
-		} else if ($('#per_salary').val() == "") {
-			document.getElementById('per_salary').style.borderColor = "red";
-			return false;
-		} else if ($('#per_tel_number').val() == "") {
-			document.getElementById('per_tel_number').style.borderColor = "red";
-			return false;
-		} else if ($('#per_address').val() == "") {
-			document.getElementById('per_address').style.borderColor = "red";
-			return false;
-		} else if ($('#per_email').val() == "") {
-			document.getElementById('per_email').style.borderColor = "red";
-			return false;
-		} else {
-			var obj = {
-				per_id : 0,
-				per_year : $('#per_year').val(),
-				per_title : $('#per_title').val(),
-				per_firstname : $('#per_firstname').val(),
-				per_lastname : $('#per_lastname').val(),
-				per_position : $('#per_position').val(),
-				per_salary : $('#per_salary').val(),
-				per_tel_number : $('#per_tel_number').val(),
-				per_address : $('#per_address').val(),
-				per_email : $('#per_email').val(),
-				per_picture : $('#per_picture').val()
-			};
-			//alert(JSON.stringify(obj));
-			$.ajax({
-				url : "../NanglaeGov/savePersonnel.do",
-				type : "POST",
-				dataType : "JSON",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				mimeType : "application/json",
-				success : function(data) {
-					//alert('บันทึกข้อมูลเสร็จสิ้น');
-					successMsg = "บันทึกข้อมูลเสร้จสิ้น";
-					$("#loader").hide();
-					location.reload();
-				},
-				error : function(data, status, er) {
-					alert('ไม่สามารถบันทึกข้อมูลได้');
-					$("#loader").hide();
-				}
-			});
-		}
-	}
-	function deletePersonnel() {
-		var id = document.getElementById("per_id").value;
-		var obj = {
-			per_id : id
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/deletePersonnel.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
-	}
-	function editPersonnel() {
-		var obj = {
-			per_id : $("#editPerId").val(),
-			per_year : $('#editPerYear').val(),
-			per_title : $('#editPerTitle').val(),
-			per_firstname : $('#editPerFirstname').val(),
-			per_lastname : $('#editPerLastname').val(),
-			per_position : $('#editPerPosition').val(),
-			per_salary : $('#editPerSalary').val(),
-			per_tel_number : $('#editPerTelNumber').val(),
-			per_address : $('#editPerAddress').val(),
-			per_email : $('#editPerEmail').val(),
-			per_picture : $('#editPerPicture').val()
-		};
-
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/savePersonnel.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('บันทึกข้อมูลเสร็จสิ้น');
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('ไม่สามารถบันทึกข้อมูลได้');
-			}
-		});
-	}
-	function setEditPersonnel(per_id) {
-
-		var obj = {
-			per_id : per_id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/findPersonnel.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert(JSON.stringify(data));
-				$("#editPerId").val(data.per_id);
-				$("#editPerYear").val(data.per_year);
-				$("#editPerTitle").val(data.per_title);
-				$("#editPerFirstname").val(data.per_firstname);
-				$("#editPerLastname").val(data.per_lastname);
-				$("#editPerPosition").val(data.per_position);
-				$("#editPerSalary").val(data.per_salary);
-				$("#editPerTelNumber").val(data.per_tel_number);
-				$("#editPerAddress").val(data.per_address);
-				$("#editPerEmail").val(data.per_email);
-				$("#editPerPicture").val(data.per_picture);
-			},
-			error : function(data, status, er) {
-				alert('ไม่สามารถโหลดข้อมูลได้');
-			}
-		});
 	}
 </script>
 </head>
@@ -298,7 +144,6 @@
 <!-- Start change table -->
 												<thead>
 													<tr>	
-														<th>ปีที่บันทึกข้อมูล</th>
 														<th>ชื่อ</th>
 														<th>ตำแหน่ง</th>
 													</tr>

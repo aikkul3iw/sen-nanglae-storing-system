@@ -46,189 +46,27 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-var year = new Date().getFullYear()+543;
 	function listCommerce() {
 		$("#loader").show();
-		$
-				.ajax({
-					url : "../NanglaeGov/listCommerce.do",
-					type : "POST",
-					success : function(data) {
-						var html = '';
-
-						for (var i = 0; i < data.length; i++) {
-							if(data[i].com_year == year){
-							html += "<tr>";
-							html += "<td>"
-									+ data[i].com_year
-									+ "</td>"
-									+ "<td>"
-									+ data[i].com_name
-									+ "</td>"
-									+ "<td>"
-									+ data[i].com_type
-									+ "</td>"
-									+ "<td>"
-									+ "หมู่ที่ "
-									+ data[i].location.vil_number
-									+ " บ้าน"
-									+ data[i].location.vil_name
-									+ "</td>"
-									+ "<td>"
-									+ data[i].com_description
-									+ "</td>"
-							html += "</tr>";
-							}
-						}
-						$('#listCommerces').html(html);
-						$("#resultTable").DataTable({});
-						$("#loader").hide();
-					},
-					error : function(data, status, er) {
-						alert('error');
-						$("#loader").hide();
-					}
-				});
-	}
-</script>
-<script type='text/javascript'>
-	function createCommerce() {
-		$("#loader").show();
-		var obj = {
-			com_id : 0,
-			com_year : $('#com_year').val(),
-			com_name : $('#com_name').val(),
-			com_type : $('#com_type').val(),
-			com_house_number : $('#com_house_number').val(),
-			com_description : $('#com_description').val()
-
-		};
-		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/saveCommerce.do?id=" + $("#villageSelect").val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				$("#loader").hide();
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
-	}
-	function listVillage() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
+			url : "../NanglaeGov/listCommerce.do",
 			type : "POST",
 			success : function(data) {
 				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#villageSelect').html(html);
 
-			},
-			error : function(data, status, er) {
-				alert('error');
+				for (var i = 0; i < data.length; i++) {
+					html += "<tr>";
+					html += "<td>" + data[i].com_name + "</td>" + "<td>"
+							+ data[i].com_type + "</td>" + "<td>" + "หมู่ที่ "
+							+ data[i].location.vil_number + " บ้าน"
+							+ data[i].location.vil_name + "</td>" + "<td>"
+							+ data[i].com_description + "</td>"
+					html += "</tr>";
+				}
+
+				$('#listCommerces').html(html);
+				$("#resultTable").DataTable({});
 				$("#loader").hide();
-			}
-		});
-	}
-	function deleteCommerce() {
-		var id = document.getElementById("com_id").value;
-		var obj = {
-			com_id : id
-
-		};
-		//alert(id);
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/deleteCommerce.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
-	}
-	function editCommerce() {
-		var obj = {
-			com_id : $("#editComId").val(),
-			com_year : $('#editComYear').val(),
-			com_name : $('#editComName').val(),
-			com_type : $('#editComType').val(),
-			com_house_number : $('#editComHouseNumber').val(),
-			com_description : $('#editComDescription').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveCommerce.do?id=" + $("#editVillageSelect").val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function setEditCommerce(com_id) {
-
-		var obj = {
-			com_id : com_id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/findCommerce.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert(JSON.stringify(data));
-				$("#editComId").val(data.com_id);
-				$("#editComYear").val(data.com_year);
-				$("#editComName").val(data.com_name);
-				$("#editComType").val(data.com_type);
-				$("#editComHouseNumber").val(data.com_house_number);
-				$("#editComDescription").val(data.com_description);
-				$('#editVillageSelect').val(data.location.vil_id);
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function editVillageSelect() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#editVillageSelect').html(html);
-
 			},
 			error : function(data, status, er) {
 				alert('error');
@@ -239,13 +77,13 @@ var year = new Date().getFullYear()+543;
 </script>
 </head>
 
-<body onload="listCommerce();listVillage();editVillageSelect();">
+<body onload="listCommerce()">
 
 	<div id="wrapper">
 
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
-			style="margin-bottom: 0;background-color: #98c3e8">
+			style="margin-bottom: 0; background-color: #98c3e8">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-collapse">
@@ -253,8 +91,8 @@ var year = new Date().getFullYear()+543;
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<img src="../NanglaeGov/images/logo-nanglae.png"><a class="navbar-brand"
-					href="index.do">เทศบาลตำบลนางแล</a>
+				<img src="../NanglaeGov/images/logo-nanglae.png"><a
+					class="navbar-brand" href="index.do">เทศบาลตำบลนางแล</a>
 			</div>
 			<!-- /.navbar-header -->
 
@@ -269,7 +107,7 @@ var year = new Date().getFullYear()+543;
 				</div>
 			</ul>
 
-			<%@include file="nonMenu.jsp" %>
+			<%@include file="nonMenu.jsp"%>
 			<!-- /.navbar-static-side -->
 		</nav>
 		<div id="page-wrapper" style="background-color: #d7f0f5">
@@ -297,10 +135,9 @@ var year = new Date().getFullYear()+543;
 										<div class="table-responsive">
 											<table id="resultTable"
 												class="table table-striped table-bordered table-hover">
-<!-- Start change table -->
+												<!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่ข้อมูล</th>
 														<th>ชื่อ</th>
 														<th>ประเภท</th>
 														<th>ที่ตั้ง</th>
@@ -309,7 +146,7 @@ var year = new Date().getFullYear()+543;
 												</thead>
 												<tbody id="listCommerces">
 												</tbody>
-<!-- End change table -->
+												<!-- End change table -->
 											</table>
 										</div>
 									</div>

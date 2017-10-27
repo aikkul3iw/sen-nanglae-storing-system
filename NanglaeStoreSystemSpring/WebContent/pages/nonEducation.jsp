@@ -46,7 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-var year = new Date().getFullYear()+543;
 	function listEducation() {
 		$("#loader").show();
 		$
@@ -55,14 +54,9 @@ var year = new Date().getFullYear()+543;
 					type : "POST",
 					success : function(data) {
 						var html = '';
-
 						for (var i = 0; i < data.length; i++) {
-							if(data[i].edu_year == year){
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].edu_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].edu_name
 									+ "</td><td>"
 									+ data[i].edu_type
@@ -76,7 +70,6 @@ var year = new Date().getFullYear()+543;
 									+ "</td>"
 							html += "</tr>";
 							}
-						}
 						$('#listEducation').html(html);
 						$("#resultTable").DataTable({});
 						$("#loader").hide();
@@ -88,160 +81,9 @@ var year = new Date().getFullYear()+543;
 				});
 	}
 </script>
-<script type='text/javascript'>
-	function createEducation() {
-		$("#loader").show();
-		if ($('#edu_year').val() == "") {
-			document.getElementById('edu_year').style.borderColor = "red";
-			return false;
-		} else if ($('#edu_name').val() == "") {
-			document.getElementById('edu_name').style.borderColor = "red";
-			return false;
-		} else if ($('#edu_type').val() == "") {
-			document.getElementById('edu_type').style.borderColor = "red";
-			return false;
-		} else if ($('#student').val() == "") {
-			document.getElementById('student').style.borderColor = "red";
-			return false;
-		} else {
-			var obj = {
-				edu_id : 0,
-				edu_year : $('#edu_year').val(),
-				edu_name : $('#edu_name').val(),
-				edu_type : $('#edu_type').val(),
-				student : $('#student').val()
-
-			};
-			$.ajax({
-				url : "../NanglaeGov/saveEducation.do?id=" + $("#villageSelect").val(),
-				type : "POST",
-				dataType : "JSON",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				mimeType : "application/json",
-				success : function(data) {
-					$("#loader").hide();
-					location.reload();
-				},
-				error : function(data, status, er) {
-					alert('error');
-					$("#loader").hide();
-				}
-			});
-		}
-	}
-	function listVillage() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#villageSelect').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
-	}
-	function deleteEducation() {
-		var id = document.getElementById("edu_id").value;
-		var obj = {
-			edu_id : id
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteEducation.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
-	}
-	function editEducation() {
-		var obj = {
-			edu_id : $("#editEduId").val(),
-			edu_year : $('#editEduYear').val(),
-			edu_name : $('#editEduName').val(),
-			edu_type : $('#editEduType').val(),
-			student : $('#editStudent').val()
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/saveEducation.do?id=" + $("#editVillageSelect").val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function setEditEducation(edu_id) {
-
-		var obj = {
-			edu_id : edu_id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/findEducation.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				$("#editEduId").val(data.edu_id);
-				$("#editEduYear").val(data.edu_year);
-				$("#editEduName").val(data.edu_name);
-				$("#editEduType").val(data.edu_type);
-				$("#editStudent").val(data.student);
-				$('#editVillageSelect').val(data.location.vil_id);
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function editVillageSelect() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#editVillageSelect').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
-	}
-</script>
 </head>
 
-<body onload="listEducation();listVillage();editVillageSelect();">
+<body onload="listEducation()">
 
 	<div id="wrapper">
 
@@ -303,7 +145,6 @@ var year = new Date().getFullYear()+543;
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่บันทึกข้อมูล</th>
 														<th>ชื่อสถานศึกษา</th>
 														<th>ประเภท</th>
 														<th>จำนวนนักเรียน(คน)</th>

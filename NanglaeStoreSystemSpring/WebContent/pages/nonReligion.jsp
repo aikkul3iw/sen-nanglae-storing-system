@@ -46,7 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-var year = new Date().getFullYear()+543;
 	function listReligion() {
 		$("#loader").show();
 		$
@@ -57,12 +56,8 @@ var year = new Date().getFullYear()+543;
 						var html = '';
 
 						for (var i = 0; i < data.length; i++) {
-							if(data[i].rel_year == year){
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].rel_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].rel_name
 									+ "</td>"
 									+ "<td>"
@@ -76,7 +71,6 @@ var year = new Date().getFullYear()+543;
 									+ "</td>"
 
 							html += "</tr>";
-							}
 						}
 						$('#listReligions').html(html);
 						$("#resultTable").DataTable({});
@@ -89,158 +83,9 @@ var year = new Date().getFullYear()+543;
 				});
 	}
 </script>
-<script type='text/javascript'>
-	function createReligion() {
-		$("#loader").show();
-		if ($('#rel_year').val() == "") {
-			document.getElementById('rel_year').style.borderColor = "red";
-			return false;
-		} else if ($('#rel_name').val() == "") {
-			document.getElementById('rel_name').style.borderColor = "red";
-			return false;
-		} else if ($('#rel_type').val() == "") {
-			document.getElementById('rel_type').style.borderColor = "red";
-			return false;
-		} else {
-			var obj = {
-				rel_id : 0,
-				rel_year : $('#rel_year').val(),
-				rel_name : $('#rel_name').val(),
-				rel_type : $('#rel_type').val()
-
-			};
-			//alert(JSON.stringify(obj));
-			$.ajax({
-				url : "../NanglaeGov/saveReligion.do?id=" + $("#villageSelect").val(),
-				type : "POST",
-				dataType : "JSON",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				mimeType : "application/json",
-				success : function(data) {
-					//alert('success');
-					$("#loader").hide();
-					location.reload();
-				},
-				error : function(data, status, er) {
-					alert('error');
-					$("#loader").hide();
-				}
-			});
-		}
-	}
-	function listVillage() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#villageSelect').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
-	}
-	function deleteReligion() {
-		var id = document.getElementById("rel_id").value;
-		var obj = {
-			rel_id : id
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteReligion.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
-	}
-	function editReligion() {
-		var obj = {
-			rel_id : $("#editReligionId").val(),
-			rel_year : $('#editReligionYear').val(),
-			rel_name : $('#editReligionName').val(),
-			rel_type : $('#editReligionType').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveReligion.do?id=" + $("#editVillageSelect").val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function setEditReligion(rel_id) {
-
-		var obj = {
-			rel_id : rel_id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/findReligion.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert(JSON.stringify(data));
-				$("#editReligionId").val(data.rel_id);
-				$("#editReligionYear").val(data.rel_year);
-				$("#editReligionName").val(data.rel_name);
-				$("#editReligionType").val(data.rel_type);
-				$('#editVillageSelect').val(data.location.vil_id);
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function editVillageSelect() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#editVillageSelect').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
-	}
-</script>
 </head>
 
-<body onload="listReligion();listVillage();editVillageSelect();">
+<body onload="listReligion()">
 
 	<div id="wrapper">
 
@@ -301,7 +146,6 @@ var year = new Date().getFullYear()+543;
 <!-- Start change table -->
 											<thead>
 												<tr>
-													<th>ปีที่บันทึกข้อมูล</th>
 													<th>ชื่อ</th>
 													<th>ศาสนา</th>
 													<th>ที่ตั้ง</th>

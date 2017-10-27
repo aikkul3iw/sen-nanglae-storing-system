@@ -46,7 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-var year = new Date().getFullYear()+543;
 	function listLocalg() {
 		$("#loader").show();
 		$
@@ -56,12 +55,8 @@ var year = new Date().getFullYear()+543;
 					success : function(data) {
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
-							if(data[i].grp_year == year){
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].grp_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].grp_name
 									+ "</td>"
 									+ "<td>"
@@ -70,7 +65,6 @@ var year = new Date().getFullYear()+543;
 
 							html += "</tr>";
 							}
-						}
 						$('#listLocalgs').html(html);
 						$("#resultTable").DataTable({});
 						$("#loader").hide();
@@ -80,116 +74,6 @@ var year = new Date().getFullYear()+543;
 						$("#loader").hide();
 					}
 				});
-	}
-</script>
-<script type='text/javascript'>
-	function createLocalg() {
-		$("#loader").show();
-		if ($('#grp_year').val() == "") {
-			document.getElementById('grp_year').style.borderColor = "red";
-			return false;
-		} else if ($('#grp_name').val() == "") {
-			document.getElementById('grp_name').style.borderColor = "red";
-			return false;
-		} else if ($('#grp_member').val() == "") {
-			document.getElementById('grp_member').style.borderColor = "red";
-			return false;
-		} else {
-			var obj = {
-				grp_id : 0,
-				grp_year : $('#grp_year').val(),
-				grp_name : $('#grp_name').val(),
-				grp_member : $('#grp_member').val(),
-				grp_area : $('#grp_area').val()
-
-			};
-			$.ajax({
-				url : "../NanglaeGov/saveLocalg.do",
-				type : "POST",
-				dataType : "JSON",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				mimeType : "application/json",
-				success : function(data) {
-					//alert('success');
-					$("#loader").hide();
-					location.reload();
-				},
-				error : function(data, status, er) {
-					alert('error');
-					$("#loader").hide();
-				}
-			});
-		}
-	}
-	function deleteLocalg() {
-		var id = document.getElementById("grp_id").value;
-		var obj = {
-			grp_id : id
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteLocalg.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
-	}
-	function editLocalg() {
-		var obj = {
-			grp_id : $("#editGroupId").val(),
-			grp_year : $('#editGroupYear').val(),
-			grp_name : $('#editGroupName').val(),
-			grp_member : $('#editGroupMember').val(),
-			grp_area : $('#editGroupArea').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveLocalg.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function setEditLocalg(grp_id) {
-
-		var obj = {
-			grp_id : grp_id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/findLocalg.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert(JSON.stringify(data));
-				$("#editGroupId").val(data.grp_id);
-				$("#editGroupYear").val(data.grp_year);
-				$("#editGroupName").val(data.grp_name);
-				$("#editGroupMember").val(data.grp_member);
-				$("#editGroupArea").val(data.grp_area);
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
 	}
 </script>
 </head>
@@ -254,7 +138,6 @@ var year = new Date().getFullYear()+543;
 												<!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีข้อมูล</th>
 														<th>ชื่อ</th>
 														<th>จำนวน</th>
 													</tr>

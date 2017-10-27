@@ -46,7 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-	var year = new Date().getFullYear()+543;
 	function listTransport() {
 		$("#loader").show();
 		$
@@ -56,12 +55,8 @@
 					success : function(data) {
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
-							if(data[i].tran_year == year){
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].tran_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].tran_name
 									+ "</td>"
 									+ "<td>"
@@ -72,7 +67,6 @@
 									+ "</td>"
 
 							html += "</tr>";
-							}
 						}
 						$('#listTransports').html(html);
 						$("#resultTable").DataTable({});
@@ -83,118 +77,6 @@
 						$("#loader").hide();
 					}
 				});
-	}
-</script>
-<script type='text/javascript'>
-	function createTransport() {
-		$("#loader").show();
-		if ($('#tran_year').val() == "") {
-			document.getElementById('tran_year').style.borderColor = "red";
-			return false;
-		} else if ($('#tran_name').val() == "") {
-			document.getElementById('tran_name').style.borderColor = "red";
-			return false;
-		} else if ($('#type').val() == "") {
-			document.getElementById('type').style.borderColor = "red";
-			return false;
-		} else if ($('#description').val() == "") {
-			document.getElementById('description').style.borderColor = "red";
-			return false;
-		} else {
-			var obj = {
-				tran_id : 0,
-				tran_year : $('#tran_year').val(),
-				tran_name : $('#tran_name').val(),
-				type : $('#type').val(),
-				description : $('#description').val()
-			};
-			$.ajax({
-				url : "../NanglaeGov/saveTransport.do",
-				type : "POST",
-				dataType : "JSON",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				mimeType : "application/json",
-				success : function(data) {
-					//alert('success');
-					$("#loader").hide();
-					location.reload();
-				},
-				error : function(data, status, er) {
-					alert('error');
-					$("#loader").hide();
-				}
-			});
-		}
-	}
-	function deleteTransport() {
-		var id = document.getElementById("tran_id").value;
-		var obj = {
-			tran_id : id
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteTransport.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
-	}
-	function editTransport() {
-		var obj = {
-			tran_id : $("#editTranId").val(),
-			tran_year : $('#editTranYear').val(),
-			tran_name : $('#editTranName').val(),
-			type : $('#editType').val(),
-			description : $('#editDescription').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveTransport.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function setEditTransport(tran_id) {
-
-		var obj = {
-			tran_id : tran_id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/findTransport.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert(JSON.stringify(data));
-				$("#editTranId").val(data.tran_id);
-				$("#editTranYear").val(data.tran_year);
-				$("#editTranName").val(data.tran_name);
-				$("#editType").val(data.type);
-				$("#editDescription").val(data.description);
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
 	}
 </script>
 </head>
@@ -259,7 +141,6 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่บันทึกข้อมูล</th>
 														<th>การคมนาคม</th>
 														<th>ประเภท</th>
 														<th>รายละเอียด</th>

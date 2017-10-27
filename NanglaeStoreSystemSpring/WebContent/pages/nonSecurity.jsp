@@ -46,7 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-var year = new Date().getFullYear()+543;
 	function listLASucrity() {
 		$("#loader").show();
 		$
@@ -55,22 +54,15 @@ var year = new Date().getFullYear()+543;
 					type : "POST",
 					success : function(data) {
 						var html = '';
-						
 						for (var i = 0; i < data.length; i++) {
-							if(data[i].sec_year == year){
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].sec_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].sec_name
 									+ "</td>"
 									+ "<td>"
 									+ data[i].sec_member
 									+ "</td>"
-
 							html += "</tr>";
-							}
 						}
 						$('#listLASucritys').html(html);
 						$('#resultTable').DataTable({});
@@ -81,114 +73,6 @@ var year = new Date().getFullYear()+543;
 						$("#loader").hide();
 					}
 				});
-	}
-</script>
-<script type='text/javascript'>
-	function createLASucrity() {
-		$("#loader").show();
-		if ($('#sec_year').val() == "") {
-			document.getElementById('sec_year').style.borderColor = "red";
-			return false;
-		} else if ($('#sec_name').val() == "") {
-			document.getElementById('sec_name').style.borderColor = "red";
-			return false;
-		} else if ($('#sec_member').val() == "") {
-			document.getElementById('sec_member').style.borderColor = "red";
-			return false;
-		} else {
-			var obj = {
-				sec_id : 0,
-				sec_year : $('#sec_year').val(),
-				sec_name : $('#sec_name').val(),
-				sec_member : $('#sec_member').val()
-
-			};
-			//alert(JSON.stringify(obj));
-			$.ajax({
-				url : "../NanglaeGov/saveLASucrity.do",
-				type : "POST",
-				dataType : "JSON",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				mimeType : "application/json",
-				success : function(data) {
-					//alert('success');
-					$("#loader").hide();
-					location.reload();
-				},
-				error : function(data, status, er) {
-					alert('error');
-					$("#loader").hide();
-				}
-			});
-		}
-	}
-	function deleteLASucrity() {
-		var id = document.getElementById("sec_id").value;
-		var obj = {
-			sec_id : id
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteLASucrity.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
-	}
-	function editLASucrity() {
-		var obj = {
-			sec_id : $("#editSecId").val(),
-			sec_year : $('#editSecYear').val(),
-			sec_name : $('#editSecName').val(),
-			sec_member : $('#editSecMember').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveLASucrity.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function setEditLASucrity(sec_id) {
-
-		var obj = {
-			sec_id : sec_id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/findLASucrity.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert(JSON.stringify(data));
-				$("#editSecId").val(data.sec_id);
-				$("#editSecYear").val(data.sec_year);
-				$("#editSecName").val(data.sec_name);
-				$("#editSecMember").val(data.sec_member);
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
 	}
 </script>
 </head>
@@ -253,7 +137,6 @@ var year = new Date().getFullYear()+543;
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีข้อมูล</th>
 														<th>ชื่อ</th>
 														<th>จำนวน</th>
 													</tr>

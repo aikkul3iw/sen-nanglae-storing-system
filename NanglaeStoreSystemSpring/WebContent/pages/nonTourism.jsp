@@ -46,7 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-var year = new Date().getFullYear()+543;
 	function listTourism() {
 		$("#loader").show();
 		$
@@ -56,12 +55,8 @@ var year = new Date().getFullYear()+543;
 					success : function(data) {
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
-							if(data[i].tour_year == year){
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].tour_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].tour_name
 									+ "</td>"
 									+ "<td>"
@@ -75,7 +70,6 @@ var year = new Date().getFullYear()+543;
 									+ "</td>"
 
 							html += "</tr>";
-							}
 						}
 						$('#listTourisms').html(html);
 						$("#resultTable").DataTable({});
@@ -88,158 +82,9 @@ var year = new Date().getFullYear()+543;
 				});
 	}
 </script>
-<script type='text/javascript'>
-	function createTourism() {
-		$("#loader").show();
-		if ($('#tour_year').val() == "") {
-			document.getElementById('tour_year').style.borderColor = "red";
-			return false;
-		} else if ($('#tour_name').val() == "") {
-			document.getElementById('tour_name').style.borderColor = "red";
-			return false;
-		} else if ($('#tour_description').val() == "") {
-			document.getElementById('tour_description').style.borderColor = "red";
-			return false;
-		} else {
-			var obj = {
-				tour_id : 0,
-				tour_year : $('#tour_year').val(),
-				tour_name : $('#tour_name').val(),
-				tour_description : $('#tour_description').val()
-
-			};
-			//alert(JSON.stringify(obj));
-			$.ajax({
-				url : "../NanglaeGov/saveTourism.do?id=" + $("#villageSelect").val(),
-				type : "POST",
-				dataType : "JSON",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				mimeType : "application/json",
-				success : function(data) {
-					//alert('success');
-					$("#loader").hide();
-					location.reload();
-				},
-				error : function(data, status, er) {
-					alert('error');
-					$("#loader").hide();
-				}
-			});
-		}
-	}
-	function listVillage() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#villageSelect').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
-	}
-	function deleteTourism() {
-		var id = document.getElementById("tour_id").value;
-		var obj = {
-			tour_id : id
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteTourism.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
-	}
-	function editTourism() {
-		var obj = {
-			tour_id : $("#editTourId").val(),
-			tour_year : $('#editTourYear').val(),
-			tour_name : $('#editTourName').val(),
-			tour_description : $('#editTourDescription').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveTourism.do?id=" + $("#editVillageSelect").val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function setEditTourism(tour_id) {
-
-		var obj = {
-			tour_id : tour_id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/findTourism.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert(JSON.stringify(data));
-				$("#editTourId").val(data.tour_id);
-				$("#editTourYear").val(data.tour_year);
-				$("#editTourName").val(data.tour_name);
-				$("#editTourDescription").val(data.tour_description);
-				$('#editVillageSelect').val(data.location.vil_id);
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function editVillageSelect() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#editVillageSelect').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
-	}
-</script>
 </head>
 
-<body onload="listTourism();listVillage();editVillageSelect();">
+<body onload="listTourism()">
 
 	<div id="wrapper">
 
@@ -299,7 +144,6 @@ var year = new Date().getFullYear()+543;
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่บันทึกข้อมูล</th>
 														<th>แหล่งท่องเที่ยว</th>
 														<th>รายละเอียด</th>
 														<th>ที่ตั้ง</th>

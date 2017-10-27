@@ -59,9 +59,6 @@ var year = new Date().getFullYear()+543;
 							if(data[i].agi_year == year){
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].agi_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].agi_name
 									+ "</td>"
 									+ "<td>"
@@ -83,122 +80,6 @@ var year = new Date().getFullYear()+543;
 						$("#loader").hide();
 					}
 				});
-	}
-</script>
-<script type='text/javascript'>
-	function createAgriculture() {
-		$("#loader").show();
-		if ($('#agi_year').val() == "") {
-			document.getElementById('agi_year').style.borderColor = "red";
-			return false;
-		} else if ($('#agi_name').val() == "") {
-			document.getElementById('agi_name').style.borderColor = "red";
-			return false;
-		} else if ($('#agi_area').val() == "") {
-			document.getElementById('agi_area').style.borderColor = "red";
-			return false;
-		} else if ($('#agi_description').val() == "") {
-			document.getElementById('agi_description').style.borderColor = "red";
-			return false;
-		} else {
-			var obj = {
-				agi_id : 0,
-				agi_year : $('#agi_year').val(),
-				agi_name : $('#agi_name').val(),
-				agi_area : $('#agi_area').val(),
-				agi_description : $('#agi_description').val()
-			};
-			$.ajax({
-				url : "../NanglaeGov/saveAgriculture.do",
-				type : "POST",
-				dataType : "JSON",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				mimeType : "application/json",
-				success : function(data) {
-					$("#loader").hide();
-					location.reload();
-				},
-				error : function(data, status, er) {
-					alert('error');
-					$("#loader").hide();
-				}
-			});
-		}
-
-	}
-	function deleteAgriculture() {
-		var id = document.getElementById("agi_id").value;
-
-		var obj = {
-			agi_id : id
-
-		};
-		//alert(id);
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/deleteAgriculture.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				location.reload();
-			}
-		});
-	}
-	function editAgriculture() {
-		var obj = {
-			agi_id : $("#editAgiId").val(),
-			agi_year : $('#editAgiYear').val(),
-			agi_name : $('#editAgiName').val(),
-			agi_area : $('#editAgiArea').val(),
-			agi_description : $('#editAgiDescription').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../saveAgriculture.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function setEditAgriculture(agi_id) {
-
-		var obj = {
-			agi_id : agi_id
-		};
-
-		$.ajax({
-			url : "../findAgriculture.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert(JSON.stringify(data));
-				$("#editAgiId").val(data.agi_id);
-				$("#editAgiYear").val(data.agi_year);
-				$("#editAgiName").val(data.agi_name);
-				$("#editAgiArea").val(data.agi_area);
-				$("#editAgiDescription").val(data.agi_description);
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
 	}
 </script>
 </head>
@@ -265,7 +146,6 @@ var year = new Date().getFullYear()+543;
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่ข้อมูล</th>
 														<th>พื้นที่เกษตรกรรม</th>
 														<th>จำนวน(ไร่)</th>
 														<th>การทำการเกษตร</th>

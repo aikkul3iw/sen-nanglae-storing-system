@@ -46,7 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-	var year = new Date().getFullYear()+543;
 	function listLabor() {
 		$("#loader").show();
 		$
@@ -56,12 +55,8 @@
 					success : function(data) {
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
-							if(data[i].lab_year == year){
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].lab_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].lab_type
 									+ "</td>"
 									+ "<td>"
@@ -72,7 +67,6 @@
 									+ "</td>"
 
 							html += "</tr>";
-							}
 						}
 						$('#listLabors').html(html);
 						$("#resultTable").DataTable({});
@@ -83,117 +77,6 @@
 						$("#loader").hide();
 					}
 				});
-	}
-</script>
-<script type='text/javascript'>
-	function createLabor() {
-		$("#loader").show();
-		if ($('#lab_year').val() == "") {
-			document.getElementById('lab_year').style.borderColor = "red";
-			return false;
-		} else if ($('#lab_type').val() == "") {
-			document.getElementById('lab_type').style.borderColor = "red";
-			return false;
-		} else if ($('#lab_amount').val() == "") {
-			document.getElementById('lab_amount').style.borderColor = "red";
-			return false;
-		} else if ($('#lab_work').val() == "") {
-			document.getElementById('lab_work').style.borderColor = "red";
-			return false;
-		} else {
-			var obj = {
-				lab_id : 0,
-				lab_year : $('#lab_year').val(),
-				lab_type : $('#lab_type').val(),
-				lab_amount : $('#lab_amount').val(),
-				lab_work : $('#lab_work').val()
-			};
-			$.ajax({
-				url : "../NanglaeGov/saveLabor.do",
-				type : "POST",
-				dataType : "JSON",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				mimeType : "application/json",
-				success : function(data) {
-					$("#loader").hide();
-					location.reload();
-				},
-				error : function(data, status, er) {
-					alert('ไม่สามารถบันทึกข้อมูลได้');
-					$("#loader").hide();
-				}
-			});
-		}
-	}
-	function deleteLabor() {
-		var id = document.getElementById("lab_id").value;
-		var obj = {
-			lab_id : id
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteLabor.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
-	}
-	function editLabor() {
-		var obj = {
-			lab_id : $("#editLabId").val(),
-			lab_year : $('#editLabYear').val(),
-			lab_type : $('#editLabType').val(),
-			lab_amount : $('#editLabAmount').val(),
-			lab_work : $('#editLabWork').val(),
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveLabor.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('บันทึกข้อมูลเสร็จสิ้น');
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('ไม่สามารถบนนทึกข้อมูลได้');
-			}
-		});
-	}
-	function setEditLabor(lab_id) {
-
-		var obj = {
-			lab_id : lab_id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/findLabor.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert(JSON.stringify(data));
-				$("#editLabId").val(data.lab_id);
-				$("#editLabYear").val(data.lab_year);
-				$("#editLabType").val(data.lab_type);
-				$("#editLabAmount").val(data.lab_amount);
-				$("#editLabWork").val(data.lab_work);
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
 	}
 </script>
 </head>
@@ -258,7 +141,6 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่บันทึกข้อมูล</th>
 														<th>แรงงาน</th>
 														<th>การใช้แรงงาน</th>
 														<th>จำนวน</th>

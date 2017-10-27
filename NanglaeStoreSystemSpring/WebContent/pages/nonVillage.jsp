@@ -46,7 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-var year = new Date().getFullYear()+543;
 	function listVillage() {
 		$("#loader").show();
 		$.ajax({
@@ -55,15 +54,13 @@ var year = new Date().getFullYear()+543;
 			success : function(data) {
 				var html = '';
 				for (var i = 0; i < data.length; i++) {
-					if(data[i].vil_year == year){
 					html += "<tr>";
-					html += "<td>" + data[i].vil_year + "</td>" + "<td>"
+					html += "<td>"
 							+ data[i].vil_number + "</td>" + "<td>"
 							+ data[i].vil_name + "</td>" + "<td>"
 							+ data[i].vil_chief + "</td>"
 							
 					html += "</tr>";
-					}
 				}
 				$('#listVillages').html(html);
 				$('#resultTable').DataTable({});
@@ -76,131 +73,9 @@ var year = new Date().getFullYear()+543;
 		});
 	}
 </script>
-<script type='text/javascript'>
-	function createVillage() {
-		if ($('#vil_year').val() == "") {
-			document.getElementById('vil_year').style.borderColor = "red";
-			return false;
-		} else if ($('#vil_number').val() == "") {
-			document.getElementById('vil_number').style.borderColor = "red";
-			return false;
-		} else if ($('#vil_name').val() == "") {
-			document.getElementById('vil_name').style.borderColor = "red";
-			return false;
-		} else if ($('#vil_chief').val() == "") {
-			document.getElementById('vil_chief').style.borderColor = "red";
-			return false;
-		} else {
-		$("#loader").show();
-		var errDetectMsg = 'ไม่สามารถบันทึกข้อมูลได้';
-		var errDetec = false;
-		var obj = {
-			vil_id : 0,
-			vil_year : $('#vil_year').val(),
-			vil_name : $('#vil_name').val(),
-			vil_number : $('#vil_number').val(),
-			vil_chief : $('#vil_chief').val()
-		};
-		$.ajax({
-			url : "../NanglaeGov/saveVillage.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('บันทึกข้อมูลเสร็จสิ้น');
-				$("#loader").hide();
-				location.reload();
-				
-			},
-			error : function(data, status, er) {
-				alert(errDetectMsg);
-				$("#loader").hide();
-			}
-		});
-		}
-	}
-	function deleteVillage() {
-		var id = document.getElementById("vil_id").value;
-		var obj = {
-			vil_id : id
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteVillage.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
-	}
-	function editVillage() {
-		var obj = {
-			vil_id : $("#editVilId").val(),
-			vil_year : $('#editVilYear').val(),
-			vil_name : $('#editVilName').val(),
-			vil_number : $('#editVilNumber').val(),
-			vil_chief : $('#editVilChief').val()
-		};
-
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveVillage.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('บันทึกข้อมูลเสร็จสิ้น');
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('ไม่สามารถบันทึกข้อมูลได้');
-			}
-		});
-	}
-	function setEditVillage(vil_id) {
-
-		var obj = {
-			vil_id : vil_id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/findVillage.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert(JSON.stringify(data));
-				$("#editVilId").val(data.vil_id);
-				$("#editVilYear").val(data.vil_year);
-				$("#editVilName").val(data.vil_name);
-				$("#editVilNumber").val(data.vil_number);
-				$("#editVilChief").val(data.vil_chief);
-			},
-			error : function(data, status, er) {
-				alert('ไม่สามารถโหลดข้อมูลได้');
-			}
-		});
-	}
-</script>
-<script type="text/javascript">
-  function validate() {
-  if(vilForm.vil-number.value.length==0){
-   document.getElementById("vil_number").innerHTML="this is invalid name ";
-  	}
-  }
-  </script>
 </head>
 
-<body onload="listVillage();">
+<body onload="listVillage()">
 
 	<div id="wrapper">
 
@@ -260,7 +135,6 @@ var year = new Date().getFullYear()+543;
 												<!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีข้อมูล</th>
 														<th>หมู่ที่</th>
 														<th>ชื่อหมู่บ้าน</th>
 														<th>ชื่อกำนัน/ผู้ใหญ่บ้าน</th>

@@ -46,7 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-var year = new Date().getFullYear()+543;
 	function listDrainage() {
 		$("#loader").show();
 		$
@@ -56,12 +55,8 @@ var year = new Date().getFullYear()+543;
 					success : function(data) {
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
-							if(data[i].drain_year == year){
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].drain_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].drain_name
 									+ "</td>"
 									+ "<td>"
@@ -74,7 +69,6 @@ var year = new Date().getFullYear()+543;
 									+ data[i].drain_location_connected
 									+ "</td>"
 							html += "</tr>";
-							}
 						}
 						$('#listDrainages').html(html);
 						$("#resultTable").DataTable({});
@@ -87,157 +81,9 @@ var year = new Date().getFullYear()+543;
 				});
 	}
 </script>
-<script type='text/javascript'>
-	function createDrainage() {
-		$("#loader").show();
-		if ($('#drain_year').val() == "") {
-			document.getElementById('drain_year').style.borderColor = "red";
-			return false;
-		} else if ($('#drain_name').val() == "") {
-			document.getElementById('drain_name').style.borderColor = "red";
-			return false;
-		} else if ($('#drain_location_connected').val() == "") {
-			document.getElementById('drain_location_connected').style.borderColor = "red";
-			return false;
-		} else {
-			var obj = {
-				drain_id : 0,
-				drain_year : $('#drain_year').val(),
-				drain_name : $('#drain_name').val(),
-				drain_location_connected : $('#drain_location_connected').val()
-			};
-			//alert(JSON.stringify(obj));
-			$.ajax({
-				url : "../NanglaeGov/saveDrainage.do?id=" + $("#villageSelect").val(),
-				type : "POST",
-				dataType : "JSON",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				mimeType : "application/json",
-				success : function(data) {
-					//alert('success');
-					$("#loader").hide();
-					location.reload();
-				},
-				error : function(data, status, er) {
-					alert('error');
-					$("#loader").hide();
-				}
-			});
-		}
-	}
-	function deleteDrainage() {
-		var id = document.getElementById("drain_id").value;
-		var obj = {
-			drain_id : id
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteDrainage.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
-	}
-	function listVillage() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#villageSelect').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
-	}
-	function editDrainage() {
-		var obj = {
-			drain_id : $("#editDrainId").val(),
-			drain_year : $('#editDrainYear').val(),
-			drain_name : $('#editDrainName').val(),
-			drain_location_connected : $('#editDrainLocalConnect').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveDrainage.do?id=" + $("#editVillageSelect").val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function setEditDrainage(drain_id) {
-
-		var obj = {
-			drain_id : drain_id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/findDrainage.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert(JSON.stringify(data));
-				$("#editDrainId").val(data.drain_id);
-				$("#editDrainYear").val(data.drain_year);
-				$("#editDrainName").val(data.drain_name);
-				$("#editDrainLocalConnect").val(data.drain_location_connected);
-				$('#editVillageSelect').val(data.location.vil_id);
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function editVillageSelect() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#editVillageSelect').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
-	}
-</script>
 </head>
 
-<body onload="listDrainage();listVillage();editVillageSelect();">
+<body onload="listDrainage()">
 
 	<div id="wrapper">
 
@@ -299,7 +145,6 @@ var year = new Date().getFullYear()+543;
 											<!-- Start change table -->
 											<thead>
 												<tr>
-													<th>ปีข้อมูล</th>
 													<th>ระบบระบายน้ำ</th>
 													<th>ที่ตั้ง</th>
 													<th>พื้นที่เชื่อมต่อ</th>

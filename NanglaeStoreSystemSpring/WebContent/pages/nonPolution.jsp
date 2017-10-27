@@ -45,7 +45,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js">
 </script><script type='text/javascript'>
-var year = new Date().getFullYear()+543;
 	function listPolution() {
 		$("#loader").show();
 
@@ -56,18 +55,8 @@ var year = new Date().getFullYear()+543;
 					success : function(data) {
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
-							if(data[i].pol_year == year){
-
-							var id = data[i].pol_id;
-							function loader() {
-								document.getElementById("myLink").innerHTML = id;
-							}
-
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].pol_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].pol_name
 									+ "</td>"
 									+ "<td>"
@@ -78,7 +67,6 @@ var year = new Date().getFullYear()+543;
 									+ "</td>"
 
 							html += "</tr>";
-							}
 						}
 						$('#listPolutions').html(html);
 						$("#resultTable").DataTable({});
@@ -89,124 +77,6 @@ var year = new Date().getFullYear()+543;
 						$("#loader").hide();
 					}
 				});
-	}
-</script>
-
-<script type='text/javascript'>
-	function createPolution() {
-		$("#loader").show();
-		if ($('#pol_year').val() == "") {
-			document.getElementById('pol_year').style.borderColor = "red";
-			return false;
-		} else if ($('#pol_name').val() == "") {
-			document.getElementById('pol_name').style.borderColor = "red";
-			return false;
-		} else if ($('#pol_effect').val() == "") {
-			document.getElementById('pol_effect').style.borderColor = "red";
-			return false;
-		} else if ($('#pol_area').val() == "") {
-			document.getElementById('pol_area').style.borderColor = "red";
-			return false;
-		} else {
-			var obj = {
-				pol_id : 0,
-				pol_year : $('#pol_year').val(),
-				pol_name : $('#pol_name').val(),
-				pol_effect : $('#pol_effect').val(),
-				pol_area : $('#pol_area').val()
-			};
-			//alert(JSON.stringify(obj));
-			$.ajax({
-				url : "../NanglaeGov/savePolution.do",
-				type : "POST",
-				dataType : "JSON",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				mimeType : "application/json",
-				success : function(data) {
-					//alert('success');
-					$("#loader").hide();
-					location.reload();
-				},
-				error : function(data, status, er) {
-					alert('error');
-					$("#loader").hide();
-				}
-			});
-		}
-
-	}
-
-	function deletePolution() {
-		var id = document.getElementById("pol_id").value;
-
-		var obj = {
-			pol_id : id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/deletePolution.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				location.reload();
-			}
-		});
-	}
-	function editPolution() {
-		var obj = {
-			pol_id : $('#editPolId').val(),
-			pol_year : $('#editPolYear').val(),
-			pol_name : $('#editPolName').val(),
-			pol_effect : $('#editPolEffect').val(),
-			pol_area : $('#editPolArea').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/savePolution.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-
-	function setEditPolution(pol_id) {
-
-		var obj = {
-			pol_id : pol_id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/findPolution.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert(JSON.stringify(data));
-				$("#editPolId").val(data.pol_id);
-				$("#editPolYear").val(data.pol_year);
-				$("#editPolName").val(data.pol_name);
-				$("#editPolEffect").val(data.pol_effect);
-				$("#editPolArea").val(data.pol_area);
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
 	}
 </script>
 </head>
@@ -272,7 +142,6 @@ var year = new Date().getFullYear()+543;
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่ข้อมูล</th>
 														<th>มลพิษ</th>
 														<th>ผลกระทบ</th>
 														<th>พิ้นที่ได้รับผลกระทบ</th>

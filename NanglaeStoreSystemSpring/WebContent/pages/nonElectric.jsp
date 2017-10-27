@@ -46,7 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-	var year = new Date().getFullYear()+543;
 	function listElectricity() {
 		$("#loader").show();
 		$
@@ -55,14 +54,9 @@
 					type : "POST",
 					success : function(data) {
 						var html = '';
-						
 						for (var i = 0; i < data.length; i++) {
-							if(data[i].elec_year == year){
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].elec_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].location.vil_number
 									+ "</td>"
 									+ "<td>"
@@ -77,7 +71,6 @@
 
 							html += "</tr>";
 							}
-						}
 						$('#listElectricitys').html(html);
 						$("#resultTable").DataTable({});
 						$("#loader").hide();
@@ -89,160 +82,9 @@
 				});
 	}
 </script>
-<script type='text/javascript'>
-	function createElectricity() {
-		$("#loader").show();
-		if ($('#elec_year').val() == "") {
-			document.getElementById('elec_year').style.borderColor = "red";
-			return false;
-		} else if ($('#elec_area').val() == "") {
-			document.getElementById('elec_area').style.borderColor = "red";
-			return false;
-		} else if ($('#elec_status').val() == "") {
-			document.getElementById('elec_status').style.borderColor = "red";
-			return false;
-		} else {
-			var obj = {
-				elec_id : 0,
-				elec_year : $('#elec_year').val(),
-				elec_area : $('#elec_area').val(),
-				elec_status : $('#elec_status').val()
-
-			};
-			//alert(JSON.stringify(obj));
-			$.ajax({
-				url : "../NanglaeGov/saveElectricity.do?id=" + $("#villageSelect").val(),
-				type : "POST",
-				dataType : "JSON",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				mimeType : "application/json",
-				success : function(data) {
-					//alert('success');
-					$("#loader").hide();
-					location.reload();
-				},
-				error : function(data, status, er) {
-					alert('error');
-					$("#loader").hide();
-				}
-			});
-		}
-	}
-	function listVillage() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#villageSelect').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
-	}
-	function deleteElectricity() {
-		var id = document.getElementById("elec_id").value;
-		var obj = {
-			elec_id : id
-
-		};
-		//alert(id);
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/deleteElectricity.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
-	}
-	function editElectricity() {
-		var obj = {
-			elec_id : $("#editElecId").val(),
-			elec_year : $('#editElecYear').val(),
-			elec_area : $('#editElecArea').val(),
-			elec_status : $('#editElecStatus').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveElectricity.do?id=" + $("#editVillageSelect").val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function setEditElectricity(elec_id) {
-
-		var obj = {
-			elec_id : elec_id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/findElectricity.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert(JSON.stringify(data));
-				$("#editElecId").val(data.elec_id);
-				$("#editElecYear").val(data.elec_year);
-				$("#editElecArea").val(data.elec_area);
-				$("#editElecStatus").val(data.elec_status);
-				$('#editVillageSelect').val(data.location.vil_id);
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function editVillageSelect() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#editVillageSelect').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
-	}
-</script>
 </head>
 
-<body onload="listElectricity();listVillage();editVillageSelect();">
+<body onload="listElectricity()">
 
 	<div id="wrapper">
 
@@ -303,7 +145,6 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่บันทึกข้อมูล</th>
 														<th>หมู่ที่</th>
 														<th>ชื่อหมู่บ้าน</th>
 														<th>ระบบไฟฟ้า</th>

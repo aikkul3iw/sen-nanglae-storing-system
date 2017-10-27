@@ -46,7 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-	var year = new Date().getFullYear()+543;
 	function listPipeline() {
 		$("#loader").show();
 		$
@@ -56,12 +55,8 @@
 					success : function(data) {
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
-							if(data[i].pipe_year == year){
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].pipe_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].location.vil_number
 									+ "</td>"
 									+ "<td>"
@@ -75,7 +70,6 @@
 									+ "</td>"
 
 							html += "</tr>";
-							}
 						}
 						$('#listPipelines').html(html);
 						$("#resultTable").DataTable({});
@@ -86,155 +80,6 @@
 						$("#loader").hide();
 					}
 				});
-	}
-</script>
-<script type='text/javascript'>
-	function createPipeline() {
-		$("#loader").show();
-		if ($('#pipe_year').val() == "") {
-			document.getElementById('pipe_year').style.borderColor = "red";
-			return false;
-		} else if ($('#pipe_system').val() == "") {
-			document.getElementById('pipe_system').style.borderColor = "red";
-			return false;
-		} else if ($('#pipe_use_from').val() == "") {
-			document.getElementById('pipe_use_from').style.borderColor = "red";
-			return false;
-		} else {
-			var obj = {
-				pipe_id : 0,
-				pipe_year : $('#pipe_year').val(),
-				pipe_system : $('#pipe_system').val(),
-				pipe_use_from : $('#pipe_use_from').val()
-
-			};
-			//alert(JSON.stringify(obj));
-			$.ajax({
-				url : "../NanglaeGov/savePipeline.do?id=" + $("#villageSelect").val(),
-				type : "POST",
-				dataType : "JSON",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				mimeType : "application/json",
-				success : function(data) {
-					//alert('success');
-					$("#loader").hide();
-					location.reload();
-				},
-				error : function(data, status, er) {
-					alert('error');
-					$("#loader").hide();
-				}
-			});
-		}
-	}
-	function listVillage() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#villageSelect').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
-	}
-	function deletePipeline() {
-		var id = document.getElementById("pipe_id").value;
-		var obj = {
-			pipe_id : id
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/deletePipeline.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
-	}
-	function editPipeline() {
-		var obj = {
-			pipe_id : $("#editPipeId").val(),
-			pipe_year : $('#editPipeYear').val(),
-			pipe_system : $('#editPipeSystem').val(),
-			pipe_use_from : $('#editPipeUseFrom').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/savePipeline.do?id=" + $("#editVillageSelect").val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function setEditPipeline(pipe_id) {
-
-		var obj = {
-			pipe_id : pipe_id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/findPipeline.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert(JSON.stringify(data));
-				$("#editPipeId").val(data.pipe_id);
-				$("#editPipeYear").val(data.pipe_year);
-				$("#editPipeSystem").val(data.pipe_system);
-				$("#editPipeUseFrom").val(data.pipe_use_from);
-				$('#editVillageSelect').val(data.location.vil_id);
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function editVillageSelect() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#editVillageSelect').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
 	}
 </script>
 </head>
@@ -299,7 +144,6 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่บันทึกข้อมูล</th>
 														<th>หมู่ที่</th>
 														<th>ชื่อหมู่บ้าน</th>
 														<th>สถานะระบบประปา</th>

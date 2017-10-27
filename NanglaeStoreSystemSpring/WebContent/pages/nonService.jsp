@@ -46,7 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-var year = new Date().getFullYear()+543;
 	function listService() {
 		$("#loader").show();
 		$
@@ -60,9 +59,6 @@ var year = new Date().getFullYear()+543;
 							if(data[i].ser_year == year){
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].ser_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].ser_name
 									+ "</td>"
 									+ "<td>"
@@ -70,7 +66,6 @@ var year = new Date().getFullYear()+543;
 									+ "</td>"
 
 							html += "</tr>";
-							}
 						}
 						$('#listServices').html(html);
 						$("#resultTable").DataTable({});
@@ -81,113 +76,6 @@ var year = new Date().getFullYear()+543;
 						$("#loader").hide();
 					}
 				});
-	}
-</script>
-<script type='text/javascript'>
-	function createService() {
-		$("#loader").show();
-		if ($('#ser_year').val() == "") {
-			document.getElementById('ser_year').style.borderColor = "red";
-			return false;
-		} else if ($('#ser_name').val() == "") {
-			document.getElementById('ser_name').style.borderColor = "red";
-			return false;
-		} else if ($('#ser_capacity').val() == "") {
-			document.getElementById('ser_capacity').style.borderColor = "red";
-			return false;
-		} else {
-			var obj = {
-				ser_id : 0,
-				ser_year : $('#ser_year').val(),
-				ser_name : $('#ser_name').val(),
-				ser_capacity : $('#ser_capacity').val()
-
-			};
-			$.ajax({
-				url : "../NanglaeGov/saveService.do",
-				type : "POST",
-				dataType : "JSON",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				mimeType : "application/json",
-				success : function(data) {
-					//alert('success');
-					$("#loader").hide();
-					location.reload();
-				},
-				error : function(data, status, er) {
-					alert('ไม่สามารถบันทึกข้อมูลได้');
-					$("#loader").hide();
-				}
-			});
-		}
-	}
-	function deleteService() {
-		var id = document.getElementById("ser_id").value;
-		var obj = {
-			ser_id : id
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteService.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
-	}
-	function editService() {
-		var obj = {
-			ser_id : $("#editSerId").val(),
-			ser_year : $('#editSerYear').val(),
-			ser_name : $('#editSerName').val(),
-			ser_capacity : $('#editSerCapacity').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveService.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function setEditService(ser_id) {
-
-		var obj = {
-			ser_id : ser_id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/findService.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert(JSON.stringify(data));
-				$("#editSerId").val(data.ser_id);
-				$("#editSerYear").val(data.ser_year);
-				$("#editSerName").val(data.ser_name);
-				$("#editSerCapacity").val(data.ser_capacity);
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
 	}
 </script>
 </head>
@@ -252,7 +140,6 @@ var year = new Date().getFullYear()+543;
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีข้อมูล</th>
 														<th>ชื่อ</th>
 														<th>การให้บริการ</th>
 													</tr>

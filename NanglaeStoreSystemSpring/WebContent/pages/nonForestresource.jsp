@@ -46,7 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-var year = new Date().getFullYear()+543;
 	function listForest() {
 		$("#loader").show();
 		$
@@ -56,13 +55,8 @@ var year = new Date().getFullYear()+543;
 					success : function(data) {
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
-							if(data[i].frs_year == year){
 							html += "<tr>";
-
 							html += "<td>"
-									+ data[i].frs_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].frs_name
 									+ "</td>"
 									+ "<td>"
@@ -88,160 +82,9 @@ var year = new Date().getFullYear()+543;
 				});
 	}
 </script>
-<script type='text/javascript'>
-	function createForest() {
-		$("#loader").show();
-		if ($('#frs_year').val() == "") {
-			document.getElementById('frs_year').style.borderColor = "red";
-			return false;
-		} else if ($('#frs_name').val() == "") {
-			document.getElementById('frs_name').style.borderColor = "red";
-			return false;
-		} else if ($('#frs_usage').val() == "") {
-			document.getElementById('frs_usage').style.borderColor = "red";
-			return false;
-		} else {
-			var obj = {
-				frs_id : 0,
-				frs_year : $('#frs_year').val(),
-				frs_name : $('#frs_name').val(),
-				frs_usage : $('#frs_usage').val()
-
-			};
-			//alert(JSON.stringify(obj));
-			$.ajax({
-				url : "../NanglaeGov/saveForest.do?id=" + $("#villageSelect").val(),
-				type : "POST",
-				dataType : "JSON",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				mimeType : "application/json",
-				success : function(data) {
-					//alert('success');
-					$("#loader").hide();
-					location.reload();
-				},
-				error : function(data, status, er) {
-					alert('error');
-					$("#loader").hide();
-				}
-			});
-		}
-	}
-	function listVillage() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#villageSelect').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
-	}
-	function deleteForest() {
-		var id = document.getElementById("frs_id").value;
-		var obj = {
-			frs_id : id
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteForest.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
-	}
-	function editForest() {
-		var obj = {
-			frs_id : $("#editFrsId").val(),
-			frs_year : $('#editFrsYear').val(),
-			frs_name : $('#editFrsName').val(),
-			frs_usage : $('#editFrsUsage').val()
-
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveForest.do?id=" + $("#editVillageSelect").val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function setEditForest(frs_id) {
-
-		var obj = {
-			frs_id : frs_id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/findForest.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert(JSON.stringify(data));
-				$("#editFrsId").val(data.frs_id);
-				$("#editFrsYear").val(data.frs_year);
-				$("#editFrsName").val(data.frs_name);
-				$("#editFrsUsage").val(data.frs_usage);
-				$('#editVillageSelect').val(data.location.vil_id);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function editVillageSelect() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#editVillageSelect').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
-	}
-</script>
 </head>
 
-<body onload="listForest();listVillage();editVillageSelect();">
+<body onload="listForest()">
 
 	<div id="wrapper">
 
@@ -301,7 +144,6 @@ var year = new Date().getFullYear()+543;
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีข้อมูล</th>
 														<th>ป่าไม้</th>
 														<th>ที่ตั้ง</th>
 														<th>การใช้ประโยนช์</th>

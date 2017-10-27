@@ -46,7 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-var year = new Date().getFullYear()+543;
 	function listHealth() {
 		$("#loader").show();
 		$
@@ -56,12 +55,8 @@ var year = new Date().getFullYear()+543;
 					success : function(data) {
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
-							if(data[i].hlt_year == year){
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].hlt_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].hlt_name
 									+ "</td>"
 									+ "<td>"
@@ -75,7 +70,6 @@ var year = new Date().getFullYear()+543;
 									+ "</td>"
 
 							html += "</tr>";
-							}
 						}
 						$('#listHealths').html(html);
 						$("#resultTable").DataTable({});
@@ -88,159 +82,9 @@ var year = new Date().getFullYear()+543;
 				});
 	}
 </script>
-<script type='text/javascript'>
-	function createHealth() {
-		$("#loader").show();
-		if ($('#hlt_year').val() == "") {
-			document.getElementById('hlt_year').style.borderColor = "red";
-			return false;
-		} else if ($('#hlt_name').val() == "") {
-			document.getElementById('hlt_name').style.borderColor = "red";
-			return false;
-		} else if ($('#hlt_service_area').val() == "") {
-			document.getElementById('hlt_service_area').style.borderColor = "red";
-			return false;
-		} else {
-			var obj = {
-				hlt_id : 0,
-				hlt_year : $('#hlt_year').val(),
-				hlt_name : $('#hlt_name').val(),
-				hlt_service_area : $('#hlt_service_area').val()
-
-			};
-			//alert(JSON.stringify(obj));
-			$.ajax({
-				url : "../NanglaeGov/saveHealth.do?id=" + $("#villageSelect").val(),
-				type : "POST",
-				dataType : "JSON",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				mimeType : "application/json",
-				success : function(data) {
-					//alert('success');
-					$("#loader").hide();
-					location.reload();
-				},
-				error : function(data, status, er) {
-					alert('error');
-					$("#loader").hide();
-				}
-			});
-		}
-	}
-	function listVillage() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#villageSelect').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
-	}
-	function deleteHealth() {
-		var id = document.getElementById("hlt_id").value;
-		var obj = {
-			hlt_id : id
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteHealth.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
-	}
-	function editHealth() {
-		var obj = {
-			hlt_id : $("#editHltId").val(),
-			hlt_year : $('#editHltYear').val(),
-			hlt_name : $('#editHltName').val(),
-			hlt_service_area : $('#editHltServiceArea').val()
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/saveHealth.do?id=" + $("#editVillageSelect").val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function setEditHealth(hlt_id) {
-
-		var obj = {
-			hlt_id : hlt_id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/findHealth.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert(JSON.stringify(data));
-				$("#editHltId").val(data.hlt_id);
-				$("#editHltYear").val(data.hlt_year);
-				$("#editHltName").val(data.hlt_name);
-				$("#editHltServiceArea").val(data.hlt_service_area);
-				$('#editVillageSelect').val(data.location.vil_id);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function editVillageSelect() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#editVillageSelect').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
-	}
-</script>
 </head>
 
-<body onload="listHealth();listVillage();editVillageSelect();">
+<body onload="listHealth()">
 
 	<div id="wrapper">
 
@@ -302,7 +146,6 @@ var year = new Date().getFullYear()+543;
 												<!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีข้อมูล</th>
 														<th>ชื่อ</th>
 														<th>ที่ตั้ง</th>
 														<th>ขอบเขตการให้บริการ</th>

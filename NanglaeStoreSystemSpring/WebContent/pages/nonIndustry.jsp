@@ -46,7 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-var year = new Date().getFullYear()+543;
 	function listIndustry() {
 		$("#loader").show();
 		$
@@ -56,13 +55,8 @@ var year = new Date().getFullYear()+543;
 					success : function(data) {
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
-							if(data[i].ins_year == year){
 							html += "<tr>";
-
 							html += "<td>"
-									+ data[i].ins_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].ins_name
 									+ "</td>"
 									+ "<td>"
@@ -82,7 +76,6 @@ var year = new Date().getFullYear()+543;
 									+ "</td>"
 
 							html += "</tr>";
-							}
 						}
 						$('#listIndustrys').html(html);
 						$("#resultTable").DataTable({});
@@ -95,170 +88,9 @@ var year = new Date().getFullYear()+543;
 				});
 	}
 </script>
-<script type='text/javascript'>
-	function createIndustry() {
-		$("#loader").show();
-		if ($('#ins_year').val() == "") {
-			document.getElementById('ins_year').style.borderColor = "red";
-			return false;
-		} else if ($('#ins_name').val() == "") {
-			document.getElementById('ins_name').style.borderColor = "red";
-			return false;
-		} else if ($('#ins_size').val() == "") {
-			document.getElementById('ins_size').style.borderColor = "red";
-			return false;
-		} else if ($('#ins_type').val() == "") {
-			document.getElementById('ins_type').style.borderColor = "red";
-			return false;
-		} else if ($('#ins_labor').val() == "") {
-			document.getElementById('ins_labor').style.borderColor = "red";
-			return false;
-		} else {
-			var obj = {
-				ins_id : 0,
-				ins_year : $('#ins_year').val(),
-				ins_name : $('#ins_name').val(),
-				ins_size : $('#ins_size').val(),
-				ins_type : $('#ins_type').val(),
-				ins_labor : $('#ins_labor').val()
-
-			};
-			//alert(JSON.stringify(obj));
-			$.ajax({
-				url : "../NanglaeGov/saveIndustry.do?id=" + $("#villageSelect").val(),
-				type : "POST",
-				dataType : "JSON",
-				data : JSON.stringify(obj),
-				contentType : "application/json",
-				mimeType : "application/json",
-				success : function(data) {
-					//alert('success');
-					$("#loader").hide();
-					location.reload();
-				},
-				error : function(data, status, er) {
-					alert('error');
-					$("#loader").hide();
-				}
-			});
-		}
-	}
-	function listVillage() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#villageSelect').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
-	}
-	function deleteIndustry() {
-		var id = document.getElementById("ins_id").value;
-		var obj = {
-			ins_id : id
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteIndustry.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
-	}
-	function editIndustry() {
-		var obj = {
-			ins_id : $("#editInsId").val(),
-			ins_year : $('#editInsYear').val(),
-			ins_name : $('#editInsName').val(),
-			ins_size : $('#editInsSize').val(),
-			ins_type : $('#editInsType').val(),
-			ins_labor : $('#editInsLabor').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveIndustry.do?id=" + $("#editVillageSelect").val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				location.reload();
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function setEditIndustry(ins_id) {
-
-		var obj = {
-			ins_id : ins_id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/findIndustry.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert(JSON.stringify(data));
-				$("#editInsId").val(data.ins_id);
-				$("#editInsYear").val(data.ins_year);
-				$("#editInsName").val(data.ins_name);
-				$("#editInsSize").val(data.ins_size);
-				$("#editInsType").val(data.ins_type);
-				$("#editInsLabor").val(data.ins_labor);
-				$('#editVillageSelect').val(data.location.vil_id);
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
-	}
-	function editVillageSelect() {
-		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listVillage.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
-					html += "<option value=\""+data[i].vil_id+"\">"
-							+ data[i].vil_name + "</option>";
-				}
-				$('#editVillageSelect').html(html);
-
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
-	}
-</script>
 </head>
 
-<body onload="listIndustry();listVillage();editVillageSelect();">
+<body onload="listIndustry()">
 
 	<div id="wrapper">
 
@@ -319,7 +151,6 @@ var year = new Date().getFullYear()+543;
 											<!-- Start change table -->
 											<thead>
 												<tr>
-													<th>ปีข้อมูล</th>
 													<th>ชื่ออุตสาหกรรม</th>
 													<th>ที่ตั้ง</th>
 													<th>ขนาด</th>
