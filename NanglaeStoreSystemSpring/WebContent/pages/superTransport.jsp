@@ -324,8 +324,8 @@ function getCurrentYear(){
 												<td><select id="gander" class="form-control"
 													name="gander">
 														<option value="">เลือกประเภท</option>
-														<option value=""></option>
-														<option value=""></option>
+														<option value="ถนนสายหลัก">ถนนสายหลัก</option>
+														<option value="ระบบขนส่งสาธารณะ">ระบบขนส่งสาธารณะ</option>
 												</select></td>
 												</tr>
 												<tr>
