@@ -12,6 +12,7 @@
 					<li><a href="superLabor.do">แรงงาน</a></li>
 					<li><a href="superAIDSpatients.do">ผู้ป่วยเอดส์</a></li>
 					<li><a href="superDisabled.do">ผู้พิการ</a></li>
+					<li><a href=".do">ผู้สูงอายุ</a></li>
 				</ul> <!-- /.nav-second-level --></li>
 			<li><a href="#"><i class="fa fa-road fa-fw"></i> สาธารณูปโภค<span
 					class="fa arrow"></span></a>
@@ -32,12 +33,13 @@
 							<li><a href="superReligion.do">การศาสนา</a></li>
 							<li><a href="superCommerce.do">การพาณิชย์</a></li>
 							<li><a href="superTourism.do">แหล่งท่องเที่ยว</a></li>
+							<li><a href="superOtop.do">OTOP</a></li>
+							<li><a href=".do">ร้านอาหาร</a></li>
 						</ul> <!-- /.nav-third-level --></li>
 					<li><a href="#">บริการ<span class="fa arrow"></span></a>
 						<ul class="nav nav-third-level">
 							<li><a href="superHealth.do">การสาธารสุข</a></li>
-							<li><a href="superSecurity.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a>
-							</li>
+							<li><a href="superSecurity.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a></li>
 							<li><a href="superGroup.do">กลุ่มในชุมชน</a></li>
 							<li><a href="superService.do">ศูนย์บริการประชาชน</a></li>
 							<li><a href="superInventory.do">การคลัง</a></li>

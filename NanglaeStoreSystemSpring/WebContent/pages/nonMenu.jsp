@@ -10,6 +10,9 @@
 					<li><a href="nonPersonnel.do">บุคลากร</a></li>
 					<li><a href="nonPopulation.do">ประชากร</a></li>
 					<li><a href="nonLabor.do">แรงงาน</a></li>
+					<li><a href="superAIDSpatients.do">ผู้ป่วยเอดส์</a></li>
+					<li><a href="superDisabled.do">ผู้พิการ</a></li>
+					<li><a href=".do">ผู้สูงอายุ</a></li>
 				</ul> <!-- /.nav-second-level --></li>
 			<li><a href="#"><i class="fa fa-home fa-fw"></i> สาธารณูปโภค<span
 					class="fa arrow"></span></a>
@@ -30,6 +33,8 @@
 							<li><a href="nonReligion.do">การศาสนา</a></li>
 							<li><a href="nonCommerce.do">การพาณิชย์</a></li>
 							<li><a href="nonTourism.do">แหล่งท่องเที่ยว</a></li>
+							<li><a href="nonOtop.do">OTOP</a></li>
+							<li><a href=".do">ร้านอาหาร</a></li>
 						</ul> <!-- /.nav-third-level --></li>
 					<li><a href="#">บริการ<span class="fa arrow"></span></a>
 						<ul class="nav nav-third-level">

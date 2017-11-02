@@ -30,6 +30,7 @@
 							<li><a href="userReligion.do">การศาสนา</a></li>
 							<li><a href="userCommerce.do">การพาณิชย์</a></li>
 							<li><a href="userTourism.do">แหล่งท่องเที่ยว</a></li>
+							<li><a href="userOtop.do">OTOP</a></li>
 						</ul> <!-- /.nav-third-level --></li>
 					<li><a href="#">บริการ<span class="fa arrow"></span></a>
 						<ul class="nav nav-third-level">
