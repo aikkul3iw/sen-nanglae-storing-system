@@ -57,6 +57,9 @@ function getCurrentYear(){
 			type : "POST",
 			success : function(data) {
 				var html = '';
+				Object userdelete = session.getAttribute("userdelete");
+				var testUser = toString(userdelete);
+				alert(testUser);
 				for (var i = 0; i < data.length; i++) {
 								html += "<tr>";
 								html += "<td>"
@@ -137,6 +140,8 @@ function getCurrentYear(){
 			$("#loader").show();
 			var errDetectMsg = 'ไม่สามารถบันทึกข้อมูลได้';
 			var errDetec = false;
+			//var user = $('#userId').val();
+			//alert(user);
 			var obj = {
 				vil_id : 0,
 				vil_year : $('#vil_year').val(),
@@ -145,7 +150,7 @@ function getCurrentYear(){
 				vil_chief : $('#vil_chief').val()
 			};
 			$.ajax({
-				url : "../NanglaeGov/saveVillage.do",
+				url : "../NanglaeGov/saveVillage.do?user="+$('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -198,7 +203,6 @@ function getCurrentYear(){
 	function editVillage() {
 		var obj = {
 			vil_id : $("#editVilId").val(),
-			vil_year : $('#editVilYear').val(),
 			vil_name : $('#editVilName').val(),
 			vil_number : $('#editVilNumber').val(),
 			vil_chief : $('#editVilChief').val()
@@ -206,7 +210,7 @@ function getCurrentYear(){
 
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/saveVillage.do",
+			url : "../NanglaeGov/saveVillage.do?editUserId="+$('#editUserId').val(),
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -241,7 +245,6 @@ function getCurrentYear(){
 			success : function(data) {
 				//alert(JSON.stringify(data));
 				$("#editVilId").val(data.vil_id);
-				$("#editVilYear").val(data.vil_year);
 				$("#editVilName").val(data.vil_name);
 				$("#editVilNumber").val(data.vil_number);
 				$("#editVilChief").val(data.vil_chief);
@@ -333,7 +336,6 @@ function getCurrentYear(){
 												<!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีข้อมูล</th>
 														<th>หมู่ที่</th>
 														<th>ชื่อหมู่บ้าน</th>
 														<th>ชื่อกำนัน/ผู้ใหญ่บ้าน</th>
@@ -348,6 +350,10 @@ function getCurrentYear(){
 									</div>
 									<div class="tab-pane fade" id="addVillage">
 										<form role="form" name="vilForm" id="formCreate">
+										<%
+											Object userid = session.getAttribute("user");
+										%>
+										<input type="hidden" id="userId" value="<%=userid %>">
 											<table width="50%" align="center">
 												<tr>
 
@@ -394,14 +400,12 @@ function getCurrentYear(){
 									</div>
 									<div class="tab-pane fade" id="editVillage">
 										<form role="form">
+										<%
+											Object edituserid = session.getAttribute("edituser");
+										%>
+											<input type="hidden" id="editUserId" value="<%=edituserid %>">
 											<input type="hidden" id="editVilId">
 											<table width="50%" align="center">
-												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input class="form-control" placeholder=""
-														value="2558" maxlength="4" id="editVilYear"
-														name="vil-year"></td>
-												</tr>
 												<tr>
 
 													<td align="pull-right" style="padding: 15px">หมู่ที่</td>

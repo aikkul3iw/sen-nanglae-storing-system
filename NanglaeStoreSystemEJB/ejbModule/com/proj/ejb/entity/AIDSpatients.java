@@ -20,19 +20,19 @@ public class AIDSpatients implements Serializable {
 	private String firstName;
 	private String lastName;
 	private String gender;
-	private int idCard;
-	private Date birthday;
+	private String idCard;
+	private String birthday;
 	private int age;
 	private String address1;
 	private String address2;
 	private String tel;
-	private Date regisDate;
-	private Date allowanceSartDate;
+	private String regisDate;
+	private String allowanceStartDate;
 	private String offspringTitle;
 	private String offspringFirstname;
 	private String offspringLastname;
 	private String offspringIdCard;
-	private Date allowanceEndDate;
+	private String allowanceEndDate;
 	private String remark;
 
 	// map with village
@@ -78,22 +78,6 @@ public class AIDSpatients implements Serializable {
 
 	public void setGender(String gender) {
 		this.gender = gender;
-	}
-
-	public int getIdCard() {
-		return idCard;
-	}
-
-	public void setIdCard(int idCard) {
-		this.idCard = idCard;
-	}
-
-	public Date getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
 	}
 
 	public int getAge() {
@@ -152,30 +136,6 @@ public class AIDSpatients implements Serializable {
 		this.offspringIdCard = offspringIdCard;
 	}
 
-	public Date getRegisDate() {
-		return regisDate;
-	}
-
-	public void setRegisDate(Date regisDate) {
-		this.regisDate = regisDate;
-	}
-
-	public Date getAllowanceSartDate() {
-		return allowanceSartDate;
-	}
-
-	public void setAllowanceSartDate(Date allowanceSartDate) {
-		this.allowanceSartDate = allowanceSartDate;
-	}
-
-	public Date getAllowanceEndDate() {
-		return allowanceEndDate;
-	}
-
-	public void setAllowanceEndDate(Date allowanceEndDate) {
-		this.allowanceEndDate = allowanceEndDate;
-	}
-
 	public String getRemark() {
 		return remark;
 	}
@@ -199,5 +159,46 @@ public class AIDSpatients implements Serializable {
 	public void setLocation(Village location) {
 		this.location = location;
 	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getRegisDate() {
+		return regisDate;
+	}
+
+	public void setRegisDate(String regisDate) {
+		this.regisDate = regisDate;
+	}
+
+	public String getAllowanceStartDate() {
+		return allowanceStartDate;
+	}
+
+	public void setAllowanceStartDate(String allowanceStartDate) {
+		this.allowanceStartDate = allowanceStartDate;
+	}
+
+	public String getAllowanceEndDate() {
+		return allowanceEndDate;
+	}
+
+	public void setAllowanceEndDate(String allowanceEndDate) {
+		this.allowanceEndDate = allowanceEndDate;
+	}
+
+	public String getIdCard() {
+		return idCard;
+	}
+
+	public void setIdCard(String idCard) {
+		this.idCard = idCard;
+	}
+	
 
 }

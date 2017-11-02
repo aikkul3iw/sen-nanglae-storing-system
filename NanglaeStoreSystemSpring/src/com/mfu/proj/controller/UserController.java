@@ -119,6 +119,10 @@ public class UserController {
 		ModelAndView model = new ModelAndView("index");
 
 		session.setAttribute("session", null);
+		session.setAttribute("Name",null);
+	    session.setAttribute("user", null);
+	    session.setAttribute("edituser", null);
+	    session.setAttribute("userdelete", null);
 		// String username = (String) request.getAttribute("loggedInUser");
 		request.setAttribute("loggedInUser", null);
 		User loginBean = new User();
@@ -149,7 +153,10 @@ public class UserController {
 					Personnel map = isValidUser.get(0).getLocation();
 					
 				    session.setAttribute("Name",map.getPer_title() + map.getPer_firstname() + " " + map.getPer_lastname());
-
+				    session.setAttribute("user", isValidUser.get(0).getUser_id());
+				    session.setAttribute("edituser", isValidUser.get(0).getUser_id());
+				    session.setAttribute("userdelete", isValidUser.get(0).getUser_id());
+				    
 					System.out.println("Login Superuser Successful");
 					session.setAttribute("session", loginBean.getUsername());
 					System.out.println("getdatasession" + session.getAttribute("session"));

@@ -104,9 +104,9 @@ public class UploadServlet2 extends HttpServlet {
 
 		}
 		
-		//doGet(request, response);
+		doGet(request, response);
 		
-		getServletContext().getRequestDispatcher("/superTourism.do").forward(request, response);
+		//getServletContext().getRequestDispatcher("/superTourism.do").forward(request, response);
 	}
 	
 	private static String getFileName(Part part) {
