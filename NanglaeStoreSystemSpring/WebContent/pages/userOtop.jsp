@@ -300,7 +300,7 @@
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="superMenu.jsp" %>
+			<%@include file="userMenu.jsp" %>
 		</nav>
 	</div>
 	<div id="page-wrapper" style="background-color: #d7f0f5">

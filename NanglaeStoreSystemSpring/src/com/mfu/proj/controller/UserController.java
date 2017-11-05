@@ -148,11 +148,12 @@ public class UserController {
 
 			if (isValidUser.size() != 0) {
 				System.out.println(isValidUser.get(0).getRole());
+				Personnel map = isValidUser.get(0).getLocation();
+				
+			    session.setAttribute("Name",map.getPer_title() + map.getPer_firstname() + " " + map.getPer_lastname());
 
 				if (isValidUser.get(0).getRole().equalsIgnoreCase("Superuser")) {
-					Personnel map = isValidUser.get(0).getLocation();
 					
-				    session.setAttribute("Name",map.getPer_title() + map.getPer_firstname() + " " + map.getPer_lastname());
 				    session.setAttribute("user", isValidUser.get(0).getUser_id());
 				    session.setAttribute("edituser", isValidUser.get(0).getUser_id());
 				    session.setAttribute("userdelete", isValidUser.get(0).getUser_id());

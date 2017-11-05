@@ -16,9 +16,9 @@ public class ElderlyPeople implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long elderPeId;
 
-	private String title;
+	private String titles;
 	private String firstName;
-	private String lastNane;
+	private String lastName;
 	private String gender;
 	private int idCard;
 	private Date birthday;
@@ -72,12 +72,12 @@ public class ElderlyPeople implements Serializable {
 		this.age = age;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getTitles() {
+		return titles;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setTitles(String titles) {
+		this.titles = titles;
 	}
 
 	public String getFirstName() {
@@ -88,12 +88,12 @@ public class ElderlyPeople implements Serializable {
 		this.firstName = firstName;
 	}
 
-	public String getLastNane() {
-		return lastNane;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLastNane(String lastNane) {
-		this.lastNane = lastNane;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public Date getBirthday() {

@@ -48,42 +48,33 @@
 <script type='text/javascript'>
 
 	
-	function listOtop() {
+	function listElderlyPeople() {
 		$("#loader").show();
 
 		$
 				.ajax({
-					url : "../NanglaeGov/listOtop.do",
+					url : "../NanglaeGov/listElderlyPeople.do",
 					type : "POST",
 					success : function(data) {
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
 
-							var id = data[i].otopId;
+							var id = data[i].elderPeId;
 
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].otop_name
+									+ data[i].titles+data[i].firstName+" "+data[i].lastname
 									+ "</td>"
 									+ "<td>"
-									+ data[i].tel
+									+ data[i].age
 									+ "</td>"
 									+ "<td>"
-									+ data[i].otop_price
-									+ "</td>"
-									+ "<td>"
-									+ data[i].otop_description
-									+ "</td>"
-									+ "<td>"
-									+ data[i].latitute
-									+ "</td>"
-									+ "<td>"
-									+ data[i].longitute
+									+ data[i].address1
 									+ "</td>"
 
 							html += "</tr>";
 						}
-						$('#listOtops').html(html);
+						$('#listElderlyPeoples').html(html);
 						$(document).ready(function() {
 							var table = $('#resultTable').DataTable({
 						});
@@ -100,11 +91,12 @@
 </script>
 
 <script type='text/javascript'>
+	
 
 </script>
 </head>
 
-<body onload="listOtop();getCurrentYear()">
+<body onload="listElderlyPeople()">
 
 	<div id="wrapper">
 
@@ -119,11 +111,26 @@
 						class="icon-bar"></span>
 				</button>
 				<img src="../NanglaeGov/images/logo-nanglae.png"> <a
-					class="navbar-brand" href="index.do">เทศบาลตำบลนางแล</a>
+					class="navbar-brand" href="superIndex.do">เทศบาลตำบลนางแล</a>
 			</div>
 			<!-- /.navbar-header -->
 
-			
+			<ul class="nav navbar-top-links navbar-right">
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
+						<i class="fa fa-caret-down"></i>
+				</a>
+					<ul class="dropdown-menu dropdown-user">
+						<li><a href="#"><i class="fa fa-user fa-fw"></i>
+								ดูข้อมูลส่วนตัว</a></li>
+						<li><a href="#"><i class="fa fa-gear fa-fw"></i> ตั้งค่า</a>
+						</li>
+						<li class="divider"></li>
+						<li><a href="index.do"><i class="fa fa-sign-out fa-fw"></i>
+								ออกจากระบบ</a></li>
+					</ul> <!-- /.dropdown-user --></li>
+				<!-- /.dropdown -->
+			</ul>
 			<!-- /.navbar-top-links -->
 
 			<%@include file="nonMenu.jsp" %>
@@ -132,7 +139,7 @@
 	<div id="page-wrapper" style="background-color: #d7f0f5">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Otop</h1>
+				<h1 class="page-header">ผู้สูงอายุ</h1>
 			</div>
 			<!-- /.col-lg-12 -->
 		</div>
@@ -142,14 +149,14 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<ul class="nav nav-tabs">
-							<li class="active"><a href="#listOtop" data-toggle="tab">ข้อมูล Otop</a>
+							<li class="active"><a href="#listElderlyPeople" data-toggle="tab">ข้อมูล ผู้สูงอายุ</a>
 							</li>
 						</ul>
 						<div class="panel-body">
 
 							<!-- Tab panes -->
 							<div class="tab-content">
-								<div class="tab-pane fade in active" id="listOtop">
+								<div class="tab-pane fade in active" id="listElderlyPeople">
 									<div class="table-responsive">
 										<table id="resultTable"
 											class="table table-striped table-bordered table-hover">
@@ -157,14 +164,11 @@
 												<thead>
 													<tr>
 														<th>ชื่อ</th>
-														<th>เบอร์โทร</th>
-														<th>ราคา</th>
-														<th>รายละเอียด</th>
-														<th>ละดิจูด</th>
-														<th>ลองติจูด</th>
+														<th>อายุ</th>
+														<th>ที่อยู่</th>
 													</tr>
 												</thead>
-												<tbody id="listOtops">
+												<tbody id="listElderlyPeoples">
 												</tbody>
 <!-- End change table -->
 										</table>
