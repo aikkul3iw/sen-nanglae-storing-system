@@ -64,14 +64,9 @@ function getCurrentYear(){
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].edu_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].edu_name
 									+ "</td><td>"
 									+ data[i].edu_type
-									+ "</td><td>"
-									+ data[i].student
 									+ "</td><td>"
 									+ "หมู่ที่ "
 									+ data[i].location.vil_number
@@ -110,25 +105,17 @@ function getCurrentYear(){
 <script type='text/javascript'>
 	function createEducation() {
 		$("#loader").show();
-		if ($('#edu_year').val() == "") {
-			document.getElementById('edu_year').style.borderColor = "red";
-			return false;
-		} else if ($('#edu_name').val() == "") {
+		if ($('#edu_name').val() == "") {
 			document.getElementById('edu_name').style.borderColor = "red";
 			return false;
 		} else if ($('#edu_type').val() == "") {
 			document.getElementById('edu_type').style.borderColor = "red";
 			return false;
-		} else if ($('#student').val() == "") {
-			document.getElementById('student').style.borderColor = "red";
-			return false;
 		} else {
 			var obj = {
 				edu_id : 0,
-				edu_year : $('#edu_year').val(),
 				edu_name : $('#edu_name').val(),
-				edu_type : $('#edu_type').val(),
-				student : $('#student').val()
+				edu_type : $('#edu_type').val()
 
 			};
 			$.ajax({
@@ -203,10 +190,8 @@ function getCurrentYear(){
 	function editEducation() {
 		var obj = {
 			edu_id : $("#editEduId").val(),
-			edu_year : $('#editEduYear').val(),
 			edu_name : $('#editEduName').val(),
-			edu_type : $('#editEduType').val(),
-			student : $('#editStudent').val()
+			edu_type : $('#editEduType').val()
 
 		};
 		$.ajax({
@@ -244,10 +229,8 @@ function getCurrentYear(){
 			mimeType : "application/json",
 			success : function(data) {
 				$("#editEduId").val(data.edu_id);
-				$("#editEduYear").val(data.edu_year);
 				$("#editEduName").val(data.edu_name);
 				$("#editEduType").val(data.edu_type);
-				$("#editStudent").val(data.student);
 				$('#editVillageSelect').val(data.location.vil_id);
 			},
 			error : function(data, status, er) {
@@ -354,10 +337,8 @@ function getCurrentYear(){
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่บันทึกข้อมูล</th>
 														<th>ชื่อสถานศึกษา</th>
 														<th>ประเภท</th>
-														<th>จำนวนนักเรียน(คน)</th>
 														<th>ที่ตั้ง</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
@@ -505,12 +486,6 @@ function getCurrentYear(){
 										<form role="form">
 											<table width="50%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="edu_year" maxlength="4"
-														class="form-control" placeholder="" value="2558"
-														name="tran-year" required="true"></td>
-												</tr>
-												<tr>
 
 													<td align="pull-right" style="padding: 15px">ชื่อสถานศึกษา</td>
 													<td><input type="text" id="edu_name" maxlength="100"
@@ -525,13 +500,6 @@ function getCurrentYear(){
 															<option value="ศูนย์เด็กเล็ก">ศูนย์เด็กเล็ก</option>
 															<option value="โรงเรียน">โรงเรียน</option>
 													</select></td>
-												</tr>
-												<tr>
-													<td align="pull-right" style="padding: 15px">จำนวนนักเรียน</td>
-													<td><input id="student" maxlength="4"
-														class="form-control" placeholder="ระบุจำนวนนักเรียน"
-														name="edu-amount" required="true"></td>
-													<td style="padding: 15px">คน</td>
 												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>

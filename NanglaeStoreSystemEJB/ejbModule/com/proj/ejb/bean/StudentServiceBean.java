@@ -47,7 +47,7 @@ public class StudentServiceBean implements StudentService {
 	@Override
 	public List<Student> listAllStudent() {
 		// TODO Auto-generated method stub
-		List<Student> list = em.createQuery("SELECT stu FROM Student stu").getResultList();
+		List<Student> list = em.createQuery("SELECT stu FROM Student stu ORDER BY stu.location.edu_name, stu.stu_year").getResultList();
 		return list;
 	}
 

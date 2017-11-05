@@ -13,6 +13,7 @@
 					<li><a href="superAIDSpatients.do">ผู้ป่วยเอดส์</a></li>
 					<li><a href="superDisabled.do">ผู้พิการ</a></li>
 					<li><a href="superElderlyPeople.do">ผู้สูงอายุ</a></li>
+					<li><a href="superStudent.do">นักเรียน</a></li>
 				</ul> <!-- /.nav-second-level --></li>
 			<li><a href="#"><i class="fa fa-road fa-fw"></i> สาธารณูปโภค<span
 					class="fa arrow"></span></a>
