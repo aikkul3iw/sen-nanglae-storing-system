@@ -46,56 +46,52 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-var year = new Date().getFullYear()+543;
-function getCurrentYear(){
-	document.getElementById('pol_year').value = year;
-	}
-	function listPolution() {
+
+	
+	function listRestaurant() {
 		$("#loader").show();
 
 		$
 				.ajax({
-					url : "../NanglaeGov/listPolution.do",
+					url : "../NanglaeGov/listRestaurant.do",
 					type : "POST",
 					success : function(data) {
 						var html = '';
-						var count = 1;
 						for (var i = 0; i < data.length; i++) {
 
-							var id = data[i].pol_id;
-							function loader() {
-								document.getElementById("myLink").innerHTML = id;
-							}
-
+							var id = data[i].restaurantId;
 
 							html += "<tr>";
-							html += "<td>"+count+"</td><td>"
-									+ data[i].pol_year
+							html += "<td>"
+									+ data[i].res_name
 									+ "</td>"
 									+ "<td>"
-									+ data[i].pol_name
+									+ data[i].res_menu
 									+ "</td>"
 									+ "<td>"
-									+ data[i].pol_effect
+									+ data[i].latitute
 									+ "</td>"
 									+ "<td>"
-									+ data[i].pol_area
+									+ data[i].longitute
 									+ "</td>"
-									+ "<td nowrap=\"nowrap\" style=\"text-align: center;\"><button href=\"#editPolution\" data-toggle=\"tab\" onclick=\"setEditPolution("
-									+ data[i].pol_id
-									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deletePolution("
-									+ data[i].pol_id
-									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
+									+ "<td>"
+									+ data[i].houseId
+									+ "</td>"
+									+ "<td>"
+									+ "หมู่ที่ "
+									+ data[i].location.vil_number
+									+ " บ้าน"
+									+ data[i].location.vil_name
+									+ "</td>"
 
 							html += "</tr>";
-							count++;
 						}
-						$('#listPolutions').html(html);
+						$('#listRestaurant').html(html);
 						$(document).ready(function() {
 							var table = $('#resultTable').DataTable({
 								lengthChange : false,
 								buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2, 3 ]},customize : function(doc) {
+								columns : [ 0, 1, 2, 3, 4, 5, 6 ]},customize : function(doc) {
 								doc.defaultStyle['font'] = 'THSarabun';
 										}
 									},
@@ -114,31 +110,35 @@ function getCurrentYear(){
 </script>
 
 <script type='text/javascript'>
-	function createPolution() {
+	function createRestaurant() {
 		$("#loader").show();
-		if ($('#pol_year').val() == "") {
-			document.getElementById('pol_year').style.borderColor = "red";
+		if ($('#res_name').val() == "") {
+			document.getElementById('res_name').style.borderColor = "red";
 			return false;
-		} else if ($('#pol_name').val() == "") {
-			document.getElementById('pol_name').style.borderColor = "red";
+		} else if ($('#res_menu').val() == "") {
+			document.getElementById('res_menu').style.borderColor = "red";
 			return false;
-		} else if ($('#pol_effect').val() == "") {
-			document.getElementById('pol_effect').style.borderColor = "red";
+		} else if ($('#latitute').val() == "") {
+			document.getElementById('latitute').style.borderColor = "red";
 			return false;
-		} else if ($('#pol_area').val() == "") {
-			document.getElementById('pol_area').style.borderColor = "red";
+		} else if ($('#longitute').val() == "") {
+			document.getElementById('longitute').style.borderColor = "red";
 			return false;
-		} else {
+		} else if ($('#houseId').val() == "") {
+			document.getElementById('houseId').style.borderColor = "red";
+			return false;
+		}  else {
 			var obj = {
-				pol_id : 0,
-				pol_year : $('#pol_year').val(),
-				pol_name : $('#pol_name').val(),
-				pol_effect : $('#pol_effect').val(),
-				pol_area : $('#pol_area').val()
+					restaurantId : 0,
+					res_name : $('#res_name').val(),
+					res_menu : $('#res_menu').val(),
+					latitute : $('#latitute').val(),
+					longitute : $('#longitute').val(),
+					houseId : $('#houseId').val()
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/savePolution.do",
+				url : "../NanglaeGov/saveRestaurant.do?id=" + $("#villageSelect").val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -160,8 +160,28 @@ function getCurrentYear(){
 		}
 
 	}
+	function listVillage() {
+		$("#loader").show();
+		$.ajax({
+			url : "../NanglaeGov/listVillage.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<option value=\""+data[i].vil_id+"\">"
+							+ data[i].vil_name + "</option>";
+				}
+				$('#villageSelect').html(html);
 
-	function deletePolution(pol_id) {
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+
+	function deleteRestaurant(restaurantId) {
 		swal({
 			title : 'คุณต้องการลบข้อมูลหรือไม่?',
 			type : 'warning',
@@ -171,13 +191,13 @@ function getCurrentYear(){
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = pol_id;
+		var id = restaurantId;
 		var obj = {
-			pol_id : id
+				restaurantId : id
 		};
 
 		$.ajax({
-			url : "../NanglaeGov/deletePolution.do",
+			url : "../NanglaeGov/deleteRestaurant.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -190,17 +210,18 @@ function getCurrentYear(){
 		});
 		});
 	}
-	function editPolution() {
+	function editRestaurant() {
 		var obj = {
-			pol_id : $('#editPolId').val(),
-			pol_year : $('#editPolYear').val(),
-			pol_name : $('#editPolName').val(),
-			pol_effect : $('#editPolEffect').val(),
-			pol_area : $('#editPolArea').val()
+				restaurantId : $('#editRestaurantId').val(),
+				res_name : $('#editres_name').val(),
+				res_menu : $('#editres_menu').val(),
+				latitute : $('#editlatitute').val(),
+				longitute : $('#editlongitute').val(),
+				houseId : $('#edithouseId').val()
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/savePolution.do",
+			url : "../NanglaeGov/saveRestaurant.do?id=" + $("#editVillageSelect").val(),
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -220,14 +241,14 @@ function getCurrentYear(){
 		});
 	}
 
-	function setEditPolution(pol_id) {
+	function setEditRestaurant(restaurantId) {
 
 		var obj = {
-			pol_id : pol_id
+				restaurantId : restaurantId
 		};
 
 		$.ajax({
-			url : "../NanglaeGov/findPolution.do",
+			url : "../NanglaeGov/findRestaurant.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -235,21 +256,43 @@ function getCurrentYear(){
 			mimeType : "application/json",
 			success : function(data) {
 				//alert(JSON.stringify(data));
-				$("#editPolId").val(data.pol_id);
-				$("#editPolYear").val(data.pol_year);
-				$("#editPolName").val(data.pol_name);
-				$("#editPolEffect").val(data.pol_effect);
-				$("#editPolArea").val(data.pol_area);
+				$("#editRestaurantId").val(data.restaurantId);
+				$("#editres_name").val(data.res_name);
+				$("#editres_menu").val(data.res_menu);
+				$("#editlatitute").val(data.latitute);
+				$("#editlongitute").val(data.longitute);
+				$("#edithouseId").val(data.houseId);
+				$('#editVillageSelect').val(data.location.vil_id);
 			},
 			error : function(data, status, er) {
 				alert('error');
 			}
 		});
 	}
+	function editVillageSelect() {
+		$("#loader").show();
+		$.ajax({
+			url : "../NanglaeGov/listVillage.do",
+			type : "POST",
+			success : function(data) {
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += "<option value=\""+data[i].vil_id+"\">"
+							+ data[i].vil_name + "</option>";
+				}
+				$('#editVillageSelect').html(html);
+
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
 </script>
 </head>
 
-<body onload="listPolution();getCurrentYear();">
+<body onload="listRestaurant();listVillage();editVillageSelect();">
 
 	<div id="wrapper">
 
@@ -264,15 +307,11 @@ function getCurrentYear(){
 						class="icon-bar"></span>
 				</button>
 				<img src="../NanglaeGov/images/logo-nanglae.png"> <a
-					class="navbar-brand" href="userIndex.do">เทศบาลตำบลนางแล</a>
+					class="navbar-brand" href="index.do">เทศบาลตำบลนางแล</a>
 			</div>
 			<!-- /.navbar-header -->
 
 			<ul class="nav navbar-top-links navbar-right">
-			<%
-				Object Name = session.getAttribute("Name");
-				out.println("ยินดีต้อนรับ    " +Name);
-			%>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<i class="fa fa-caret-down"></i>
@@ -290,13 +329,13 @@ function getCurrentYear(){
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="userMenu.jsp" %>
+			<%@include file="nonMenu.jsp" %>
 		</nav>
 	</div>
 	<div id="page-wrapper" style="background-color: #d7f0f5">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">มลพิษ</h1>
+				<h1 class="page-header">Restaurant</h1>
 			</div>
 			<!-- /.col-lg-12 -->
 		</div>
@@ -306,121 +345,35 @@ function getCurrentYear(){
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<ul class="nav nav-tabs">
-							<li class="active"><a href="#listPolution" data-toggle="tab">ข้อมูลมลพิษ</a>
-							</li>
-							<li><a href="#addPolution" data-toggle="tab">เพิ่มมลพิษ</a>
-							</li>
+							
 						</ul>
 						<div class="panel-body">
 
 							<!-- Tab panes -->
 							<div class="tab-content">
-								<div class="tab-pane fade in active" id="listPolution">
+								<div class="tab-pane fade in active" id="listResInfor">
 									<div class="table-responsive">
 										<table id="resultTable"
 											class="table table-striped table-bordered table-hover">
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ที่</th>
-														<th>ปีที่ข้อมูล</th>
-														<th>มลพิษ</th>
-														<th>ผลกระทบ</th>
-														<th>พิ้นที่ได้รับผลกระทบ</th>
-														<th style="text-align: center;">ตัวเลือก</th>
+														<th>ชื่อ</th>
+														<th>เมนูแนะนำ</th>
+														<th>ละติจูด</th>
+														<th>ลองจิจูด</th>
+														<th>เลขที่ตั้ง</th>
+														<th>หมูบ้านที่ตั้งที่ตั้ง</th>
 													</tr>
 												</thead>
-												<tbody id="listPolutions">
+												<tbody id="listRestaurant">
 												</tbody>
 <!-- End change table -->
 										</table>
 									</div>
 								</div>
-								<div class="tab-pane fade" id="addPolution">
-									<form role="form">
-										<table width="70%" align="center">
-											<tr>
-												<td style="padding: 15px">ปีข้อมูล</td>
-												<td><input id="pol_year" maxlength="4"
-													class="form-control" placeholder="" value=""
-													name="vil-year"></td>
-											</tr>
-											<tr>
-
-												<td style="padding: 15px">มลพิษ</td>
-												<td><input id="pol_name" maxlength="50"
-													class="form-control" placeholder="" name="vil-number"
-													required="true"></td>
-
-											</tr>
-											<tr>
-												<td style="padding: 15px">ผลกระทบ</td>
-												<td><textarea id="pol_effect" maxlength="100"
-														class="form-control" placeholder="ระบุรายละเอียด"
-														name="vil-name" required="true"></textarea></td>
-											</tr>
-											<tr>
-												<td style="padding: 15px">พื้นที่ประสบปัญหา</td>
-												<td style="padding-top: 10px"><textarea id="pol_area"
-														maxlength="100" class="form-control"
-														placeholder="ระบุรายละเอียด" name="vil-name"
-														required="true"></textarea></td>
-											</tr>
-											<tr>
-												<td></td>
-												<td align="center" style="padding: 15px">
-													<button style="width: 100px" type="reset"
-														class="btn btn-warning">ล้างข้อมูล</button> <input
-													style="width: 100px" type="button" class="btn btn-success"
-													value="บันทึก" onclick="createPolution()" />
-												</td>
-											</tr>
-										</table>
-									</form>
-								</div>
-								<div class="tab-pane fade" id="editPolution">
-									<form role="form">
-										<input type="hidden" id="editPolId">
-										<table width="65%" align="center">
-											<tr>
-												<td style="padding: 15px">ปีข้อมูล</td>
-												<td><input id="editPolYear" maxlength="4"
-													class="form-control" placeholder="" value="2558"
-													name="vil-year"></td>
-											</tr>
-											<tr>
-
-												<td style="padding: 15px">มลพิษ</td>
-												<td><input id="editPolName" maxlength="50"
-													class="form-control" placeholder="ระบุชื่อมลพิษ"
-													name=" required="true"></td>
-
-											</tr>
-											<tr>
-												<td style="padding: 15px">ผลกระทบ</td>
-												<td><textarea id="editPolEffect" maxlength="100"
-														class="form-control" placeholder="ระบุผลกระทบ" name=""
-														required="true"></textarea></td>
-											</tr>
-											<tr>
-												<td style="padding: 15px">พื้นที่ประสบปัญหา</td>
-												<td style="padding-top: 10px"><textarea
-														id="editPolArea" maxlength="100" class="form-control"
-														placeholder="ระบุพื้นที่ประสบปัญหา" name=""
-														required="true"></textarea></td>
-											</tr>
-											<tr>
-												<td></td>
-												<td align="center" style="padding: 15px"><a
-													href="#listPolution" data-toggle="tab"><button
-															style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
-													<input style="width: 100px" type="button"
-													class="btn btn-success" value="บันทึก"
-													onclick="editPolution()" /></td>
-											</tr>
-										</table>
-									</form>
-								</div>
+								
+								
 							</div>
 						</div>
 					</div>
@@ -460,8 +413,9 @@ function getCurrentYear(){
 		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
 		<!-- Mask plug in -->
 		<script src="../NanglaeGov/js/jquery.mask.js"></script>
+		<!-- Mask plug in -->
+		<script src="../NanglaeGov/js/jquery.mask.js"></script>
 		<script src="../NanglaeGov/js/jquery.mask.min.js"></script>
-
 </body>
 
 </html>

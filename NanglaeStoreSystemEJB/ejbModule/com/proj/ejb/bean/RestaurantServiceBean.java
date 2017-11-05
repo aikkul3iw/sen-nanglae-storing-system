@@ -47,7 +47,7 @@ public class RestaurantServiceBean implements RestaurantService {
 	@Override
 	public List<Restaurant> listAllRestaurant() {
 		// TODO Auto-generated method stub
-		List<Restaurant> list = em.createQuery("SELECT disabled FROM Disabled disabled").getResultList();
+		List<Restaurant> list = em.createQuery("SELECT restaurant FROM Restaurant restaurant").getResultList();
 		return list;
 	}
 

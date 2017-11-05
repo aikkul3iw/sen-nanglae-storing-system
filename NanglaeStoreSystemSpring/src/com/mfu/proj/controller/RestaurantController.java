@@ -17,12 +17,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.proj.ejb.entity.Restaurant;
 import com.proj.ejb.entity.User;
 import com.proj.ejb.face.RestaurantService;
+import com.proj.ejb.face.VillageService;
 
 @Controller
 public class RestaurantController {
 	
 	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//RestaurantServiceBean!com.proj.ejb.face.RestaurantService")
 	RestaurantService RestaurantServ;
+	
+	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//VillageServiceBean!com.proj.ejb.face.VillageService")
+	VillageService vilServ;
 
 	@RequestMapping("/listRestaurant")
 	public @ResponseBody List<Restaurant> listRestaurant(HttpServletRequest request) {
@@ -40,11 +44,15 @@ public class RestaurantController {
 	}
 
 	@RequestMapping("/saveRestaurant")
-	public @ResponseBody String saveRestaurant(@RequestBody Restaurant Restaurant) {
+	public @ResponseBody String saveRestaurant(@RequestBody Restaurant Restaurant, HttpServletRequest request) {
+		String res = request.getParameter("id");
+		
 		try {
 			if (Restaurant.getRestaurantId() == 0) {
+				Restaurant.setLocation(vilServ.findVillageById(Long.parseLong(res)));
 				RestaurantServ.save(Restaurant);
 			} else {
+				Restaurant.setLocation(vilServ.findVillageById(Long.parseLong(res)));
 				RestaurantServ.update(Restaurant);
 			}
 		} catch (Exception e) {
