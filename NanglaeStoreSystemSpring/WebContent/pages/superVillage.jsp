@@ -46,10 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-function getCurrentYear(){
-	var year = new Date();
-	document.getElementById("vil_year").value=(year.getFullYear()+543);
-	}
 	function listVillage() {
 		$("#loader").show();
 		$.ajax({
@@ -57,15 +53,9 @@ function getCurrentYear(){
 			type : "POST",
 			success : function(data) {
 				var html = '';
-				Object userdelete = session.getAttribute("userdelete");
-				var testUser = toString(userdelete);
-				alert(testUser);
 				for (var i = 0; i < data.length; i++) {
 								html += "<tr>";
 								html += "<td>"
-										+ data[i].vil_year
-										+ "</td>"
-										+ "<td>"
 										+ data[i].vil_number
 										+ "</td>"
 										+ "<td>"
@@ -124,10 +114,7 @@ function getCurrentYear(){
 </script>
 <script type='text/javascript'>
 	function createVillage() {
-		if ($('#vil_year').val() == "") {
-			document.getElementById('vil_year').style.borderColor = "red";
-			return false;
-		} else if ($('#vil_number').val() == "") {
+		if ($('#vil_number').val() == "") {
 			document.getElementById('vil_number').style.borderColor = "red";
 			return false;
 		} else if ($('#vil_name').val() == "") {
@@ -144,7 +131,6 @@ function getCurrentYear(){
 			//alert(user);
 			var obj = {
 				vil_id : 0,
-				vil_year : $('#vil_year').val(),
 				vil_name : $('#vil_name').val(),
 				vil_number : $('#vil_number').val(),
 				vil_chief : $('#vil_chief').val()
