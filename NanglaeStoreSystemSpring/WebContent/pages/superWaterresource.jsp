@@ -121,7 +121,7 @@ function getCurrentYear(){
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/saveWater.do?id=" + $("#villageSelect").val(),
+				url : "../NanglaeGov/saveWater.do?id=" + $("#villageSelect").val() + "&user="+$('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -198,7 +198,7 @@ function getCurrentYear(){
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/saveWater.do?id=" + $("#editVillageSelect").val(),
+			url : "../NanglaeGov/saveWater.do?id=" + $("#editVillageSelect").val() + "&editUserId="+$('#editUserId').val(),
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -407,7 +407,11 @@ function getCurrentYear(){
 									</div>
 								</div>
 								<div class="tab-pane fade" id="addResourceWater">
-									<form role="form">
+									<form role="form" name="vilForm" id="formCreate">
+										<%
+											Object userid = session.getAttribute("user");
+										%>
+										<input type="hidden" id="userId" value="<%=userid %>">
 										<table width="50%" align="center">
 											<tr>
 												<td align="pull-right" style="padding: 15px">ชื่อแหล่งน้ำ</td>
@@ -448,6 +452,10 @@ function getCurrentYear(){
 								</div>
 								<div class="tab-pane fade" id="editResourceWater">
 									<form role="form">
+										<%
+											Object edituserid = session.getAttribute("edituser");
+										%>
+											<input type="hidden" id="editUserId" value="<%=edituserid %>">
 										<input type="hidden" id="editId">
 										<table width="50%" align="center">
 											<tr>
