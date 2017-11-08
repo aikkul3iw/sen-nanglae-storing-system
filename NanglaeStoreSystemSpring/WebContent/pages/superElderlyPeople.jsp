@@ -184,7 +184,7 @@
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/saveElderlyPeople.do",
+				url : "../NanglaeGov/saveElderlyPeople.do?user="+$('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -260,7 +260,7 @@
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/saveElderlyPeople.do",
+			url : "../NanglaeGov/saveElderlyPeople.do?editUserId="+$('#editUserId').val(),
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -410,6 +410,10 @@
 								</div>
 								<div class="tab-pane fade" id="addElderlyPeople">
 									<form role="form">
+										<%
+											Object userid = session.getAttribute("user");
+										%>
+										<input type="hidden" id="userId" value="<%=userid %>">
 										<table width="70%" align="center">
 											<tr>
 												<td></td>	
@@ -544,6 +548,10 @@
 								</div>
 								<div class="tab-pane fade" id="editElderlyPeople">
 									<form role="form">
+										<%
+											Object edituserid = session.getAttribute("edituser");
+										%>
+											<input type="hidden" id="editUserId" value="<%=edituserid %>">
 										<input type="hidden" id="editElderlyPeopleId">
 										<table width="65%" align="center">
 											<tr>

@@ -112,7 +112,7 @@ function getCurrentYear(){
 
 		};
 		$.ajax({
-			url : "../NanglaeGov/saveStudent.do?id=" + $("#eduSelect").val(),
+			url : "../NanglaeGov/saveStudent.do?id=" + $("#eduSelect").val() + "&user="+$('#userId').val(),
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -192,7 +192,7 @@ function getCurrentYear(){
 		//alert(JSON.stringify(obj));
 		$.ajax({
 			url : "../NanglaeGov/saveStudent.do?id="
-					+ $("#editEduSelect").val(),
+					+ $("#editEduSelect").val() + "&editUserId="+$('#editUserId').val(),
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -317,8 +317,8 @@ function getCurrentYear(){
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#listCommerce"
-									data-toggle="tab">ข้อมูลการพาณิชย์</a></li>
-								<li><a href="#addCommerce" data-toggle="tab">เพิ่มการพาณิชย์</a>
+									data-toggle="tab">ข้อมูลนักเรียน</a></li>
+								<li><a href="#addCommerce" data-toggle="tab">เพิ่มนักเรียน</a>
 								</li>
 							</ul>
 							<div class="panel-body">
@@ -348,6 +348,10 @@ function getCurrentYear(){
 									</div>
 									<div class="tab-pane fade" id="addCommerce">
 										<form role="form">
+										<%
+											Object userid = session.getAttribute("user");
+										%>
+										<input type="hidden" id="userId" value="<%=userid %>">
 											<table width="50%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
@@ -388,6 +392,10 @@ function getCurrentYear(){
 									</div>
 									<div class="tab-pane fade" id="editStudent">
 										<form role="form">
+										<%
+											Object edituserid = session.getAttribute("edituser");
+										%>
+											<input type="hidden" id="editUserId" value="<%=edituserid %>">
 											<input type="hidden" id="editStudentId">
 											<table width="50%" align="center">
 												<tr>

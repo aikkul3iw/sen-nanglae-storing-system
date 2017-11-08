@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -18,14 +19,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.proj.ejb.entity.Activity;
 import com.proj.ejb.entity.Agriculture;
 import com.proj.ejb.entity.User;
+import com.proj.ejb.face.ActivityService;
 import com.proj.ejb.face.AgricultureService;
+import com.proj.ejb.face.UserService;
 
 @Controller
 public class AgricultureController {
 	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//AgricultureServiceBean!com.proj.ejb.face.AgricultureService")
 	AgricultureService agrServ;
+	
+	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//ActivityServiceBean!com.proj.ejb.face.ActivityService")
+	ActivityService atvServ;
+	
+	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//UserServiceBean!com.proj.ejb.face.UserService")
+	UserService userServ;
 
 	@RequestMapping("/listAgriculture")
 	public @ResponseBody List<Agriculture> listAgriculture(HttpServletRequest request) {
@@ -43,12 +53,26 @@ public class AgricultureController {
 	}
 
 	@RequestMapping("/saveAgriculture")
-	public @ResponseBody String saveAgriculture(@RequestBody Agriculture agriculture) {
+	public @ResponseBody String saveAgriculture(@RequestBody Agriculture agriculture, HttpServletRequest request) {
 		try {
 			if (agriculture.getAgi_id() == 0) {
+				String id = request.getParameter("user");
 				agrServ.save(agriculture);
+				Activity atv = new Activity();
+				atv.setUser(userServ.findUserById(Long.parseLong(id)));
+				atv.setAtv_date(new Date());
+				atv.setAtc_action("เพิ่ม");
+				atv.setAtv_data("การเกษตรกรรม");
+				atvServ.save(atv);
 			} else {
+				String editid = request.getParameter("editUserId");
 				agrServ.update(agriculture);
+				Activity atv2 = new Activity();
+				atv2.setUser(userServ.findUserById(Long.parseLong(editid)));
+				atv2.setAtv_date(new Date());
+				atv2.setAtc_action("แก้ไข");
+				atv2.setAtv_data("การเกษตรกรรม");
+				atvServ.save(atv2);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

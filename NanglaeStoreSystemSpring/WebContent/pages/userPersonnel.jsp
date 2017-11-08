@@ -161,7 +161,7 @@ var year = new Date().getFullYear()+543;
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/savePersonnel.do",
+				url : "../NanglaeGov/savePersonnel.do?user="+$('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -227,7 +227,7 @@ var year = new Date().getFullYear()+543;
 
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/savePersonnel.do",
+			url : "../NanglaeGov/savePersonnel.do?editUserId="+$('#editUserId').val(),
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -368,6 +368,10 @@ var year = new Date().getFullYear()+543;
 								</div>
 								<div class="tab-pane fade" id="addPersonnel">
 									<form role="form">
+										<%
+											Object userid = session.getAttribute("user");
+										%>
+										<input type="hidden" id="userId" value="<%=userid %>">
 										<table width="50%" align="center">
 											<tr>
 												<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
@@ -439,6 +443,10 @@ var year = new Date().getFullYear()+543;
 								</div>
 								<div class="tab-pane fade" id="editPersonnel">
 									<form role="form">
+										<%
+											Object edituserid = session.getAttribute("edituser");
+										%>
+										<input type="hidden" id="editUserId" value="<%=edituserid %>">
 										<input type="hidden" id="editPerId">
 										<table width="50%" align="center">
 											<tr>

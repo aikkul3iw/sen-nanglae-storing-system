@@ -144,7 +144,7 @@
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/saveOtop.do",
+				url : "../NanglaeGov/saveOtop.do?user="+$('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -208,7 +208,7 @@
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/saveOtop.do",
+			url : "../NanglaeGov/saveOtop.do?editUserId="+$('#editUserId').val(),
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -349,6 +349,10 @@
 								</div>
 								<div class="tab-pane fade" id="addOtop">
 									<form role="form">
+										<%
+											Object userid = session.getAttribute("user");
+										%>
+										<input type="hidden" id="userId" value="<%=userid %>">
 										<table width="70%" align="center">
 											<tr>
 												<td style="padding: 15px">ชื่อ</td>
@@ -401,6 +405,10 @@
 								</div>
 								<div class="tab-pane fade" id="editOtop">
 									<form role="form">
+										<%
+											Object edituserid = session.getAttribute("edituser");
+										%>
+											<input type="hidden" id="editUserId" value="<%=edituserid %>">
 										<input type="hidden" id="editOtopId">
 										<table width="65%" align="center">
 											<tr>

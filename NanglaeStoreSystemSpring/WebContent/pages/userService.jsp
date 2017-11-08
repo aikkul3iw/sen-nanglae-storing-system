@@ -122,7 +122,7 @@ function getCurrentYear(){
 
 			};
 			$.ajax({
-				url : "../NanglaeGov/saveService.do",
+				url : "../NanglaeGov/saveService.do?user="+$('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -180,7 +180,7 @@ function getCurrentYear(){
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/saveService.do",
+			url : "../NanglaeGov/saveService.do?editUserId="+$('#editUserId').val(),
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -310,6 +310,10 @@ function getCurrentYear(){
 									</div>
 									<div class="tab-pane fade" id="addService">
 										<form role="form">
+										<%
+											Object userid = session.getAttribute("user");
+										%>
+										<input type="hidden" id="userId" value="<%=userid %>">
 											<table width="50%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
@@ -346,6 +350,10 @@ function getCurrentYear(){
 									</div>
 									<div class="tab-pane fade" id="editService">
 										<form role="form">
+										<%
+											Object edituserid = session.getAttribute("edituser");
+										%>
+										<input type="hidden" id="editUserId" value="<%=edituserid %>">
 											<input type="hidden" id="editSerId">
 											<table width="50%" align="center">
 												<tr>

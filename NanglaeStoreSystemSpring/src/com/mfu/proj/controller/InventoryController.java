@@ -1,5 +1,6 @@
 package com.mfu.proj.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -14,13 +15,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.proj.ejb.entity.Activity;
 import com.proj.ejb.entity.Inventory;
 import com.proj.ejb.entity.User;
+import com.proj.ejb.face.ActivityService;
 import com.proj.ejb.face.InventoryService;
+import com.proj.ejb.face.UserService;
 @Controller
 public class InventoryController {
 	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//InventoryServiceBean!com.proj.ejb.face.InventoryService")
 	InventoryService ivnServ;
+	
+	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//ActivityServiceBean!com.proj.ejb.face.ActivityService")
+	ActivityService atvServ;
+	
+	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//UserServiceBean!com.proj.ejb.face.UserService")
+	UserService userServ;
 
 	@RequestMapping("/listInventory")
 	public @ResponseBody List<Inventory> listInventory(HttpServletRequest request) {
@@ -37,13 +47,26 @@ public class InventoryController {
 	}
 
 	@RequestMapping("/saveInventory")
-	public @ResponseBody String saveInventory(@RequestBody Inventory inventory) {
+	public @ResponseBody String saveInventory(@RequestBody Inventory inventory, HttpServletRequest request) {
 		try {
 			if (inventory.getIvn_id() == 0) {
+				String id = request.getParameter("user");
 				ivnServ.save(inventory);
-
+				Activity atv = new Activity();
+				atv.setUser(userServ.findUserById(Long.parseLong(id)));
+				atv.setAtv_date(new Date());
+				atv.setAtc_action("เพิ่ม");
+				atv.setAtv_data("การคลัง");
+				atvServ.save(atv);
 			} else {
+				String editid = request.getParameter("editUserId");
 				ivnServ.update(inventory);
+				Activity atv2 = new Activity();
+				atv2.setUser(userServ.findUserById(Long.parseLong(editid)));
+				atv2.setAtv_date(new Date());
+				atv2.setAtc_action("แก้ไข");
+				atv2.setAtv_data("การคลัง");
+				atvServ.save(atv2);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

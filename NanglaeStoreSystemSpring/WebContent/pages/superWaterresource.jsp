@@ -407,7 +407,7 @@ function getCurrentYear(){
 									</div>
 								</div>
 								<div class="tab-pane fade" id="addResourceWater">
-									<form role="form" name="vilForm" id="formCreate">
+									<form role="form">
 										<%
 											Object userid = session.getAttribute("user");
 										%>
@@ -455,7 +455,7 @@ function getCurrentYear(){
 										<%
 											Object edituserid = session.getAttribute("edituser");
 										%>
-											<input type="hidden" id="editUserId" value="<%=edituserid %>">
+										<input type="hidden" id="editUserId" value="<%=edituserid %>">
 										<input type="hidden" id="editId">
 										<table width="50%" align="center">
 											<tr>

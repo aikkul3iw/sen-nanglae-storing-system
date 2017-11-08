@@ -69,7 +69,6 @@ public class WaterController {
 				atvServ.save(atv);
 
 			} else {
-			
 				String editid = request.getParameter("editUserId");
 				water.setLocation(vilServ.findVillageById(Long.parseLong(wt)));
 				wtServ.update(water);

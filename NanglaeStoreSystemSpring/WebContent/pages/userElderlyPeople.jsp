@@ -184,7 +184,7 @@
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/saveElderlyPeople.do",
+				url : "../NanglaeGov/saveElderlyPeople.do?user="+$('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -260,7 +260,7 @@
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/saveElderlyPeople.do",
+			url : "../NanglaeGov/saveElderlyPeople.do?editUserId="+$('#editUserId').val(),
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),

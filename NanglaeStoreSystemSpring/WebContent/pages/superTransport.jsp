@@ -119,7 +119,7 @@ function getCurrentYear(){
 				description : $('#description').val()
 			};
 			$.ajax({
-				url : "../NanglaeGov/saveTransport.do",
+				url : "../NanglaeGov/saveTransport.do?user="+$('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -177,7 +177,7 @@ function getCurrentYear(){
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/saveTransport.do",
+			url : "../NanglaeGov/saveTransport.do?editUserId="+$('#editUserId').val(),
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -311,6 +311,10 @@ function getCurrentYear(){
 									</div>
 									<div class="tab-pane fade" id="addTransport">
 										<form role="form">
+										<%
+											Object userid = session.getAttribute("user");
+										%>
+										<input type="hidden" id="userId" value="<%=userid %>">
 											<table width="70%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">การคมนาคม</td>
@@ -348,6 +352,10 @@ function getCurrentYear(){
 									</div>
 									<div class="tab-pane fade" id="editTransport">
 										<form role="form">
+										<%
+											Object edituserid = session.getAttribute("edituser");
+										%>
+											<input type="hidden" id="editUserId" value="<%=edituserid %>">
 											<input type="hidden" id="editTranId">
 											<table width="70%" align="center">
 												<tr>

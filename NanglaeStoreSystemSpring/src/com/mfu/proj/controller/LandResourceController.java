@@ -1,5 +1,6 @@
 package com.mfu.proj.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -14,14 +15,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.proj.ejb.entity.Activity;
 import com.proj.ejb.entity.LandResource;
 import com.proj.ejb.entity.User;
+import com.proj.ejb.face.ActivityService;
 import com.proj.ejb.face.LandResourceService;
+import com.proj.ejb.face.UserService;
 
 @Controller
 public class LandResourceController {
 	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//LandResourceServiceBean!com.proj.ejb.face.LandResourceService")
 	LandResourceService agrServ;
+	
+	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//ActivityServiceBean!com.proj.ejb.face.ActivityService")
+	ActivityService atvServ;
+	
+	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//UserServiceBean!com.proj.ejb.face.UserService")
+	UserService userServ;
 
 	@RequestMapping("/listLandResource")
 	public @ResponseBody List<LandResource> listLandResource(HttpServletRequest request) {
@@ -39,12 +49,26 @@ public class LandResourceController {
 	}
 
 	@RequestMapping("/saveLandResource")
-	public @ResponseBody String saveLandResource(@RequestBody LandResource LandResource) {
+	public @ResponseBody String saveLandResource(@RequestBody LandResource LandResource, HttpServletRequest request) {
 		try {
 			if (LandResource.getLand_id() == 0) {
+				String id = request.getParameter("user");
 				agrServ.save(LandResource);
+				Activity atv = new Activity();
+				atv.setUser(userServ.findUserById(Long.parseLong(id)));
+				atv.setAtv_date(new Date());
+				atv.setAtc_action("เพิ่ม");
+				atv.setAtv_data("ทรัพยากรดิน");
+				atvServ.save(atv);
 			} else {
+				String editid = request.getParameter("editUserId");
 				agrServ.update(LandResource);
+				Activity atv2 = new Activity();
+				atv2.setUser(userServ.findUserById(Long.parseLong(editid)));
+				atv2.setAtv_date(new Date());
+				atv2.setAtc_action("แก้ไข");
+				atv2.setAtv_data("ทรัพยากรดิน");
+				atvServ.save(atv2);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

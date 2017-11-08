@@ -1,5 +1,6 @@
 package com.mfu.proj.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -14,14 +15,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.proj.ejb.entity.Activity;
 import com.proj.ejb.entity.Labor;
 import com.proj.ejb.entity.User;
+import com.proj.ejb.face.ActivityService;
 import com.proj.ejb.face.LaborService;
+import com.proj.ejb.face.UserService;
 
 @Controller
 public class LaborController {
 	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//LaborServiceBean!com.proj.ejb.face.LaborService")
 	LaborService labServ;
+	
+	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//ActivityServiceBean!com.proj.ejb.face.ActivityService")
+	ActivityService atvServ;
+	
+	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//UserServiceBean!com.proj.ejb.face.UserService")
+	UserService userServ;
 
 	@RequestMapping("/listLabor")
 	public @ResponseBody List<Labor> listLabor(HttpServletRequest request) {
@@ -38,13 +48,27 @@ public class LaborController {
 	}
 
 	@RequestMapping("/saveLabor")
-	public @ResponseBody String saveLabor(@RequestBody Labor labor) {
+	public @ResponseBody String saveLabor(@RequestBody Labor labor, HttpServletRequest request) {
 		try {
 			if (labor.getLab_id() == 0) {
+				String id = request.getParameter("user");
 				labServ.save(labor);
+				Activity atv = new Activity();
+				atv.setUser(userServ.findUserById(Long.parseLong(id)));
+				atv.setAtv_date(new Date());
+				atv.setAtc_action("เพิ่ม");
+				atv.setAtv_data("แรงงาน");
+				atvServ.save(atv);
 
 			} else {
+				String editid = request.getParameter("editUserId");
 				labServ.update(labor);
+				Activity atv2 = new Activity();
+				atv2.setUser(userServ.findUserById(Long.parseLong(editid)));
+				atv2.setAtv_date(new Date());
+				atv2.setAtc_action("แก้ไข");
+				atv2.setAtv_data("แรงงาน");
+				atvServ.save(atv2);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
