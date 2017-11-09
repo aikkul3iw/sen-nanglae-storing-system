@@ -46,52 +46,38 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-function getCurrentYear(){
-	var year = new Date();
-	document.getElementById("stu_year").value=(year.getFullYear()+543);
-	}
-	
-	function listStudent() {
+	function listDisabled() {
 		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listStudent.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
+		$
+				.ajax({
+					url : "../NanglaeGov/listDisabled.do",
+					type : "POST",
+					success : function(data) {
+						var html = '';
+						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].location.edu_name
+									+ data[i].firstName
 									+ "</td>"
 									+ "<td>"
-									+ data[i].stu_year
-									+ "</td>"
-									+ "<td>"
-									+ data[i].stu_male
-									+ "</td>"
-									+ "<td>"
-									+ data[i].stu_female
+									+ data[i].lastName
 									+ "</td>"
 							html += "</tr>";
 						}
-						$('#listStudent').html(html);
-						$(document).ready(function() {
-							var table = $('#resultTable').DataTable({
-							});
-						table.buttons().container().appendTo('#page-wrapper .col-sm-6:eq(0)');
-					});
+						$('#listDisabled').html(html);
+						$('#resultTable').DataTable({});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
-						alert('error');
+						alert('ไม่สามารถโหลดข้อมูลได้');
 						$("#loader").hide();
 					}
-			});
+				});
 	}
 </script>
 </head>
 
-<body onload="listStudent();getCurrentYear()">
+<body onload="listDisabled();">
 
 	<div id="wrapper">
 
@@ -111,11 +97,12 @@ function getCurrentYear(){
 			<!-- /.navbar-header -->
 
 			<%@include file="nonMenu.jsp" %>
+			
 		</nav>
 		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">นักเรียน</h1>
+					<h1 class="page-header">ผู้พิการ</h1>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
@@ -125,8 +112,8 @@ function getCurrentYear(){
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#listCommerce"
-									data-toggle="tab">ข้อมูลนักเรียน</a></li>
+								<li class="active"><a href="#listDis" data-toggle="tab">ข้อมูลผู้พิการ</a>
+								</li>
 								</li>
 							</ul>
 							<div class="panel-body">
@@ -134,20 +121,21 @@ function getCurrentYear(){
 								<!-- Tab panes -->
 
 								<div class="tab-content">
-									<div class="tab-pane fade in active" id="listCommerce">
+									<div class="tab-pane fade in active" id="listDis">
 										<div class="table-responsive">
 											<table id="resultTable"
 												class="table table-striped table-bordered table-hover">
+
 												<!-- Start change table -->
 												<thead>
 													<tr>
-														<th>โรงเรียน</th>
-														<th>ปี</th>
-														<th>ชาย</th>
-														<th>หญิง</th>
+														<th>คำนำหน้า</th>
+														<th>ชื่อ</th>
+														<th>นามสกุล</th>
+														<th>เพศ</th>
 													</tr>
 												</thead>
-												<tbody id="listStudent">
+												<tbody id="listDisabled">
 												</tbody>
 												<!-- End change table -->
 											</table>

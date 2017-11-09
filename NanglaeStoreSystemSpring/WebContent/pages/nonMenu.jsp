@@ -13,6 +13,7 @@
 					<li><a href="nonAIDSpatients.do">ผู้ป่วยเอดส์</a></li>
 					<li><a href="nonDisabled.do">ผู้พิการ</a></li>
 					<li><a href="nonElderlyPeople.do">ผู้สูงอายุ</a></li>
+					<li><a href="nonStudent.do">นักเรียน</a></li>
 				</ul> <!-- /.nav-second-level --></li>
 			<li><a href="#"><i class="fa fa-home fa-fw"></i> สาธารณูปโภค<span
 					class="fa arrow"></span></a>
