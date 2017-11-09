@@ -1,5 +1,6 @@
 package com.mfu.proj.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -14,14 +15,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.proj.ejb.entity.Activity;
 import com.proj.ejb.entity.Service;
 import com.proj.ejb.entity.User;
+import com.proj.ejb.face.ActivityService;
 import com.proj.ejb.face.ServiceService;
+import com.proj.ejb.face.UserService;
 
 @Controller
 public class ServiceController {
 	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//ServiceServiceBean!com.proj.ejb.face.ServiceService")
 	ServiceService serServ;
+	
+	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//ActivityServiceBean!com.proj.ejb.face.ActivityService")
+	ActivityService atvServ;
+	
+	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//UserServiceBean!com.proj.ejb.face.UserService")
+	UserService userServ;
 
 	@RequestMapping("/listService")
 	public @ResponseBody List<Service> listService(HttpServletRequest request) {
@@ -38,14 +48,28 @@ public class ServiceController {
 	}
 
 	@RequestMapping("/saveService")
-	public @ResponseBody String saveService(@RequestBody Service service) {
+	public @ResponseBody String saveService(@RequestBody Service service, HttpServletRequest request) {
 
 		try {
 			if (service.getSer_id() == 0) {
+				String id = request.getParameter("user");
 				serServ.save(service);
+				Activity atv = new Activity();
+				atv.setUser(userServ.findUserById(Long.parseLong(id)));
+				atv.setAtv_date(new Date());
+				atv.setAtc_action("เพิ่ม");
+				atv.setAtv_data("ศูนย์บริการประชาชน");
+				atvServ.save(atv);
 
 			} else {
+				String editid = request.getParameter("editUserId");
 				serServ.update(service);
+				Activity atv2 = new Activity();
+				atv2.setUser(userServ.findUserById(Long.parseLong(editid)));
+				atv2.setAtv_date(new Date());
+				atv2.setAtc_action("แก้ไข");
+				atv2.setAtv_data("ศูนย์บริการประชาชน");
+				atvServ.save(atv2);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

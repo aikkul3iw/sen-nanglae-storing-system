@@ -1,5 +1,6 @@
 package com.mfu.proj.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -14,14 +15,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.proj.ejb.entity.Activity;
 import com.proj.ejb.entity.Localg;
 import com.proj.ejb.entity.User;
+import com.proj.ejb.face.ActivityService;
 import com.proj.ejb.face.LocalgService;
+import com.proj.ejb.face.UserService;
 
 @Controller
 public class LocalgController {
 	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//LocalgServiceBean!com.proj.ejb.face.LocalgService")
 	LocalgService grpServ;
+	
+	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//ActivityServiceBean!com.proj.ejb.face.ActivityService")
+	ActivityService atvServ;
+	
+	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//UserServiceBean!com.proj.ejb.face.UserService")
+	UserService userServ;
 
 	@RequestMapping("/listLocalg")
 	public @ResponseBody List<Localg> listLocalg(HttpServletRequest request) {
@@ -38,13 +48,27 @@ public class LocalgController {
 	}
 
 	@RequestMapping("/saveLocalg")
-	public @ResponseBody String saveLocalg(@RequestBody Localg localg) {
+	public @ResponseBody String saveLocalg(@RequestBody Localg localg, HttpServletRequest request) {
 		try {
 			if (localg.getGrp_id() == 0) {
+				String id = request.getParameter("user");
 				grpServ.save(localg);
+				Activity atv = new Activity();
+				atv.setUser(userServ.findUserById(Long.parseLong(id)));
+				atv.setAtv_date(new Date());
+				atv.setAtc_action("เพิ่ม");
+				atv.setAtv_data("กลุ่มในชุมชน");
+				atvServ.save(atv);
 
 			} else {
+				String editid = request.getParameter("editUserId");
 				grpServ.update(localg);
+				Activity atv2 = new Activity();
+				atv2.setUser(userServ.findUserById(Long.parseLong(editid)));
+				atv2.setAtv_date(new Date());
+				atv2.setAtc_action("แก้ไข");
+				atv2.setAtv_data("กลุ่มในชุมชน");
+				atvServ.save(atv2);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

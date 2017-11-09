@@ -1,5 +1,6 @@
 package com.mfu.proj.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -14,15 +15,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.proj.ejb.entity.Activity;
 import com.proj.ejb.entity.ElderlyPeople;
 import com.proj.ejb.entity.User;
+import com.proj.ejb.face.ActivityService;
 import com.proj.ejb.face.ElderlyPeopleService;
+import com.proj.ejb.face.UserService;
 
 @Controller
 public class ElderlyPeopleController {
 	
 	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//ElderlyPeopleServiceBean!com.proj.ejb.face.ElderlyPeopleService")
 	ElderlyPeopleService ElderlyPeopleServ;
+	
+	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//ActivityServiceBean!com.proj.ejb.face.ActivityService")
+	ActivityService atvServ;
+	
+	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//UserServiceBean!com.proj.ejb.face.UserService")
+	UserService userServ;
 
 	@RequestMapping("/listElderlyPeople")
 	public @ResponseBody List<ElderlyPeople> listElderlyPeople(HttpServletRequest request) {
@@ -40,12 +50,26 @@ public class ElderlyPeopleController {
 	}
 
 	@RequestMapping("/saveElderlyPeople")
-	public @ResponseBody String saveElderlyPeople(@RequestBody ElderlyPeople ElderlyPeople) {
+	public @ResponseBody String saveElderlyPeople(@RequestBody ElderlyPeople ElderlyPeople, HttpServletRequest request) {
 		try {
 			if (ElderlyPeople.getElderPeId() == 0) {
+				String id = request.getParameter("user");
 				ElderlyPeopleServ.save(ElderlyPeople);
+				Activity atv = new Activity();
+				atv.setUser(userServ.findUserById(Long.parseLong(id)));
+				atv.setAtv_date(new Date());
+				atv.setAtc_action("เพิ่ม");
+				atv.setAtv_data("ผู้สูงอายุ");
+				atvServ.save(atv);
 			} else {
-				ElderlyPeopleServ.update(ElderlyPeople);
+				String editid = request.getParameter("editUserId");
+				ElderlyPeopleServ.update(ElderlyPeople);	
+				Activity atv2 = new Activity();
+				atv2.setUser(userServ.findUserById(Long.parseLong(editid)));
+				atv2.setAtv_date(new Date());
+				atv2.setAtc_action("แก้ไข");
+				atv2.setAtv_data("ผู้สูงอายุ");
+				atvServ.save(atv2);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

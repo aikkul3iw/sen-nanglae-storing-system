@@ -3,6 +3,7 @@ package com.mfu.proj.controller;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -17,9 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.proj.ejb.entity.Activity;
 import com.proj.ejb.entity.Population1;
 import com.proj.ejb.entity.User;
+import com.proj.ejb.face.ActivityService;
 import com.proj.ejb.face.Population1Service;
+import com.proj.ejb.face.UserService;
 import com.proj.ejb.face.VillageService;
 
 @Controller
@@ -29,6 +33,12 @@ public class Population1Controller {
 	
 	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//VillageServiceBean!com.proj.ejb.face.VillageService")
 	VillageService vilServ;
+	
+	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//ActivityServiceBean!com.proj.ejb.face.ActivityService")
+	ActivityService atvServ;
+	
+	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//UserServiceBean!com.proj.ejb.face.UserService")
+	UserService userServ;
 
 	@RequestMapping("/listPopulation1")
 	public @ResponseBody List<Population1> listPopulation1(HttpServletRequest request) {
@@ -127,12 +137,26 @@ public class Population1Controller {
 		String pop = request.getParameter("id");
 		try {
 			if (population1.getPop_id() == 0) {
+				String id = request.getParameter("user");
 				population1.setLocation(vilServ.findVillageById(Long.parseLong(pop)));
 				pop1Serv.save(population1);
+				Activity atv = new Activity();
+				atv.setUser(userServ.findUserById(Long.parseLong(id)));
+				atv.setAtv_date(new Date());
+				atv.setAtc_action("เพิ่ม");
+				atv.setAtv_data("ประชากร");
+				atvServ.save(atv);
 
 			} else {
+				String editid = request.getParameter("editUserId");
 				population1.setLocation(vilServ.findVillageById(Long.parseLong(pop)));
 				pop1Serv.update(population1);
+				Activity atv2 = new Activity();
+				atv2.setUser(userServ.findUserById(Long.parseLong(editid)));
+				atv2.setAtv_date(new Date());
+				atv2.setAtc_action("แก้ไข");
+				atv2.setAtv_data("ประชากร");
+				atvServ.save(atv2);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

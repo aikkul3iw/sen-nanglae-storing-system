@@ -63,7 +63,6 @@ public class VillageController {
 			if (village.getVil_id() == 0) {
 				String id = request.getParameter("user");
 				vilServ.save(village);
-				
 				Activity atv = new Activity();
 				atv.setUser(userServ.findUserById(Long.parseLong(id)));
 				atv.setAtv_date(new Date());
@@ -74,7 +73,6 @@ public class VillageController {
 			} else {
 				String editid = request.getParameter("editUserId");
 				vilServ.update(village);
-				
 				Activity atv2 = new Activity();
 				atv2.setUser(userServ.findUserById(Long.parseLong(editid)));
 				atv2.setAtv_date(new Date());

@@ -1,5 +1,6 @@
 package com.mfu.proj.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -14,15 +15,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.proj.ejb.entity.Activity;
 import com.proj.ejb.entity.Otop;
 import com.proj.ejb.entity.User;
+import com.proj.ejb.face.ActivityService;
 import com.proj.ejb.face.OtopService;
+import com.proj.ejb.face.UserService;
 
 @Controller
 public class OtopController {
 	
 	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//OtopServiceBean!com.proj.ejb.face.OtopService")
 	OtopService otopServ;
+	
+	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//ActivityServiceBean!com.proj.ejb.face.ActivityService")
+	ActivityService atvServ;
+	
+	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//UserServiceBean!com.proj.ejb.face.UserService")
+	UserService userServ;
 
 	@RequestMapping("/listOtop")
 	public @ResponseBody List<Otop> listOtop(HttpServletRequest request) {
@@ -40,12 +50,26 @@ public class OtopController {
 	}
 
 	@RequestMapping("/saveOtop")
-	public @ResponseBody String saveOtop(@RequestBody Otop Otop) {
+	public @ResponseBody String saveOtop(@RequestBody Otop Otop, HttpServletRequest request) {
 		try {
 			if (Otop.getOtopId() == 0) {
+				String id = request.getParameter("user");
 				otopServ.save(Otop);
+				Activity atv = new Activity();
+				atv.setUser(userServ.findUserById(Long.parseLong(id)));
+				atv.setAtv_date(new Date());
+				atv.setAtc_action("เพิ่ม");
+				atv.setAtv_data("Otop");
+				atvServ.save(atv);
 			} else {
+				String editid = request.getParameter("editUserId");
 				otopServ.update(Otop);
+				Activity atv2 = new Activity();
+				atv2.setUser(userServ.findUserById(Long.parseLong(editid)));
+				atv2.setAtv_date(new Date());
+				atv2.setAtc_action("แก้ไข");
+				atv2.setAtv_data("Otop");
+				atvServ.save(atv2);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -121,7 +121,7 @@ function getCurrentYear(){
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/saveLandResource.do",
+				url : "../NanglaeGov/saveLandResource.do?user="+$('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -180,7 +180,7 @@ function getCurrentYear(){
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/saveLandResource.do",
+			url : "../NanglaeGov/saveLandResource.do?editUserId="+$('#editUserId').val(),
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -314,6 +314,10 @@ function getCurrentYear(){
 									</div>
 									<div class="tab-pane fade" id="addLand">
 										<form role="form">
+										<%
+											Object userid = session.getAttribute("user");
+										%>
+										<input type="hidden" id="userId" value="<%=userid %>">
 											<table width="50%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
@@ -348,6 +352,10 @@ function getCurrentYear(){
 									</div>
 									<div class="tab-pane fade" id="editLand">
 										<form role="form">
+										<%
+											Object edituserid = session.getAttribute("edituser");
+										%>
+										<input type="hidden" id="editUserId" value="<%=edituserid %>">
 											<input type="hidden" id="editLandId">
 											<table width="50%" align="center">
 												<tr>

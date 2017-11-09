@@ -571,7 +571,7 @@ function getCurrentYear(){
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/savePopulation1.do?id=" + $("#villageSelect").val(),
+				url : "../NanglaeGov/savePopulation1.do?id=" + $("#villageSelect").val() + "&user="+$('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -662,7 +662,7 @@ function getCurrentYear(){
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/savePopulation1.do?id=" + $("#editVillageSelect").val(),
+			url : "../NanglaeGov/savePopulation1.do?id=" + $("#editVillageSelect").val() + "&editUserId="+$('#editUserId').val(),
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -1136,6 +1136,10 @@ function getCurrentYear(){
 									</div>
 									<div class="tab-pane fade" id="addPop">
 										<form role="form">
+										<%
+											Object userid = session.getAttribute("user");
+										%>
+										<input type="hidden" id="userId" value="<%=userid %>">
 											<table width="75%" align="center">
 												<tr>
 													<td style="padding: 15px">ปีข้อมูล</td>
@@ -1286,6 +1290,10 @@ function getCurrentYear(){
 									</div>
 									<div class="tab-pane fade" id="editPop">
 										<form role="form">
+										<%
+											Object edituserid = session.getAttribute("edituser");
+										%>
+										<input type="hidden" id="editUserId" value="<%=edituserid %>">
 											<input type="hidden" id="editPopId">
 											<table width="75%" align="center">
 												<tr>
