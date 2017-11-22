@@ -61,7 +61,11 @@
 			<li><a href="superCopy.do"><i class="fa fa-copy"></i>
 					คัดลอกข้อมูล</a></li>
 			<li><a href="superCreateUser.do"><i
-					class="glyphicon glyphicon-user"></i> จัดการผู้ใช้งาน</a></li>
+					class="glyphicon glyphicon-user"></i> จัดการผู้ใช้งาน</a>
+			</li>
+			<li><a href="superActivity.do"><i
+					class="glyphicon glyphicon-user"></i>ประวัติการใช้งาน</a>
+			</li>
 		</ul>
 	</div>
 	<!-- /.sidebar-collapse -->

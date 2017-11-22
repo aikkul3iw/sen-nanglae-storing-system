@@ -1,5 +1,6 @@
 package com.mfu.proj.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -56,8 +57,10 @@ public class LASucrityController {
 				secServ.save(LASucrity);
 				Activity atv = new Activity();
 				atv.setUser(userServ.findUserById(Long.parseLong(id)));
-				atv.setAtv_date(new Date());
-				atv.setAtc_action("เพิ่ม");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String date = sdf.format(new Date());
+				atv.setAtv_date(date);
+				atv.setAtv_action("เพิ่ม");
 				atv.setAtv_data("ความปลอดภัยในชีวิตและทรัพย์สิน");
 				atvServ.save(atv);
 
@@ -66,8 +69,10 @@ public class LASucrityController {
 				secServ.update(LASucrity);
 				Activity atv2 = new Activity();
 				atv2.setUser(userServ.findUserById(Long.parseLong(editid)));
-				atv2.setAtv_date(new Date());
-				atv2.setAtc_action("แก้ไข");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String date = sdf.format(new Date());
+				atv2.setAtv_date(date);
+				atv2.setAtv_action("แก้ไข");
 				atv2.setAtv_data("ความปลอดภัยในชีวิตและทรัพย์สิน");
 				atvServ.save(atv2);
 			}

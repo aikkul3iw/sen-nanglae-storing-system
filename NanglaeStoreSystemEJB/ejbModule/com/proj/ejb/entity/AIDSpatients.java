@@ -16,7 +16,7 @@ public class AIDSpatients implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long AIDSpatientsId;
 
-	private String title;
+	private String titles;
 	private String firstName;
 	private String lastName;
 	private String gender;
@@ -40,12 +40,14 @@ public class AIDSpatients implements Serializable {
 	// @JsonIgnore
 	private Village location;
 
-	public String getTitle() {
-		return title;
+	
+
+	public String getTitles() {
+		return titles;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setTitles(String titles) {
+		this.titles = titles;
 	}
 
 	public long getAIDSpatientsId() {

@@ -1,5 +1,6 @@
 package com.mfu.proj.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -61,23 +62,36 @@ public class VillageController {
 		try {
 			
 			if (village.getVil_id() == 0) {
+				String logStringNew = "หมู่: "+village.getVil_number()+", บ้าน: "+village.getVil_name()+", ผู้ใหญ่บ้าน: "+village.getVil_chief();
+				//System.out.println(logStringNew);
 				String id = request.getParameter("user");
 				vilServ.save(village);
 				Activity atv = new Activity();
 				atv.setUser(userServ.findUserById(Long.parseLong(id)));
-				atv.setAtv_date(new Date());
-				atv.setAtc_action("เพิ่ม");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String date = sdf.format(new Date());
+				atv.setAtv_date(date);
+				atv.setAtv_action("เพิ่ม");
 				atv.setAtv_data("หมู่บ้าน");
+				atv.setAtv_old("-");
+				atv.setAtv_new(logStringNew);
 				atvServ.save(atv);
 
 			} else {
 				String editid = request.getParameter("editUserId");
+				Village vilOld = vilServ.findVillageById(village.getVil_id());
+				String logStringOld = "หมู่: "+vilOld.getVil_number()+", บ้าน: "+vilOld.getVil_name()+", ผู้ใหญ่บ้าน: "+vilOld.getVil_chief();
+				String logStringNew = "หมู่: "+village.getVil_number()+", บ้าน: "+village.getVil_name()+", ผู้ใหญ่บ้าน: "+village.getVil_chief();
 				vilServ.update(village);
 				Activity atv2 = new Activity();
 				atv2.setUser(userServ.findUserById(Long.parseLong(editid)));
-				atv2.setAtv_date(new Date());
-				atv2.setAtc_action("แก้ไข");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String date = sdf.format(new Date());
+				atv2.setAtv_date(date);
+				atv2.setAtv_action("แก้ไข");
 				atv2.setAtv_data("หมู่บ้าน");
+				atv2.setAtv_old(logStringOld);
+				atv2.setAtv_new(logStringNew);
 				atvServ.save(atv2);
 			}
 		} catch (Exception e) {
