@@ -13,28 +13,28 @@ import com.proj.ejb.face.AIDSpatientsService;
 @Stateless
 @Remote(AIDSpatientsService.class)
 public class AIDSpatientsServiceBean implements AIDSpatientsService {
-
+	
 	@PersistenceContext(unitName = "EJBDatebase")
 	EntityManager em;
 
 	@Override
-	public void save(AIDSpatients AID) {
+	public void save(AIDSpatients aid) {
 		// TODO Auto-generated method stub
-		this.em.persist(AID);
+		this.em.persist(aid);
 	}
 
 	@Override
-	public void update(AIDSpatients AID) {
+	public void update(AIDSpatients aid) {
 		// TODO Auto-generated method stub
-		this.em.merge(AID);
+		this.em.merge(aid);
 	}
 
 	@Override
 	public void delete(long id) {
 		// TODO Auto-generated method stub
-		AIDSpatients AID = findAIDSpatientsById(id);
-		if (AID != null) {
-			em.remove(AID);
+		AIDSpatients aid = findAIDSpatientsById(id);
+		if (aid != null) {
+			em.remove(aid);
 		}
 	}
 
@@ -47,7 +47,7 @@ public class AIDSpatientsServiceBean implements AIDSpatientsService {
 	@Override
 	public List<AIDSpatients> listAllAIDSpatients() {
 		// TODO Auto-generated method stub
-		List<AIDSpatients> list = em.createQuery("SELECT disabled FROM Disabled disabled").getResultList();
+		List<AIDSpatients> list = em.createQuery("SELECT aid FROM AIDSpatients aid").getResultList();
 		return list;
 	}
 

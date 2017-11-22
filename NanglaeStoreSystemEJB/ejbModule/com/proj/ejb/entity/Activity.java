@@ -21,8 +21,10 @@ public class Activity implements Serializable {
 	private long atv_id;
 
 	private String atv_data;
-	private String atc_action;
-	private Date atv_date;
+	private String atv_action;
+	private String atv_date;
+	private String atv_old;
+	private String atv_new;
 
 	// map with village
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -45,28 +47,44 @@ public class Activity implements Serializable {
 		this.atv_data = atv_data;
 	}
 
-	public String getAtc_action() {
-		return atc_action;
-	}
-
-	public void setAtc_action(String atc_action) {
-		this.atc_action = atc_action;
-	}
-
-	public Date getAtv_date() {
-		return atv_date;
-	}
-
-	public void setAtv_date(Date atv_date) {
-		this.atv_date = atv_date;
-	}
-
 	public User getUser() {
 		return user;
 	}
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getAtv_old() {
+		return atv_old;
+	}
+
+	public void setAtv_old(String atv_old) {
+		this.atv_old = atv_old;
+	}
+
+	public String getAtv_new() {
+		return atv_new;
+	}
+
+	public void setAtv_new(String atv_new) {
+		this.atv_new = atv_new;
+	}
+
+	public String getAtv_action() {
+		return atv_action;
+	}
+
+	public void setAtv_action(String atv_action) {
+		this.atv_action = atv_action;
+	}
+
+	public String getAtv_date() {
+		return atv_date;
+	}
+
+	public void setAtv_date(String atv_date) {
+		this.atv_date = atv_date;
 	}
 	
 	
