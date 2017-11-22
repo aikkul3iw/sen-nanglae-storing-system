@@ -46,10 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-function getCurrentYear(){
-	var year = new Date();
-	document.getElementById("grp_year").value=(year.getFullYear()+543);
-	}
 	
 	function listLocalg() {
 		$("#loader").show();
@@ -62,9 +58,6 @@ function getCurrentYear(){
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].grp_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].grp_name
 									+ "</td>"
 									+ "<td>"
@@ -119,10 +112,7 @@ function getCurrentYear(){
 <script type='text/javascript'>
 	function createLocalg() {
 		$("#loader").show();
-		if ($('#grp_year').val() == "") {
-			document.getElementById('grp_year').style.borderColor = "red";
-			return false;
-		} else if ($('#grp_name').val() == "") {
+		if ($('#grp_name').val() == "") {
 			document.getElementById('grp_name').style.borderColor = "red";
 			return false;
 		} else if ($('#grp_member').val() == "") {
@@ -131,7 +121,6 @@ function getCurrentYear(){
 		} else {
 			var obj = {
 				grp_id : 0,
-				grp_year : $('#grp_year').val(),
 				grp_name : $('#grp_name').val(),
 				grp_member : $('#grp_member').val(),
 				grp_area : $('#grp_area').val()
@@ -190,7 +179,6 @@ function getCurrentYear(){
 	function editLocalg() {
 		var obj = {
 			grp_id : $("#editGroupId").val(),
-			grp_year : $('#editGroupYear').val(),
 			grp_name : $('#editGroupName').val(),
 			grp_member : $('#editGroupMember').val(),
 			grp_area : $('#editGroupArea').val()
@@ -232,7 +220,6 @@ function getCurrentYear(){
 			success : function(data) {
 				//alert(JSON.stringify(data));
 				$("#editGroupId").val(data.grp_id);
-				$("#editGroupYear").val(data.grp_year);
 				$("#editGroupName").val(data.grp_name);
 				$("#editGroupMember").val(data.grp_member);
 				$("#editGroupArea").val(data.grp_area);
@@ -245,7 +232,7 @@ function getCurrentYear(){
 </script>
 </head>
 
-<body onload="listLocalg();getCurrentYear()">
+<body onload="listLocalg()">
 
 	<div id="wrapper">
 
@@ -317,7 +304,6 @@ function getCurrentYear(){
 												<!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีข้อมูล</th>
 														<th>ชื่อ</th>
 														<th>จำนวน</th>
 														<th style="text-align: center;">ตัวเลือก</th>
@@ -336,12 +322,6 @@ function getCurrentYear(){
 										%>
 										<input type="hidden" id="userId" value="<%=userid %>">
 											<table width="50%" align="center">
-												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="grp_year" maxlength="4"
-														class="form-control" placeholder="" value="2558"
-														name="vil-year"></td>
-												</tr>
 												<tr>
 
 													<td align="pull-right" style="padding: 15px">ชื่อ</td>
@@ -378,12 +358,6 @@ function getCurrentYear(){
 											<input type="hidden" id="editUserId" value="<%=edituserid %>">
 											<input type="hidden" id="editGroupId">
 											<table width="50%" align="center">
-												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="editGroupYear" maxlength="4"
-														class="form-control" placeholder="" value="2558"
-														name="vil-year"></td>
-												</tr>
 												<tr>
 
 													<td align="pull-right" style="padding: 15px">ชื่อ</td>

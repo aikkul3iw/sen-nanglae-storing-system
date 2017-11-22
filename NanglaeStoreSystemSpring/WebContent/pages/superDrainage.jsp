@@ -46,11 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-function getCurrentYear(){
-	var year = new Date();
-	document.getElementById("drain_year").value=(year.getFullYear()+543);
-	}
-	
 	function listDrainage() {
 		$("#loader").show();
 		$
@@ -62,9 +57,6 @@ function getCurrentYear(){
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].drain_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].drain_name
 									+ "</td>"
 									+ "<td>"
@@ -125,10 +117,7 @@ function getCurrentYear(){
 <script type='text/javascript'>
 	function createDrainage() {
 		$("#loader").show();
-		if ($('#drain_year').val() == "") {
-			document.getElementById('drain_year').style.borderColor = "red";
-			return false;
-		} else if ($('#drain_name').val() == "") {
+		if ($('#drain_name').val() == "") {
 			document.getElementById('drain_name').style.borderColor = "red";
 			return false;
 		} else if ($('#drain_location_connected').val() == "") {
@@ -137,7 +126,6 @@ function getCurrentYear(){
 		} else {
 			var obj = {
 				drain_id : 0,
-				drain_year : $('#drain_year').val(),
 				drain_name : $('#drain_name').val(),
 				drain_location_connected : $('#drain_location_connected').val()
 			};
@@ -214,7 +202,6 @@ function getCurrentYear(){
 	function editDrainage() {
 		var obj = {
 			drain_id : $("#editDrainId").val(),
-			drain_year : $('#editDrainYear').val(),
 			drain_name : $('#editDrainName').val(),
 			drain_location_connected : $('#editDrainLocalConnect').val()
 		};
@@ -255,7 +242,6 @@ function getCurrentYear(){
 			success : function(data) {
 				//alert(JSON.stringify(data));
 				$("#editDrainId").val(data.drain_id);
-				$("#editDrainYear").val(data.drain_year);
 				$("#editDrainName").val(data.drain_name);
 				$("#editDrainLocalConnect").val(data.drain_location_connected);
 				$('#editVillageSelect').val(data.location.vil_id);
@@ -288,7 +274,7 @@ function getCurrentYear(){
 </script>
 </head>
 
-<body onload="listDrainage();listVillage();editVillageSelect();getCurrentYear()">
+<body onload="listDrainage();listVillage();editVillageSelect()">
 
 	<div id="wrapper">
 
@@ -362,7 +348,6 @@ function getCurrentYear(){
 											<!-- Start change table -->
 											<thead>
 												<tr>
-													<th>ปีข้อมูล</th>
 													<th>ระบบระบายน้ำ</th>
 													<th>ที่ตั้ง</th>
 													<th>พื้นที่เชื่อมต่อ</th>
@@ -382,12 +367,6 @@ function getCurrentYear(){
 										%>
 										<input type="hidden" id="userId" value="<%=userid %>">
 										<table width="50%" align="center">
-											<tr>
-												<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-												<td><input id="drain_year" maxlength="4"
-													class="form-control" placeholder="" value="2558"
-													name="vil-year"></td>
-											</tr>
 											<tr>
 
 												<td align="pull-right" style="padding: 15px">ชื่อ</td>
@@ -432,12 +411,6 @@ function getCurrentYear(){
 										<input type="hidden" id="editUserId" value="<%=edituserid %>">
 										<input type="hidden" id="editDrainId">
 										<table width="50%" align="center">
-											<tr>
-												<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-												<td><input id="editDrainYear" maxlength="4"
-													class="form-control" placeholder="" value="2558"
-													name="vil-year"></td>
-											</tr>
 											<tr>
 
 												<td align="pull-right" style="padding: 15px">ชื่อ</td>

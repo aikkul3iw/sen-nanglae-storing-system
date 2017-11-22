@@ -47,10 +47,6 @@
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
 function getCurrentYear(){
-	var year = new Date();
-	document.getElementById("frs_year").value=(year.getFullYear()+543);
-	}
-	
 	function listForest() {
 		$("#loader").show();
 		$
@@ -63,9 +59,6 @@ function getCurrentYear(){
 							html += "<tr>";
 
 							html += "<td>"
-									+ data[i].frs_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].frs_name
 									+ "</td>"
 									+ "<td>"
@@ -126,10 +119,7 @@ function getCurrentYear(){
 <script type='text/javascript'>
 	function createForest() {
 		$("#loader").show();
-		if ($('#frs_year').val() == "") {
-			document.getElementById('frs_year').style.borderColor = "red";
-			return false;
-		} else if ($('#frs_name').val() == "") {
+		if ($('#frs_name').val() == "") {
 			document.getElementById('frs_name').style.borderColor = "red";
 			return false;
 		} else if ($('#frs_usage').val() == "") {
@@ -138,7 +128,6 @@ function getCurrentYear(){
 		} else {
 			var obj = {
 				frs_id : 0,
-				frs_year : $('#frs_year').val(),
 				frs_name : $('#frs_name').val(),
 				frs_usage : $('#frs_usage').val()
 
@@ -217,7 +206,6 @@ function getCurrentYear(){
 	function editForest() {
 		var obj = {
 			frs_id : $("#editFrsId").val(),
-			frs_year : $('#editFrsYear').val(),
 			frs_name : $('#editFrsName').val(),
 			frs_usage : $('#editFrsUsage').val()
 
@@ -259,7 +247,6 @@ function getCurrentYear(){
 			success : function(data) {
 				//alert(JSON.stringify(data));
 				$("#editFrsId").val(data.frs_id);
-				$("#editFrsYear").val(data.frs_year);
 				$("#editFrsName").val(data.frs_name);
 				$("#editFrsUsage").val(data.frs_usage);
 				$('#editVillageSelect').val(data.location.vil_id);
@@ -293,7 +280,7 @@ function getCurrentYear(){
 </script>
 </head>
 
-<body onload="listForest();listVillage();editVillageSelect();getCurrentYear()">
+<body onload="listForest();listVillage();editVillageSelect()">
 
 	<div id="wrapper">
 
@@ -365,7 +352,6 @@ function getCurrentYear(){
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีข้อมูล</th>
 														<th>ป่าไม้</th>
 														<th>ที่ตั้ง</th>
 														<th>การใช้ประโยนช์</th>
@@ -385,12 +371,6 @@ function getCurrentYear(){
 										%>
 										<input type="hidden" id="userId" value="<%=userid %>">
 											<table width="50%" align="center">
-												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="frs_year" maxlength="4"
-														class="form-control" placeholder="" value="2558"
-														name="pipe-year" required="true"></td>
-												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">ชื่อ</td>
 													<td><input id="frs_name" maxlength="100"
@@ -430,12 +410,6 @@ function getCurrentYear(){
 										<input type="hidden" id="editUserId" value="<%=edituserid %>">
 											<input type="hidden" id="editFrsId">
 											<table width="50%" align="center">
-												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="editFrsYear" maxlength="4"
-														class="form-control" placeholder="" value="2558"
-														name="pipe-year" required="true"></td>
-												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">ชื่อ</td>
 													<td><input id="editFrsName" maxlength="100"

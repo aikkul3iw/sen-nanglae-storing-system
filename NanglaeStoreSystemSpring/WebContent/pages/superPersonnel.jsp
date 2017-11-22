@@ -47,9 +47,6 @@
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
 function getCurrentYear(){
-	var year = new Date();
-	document.getElementById("per_year").value=(year.getFullYear()+543);
-	}
 	function listPersonnel() {
 		$("#loader").show();
 		$
@@ -63,9 +60,6 @@ function getCurrentYear(){
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].per_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].per_title
 									+ data[i].per_firstname
 									+ " "
@@ -132,10 +126,7 @@ function getCurrentYear(){
 <script type='text/javascript'>
 	function createPersonnel() {
 		$("#loader").show();
-		if ($('#per_year').val() == "") {
-			document.getElementById('per_year').style.borderColor = "red";
-			return false;
-		} else if ($('#per_title').val() == "") {
+		if ($('#per_title').val() == "") {
 			document.getElementById('per_title').style.borderColor = "red";
 			return false;
 		} else if ($('#per_firstname').val() == "") {
@@ -162,7 +153,6 @@ function getCurrentYear(){
 		} else {
 			var obj = {
 				per_id : 0,
-				per_year : $('#per_year').val(),
 				per_title : $('#per_title').val(),
 				per_firstname : $('#per_firstname').val(),
 				per_lastname : $('#per_lastname').val(),
@@ -227,7 +217,6 @@ function getCurrentYear(){
 	function editPersonnel() {
 		var obj = {
 			per_id : $("#editPerId").val(),
-			per_year : $('#editPerYear').val(),
 			per_title : $('#editPerTitle').val(),
 			per_firstname : $('#editPerFirstname').val(),
 			per_lastname : $('#editPerLastname').val(),
@@ -276,7 +265,6 @@ function getCurrentYear(){
 			success : function(data) {
 				//alert(JSON.stringify(data));
 				$("#editPerId").val(data.per_id);
-				$("#editPerYear").val(data.per_year);
 				$("#editPerTitle").val(data.per_title);
 				$("#editPerFirstname").val(data.per_firstname);
 				$("#editPerLastname").val(data.per_lastname);
@@ -295,7 +283,7 @@ function getCurrentYear(){
 </script>
 </head>
 
-<body onload="listPersonnel();getCurrentYear()">
+<body onload="listPersonnel()">
 
 	<div id="wrapper">
 
@@ -371,7 +359,6 @@ function getCurrentYear(){
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่บันทึกข้อมูล</th>
 														<th>ชื่อ</th>
 														<th>ตำแหน่ง</th>
 														<th>เบอร์โทรศัพท์</th>
@@ -393,12 +380,6 @@ function getCurrentYear(){
 										%>
 										<input type="hidden" id="userId" value="<%=userid %>">
 										<table width="50%" align="center">
-											<tr>
-												<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-												<td><input class="form-control" maxlength="4"
-													id="per_year" placeholder="ต.ย. 2558" value="2558"
-													name="peryear"></td>
-											</tr>
 											<tr>
 
 												<td align="pull-right" style="padding: 15px">คำนำหน้าชื่อ</td>
@@ -469,12 +450,6 @@ function getCurrentYear(){
 										<input type="hidden" id="editUserId" value="<%=edituserid %>">
 										<input type="hidden" id="editPerId">
 										<table width="50%" align="center">
-											<tr>
-												<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-												<td><input class="form-control" maxlength="4"
-													id="editPerYear" placeholder="" value="2558"
-													name="vil-year"></td>
-											</tr>
 											<tr>
 
 												<td align="pull-right" style="padding: 15px">คำนำหน้าชื่อ</td>

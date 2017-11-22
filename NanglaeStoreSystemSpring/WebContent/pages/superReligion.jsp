@@ -47,9 +47,6 @@
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
 function getCurrentYear(){
-	var year = new Date();
-	document.getElementById("rel_year").value=(year.getFullYear()+543);
-	}
 	function listReligion() {
 		$("#loader").show();
 		$
@@ -62,9 +59,6 @@ function getCurrentYear(){
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].rel_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].rel_name
 									+ "</td>"
 									+ "<td>"
@@ -125,10 +119,7 @@ function getCurrentYear(){
 <script type='text/javascript'>
 	function createReligion() {
 		$("#loader").show();
-		if ($('#rel_year').val() == "") {
-			document.getElementById('rel_year').style.borderColor = "red";
-			return false;
-		} else if ($('#rel_name').val() == "") {
+		if ($('#rel_name').val() == "") {
 			document.getElementById('rel_name').style.borderColor = "red";
 			return false;
 		} else if ($('#rel_type').val() == "") {
@@ -137,7 +128,6 @@ function getCurrentYear(){
 		} else {
 			var obj = {
 				rel_id : 0,
-				rel_year : $('#rel_year').val(),
 				rel_name : $('#rel_name').val(),
 				rel_type : $('#rel_type').val()
 
@@ -216,7 +206,6 @@ function getCurrentYear(){
 	function editReligion() {
 		var obj = {
 			rel_id : $("#editReligionId").val(),
-			rel_year : $('#editReligionYear').val(),
 			rel_name : $('#editReligionName').val(),
 			rel_type : $('#editReligionType').val()
 		};
@@ -257,7 +246,6 @@ function getCurrentYear(){
 			success : function(data) {
 				//alert(JSON.stringify(data));
 				$("#editReligionId").val(data.rel_id);
-				$("#editReligionYear").val(data.rel_year);
 				$("#editReligionName").val(data.rel_name);
 				$("#editReligionType").val(data.rel_type);
 				$('#editVillageSelect').val(data.location.vil_id);
@@ -290,7 +278,7 @@ function getCurrentYear(){
 </script>
 </head>
 
-<body onload="listReligion();listVillage();editVillageSelect();getCurrentYear()">
+<body onload="listReligion();listVillage();editVillageSelect()">
 
 	<div id="wrapper">
 
@@ -363,7 +351,6 @@ function getCurrentYear(){
 <!-- Start change table -->
 											<thead>
 												<tr>
-													<th>ปีที่บันทึกข้อมูล</th>
 													<th>ชื่อ</th>
 													<th>ศาสนา</th>
 													<th>ที่ตั้ง</th>
@@ -383,11 +370,6 @@ function getCurrentYear(){
 										%>
 										<input type="hidden" id="userId" value="<%=userid %>">
 										<table width="50%" align="center">
-											<tr>
-												<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-												<td><input class="form-control" maxlength="4"
-													id="rel_year" placeholder="" value="2558" name="vil-year"></td>
-											</tr>
 											<tr>
 
 												<td align="pull-right" style="padding: 15px">ชื่อ</td>
@@ -435,12 +417,6 @@ function getCurrentYear(){
 										<input type="hidden" id="editUserId" value="<%=edituserid %>">
 										<input type="hidden" id="editReligionId">
 										<table width="50%" align="center">
-											<tr>
-												<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-												<td><input class="form-control" maxlength="4"
-													id="editReligionYear" placeholder="" value="2558"
-													name="vil-year"></td>
-											</tr>
 											<tr>
 
 												<td align="pull-right" style="padding: 15px">ชื่อ</td>

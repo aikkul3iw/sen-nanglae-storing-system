@@ -46,11 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-function getCurrentYear(){
-	var year = new Date();
-	document.getElementById("ins_year").value=(year.getFullYear()+543);
-	}
-	
 	function listIndustry() {
 		$("#loader").show();
 		$
@@ -63,9 +58,6 @@ function getCurrentYear(){
 							html += "<tr>";
 
 							html += "<td>"
-									+ data[i].ins_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].ins_name
 									+ "</td>"
 									+ "<td>"
@@ -131,10 +123,7 @@ function getCurrentYear(){
 <script type='text/javascript'>
 	function createIndustry() {
 		$("#loader").show();
-		if ($('#ins_year').val() == "") {
-			document.getElementById('ins_year').style.borderColor = "red";
-			return false;
-		} else if ($('#ins_name').val() == "") {
+		if ($('#ins_name').val() == "") {
 			document.getElementById('ins_name').style.borderColor = "red";
 			return false;
 		} else if ($('#ins_size').val() == "") {
@@ -149,7 +138,6 @@ function getCurrentYear(){
 		} else {
 			var obj = {
 				ins_id : 0,
-				ins_year : $('#ins_year').val(),
 				ins_name : $('#ins_name').val(),
 				ins_size : $('#ins_size').val(),
 				ins_type : $('#ins_type').val(),
@@ -229,7 +217,6 @@ function getCurrentYear(){
 	function editIndustry() {
 		var obj = {
 			ins_id : $("#editInsId").val(),
-			ins_year : $('#editInsYear').val(),
 			ins_name : $('#editInsName').val(),
 			ins_size : $('#editInsSize').val(),
 			ins_type : $('#editInsType').val(),
@@ -272,7 +259,6 @@ function getCurrentYear(){
 			success : function(data) {
 				//alert(JSON.stringify(data));
 				$("#editInsId").val(data.ins_id);
-				$("#editInsYear").val(data.ins_year);
 				$("#editInsName").val(data.ins_name);
 				$("#editInsSize").val(data.ins_size);
 				$("#editInsType").val(data.ins_type);
@@ -307,7 +293,7 @@ function getCurrentYear(){
 </script>
 </head>
 
-<body onload="listIndustry();listVillage();editVillageSelect();getCurrentYear()">
+<body onload="listIndustry();listVillage();editVillageSelect()">
 
 	<div id="wrapper">
 
@@ -380,7 +366,6 @@ function getCurrentYear(){
 											<!-- Start change table -->
 											<thead>
 												<tr>
-													<th>ปีข้อมูล</th>
 													<th>ชื่ออุตสาหกรรม</th>
 													<th>ที่ตั้ง</th>
 													<th>ขนาด</th>
@@ -402,11 +387,6 @@ function getCurrentYear(){
 										%>
 										<input type="hidden" id="userId" value="<%=userid %>">
 										<table width="50%" align="center">
-											<tr>
-												<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-												<td><input class="form-control" maxlength="4"
-													id="ins_year" placeholder="" value="2558" name="vil-year"></td>
-											</tr>
 											<tr>
 												<td align="pull-right" style="padding: 15px">ชื่อ</td>
 												<td><input class="form-control" maxlength="100"
@@ -462,12 +442,6 @@ function getCurrentYear(){
 										<input type="hidden" id="editUserId" value="<%=edituserid %>">
 										<input type="hidden" id="editInsId">
 										<table width="50%" align="center">
-											<tr>
-												<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-												<td><input class="form-control" maxlength="4"
-													id="editInsYear" placeholder="" value="2558"
-													name="vil-year"></td>
-											</tr>
 											<tr>
 												<td align="pull-right" style="padding: 15px">ชื่อ</td>
 												<td><input class="form-control" maxlength="100"

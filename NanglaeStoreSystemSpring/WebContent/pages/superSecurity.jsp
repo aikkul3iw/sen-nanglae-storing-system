@@ -46,11 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-function getCurrentYear(){
-	var year = new Date();
-	document.getElementById("sec_year").value=(year.getFullYear()+543);
-	}
-	
 	function listLASucrity() {
 		$("#loader").show();
 		$
@@ -63,9 +58,6 @@ function getCurrentYear(){
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].sec_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].sec_name
 									+ "</td>"
 									+ "<td>"
@@ -120,10 +112,7 @@ function getCurrentYear(){
 <script type='text/javascript'>
 	function createLASucrity() {
 		$("#loader").show();
-		if ($('#sec_year').val() == "") {
-			document.getElementById('sec_year').style.borderColor = "red";
-			return false;
-		} else if ($('#sec_name').val() == "") {
+		if ($('#sec_name').val() == "") {
 			document.getElementById('sec_name').style.borderColor = "red";
 			return false;
 		} else if ($('#sec_member').val() == "") {
@@ -132,7 +121,6 @@ function getCurrentYear(){
 		} else {
 			var obj = {
 				sec_id : 0,
-				sec_year : $('#sec_year').val(),
 				sec_name : $('#sec_name').val(),
 				sec_member : $('#sec_member').val()
 
@@ -191,7 +179,6 @@ function getCurrentYear(){
 	function editLASucrity() {
 		var obj = {
 			sec_id : $("#editSecId").val(),
-			sec_year : $('#editSecYear').val(),
 			sec_name : $('#editSecName').val(),
 			sec_member : $('#editSecMember').val()
 		};
@@ -232,7 +219,6 @@ function getCurrentYear(){
 			success : function(data) {
 				//alert(JSON.stringify(data));
 				$("#editSecId").val(data.sec_id);
-				$("#editSecYear").val(data.sec_year);
 				$("#editSecName").val(data.sec_name);
 				$("#editSecMember").val(data.sec_member);
 			},
@@ -244,7 +230,7 @@ function getCurrentYear(){
 </script>
 </head>
 
-<body onload="listLASucrity();getCurrentYear()">
+<body onload="listLASucrity()">
 
 	<div id="wrapper">
 
@@ -316,7 +302,6 @@ function getCurrentYear(){
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีข้อมูล</th>
 														<th>ชื่อ</th>
 														<th>จำนวน</th>
 														<th style="text-align: center;">ตัวเลือก</th>
@@ -335,12 +320,6 @@ function getCurrentYear(){
 										%>
 										<input type="hidden" id="userId" value="<%=userid %>">
 											<table width="50%" align="center">
-												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="sec_year" maxlength="4"
-														class="form-control" placeholder="" value="2558"
-														name="vil-year"></td>
-												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">ชื่อ</td>
 													<td><input id="sec_name" maxlength="100"
@@ -376,12 +355,6 @@ function getCurrentYear(){
 											<input type="hidden" id="editUserId" value="<%=edituserid %>">
 											<input type="hidden" id="editSecId">
 											<table width="50%" align="center">
-												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="editSecYear" maxlength="4"
-														class="form-control" placeholder="" value="2558"
-														name="vil-year"></td>
-												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">ชื่อ</td>
 													<td><input id="editSecName" maxlength="100"

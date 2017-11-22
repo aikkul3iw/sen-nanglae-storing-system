@@ -47,9 +47,6 @@
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
 function getCurrentYear(){
-	var year = new Date();
-	document.getElementById("land_year").value=(year.getFullYear()+543);
-	}
 	function listLandResource() {
 		$("#loader").show();
 		$
@@ -61,9 +58,6 @@ function getCurrentYear(){
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].land_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].land_name
 									+ "</td>"
 									+ "<td>"
@@ -116,10 +110,7 @@ function getCurrentYear(){
 <script type='text/javascript'>
 	function createLandResource() {
 		$("#loader").show();
-		if ($('#land_year').val() == "") {
-			document.getElementById('land_year').style.borderColor = "red";
-			return false;
-		} else if ($('#land_name').val() == "") {
+		if ($('#land_name').val() == "") {
 			document.getElementById('land_name').style.borderColor = "red";
 			return false;
 		} else if ($('#land_usage').val() == "") {
@@ -128,7 +119,6 @@ function getCurrentYear(){
 		} else {
 			var obj = {
 				land_id : 0,
-				land_year : $('#land_year').val(),
 				land_name : $('#land_name').val(),
 				land_usage : $('#land_usage').val()
 			};
@@ -187,7 +177,6 @@ function getCurrentYear(){
 	function editLandResource() {
 		var obj = {
 			land_id : $('#editLandId').val(),
-			land_year : $('#editLandYear').val(),
 			land_name : $('#editLandName').val(),
 			land_usage : $('#editLandUsage').val()
 		};
@@ -228,7 +217,6 @@ function getCurrentYear(){
 			success : function(data) {
 				//alert(JSON.stringify(data));
 				$("#editLandId").val(data.land_id);
-				$("#editLandYear").val(data.land_year);
 				$("#editLandName").val(data.land_name);
 				$("#editLandUsage").val(data.land_usage);
 			},
@@ -240,7 +228,7 @@ function getCurrentYear(){
 </script>
 </head>
 
-<body onload="listLandResource();getCurrentYear()">
+<body onload="listLandResource()">
 
 	<div id="wrapper">
 
@@ -312,7 +300,6 @@ function getCurrentYear(){
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่ข้อมูล</th>
 														<th>ทรัพยากรดิน</th>
 														<th>การใช้ประโยชน์</th>
 														<th style="text-align: center;">ตัวเลือก</th>
@@ -331,12 +318,6 @@ function getCurrentYear(){
 										%>
 										<input type="hidden" id="userId" value="<%=userid %>">
 											<table width="50%" align="center">
-												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="land_year" maxlength="4"
-														class="form-control" maxlength="4" placeholder=""
-														value="2558" name="pipe-year" required></td>
-												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">ชื่อ</td>
 													<td><input id="land_name" maxlength="50"
@@ -370,12 +351,6 @@ function getCurrentYear(){
 											<input type="hidden" id="editUserId" value="<%=edituserid %>">
 											<input type="hidden" id="editLandId">
 											<table width="50%" align="center">
-												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="editLandYear" maxlength="4"
-														class="form-control" maxlength="4" placeholder=""
-														value="2558" name="pipe-year" required></td>
-												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">ชื่อ</td>
 													<td><input id="editLandName" maxlength="50"

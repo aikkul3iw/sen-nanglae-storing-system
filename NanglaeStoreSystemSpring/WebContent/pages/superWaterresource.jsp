@@ -47,10 +47,6 @@
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
 function getCurrentYear(){
-	var year = new Date();
-	document.getElementById("water_year").value=(year.getFullYear()+543);
-	}
-	
 	function listWater() {
 		$("#loader").show();
 		$
@@ -281,7 +277,7 @@ function getCurrentYear(){
 </script>
 </head>
 
-<body onload="listWater();listVillage();editVillageSelect();getCurrentYear()">
+<body onload="listWater();listVillage();editVillageSelect()">
 
 	<div id="wrapper">
 

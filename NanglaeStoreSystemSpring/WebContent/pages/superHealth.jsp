@@ -46,11 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-function getCurrentYear(){
-	var year = new Date();
-	document.getElementById("hlt_year").value=(year.getFullYear()+543);
-	}
-	
 	function listHealth() {
 		$("#loader").show();
 		$
@@ -62,9 +57,6 @@ function getCurrentYear(){
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].hlt_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].hlt_name
 									+ "</td>"
 									+ "<td>"
@@ -125,10 +117,7 @@ function getCurrentYear(){
 <script type='text/javascript'>
 	function createHealth() {
 		$("#loader").show();
-		if ($('#hlt_year').val() == "") {
-			document.getElementById('hlt_year').style.borderColor = "red";
-			return false;
-		} else if ($('#hlt_name').val() == "") {
+		if ($('#hlt_name').val() == "") {
 			document.getElementById('hlt_name').style.borderColor = "red";
 			return false;
 		} else if ($('#hlt_service_area').val() == "") {
@@ -137,7 +126,6 @@ function getCurrentYear(){
 		} else {
 			var obj = {
 				hlt_id : 0,
-				hlt_year : $('#hlt_year').val(),
 				hlt_name : $('#hlt_name').val(),
 				hlt_service_area : $('#hlt_service_area').val()
 
@@ -216,7 +204,6 @@ function getCurrentYear(){
 	function editHealth() {
 		var obj = {
 			hlt_id : $("#editHltId").val(),
-			hlt_year : $('#editHltYear').val(),
 			hlt_name : $('#editHltName').val(),
 			hlt_service_area : $('#editHltServiceArea').val()
 
@@ -257,7 +244,6 @@ function getCurrentYear(){
 			success : function(data) {
 				//alert(JSON.stringify(data));
 				$("#editHltId").val(data.hlt_id);
-				$("#editHltYear").val(data.hlt_year);
 				$("#editHltName").val(data.hlt_name);
 				$("#editHltServiceArea").val(data.hlt_service_area);
 				$('#editVillageSelect').val(data.location.vil_id);
@@ -291,7 +277,7 @@ function getCurrentYear(){
 </script>
 </head>
 
-<body onload="listHealth();listVillage();editVillageSelect();getCurrentYear()">
+<body onload="listHealth();listVillage();editVillageSelect()">
 
 	<div id="wrapper">
 
@@ -365,7 +351,6 @@ function getCurrentYear(){
 												<!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีข้อมูล</th>
 														<th>ชื่อ</th>
 														<th>ที่ตั้ง</th>
 														<th>ขอบเขตการให้บริการ</th>
@@ -385,12 +370,6 @@ function getCurrentYear(){
 										%>
 										<input type="hidden" id="userId" value="<%=userid %>">
 											<table width="50%" align="center">
-												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="hlt_year" maxlength="4"
-														class="form-control" placeholder="" value="2558"
-														name="vil-year"></td>
-												</tr>
 												<tr>
 
 													<td align="pull-right" style="padding: 15px">ชื่อ</td>
@@ -435,12 +414,6 @@ function getCurrentYear(){
 										<input type="hidden" id="editUserId" value="<%=edituserid %>">
 											<input type="hidden" id="editHltId">
 											<table width="50%" align="center">
-												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="editHltYear" maxlength="4"
-														class="form-control" placeholder="" value="2558"
-														name="vil-year"></td>
-												</tr>
 												<tr>
 
 													<td align="pull-right" style="padding: 15px">ชื่อ</td>

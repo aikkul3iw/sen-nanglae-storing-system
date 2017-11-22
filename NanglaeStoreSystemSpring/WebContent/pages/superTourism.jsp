@@ -54,11 +54,6 @@
 <script type="text/javascript">
 </script>
 <script type='text/javascript'>
-	function getCurrentYear(){
-	var year = new Date();
-	document.getElementById("tour_year").value=(year.getFullYear()+543);
-	}
-	
 	function listTourism() {
 		$("#loader").show();
 		$
@@ -320,7 +315,7 @@
 </script>
 </head>
 
-<body onload="listTourism();listVillage();editVillageSelect();getCurrentYear()">
+<body onload="listTourism();listVillage();editVillageSelect()">
 
 	<div id="wrapper">
 

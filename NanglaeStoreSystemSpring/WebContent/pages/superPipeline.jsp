@@ -47,10 +47,6 @@
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
 function getCurrentYear(){
-	var year = new Date();
-	document.getElementById("pipe_year").value=(year.getFullYear()+543);
-	}
-	
 	function listPipeline() {
 		$("#loader").show();
 		$
@@ -62,9 +58,6 @@ function getCurrentYear(){
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].pipe_year
-									+ "</td>"
-									+ "<td>"
 									+ data[i].location.vil_number
 									+ "</td>"
 									+ "<td>"
@@ -125,10 +118,7 @@ function getCurrentYear(){
 <script type='text/javascript'>
 	function createPipeline() {
 		$("#loader").show();
-		if ($('#pipe_year').val() == "") {
-			document.getElementById('pipe_year').style.borderColor = "red";
-			return false;
-		} else if ($('#pipe_system').val() == "") {
+		if ($('#pipe_system').val() == "") {
 			document.getElementById('pipe_system').style.borderColor = "red";
 			return false;
 		} else if ($('#pipe_use_from').val() == "") {
@@ -137,7 +127,6 @@ function getCurrentYear(){
 		} else {
 			var obj = {
 				pipe_id : 0,
-				pipe_year : $('#pipe_year').val(),
 				pipe_system : $('#pipe_system').val(),
 				pipe_use_from : $('#pipe_use_from').val()
 
@@ -216,7 +205,6 @@ function getCurrentYear(){
 	function editPipeline() {
 		var obj = {
 			pipe_id : $("#editPipeId").val(),
-			pipe_year : $('#editPipeYear').val(),
 			pipe_system : $('#editPipeSystem').val(),
 			pipe_use_from : $('#editPipeUseFrom').val()
 		};
@@ -257,7 +245,6 @@ function getCurrentYear(){
 			success : function(data) {
 				//alert(JSON.stringify(data));
 				$("#editPipeId").val(data.pipe_id);
-				$("#editPipeYear").val(data.pipe_year);
 				$("#editPipeSystem").val(data.pipe_system);
 				$("#editPipeUseFrom").val(data.pipe_use_from);
 				$('#editVillageSelect').val(data.location.vil_id);
@@ -290,7 +277,7 @@ function getCurrentYear(){
 </script>
 </head>
 
-<body onload="listPipeline();listVillage();editVillageSelect();getCurrentYear()">
+<body onload="listPipeline();listVillage();editVillageSelect()">
 
 	<div id="wrapper">
 
@@ -362,7 +349,6 @@ function getCurrentYear(){
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่บันทึกข้อมูล</th>
 														<th>หมู่ที่</th>
 														<th>ชื่อหมู่บ้าน</th>
 														<th>สถานะระบบประปา</th>
@@ -383,12 +369,6 @@ function getCurrentYear(){
 										%>
 										<input type="hidden" id="userId" value="<%=userid %>">
 											<table width="50%" align="center">
-												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input class="form-control" maxlength="4"
-														id="pipe_year" placeholder="" value="2558"
-														name="pipe-year" required="true"></td>
-												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">หมู่บ้าน</td>
 													<td><select id="villageSelect" class="form-control"
@@ -432,12 +412,6 @@ function getCurrentYear(){
 										<input type="hidden" id="editUserId" value="<%=edituserid %>">
 											<input type="hidden" id="editPipeId">
 											<table width="50%" align="center">
-												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input class="form-control" maxlength="4"
-														id="editPipeYear" placeholder="" value="2558"
-														name="pipe-year" required="true"></td>
-												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">หมู่บ้าน</td>
 													<td><select id="editVillageSelect"
