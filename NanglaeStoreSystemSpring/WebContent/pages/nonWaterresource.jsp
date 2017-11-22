@@ -68,15 +68,31 @@
 							html += "</tr>";
 						}
 						$('#listWaters').html(html);
-						$("#resultTable").DataTable({});
+						$("#resultTable").DataTable({
+							language: {
+					              sProcessing: 'กำลังดำเนินการ...',
+					              sLengthMenu: 'แสดง_MENU_ แถว',
+					              sZeroRecords: 'ไม่พบข้อมูล',
+					              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+					              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
+					              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
+					              sInfoPostFix: '',
+					              sSearch: 'ค้นหา:',
+						              oPaginate: {
+						                            sFirst: 'เิริ่มต้น',
+						                            sPrevious: 'ก่อนหน้า',
+						                            sNext: 'ถัดไป',
+						                            sLast: 'สุดท้าย'
+						              }
+					     }});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
-						alert('error');
+						alert('ไม่สามารถโหลดข้อมูลได้');
 						$("#loader").hide();
 					}
 				});
-	}
+			}
 </script>
 </head>
 

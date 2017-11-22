@@ -100,7 +100,22 @@
 								doc.defaultStyle['font'] = 'THSarabun';
 										}
 									},
-								]
+								],language: {
+						              sProcessing: 'กำลังดำเนินการ...',
+						              sLengthMenu: 'แสดง_MENU_ แถว',
+						              sZeroRecords: 'ไม่พบข้อมูล',
+						              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+						              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
+						              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
+						              sInfoPostFix: '',
+						              sSearch: 'ค้นหา:',
+							              oPaginate: {
+							                            sFirst: 'เิริ่มต้น',
+							                            sPrevious: 'ก่อนหน้า',
+							                            sNext: 'ถัดไป',
+							                            sLast: 'สุดท้าย'
+							              }
+							     }
 						});
 						table.buttons().container().appendTo('#page-wrapper .col-sm-6:eq(0)');
 					});
@@ -338,7 +353,7 @@
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="superMenu.jsp" %>
+			<%@include file="userMenu.jsp" %>
 		</nav>
 	</div>
 	<div id="page-wrapper" style="background-color: #d7f0f5">

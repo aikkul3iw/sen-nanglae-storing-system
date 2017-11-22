@@ -10,9 +10,9 @@
 					<li><a href="userPersonnel.do">บุคลากร</a></li>
 					<li><a href="userPopulation.do">ประชากร</a></li>
 					<li><a href="userLabor.do">แรงงาน</a></li>
-					<li><a href="superAIDSpatients.do">ผู้ป่วยเอดส์</a></li>
-					<li><a href="superDisabled.do">ผู้พิการ</a></li>
-					<li><a href="superElderlyPeople.do">ผู้สูงอายุ</a></li>
+					<li><a href="userAIDSpatients.do">ผู้ป่วยเอดส์</a></li>
+					<li><a href="userDisabled.do">ผู้พิการ</a></li>
+					<li><a href="userElderlyPeople.do">ผู้สูงอายุ</a></li>
 				</ul> <!-- /.nav-second-level --></li>
 			<li><a href="#"><i class="fa fa-road fa-fw"></i> สาธารณูปโภค<span
 					class="fa arrow"></span></a>
