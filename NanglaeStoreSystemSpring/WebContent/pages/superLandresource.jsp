@@ -46,7 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-function getCurrentYear(){
 	function listLandResource() {
 		$("#loader").show();
 		$
@@ -58,7 +57,7 @@ function getCurrentYear(){
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].land_name
+									+ data[i].land_type
 									+ "</td>"
 									+ "<td>"
 									+ data[i].land_usage
@@ -110,8 +109,8 @@ function getCurrentYear(){
 <script type='text/javascript'>
 	function createLandResource() {
 		$("#loader").show();
-		if ($('#land_name').val() == "") {
-			document.getElementById('land_name').style.borderColor = "red";
+		if ($('#land_type').val() == "") {
+			document.getElementById('land_type').style.borderColor = "red";
 			return false;
 		} else if ($('#land_usage').val() == "") {
 			document.getElementById('land_usage').style.borderColor = "red";
@@ -119,7 +118,7 @@ function getCurrentYear(){
 		} else {
 			var obj = {
 				land_id : 0,
-				land_name : $('#land_name').val(),
+				land_type : $('#land_type').val(),
 				land_usage : $('#land_usage').val()
 			};
 			//alert(JSON.stringify(obj));
@@ -177,7 +176,7 @@ function getCurrentYear(){
 	function editLandResource() {
 		var obj = {
 			land_id : $('#editLandId').val(),
-			land_name : $('#editLandName').val(),
+			land_type : $('#editLandType').val(),
 			land_usage : $('#editLandUsage').val()
 		};
 		//alert(JSON.stringify(obj));
@@ -217,7 +216,7 @@ function getCurrentYear(){
 			success : function(data) {
 				//alert(JSON.stringify(data));
 				$("#editLandId").val(data.land_id);
-				$("#editLandName").val(data.land_name);
+				$("#editLandType").val(data.land_type);
 				$("#editLandUsage").val(data.land_usage);
 			},
 			error : function(data, status, er) {
@@ -320,7 +319,7 @@ function getCurrentYear(){
 											<table width="50%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ชื่อ</td>
-													<td><input id="land_name" maxlength="50"
+													<td><input id="land_type" maxlength="50"
 														class="form-control" maxlength="100"
 														placeholder="ระบุชื่อทรัพยากรดิน" name="water-name"
 														required></td>
@@ -353,7 +352,7 @@ function getCurrentYear(){
 											<table width="50%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ชื่อ</td>
-													<td><input id="editLandName" maxlength="50"
+													<td><input id="editLandType" maxlength="50"
 														class="form-control" maxlength="100" placeholder=""
 														name="water-name" required></td>
 												</tr>

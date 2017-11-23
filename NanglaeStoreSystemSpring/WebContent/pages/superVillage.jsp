@@ -43,7 +43,6 @@
 <link href="css/dataTable/dataTables.bootstrap.min.css" rel="stylesheet">
 <link href="css/dataTable/buttons.bootstrap.min.css" rel="stylesheet">
 
-
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
 	function listVillage() {
@@ -168,12 +167,17 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
+			<%
+			Object userdelete = session.getAttribute("userdelete");
+			%>
+			var usdelete="<%=userdelete%>"; 
+			alert(usdelete); 
 			var id = vil_id;
 			var obj = {
 				vil_id : id
 			};
 			$.ajax({
-				url : "../NanglaeGov/deleteVillage.do",
+				url : "../NanglaeGov/deleteVillage.do?userdelete="+usdelete,
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),

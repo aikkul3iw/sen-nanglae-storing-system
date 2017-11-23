@@ -66,7 +66,7 @@
 									+ data[i].location.vil_name
 									+ "</td>"
 									+ "<td>"
-									+ data[i].hlt_service_area
+									+ data[i].hlt_description
 									+ "</td>"
 									+ "<td style=\"text-align: center;\"><button href=\"#editHealth\" data-toggle=\"tab\" onclick=\"setEditHealth("
 									+ data[i].hlt_id
@@ -120,14 +120,14 @@
 		if ($('#hlt_name').val() == "") {
 			document.getElementById('hlt_name').style.borderColor = "red";
 			return false;
-		} else if ($('#hlt_service_area').val() == "") {
-			document.getElementById('hlt_service_area').style.borderColor = "red";
+		} else if ($('#hlt_description').val() == "") {
+			document.getElementById('hlt_description').style.borderColor = "red";
 			return false;
 		} else {
 			var obj = {
 				hlt_id : 0,
 				hlt_name : $('#hlt_name').val(),
-				hlt_service_area : $('#hlt_service_area').val()
+				hlt_description : $('#hlt_description').val()
 
 			};
 			//alert(JSON.stringify(obj));
@@ -205,7 +205,7 @@
 		var obj = {
 			hlt_id : $("#editHltId").val(),
 			hlt_name : $('#editHltName').val(),
-			hlt_service_area : $('#editHltServiceArea').val()
+			hlt_description : $('#editHltDescription').val()
 
 		};
 		$.ajax({
@@ -245,7 +245,7 @@
 				//alert(JSON.stringify(data));
 				$("#editHltId").val(data.hlt_id);
 				$("#editHltName").val(data.hlt_name);
-				$("#editHltServiceArea").val(data.hlt_service_area);
+				$("#editHltDescription").val(data.hlt_description);
 				$('#editVillageSelect').val(data.location.vil_id);
 
 			},
@@ -389,7 +389,7 @@
 												<tr>
 
 													<td align="pull-right" style="padding: 15px">ขอบเขตการให้บริการ</td>
-													<td><textarea id="hlt_service_area" maxlength="255"
+													<td><textarea id="hlt_description" maxlength="255"
 															class="form-control" placeholder="ระบุการให้บริการ"
 															name="vil-number" required="true"></textarea></td>
 
@@ -434,7 +434,7 @@
 												<tr>
 
 													<td align="pull-right" style="padding: 15px">ขอบเขตการให้บริการ</td>
-													<td><textarea id="editHltServiceArea" maxlength="255"
+													<td><textarea id="editHltDescription" maxlength="255"
 															class="form-control" placeholder="ระบุการให้บริการ"
 															name="vil-number" required="true"></textarea></td>
 

@@ -46,7 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-function getCurrentYear(){
 	function listForest() {
 		$("#loader").show();
 		$
@@ -59,7 +58,7 @@ function getCurrentYear(){
 							html += "<tr>";
 
 							html += "<td>"
-									+ data[i].frs_name
+									+ data[i].frs_type
 									+ "</td>"
 									+ "<td>"
 									+ "หมู่ที่ "
@@ -119,8 +118,8 @@ function getCurrentYear(){
 <script type='text/javascript'>
 	function createForest() {
 		$("#loader").show();
-		if ($('#frs_name').val() == "") {
-			document.getElementById('frs_name').style.borderColor = "red";
+		if ($('#frs_type').val() == "") {
+			document.getElementById('frs_type').style.borderColor = "red";
 			return false;
 		} else if ($('#frs_usage').val() == "") {
 			document.getElementById('frs_usage').style.borderColor = "red";
@@ -128,7 +127,7 @@ function getCurrentYear(){
 		} else {
 			var obj = {
 				frs_id : 0,
-				frs_name : $('#frs_name').val(),
+				frs_type : $('#frs_type').val(),
 				frs_usage : $('#frs_usage').val()
 
 			};
@@ -206,7 +205,7 @@ function getCurrentYear(){
 	function editForest() {
 		var obj = {
 			frs_id : $("#editFrsId").val(),
-			frs_name : $('#editFrsName').val(),
+			frs_type : $('#editFrsType').val(),
 			frs_usage : $('#editFrsUsage').val()
 
 		};
@@ -247,7 +246,7 @@ function getCurrentYear(){
 			success : function(data) {
 				//alert(JSON.stringify(data));
 				$("#editFrsId").val(data.frs_id);
-				$("#editFrsName").val(data.frs_name);
+				$("#editFrsType").val(data.frs_type);
 				$("#editFrsUsage").val(data.frs_usage);
 				$('#editVillageSelect').val(data.location.vil_id);
 
@@ -373,7 +372,7 @@ function getCurrentYear(){
 											<table width="50%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ชื่อ</td>
-													<td><input id="frs_name" maxlength="100"
+													<td><input id="frs_type" maxlength="100"
 														class="form-control" placeholder="" name="water-name"
 														required="true"></td>
 												</tr>
@@ -412,7 +411,7 @@ function getCurrentYear(){
 											<table width="50%" align="center">
 												<tr>
 													<td align="pull-right" style="padding: 15px">ชื่อ</td>
-													<td><input id="editFrsName" maxlength="100"
+													<td><input id="editFrsType" maxlength="100"
 														class="form-control" placeholder="" name="water-name"
 														required="true"></td>
 												</tr>

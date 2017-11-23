@@ -46,7 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-function getCurrentYear(){
 	function listReligion() {
 		$("#loader").show();
 		$
@@ -278,7 +277,7 @@ function getCurrentYear(){
 </script>
 </head>
 
-<body onload="listReligion();listVillage();editVillageSelect()">
+<body onload="listReligion();listVillage();editVillageSelect();">
 
 	<div id="wrapper">
 

@@ -46,7 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-function getCurrentYear(){
 	function listService() {
 		$("#loader").show();
 		$
@@ -62,7 +61,7 @@ function getCurrentYear(){
 									+ data[i].ser_name
 									+ "</td>"
 									+ "<td>"
-									+ data[i].ser_capacity
+									+ data[i].ser_description
 									+ "</td>"
 									+ "<td style=\"text-align: center;\"><button href=\"#editService\" data-toggle=\"tab\" onclick=\"setEditService("
 									+ data[i].ser_id
@@ -116,14 +115,14 @@ function getCurrentYear(){
 		if ($('#ser_name').val() == "") {
 			document.getElementById('ser_name').style.borderColor = "red";
 			return false;
-		} else if ($('#ser_capacity').val() == "") {
-			document.getElementById('ser_capacity').style.borderColor = "red";
+		} else if ($('#ser_description').val() == "") {
+			document.getElementById('ser_description').style.borderColor = "red";
 			return false;
 		} else {
 			var obj = {
 				ser_id : 0,
 				ser_name : $('#ser_name').val(),
-				ser_capacity : $('#ser_capacity').val()
+				ser_description : $('#ser_description').val()
 
 			};
 			$.ajax({
@@ -180,7 +179,7 @@ function getCurrentYear(){
 		var obj = {
 			ser_id : $("#editSerId").val(),
 			ser_name : $('#editSerName').val(),
-			ser_capacity : $('#editSerCapacity').val()
+			ser_description : $('#editSerDescription').val()
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
@@ -220,7 +219,7 @@ function getCurrentYear(){
 				//alert(JSON.stringify(data));
 				$("#editSerId").val(data.ser_id);
 				$("#editSerName").val(data.ser_name);
-				$("#editSerCapacity").val(data.ser_capacity);
+				$("#editSerDescription").val(data.ser_description);
 			},
 			error : function(data, status, er) {
 				alert('error');
@@ -330,7 +329,7 @@ function getCurrentYear(){
 												<tr>
 
 													<td align="pull-right" style="padding: 15px">ขอบเขตการให้บริการ</td>
-													<td><textarea id="ser_capacity" maxlength="255"
+													<td><textarea id="ser_description" maxlength="255"
 															class="form-control" placeholder="ระบุขอบเขตการให้บริการ"
 															name="ser_capacity" required="true"></textarea></td>
 
@@ -365,7 +364,7 @@ function getCurrentYear(){
 												<tr>
 
 													<td align="pull-right" style="padding: 15px">ขอบเขตการให้บริการ</td>
-													<td><textarea id="editSerCapacity" maxlength="255"
+													<td><textarea id="editSerDescription" maxlength="255"
 															class="form-control" placeholder="ระบุขอบเขตการให้บริการ"
 															name="editSerCapacity" required></textarea></td>
 

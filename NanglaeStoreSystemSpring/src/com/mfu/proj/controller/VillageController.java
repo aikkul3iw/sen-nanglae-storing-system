@@ -104,11 +104,25 @@ public class VillageController {
 	}
 
 	@RequestMapping("/deleteVillage")
-	public @ResponseBody String deleteVillage(@RequestBody Village village) {
+	public @ResponseBody String deleteVillage(@RequestBody Village village, HttpServletRequest request) {
 
 		try {
+			String id = request.getParameter("userdelete");
+			//System.out.print(id);
 			if (village.getVil_id() != 0) {
+				Village vilOld = vilServ.findVillageById(village.getVil_id());
+				String logStringOld = "หมู่: "+vilOld.getVil_number()+", บ้าน: "+vilOld.getVil_name()+", ผู้ใหญ่บ้าน: "+vilOld.getVil_chief();
 				vilServ.delete(village.getVil_id());
+				Activity atv3 = new Activity();
+				atv3.setUser(userServ.findUserById(Long.parseLong(id)));
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String date = sdf.format(new Date());
+				atv3.setAtv_date(date);
+				atv3.setAtv_action("ลบ");
+				atv3.setAtv_data("หมู่บ้าน");
+				atv3.setAtv_old(logStringOld);
+				atv3.setAtv_new("-");
+				atvServ.save(atv3);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

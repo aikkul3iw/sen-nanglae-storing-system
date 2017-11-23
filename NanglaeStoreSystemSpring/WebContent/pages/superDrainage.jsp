@@ -66,7 +66,7 @@
 									+ data[i].location.vil_name
 									+ "</td>"
 									+ "<td>"
-									+ data[i].drain_location_connected
+									+ data[i].drain_description
 									+ "</td>"
 									+ "<td style=\"text-align: center;\"><button href=\"#editDrain\" data-toggle=\"tab\" onclick=\"setEditDrainage("
 									+ data[i].drain_id
@@ -120,18 +120,18 @@
 		if ($('#drain_name').val() == "") {
 			document.getElementById('drain_name').style.borderColor = "red";
 			return false;
-		} else if ($('#drain_location_connected').val() == "") {
-			document.getElementById('drain_location_connected').style.borderColor = "red";
+		} else if ($('#drain_description').val() == "") {
+			document.getElementById('drain_description').style.borderColor = "red";
 			return false;
 		} else {
 			var obj = {
 				drain_id : 0,
 				drain_name : $('#drain_name').val(),
-				drain_location_connected : $('#drain_location_connected').val()
+				drain_description : $('#drain_description').val()
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/saveDrainage.do?id=" + $("#villageSelect").val() + "&user="+$('#userId').val(),
+				url : "../NanglaeGov/saveDrainage.do?id=" + $("#villageSelect").val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -203,11 +203,11 @@
 		var obj = {
 			drain_id : $("#editDrainId").val(),
 			drain_name : $('#editDrainName').val(),
-			drain_location_connected : $('#editDrainLocalConnect').val()
+			drain_description : $('#editDrainDescription').val()
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/saveDrainage.do?id=" + $("#editVillageSelect").val() + "&editUserId="+$('#editUserId').val(),
+			url : "../NanglaeGov/saveDrainage.do?id=" + $("#editVillageSelect").val(),
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -243,7 +243,7 @@
 				//alert(JSON.stringify(data));
 				$("#editDrainId").val(data.drain_id);
 				$("#editDrainName").val(data.drain_name);
-				$("#editDrainLocalConnect").val(data.drain_location_connected);
+				$("#editDrainDescription").val(data.drain_description);
 				$('#editVillageSelect').val(data.location.vil_id);
 			},
 			error : function(data, status, er) {
@@ -362,10 +362,6 @@
 								</div>
 								<div class="tab-pane fade" id="addDrain">
 									<form role="form">
-										<%
-											Object userid = session.getAttribute("user");
-										%>
-										<input type="hidden" id="userId" value="<%=userid %>">
 										<table width="50%" align="center">
 											<tr>
 
@@ -385,7 +381,7 @@
 											<tr>
 
 												<td align="pull-right" style="padding: 15px">ไหลผ่าน</td>
-												<td><textarea id="drain_location_connected"
+												<td><textarea id="drain_description"
 														maxlength="255" class="form-control"
 														placeholder="ระบุหมู่บ้านที่ไหลผ่าน" name="vil-number"
 														required="true"></textarea></td>
@@ -405,10 +401,6 @@
 								</div>
 								<div class="tab-pane fade" id="editDrain">
 									<form role="form">
-										<%
-											Object edituserid = session.getAttribute("edituser");
-										%>
-										<input type="hidden" id="editUserId" value="<%=edituserid %>">
 										<input type="hidden" id="editDrainId">
 										<table width="50%" align="center">
 											<tr>
@@ -429,7 +421,7 @@
 											<tr>
 
 												<td align="pull-right" style="padding: 15px">ไหลผ่าน</td>
-												<td><textarea id="editDrainLocalConnect"
+												<td><textarea id="editDrainDescription"
 														maxlength="255" class="form-control"
 														placeholder="ระบุหมู่บ้านที่ไหลผ่าน" name="vil-number"
 														required="true"></textarea></td>

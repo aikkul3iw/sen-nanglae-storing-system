@@ -33,4 +33,12 @@ public class Service implements Serializable {
 		this.ser_name = ser_name;
 	}
 
+	public String getSer_description() {
+		return ser_description;
+	}
+
+	public void setSer_description(String ser_description) {
+		this.ser_description = ser_description;
+	}
+
 }

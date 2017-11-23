@@ -164,7 +164,7 @@
 		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">หมู่บ้าน</h1>
+					<h1 class="page-header">ประวัติการใช้งาน</h1>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
@@ -174,9 +174,7 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#listVillage" data-toggle="tab">รายชื่อหมู่บ้าน</a>
-								</li>
-								<li><a href="#addVillage" data-toggle="tab">เพิ่มหมู่บ้าน</a>
+								<li class="active"><a href="#listVillage" data-toggle="tab">แสดงประวัติการใช้งาน</a>
 								</li>
 							</ul>
 							<div class="panel-body">
@@ -205,95 +203,8 @@
 											</table>
 										</div>
 									</div>
-									<div class="tab-pane fade" id="addVillage">
-										<form role="form" name="vilForm" id="formCreate">
-										<%
-											Object userid = session.getAttribute("user");
-										%>
-										<input type="hidden" id="userId" value="<%=userid %>">
-											<table width="50%" align="center">
-												<tr>
-
-													<td align="pull-right" style="padding: 15px">หมู่ที่</td>
-													<td><input class="form-control"
-														placeholder="ระบุเลขที่หมู่บ้าน" name="vil-number"
-														maxlength="2" id="vil_number" required onblur="validate()"></td>
-
-												</tr>
-												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อหมู่บ้าน</td>
-													<td><input class="form-control"
-														placeholder="ระบุชื่อหมู่บ้าน" name="vil-name"
-														maxlength="50" id="vil_name" required></td>
-												</tr>
-												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อกำนัน/ผู้ใหญ่บ้าน</td>
-													<td><input class="form-control"
-														placeholder="ระบุชื่อผู้ใหญ่บ้าน" name="vilChief"
-														maxlength="50" id="vil_chief" required></td>
-												</tr>
-
-												<tr>
-													<td></td>
-													<td>
-														<div class="form-group">
-															<div class="col-md-9 col-md-offset-3">
-																<div id="messages"></div>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td></td>
-													<td align="center" style="padding: 15px">
-														<button style="width: 100px" type="reset"
-															class="btn btn-warning">ล้างข้อมูล</button> <input
-														style="width: 100px" type="button" value="บันทึก"
-														onclick="createVillage()" class="btn btn-success" />
-													</td>
-												</tr>
-											</table>
-										</form>
-									</div>
-									<div class="tab-pane fade" id="editVillage">
-										<form role="form">
-										<%
-											Object edituserid = session.getAttribute("edituser");
-										%>
-											<input type="hidden" id="editUserId" value="<%=edituserid %>">
-											<input type="hidden" id="editVilId">
-											<table width="50%" align="center">
-												<tr>
-
-													<td align="pull-right" style="padding: 15px">หมู่ที่</td>
-													<td><input class="form-control" placeholder=""
-														name="vil-number" maxlength="2" id="editVilNumber"
-														required=""></td>
-
-												</tr>
-												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อหมู่บ้าน</td>
-													<td><input class="form-control" placeholder=""
-														name="vil-name" maxlength="50" id="editVilName"
-														required=""></td>
-												</tr>
-												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อกำนัน/ผู้ใหญ่บ้าน</td>
-													<td><input class="form-control" placeholder=""
-														name="vilChief" maxlength="50" id="editVilChief"
-														required=""></td>
-												</tr>
-												<tr>
-													<td></td>
-													<td align="center" style="padding: 15px"><a
-														href="#listVillage" data-toggle="tab"><button
-																style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
-														<input style="width: 100px" type="button" value="บันทึก"
-														onclick="editVillage()" class="btn btn-success" /></td>
-												</tr>
-											</table>
-										</form>
-									</div>
+									
+									
 								</div>
 							</div>
 						</div>

@@ -31,12 +31,6 @@ public class DrainageController {
 
 	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//VillageServiceBean!com.proj.ejb.face.VillageService")
 	VillageService vilServ;
-	
-	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//ActivityServiceBean!com.proj.ejb.face.ActivityService")
-	ActivityService atvServ;
-	
-	@EJB(mappedName = "ejb:/NanglaeStoreSystemEJB//UserServiceBean!com.proj.ejb.face.UserService")
-	UserService userServ;
 
 	@RequestMapping("/listDrainage")
 	public @ResponseBody List<Drainage> listDrainage(HttpServletRequest request) {
@@ -60,30 +54,12 @@ public class DrainageController {
 		try {
 
 			if (drainage.getDrain_id() == 0) {
-				String id = request.getParameter("user");
 				drainage.setLocation(vilServ.findVillageById(Long.parseLong(dai)));
 				daiServ.save(drainage);
-				Activity atv = new Activity();
-				atv.setUser(userServ.findUserById(Long.parseLong(id)));
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String date = sdf.format(new Date());
-				atv.setAtv_date(date);
-				atv.setAtv_action("เพิ่ม");
-				atv.setAtv_data("ระบบระบายน้ำ");
-				atvServ.save(atv);
 
 			} else {
-				String editid = request.getParameter("editUserId");
 				drainage.setLocation(vilServ.findVillageById(Long.parseLong(dai)));
 				daiServ.update(drainage);
-				Activity atv2 = new Activity();
-				atv2.setUser(userServ.findUserById(Long.parseLong(editid)));
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String date = sdf.format(new Date());
-				atv2.setAtv_date(date);
-				atv2.setAtv_action("แก้ไข");
-				atv2.setAtv_data("ระบบระบายน้ำ");
-				atvServ.save(atv2);
 			}
 		} catch (Exception e) {
 
