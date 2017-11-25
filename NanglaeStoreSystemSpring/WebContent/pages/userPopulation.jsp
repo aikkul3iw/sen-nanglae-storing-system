@@ -830,6 +830,15 @@ function getCurrentYear(){
 			}
 		});
 	}
+	
+	$(document).ready(function() {
+	    $("input[name$='cars']").click(function() {
+	        var test = $(this).val();
+
+	        $("div.desc").hide();
+	        $("#Cars" + test).show();
+	    });
+	});
 </script>
 </head>
 
@@ -890,214 +899,211 @@ function getCurrentYear(){
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#listAllPop" data-toggle="tab">สถิติประชากรทั้งหมด</a>
+								<li class="active"><a href="#listAllPop" data-toggle="tab">สถิติประชากร</a>
 								</li>
-								<li><a href="#listNationPop" data-toggle="tab">สถิติประชากรแบ่งตามสัญชาติ</a>
-								</li>
-								<li><a href="#listElectionPop" data-toggle="tab">สถิติประชากรแบ่งตามเลือกตั้ง</a>
-								</li>
-								<!--  <li><a href="#listAgePop" data-toggle="tab">สถิติประชากรแบ่งตามอายุ</a></li> -->
 								<li><a href="#addPop" data-toggle="tab">เพิ่มประชากร</a></li>
 							</ul>
 							<div class="panel-body">
 
 								<!-- Tab panes -->
 								<div class="tab-content">
+									
+									
 									<div class="tab-pane fade in active" id="listAllPop">
-										<div class="table-responsive">
-											<table id="resultTable"
-												class="table table-striped table-bordered table-hover">
-<!-- Start change table1 -->
-												<thead>
-													  <tr>
-													  	<th rowspan="2">ที่</th>
-														<th rowspan="2">ปีข้อมูล</th>
-														<th rowspan="2">หมู่ที่</th>
-														<th rowspan="2">ชื่อหมู่บ้าน</th>
-														<th style="text-align: center;" colspan="3">ประชากร</th>
-														<th rowspan="2">ครัวเรือน</th>
-														<th style="text-align: center;" rowspan="2">ตัวเลือก</th>
-													</tr>
-													<tr>
-														<th>ชาย</th>
-														<th>หญิง</th>
-														<th>รวม</th>
-													</tr> 
-												
-												</thead>
-												<tbody id="listPopulation11">
-												</tbody>
-<!-- End change table1 -->
-											</table>
+										<div id="myRadioGroup">
+										    <input type="radio" name="cars" checked="checked" value="2"  /> สถิติประชากรทั้งหมด<br>
+											<input type="radio" name="cars" value="3" /> สถิติประชากรแบ่งตามสัญชาติ<br>
+											<input type="radio" name="cars" value="4" /> สถิติประชากรแบ่งตามเลือกตั้ง<br>
+											
+											    <div id="Cars2" class="desc">
+											        <div class="table-responsive">
+														<table id="resultTable"
+															class="table table-striped table-bordered table-hover">
+			<!-- Start change table1 -->
+															<thead>
+																  <tr>
+																	<th rowspan="2">ปีข้อมูล</th>
+																	<th rowspan="2">หมู่ที่</th>
+																	<th rowspan="2">ชื่อหมู่บ้าน</th>
+																	<th style="text-align: center;" colspan="3">ประชากร</th>
+																	<th rowspan="2">ครัวเรือน</th>
+																	<th style="text-align: center;" rowspan="2">ตัวเลือก</th>
+																</tr>
+																<tr>
+																	<th>ชาย</th>
+																	<th>หญิง</th>
+																	<th>รวม</th>
+																</tr> 
+															
+															</thead>
+															<tbody id="listPopulation11">
+															</tbody>
+			<!-- End change table1 -->
+														</table>
+													</div>
+													
+													<div class="table-responsive">
+														<table id="resultTable1"
+															class="table table-striped table-bordered table-hover">
+			<!-- Start change result table1 -->
+															<thead>
+																<tr>
+																	<th>ชาย</th>
+																	<th>หญิง</th>
+																	<th>รวม</th>
+																	<th>ครัวเรือน</th>
+																</tr>
+															</thead>
+															<tbody id="resultlistPopulation11">
+															</tbody>
+			<!-- End change result table1 -->
+														</table>
+													</div>
+											    </div>
+											    
+											    <div id="Cars3" class="desc" style="display: none;">
+											        <div class="table-responsive">
+														<table id="resultTable2-1"
+															class="table table-striped table-bordered table-hover">
+			<!-- Start change table2 -->
+															<thead>
+																  <tr>
+																	<th rowspan="2">ปีข้อมูล</th>
+																	<th rowspan="2">หมู่ที่</th>
+																	<th rowspan="2">ชื่อหมู่บ้าน</th>
+																	<th style="text-align: center;" colspan="3">สัญชาติที่ไม่ใช่สัญชาติไทย</th>
+																	<th style="text-align: center;" colspan="3">สัญชาติไทย</th>
+																	<th style="text-align: center;" colspan="3">สัญชาติจีน</th>
+																	<th style="text-align: center;" colspan="3">ทุกสัญชาติ</th>
+																	<th style="text-align: center;" rowspan="2">ตัวเลือก</th>
+																</tr>
+																<tr>
+																	<th>ชาย</th>
+																	<th>หญิง</th>
+																	<th>รวม</th>
+																	<th>ชาย</th>
+																	<th>หญิง</th>
+																	<th>รวม</th>
+																	<th>ชาย</th>
+																	<th>หญิง</th>
+																	<th>รวม</th>
+																	<th>ชาย</th>
+																	<th>หญิง</th>
+																	<th>รวม</th>
+																</tr> 
+															
+															</thead>
+															<tbody id="listPopulation12">
+															</tbody>
+			<!-- End change table2 -->
+														</table>
+													</div>
+													<div class="table-responsive">
+														<table id="resultTable2-2"
+															class="table table-striped table-bordered table-hover">
+			<!-- Start change result table2 -->
+															<thead>
+																<tr>
+																	<th style="text-align: center;" colspan="3">สัญชาติที่ไม่ใช่สัญชาติไทย</th>
+																	<th style="text-align: center;" colspan="3">สัญชาติไทย</th>
+																	<th style="text-align: center;" colspan="3">สัญชาติจีน</th>
+																	<th style="text-align: center;" colspan="3">ทุกสัญชาติ</th>
+																</tr>
+																<tr>
+																	<th>ชาย</th>
+																	<th>หญิง</th>
+																	<th>รวม</th>
+																	<th>ชาย</th>
+																	<th>หญิง</th>
+																	<th>รวม</th>
+																	<th>ชาย</th>
+																	<th>หญิง</th>
+																	<th>รวม</th>
+																	<th>ชาย</th>
+																	<th>หญิง</th>
+																	<th>รวม</th>
+																</tr>
+															</thead>
+															<tbody id="resultlistPopulation12">
+															</tbody>
+			<!-- End change result table2 -->
+														</table>
+													</div>
+											    </div>
+											    
+											    <div id="Cars4" class="desc" style="display: none;">
+											        <div class="table-responsive">
+														<table id="resultTable3-1"
+															class="table table-striped table-bordered table-hover">
+			<!-- Start change table3 -->
+															<thead>
+																  <tr>
+																	<th rowspan="2">ปีข้อมูล</th>
+																	<th rowspan="2">หมู่ที่</th>
+																	<th rowspan="2">ชื่อหมู่บ้าน</th>
+																	<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ 15 ปี</th>
+																	<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ 18 ปี</th>
+																	<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ 20 ปี</th>
+																	<th style="text-align: center;" rowspan="2">บุคคลที่ต้องขึ้นทะเบียนทหาร</th>
+																	<th style="text-align: center;" rowspan="2">บุคคลที่ต้องเข้ารับเกณฑ์ทหาร</th>
+																	<th style="text-align: center;" rowspan="2">ตัวเลือก</th>
+																</tr>
+																<tr>
+																	<th>ชาย</th>
+																	<th>หญิง</th>
+																	<th>รวม</th>
+																	<th>ชาย</th>
+																	<th>หญิง</th>
+																	<th>รวม</th>
+																	<th>ชาย</th>
+																	<th>หญิง</th>
+																	<th>รวม</th>
+																</tr> 
+															
+															</thead>
+															<tbody id="listPopulation13">
+															</tbody>
+			<!-- End change table3 -->
+														</table>
+													</div>
+													<div class="table-responsive">
+														<table id="resultTable3-2"
+															class="table table-striped table-bordered table-hover">
+			<!-- Start change result table3 -->
+															<thead>
+																<tr>
+																	<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ 15 ปี</th>
+																	<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ 18 ปี</th>
+																	<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ 20 ปี</th>
+																	<th style="text-align: center;" rowspan="2">บุคคลที่ต้องขึ้นทะเบียนทหาร</th>
+																	<th style="text-align: center;" rowspan="2">บุคคลที่ต้องเข้ารับเกณฑ์ทหาร</th>
+																</tr>
+																<tr>
+																	<th>ชาย</th>
+																	<th>หญิง</th>
+																	<th>รวม</th>
+																	<th>ชาย</th>
+																	<th>หญิง</th>
+																	<th>รวม</th>
+																	<th>ชาย</th>
+																	<th>หญิง</th>
+																	<th>รวม</th>
+																</tr>
+															</thead>
+															<tbody id="resultlistPopulation13">
+															</tbody>
+			<!-- End change result table3 -->
+														</table>
+													</div>
+											    </div>
 										</div>
 										
-										<div class="table-responsive">
-											<table id="resultTable1"
-												class="table table-striped table-bordered table-hover">
-<!-- Start change result table1 -->
-												<thead>
-													<tr>
-														<th>ชาย</th>
-														<th>หญิง</th>
-														<th>รวม</th>
-														<th>ครัวเรือน</th>
-													</tr>
-												</thead>
-												<tbody id="resultlistPopulation11">
-												</tbody>
-<!-- End change result table1 -->
-											</table>
-										</div>
 										
-									</div>
-									<div class="tab-pane fade" id="listNationPop">
-										<div class="table-responsive">
-											<table id="resultTable2-1"
-												class="table table-striped table-bordered table-hover">
-<!-- Start change table2 -->
-												<thead>
-													  <tr>
-													  	<th rowspan="2">ที่</th>
-														<th rowspan="2">ปีข้อมูล</th>
-														<th rowspan="2">หมู่ที่</th>
-														<th rowspan="2">ชื่อหมู่บ้าน</th>
-														<th style="text-align: center;" colspan="3">สัญชาติที่ไม่ใช่สัญชาติไทย</th>
-														<th style="text-align: center;" colspan="3">สัญชาติไทย</th>
-														<th style="text-align: center;" colspan="3">สัญชาติจีน</th>
-														<th style="text-align: center;" colspan="3">ทุกสัญชาติ</th>
-														<th style="text-align: center;" rowspan="2">ตัวเลือก</th>
-													</tr>
-													<tr>
-														<th>ชาย</th>
-														<th>หญิง</th>
-														<th>รวม</th>
-														<th>ชาย</th>
-														<th>หญิง</th>
-														<th>รวม</th>
-														<th>ชาย</th>
-														<th>หญิง</th>
-														<th>รวม</th>
-														<th>ชาย</th>
-														<th>หญิง</th>
-														<th>รวม</th>
-													</tr> 
-												
-												</thead>
-												<tbody id="listPopulation12">
-												</tbody>
-<!-- End change table2 -->
-											</table>
-										</div>
-										<div class="table-responsive">
-											<table id="resultTable2-2"
-												class="table table-striped table-bordered table-hover">
-<!-- Start change result table2 -->
-												<thead>
-													<tr>
-														<th style="text-align: center;" colspan="3">สัญชาติที่ไม่ใช่สัญชาติไทย</th>
-														<th style="text-align: center;" colspan="3">สัญชาติไทย</th>
-														<th style="text-align: center;" colspan="3">สัญชาติจีน</th>
-														<th style="text-align: center;" colspan="3">ทุกสัญชาติ</th>
-													</tr>
-													<tr>
-														<th>ชาย</th>
-														<th>หญิง</th>
-														<th>รวม</th>
-														<th>ชาย</th>
-														<th>หญิง</th>
-														<th>รวม</th>
-														<th>ชาย</th>
-														<th>หญิง</th>
-														<th>รวม</th>
-														<th>ชาย</th>
-														<th>หญิง</th>
-														<th>รวม</th>
-													</tr>
-												</thead>
-												<tbody id="resultlistPopulation12">
-												</tbody>
-<!-- End change result table2 -->
-											</table>
-										</div>
 									</div>
 									
-									<div class="tab-pane fade" id="listElectionPop">
-										พ.ศ. <select>
-											<option value="2558">2558</option>
-											<option value="2559">2559</option>
-										</select> <br>
-										<br>
-										<div class="table-responsive">
-											<table id="resultTable3-1"
-												class="table table-striped table-bordered table-hover">
-<!-- Start change table3 -->
-												<thead>
-													  <tr>
-													  	<th rowspan="2">ที่</th>
-														<th rowspan="2">ปีข้อมูล</th>
-														<th rowspan="2">หมู่ที่</th>
-														<th rowspan="2">ชื่อหมู่บ้าน</th>
-														<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ 15 ปี</th>
-														<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ 18 ปี</th>
-														<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ 20 ปี</th>
-														<th style="text-align: center;" rowspan="2">บุคคลที่ต้องขึ้นทะเบียนทหาร</th>
-														<th style="text-align: center;" rowspan="2">บุคคลที่ต้องเข้ารับเกณฑ์ทหาร</th>
-														<th style="text-align: center;" rowspan="2">ตัวเลือก</th>
-													</tr>
-													<tr>
-														<th>ชาย</th>
-														<th>หญิง</th>
-														<th>รวม</th>
-														<th>ชาย</th>
-														<th>หญิง</th>
-														<th>รวม</th>
-														<th>ชาย</th>
-														<th>หญิง</th>
-														<th>รวม</th>
-													</tr> 
-												
-												</thead>
-												<tbody id="listPopulation13">
-												</tbody>
-<!-- End change table3 -->
-											</table>
-										</div>
-										<div class="table-responsive">
-											<table id="resultTable3-2"
-												class="table table-striped table-bordered table-hover">
-<!-- Start change result table3 -->
-												<thead>
-													<tr>
-														<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ 15 ปี</th>
-														<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ 18 ปี</th>
-														<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ 20 ปี</th>
-														<th style="text-align: center;" rowspan="2">บุคคลที่ต้องขึ้นทะเบียนทหาร</th>
-														<th style="text-align: center;" rowspan="2">บุคคลที่ต้องเข้ารับเกณฑ์ทหาร</th>
-													</tr>
-													<tr>
-														<th>ชาย</th>
-														<th>หญิง</th>
-														<th>รวม</th>
-														<th>ชาย</th>
-														<th>หญิง</th>
-														<th>รวม</th>
-														<th>ชาย</th>
-														<th>หญิง</th>
-														<th>รวม</th>
-													</tr>
-												</thead>
-												<tbody id="resultlistPopulation13">
-												</tbody>
-<!-- End change result table3 -->
-											</table>
-										</div>
-									</div>
+										
+										
 									<div class="tab-pane fade" id="listAgePop">
-										พ.ศ. <select>
-											<option value="2558">2558</option>
-											<option value="2559">2559</option>
-										</select> <br>
-										<br>
 										<div class="table-responsive">
 											<table class="table table-striped table-bordered table-hover">
 												<thead>
@@ -1220,8 +1226,8 @@ function getCurrentYear(){
 												<tr>
 													<td style="padding: 15px">ปีข้อมูล</td>
 													<td align="center"><input maxlength="4" id="pop_year"
-														class="form-control" placeholder="" value=""
-														name="pop_year" style="width: 70%" required></td>
+														class="form-control" placeholder="" value="2558"
+														name="pop-year" style="width: 70%" required></td>
 													<td></td>
 												</tr>
 												<tr>

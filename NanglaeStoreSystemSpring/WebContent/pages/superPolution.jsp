@@ -308,7 +308,7 @@
 						<ul class="nav nav-tabs">
 							<li class="active"><a href="#listPolution" data-toggle="tab">ข้อมูลมลพิษ</a>
 							</li>
-							<li><a href="#addPolution" data-toggle="tab">เพิ่มมลพิษ</a>
+							<li><a href="#addPolution" data-toggle="tab" id="addpolution">เพิ่มมลพิษ</a>
 							</li>
 						</ul>
 						<div class="panel-body">

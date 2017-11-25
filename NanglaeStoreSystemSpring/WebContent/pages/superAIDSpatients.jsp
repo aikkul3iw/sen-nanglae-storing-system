@@ -50,10 +50,6 @@ function getAddress(){
 	var address = $('#address1').val();
 	$("#address2").val(address);
 }
-function getCurrentYear(){
-	var year = new Date();
-	document.getElementById("com_year").value=(year.getFullYear()+543);
-	}
 	
 	function listCommerce() {
 		$("#loader").show();
@@ -129,7 +125,7 @@ function getCurrentYear(){
 		$("#loader").show();
 		var obj = {
 			AIDSpatientsId : 0,
-			title : $('#title').val(),
+			titles : $('#titles').val(),
 			firstName : $('#firstName').val(),
 			lastName : $('#lastName').val(),
 			gender : $('#gender').val(),
@@ -300,7 +296,7 @@ function getCurrentYear(){
 </script>
 </head>
 
-<body onload="listCommerce();listVillage();editVillageSelect();getCurrentYear()">
+<body onload="listCommerce();listVillage();editVillageSelect()">
 
 	<div id="wrapper">
 
@@ -398,7 +394,7 @@ function getCurrentYear(){
 											</tr>
 											<tr>
 													<td align="pull-right" style="padding: 15px">คำนำหน้าชื่อ</td>
-													<td><select id="title" class="form-control"
+													<td><select id="titles" class="form-control"
 														placeholder="" name="title" required="true">
 															<option value="">เลือกคำนำหน้าชื่อ</option>
 															<option value="นาย">นาย</option>

@@ -894,7 +894,7 @@ function getCurrentYear(){
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#listAllPop" data-toggle="tab">สถิติประชากร</a>
 								</li>
-								<li><a href="#addPop" data-toggle="tab">เพิ่มประชากร</a></li>
+								<li><a href="#addPop" data-toggle="tab" id="addpopulation">เพิ่มประชากร</a></li>
 							</ul>
 							<div class="panel-body">
 
@@ -1235,7 +1235,7 @@ function getCurrentYear(){
 													<td style="padding: 15px">จำนวนครัวเรือน</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_house_amount"
-														placeholder="ระบุจำนวนครัวเรือน" name="pop-year"
+														data-mask="0000000" placeholder="ระบุจำนวนครัวเรือน" name="pop-year"
 														style="width: 70%"></td>
 													<td style="">ครัวเรือน</td>
 													<td></td>
@@ -1250,12 +1250,12 @@ function getCurrentYear(){
 													<td style="padding: 10px">สัญชาติไทย</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_thai_nation_m"
-														placeholder="ระบุจำนวนคน" name="pop-thai-m"
+														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-thai-m"
 														style="width: 70%" required></td>
 													<td>คน</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_thai_nation_f"
-														placeholder="ระบุจำนวนคน" name="pop-thai-f"
+														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-thai-f"
 														style="width: 70%" required></td>
 													<td>คน</td>
 												</tr>
@@ -1263,12 +1263,12 @@ function getCurrentYear(){
 													<td style="padding: 10px">สัญชาติจีน</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_chinese_nation_m"
-														placeholder="ระบุจำนวนคน" name="pop-chn-m"
+														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-chn-m"
 														style="width: 70%" required></td>
 													<td>คน</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_chinese_nation_f"
-														placeholder="ระบุจำนวนคน" name="pop-chn-f"
+														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-chn-f"
 														style="width: 70%" required></td>
 													<td>คน</td>
 												</tr>
@@ -1276,12 +1276,12 @@ function getCurrentYear(){
 													<td style="padding: 10px">สัญชาติอื่นๆ</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_other_nation_m"
-														placeholder="ระบุจำนวนคน" name="pop-oth-m"
+														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-oth-m"
 														style="width: 70%" required></td>
 													<td>คน</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_other_nation_f"
-														placeholder="ระบุจำนวนคน" name="pop-oth-f"
+														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-oth-f"
 														style="width: 70%" required></td>
 													<td>คน</td>
 												</tr>
@@ -1295,12 +1295,12 @@ function getCurrentYear(){
 													<td style="padding: 10px">อายุ 15 ปี</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_elect15_m"
-														placeholder="ระบุจำนวนคน" name="pop-elec-15-m"
+														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-elec-15-m"
 														style="width: 70%" required></td>
 													<td>คน</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_elect15_f"
-														placeholder="ระบุจำนวนคน" name="pop-elec-15-f"
+														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-elec-15-f"
 														style="width: 70%" required></td>
 													<td>คน</td>
 												</tr>
@@ -1308,12 +1308,12 @@ function getCurrentYear(){
 													<td style="padding: 10px">อายุ 18 ปี</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_elect18_m"
-														placeholder="ระบุจำนวนคน" name="pop-elec-18-m"
+														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-elec-18-m"
 														style="width: 70%" required></td>
 													<td>คน</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_elect18_f"
-														placeholder="ระบุจำนวนคน" name="pop-elec-18-f"
+														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-elec-18-f"
 														style="width: 70%" required></td>
 													<td>คน</td>
 												</tr>
@@ -1321,12 +1321,12 @@ function getCurrentYear(){
 													<td style="padding: 10px">อายุ 20 ปี</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_elect20_m"
-														placeholder="ระบุจำนวนคน" name="pop-elec-20-m"
+														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-elec-20-m"
 														style="width: 70%" required></td>
 													<td>คน</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_elect20_f"
-														placeholder="ระบุจำนวนคน" name="pop-elec-20-f"
+														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-elec-20-f"
 														style="width: 70%" required></td>
 													<td>คน</td>
 												</tr>
@@ -1339,7 +1339,7 @@ function getCurrentYear(){
 													<td style="padding: 10px">บุคคลต้องขึ้นทะเบียนทหาร</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_military_select_reg"
-														placeholder="ระบุจำนวนคน" name="pop-mil-join-m"
+														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-mil-join-m"
 														style="width: 70%" required></td>
 													<td>คน</td>
 												</tr>
@@ -1347,7 +1347,7 @@ function getCurrentYear(){
 													<td style="padding: 10px">บุคคลต้องเข้ารับเกณฑ์ทหาร</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_military_select_join"
-														placeholder="ระบุจำนวนคน" name="pop-mil-reg-m"
+														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-mil-reg-m"
 														style="width: 70%" required></td>
 													<td>คน</td>
 												</tr>
@@ -1357,7 +1357,7 @@ function getCurrentYear(){
 														<button style="width: 100px" type="reset"
 															class="btn btn-warning">ล้างข้อมูล</button> <input
 														style="width: 100px" type="button" class="btn btn-success"
-														value="บันทึก" onclick="createPopulation1()" />
+														value="บันทึก" id="save" onclick="createPopulation1()" />
 													</td>
 												</tr>
 											</table>

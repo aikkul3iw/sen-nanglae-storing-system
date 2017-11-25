@@ -4,7 +4,7 @@
 <div class="navbar-default sidebar" role="navigation">
 	<div class="sidebar-nav navbar-collapse">
 		<ul class="nav" id="side-menu">
-			<li><a href="#"><i class="fa fa-child fa-fw"></i> บุคคล<span
+			<li name="person"><a href="12"><i class="fa fa-child fa-fw"></i> บุคคล<span
 					class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li><a href="superPersonnel.do">บุคลากร</a></li>
@@ -15,7 +15,7 @@
 					<li><a href="superElderlyPeople.do">ผู้สูงอายุ</a></li>
 					<li><a href="superStudent.do">นักเรียน</a></li>
 				</ul> <!-- /.nav-second-level --></li>
-			<li><a href="#"><i class="fa fa-road fa-fw"></i> สาธารณูปโภค<span
+			<li name="sathanupapok"><a href="#"><i class="fa fa-road fa-fw"></i> สาธารณูปโภค<span
 					class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li><a href="superTransport.do">ระบบคมนาคมขนส่ง</a></li>
@@ -23,10 +23,10 @@
 					<li><a href="superPipeline.do">ระบบประปา</a></li>
 					<li><a href="superDrainage.do">ระบบระบายน้ำ</a></li>
 				</ul> <!-- /.nav-second-level --></li>
-			<li><a href="#"><i class="fa fa-home fa-fw"></i> สาธารณุปการ<span
+			<li name="sathanupakarn"><a href="#"><i class="fa fa-home fa-fw"></i> สาธารณุปการ<span
 					class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
-					<li><a href="#">เคหะ<span class="fa arrow"></span></a>
+					<li name="kha"><a href="#">เคหะ<span class="fa arrow"></span></a>
 						<ul class="nav nav-third-level">
 							<li><a href="superVillage.do">หมู่บ้าน</a></li>
 							<li><a href="superIndustry.do">การอุตสาหกรรม</a></li>
@@ -37,7 +37,7 @@
 							<li><a href="superOtop.do">OTOP</a></li>
 							<li><a href="superRestaurant.do">ร้านอาหาร</a></li>
 						</ul> <!-- /.nav-third-level --></li>
-					<li><a href="#">บริการ<span class="fa arrow"></span></a>
+					<li name="service"><a href="#">บริการ<span class="fa arrow"></span></a>
 						<ul class="nav nav-third-level">
 							<li><a href="superHealth.do">การสาธารสุข</a></li>
 							<li><a href="superSecurity.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a></li>
@@ -46,7 +46,7 @@
 							<li><a href="superInventory.do">การคลัง</a></li>
 						</ul> <!-- /.nav-third-level --></li>
 				</ul> <!-- /.nav-second-level --></li>
-			<li><a href="#"><i class="glyphicon glyphicon-leaf"></i>
+			<li name="nature"><a href="#"><i class="glyphicon glyphicon-leaf"></i>
 					ธรรมชาติและสิ่งแวดล้อม<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li><a href="superAgriculture.do">การเกษตรกรรม</a></li>
@@ -58,12 +58,12 @@
 						</ul></li>
 					<li><a href="superPolution.do">มลพิษ</a></li>
 				</ul> <!-- /.nav-second-level --></li>
-			<li><a href="superCopy.do"><i class="fa fa-copy"></i>
+			<li  name="coppy"><a href="superCopy.do"><i class="fa fa-copy"></i>
 					คัดลอกข้อมูล</a></li>
-			<li><a href="superCreateUser.do"><i
+			<li  name="manage"><a href="superCreateUser.do"><i
 					class="glyphicon glyphicon-user"></i> จัดการผู้ใช้งาน</a>
 			</li>
-			<li><a href="superActivity.do"><i
+			<li  name="history"><a href="superActivity.do"><i
 					class="glyphicon glyphicon-list"></i> ประวัติการใช้งาน</a>
 			</li>
 		</ul>

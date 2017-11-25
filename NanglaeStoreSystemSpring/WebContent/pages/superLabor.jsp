@@ -307,7 +307,7 @@ function getCurrentYear(){
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#listLabor" data-toggle="tab">ข้อมูลแรงงาน</a>
 								</li>
-								<li><a href="#addLabor" data-toggle="tab">เพิ่มแรงงาน</a></li>
+								<li><a href="#addLabor" data-toggle="tab" id="addlabor">เพิ่มแรงงาน</a></li>
 							</ul>
 							<div class="panel-body">
 
@@ -372,7 +372,7 @@ function getCurrentYear(){
 													<td align="center" style="padding: 15px">
 														<button style="width: 100px" type="reset"
 															class="btn btn-warning">ล้างข้อมูล</button> <input
-														style="width: 100px" type="button" class="btn btn-success"
+														style="width: 100px" type="button" id="save"class="btn btn-success"
 														value="บันทึก" onclick="createLabor()" />
 													</td>
 												</tr>
