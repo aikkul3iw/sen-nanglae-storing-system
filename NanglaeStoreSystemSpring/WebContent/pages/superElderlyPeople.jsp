@@ -46,11 +46,9 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-
 	
 	function listElderlyPeople() {
 		$("#loader").show();
-
 		$
 				.ajax({
 					url : "../NanglaeGov/listElderlyPeople.do",
@@ -58,9 +56,7 @@
 					success : function(data) {
 						var html = '';
 						for (var i = 0; i < data.length; i++) {
-
 							var id = data[i].elderPeId;
-
 							html += "<tr>";
 							html += "<td>"
 									+ data[i].titles+data[i].firstName+" "+data[i].lastname
@@ -76,7 +72,6 @@
 									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteElderlyPeople("
 									+ data[i].elderPeId
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
-
 							html += "</tr>";
 						}
 						$('#listElderlyPeoples').html(html);
@@ -88,23 +83,7 @@
 								doc.defaultStyle['font'] = 'THSarabun';
 										}
 									},
-								],
-							    language: {
-						              sProcessing: 'กำลังดำเนินการ...',
-						              sLengthMenu: 'แสดง_MENU_ แถว',
-						              sZeroRecords: 'ไม่พบข้อมูล',
-						              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
-						              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
-						              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
-						              sInfoPostFix: '',
-						              sSearch: 'ค้นหา:',
-							              oPaginate: {
-							                            sFirst: 'เิริ่มต้น',
-							                            sPrevious: 'ก่อนหน้า',
-							                            sNext: 'ถัดไป',
-							                            sLast: 'สุดท้าย'
-							              }
-						     }
+								]
 						});
 						table.buttons().container().appendTo('#page-wrapper .col-sm-6:eq(0)');
 					});
@@ -200,7 +179,7 @@
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/saveElderlyPeople.do?user="+$('#userId').val(),
+				url : "../NanglaeGov/saveElderlyPeople.do",
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -220,9 +199,7 @@
 				}
 			});
 		}
-
 	}
-
 	function deleteElderlyPeople(elderPeId) {
 		swal({
 			title : 'คุณต้องการลบข้อมูลหรือไม่?',
@@ -237,7 +214,6 @@
 		var obj = {
 				elderPeId : id
 		};
-
 		$.ajax({
 			url : "../NanglaeGov/deleteElderlyPeople.do",
 			type : "POST",
@@ -276,7 +252,7 @@
 		};
 		//alert(JSON.stringify(obj));
 		$.ajax({
-			url : "../NanglaeGov/saveElderlyPeople.do?editUserId="+$('#editUserId').val(),
+			url : "../NanglaeGov/saveElderlyPeople.do",
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -295,13 +271,10 @@
 			}
 		});
 	}
-
 	function setEditElderlyPeople(elderPeId) {
-
 		var obj = {
 				elderPeId : elderPeId
 		};
-
 		$.ajax({
 			url : "../NanglaeGov/findElderlyPeople.do",
 			type : "POST",
@@ -426,10 +399,6 @@
 								</div>
 								<div class="tab-pane fade" id="addElderlyPeople">
 									<form role="form">
-										<%
-											Object userid = session.getAttribute("user");
-										%>
-										<input type="hidden" id="userId" value="<%=userid %>">
 										<table width="70%" align="center">
 											<tr>
 												<td></td>	
@@ -463,7 +432,7 @@
 											<tr>
 												<td style="padding: 15px">เลขบัตรประชาชน</td>
 												<td><input id="idCard" maxlength="13"
-														class="form-control" placeholder=""
+														data-mask="0-0000-0000-0-0"class="form-control" placeholder=""
 														name="idCard" required="true"></td>
 											</tr>
 											<tr>
@@ -474,7 +443,7 @@
 											<tr>
 												<td style="padding: 15px">อายุ</td>
 												<td><input id="age" maxlength="100"
-														class="form-control" placeholder=""
+														data-mask="000"class="form-control" placeholder=""
 														name="age" required="true"></td>
 											</tr>
 											<tr>
@@ -492,7 +461,7 @@
 											<tr>
 												<td style="padding: 15px">เบอร์โทร</td>
 												<td><input id="tel" maxlength="20"
-														class="form-control" placeholder=""
+														data-mask="000-000-0000"class="form-control" placeholder=""
 														name="tel" required="true"></td>
 											</tr>
 											<tr>
@@ -534,7 +503,7 @@
 											<tr>
 												<td style="padding: 15px">เลขบัตรประชาชน</td>
 												<td><input id="offspringIdCard" maxlength="13"
-														class="form-control" placeholder=""
+														data-mask="0-0000-0000-0-0"class="form-control" placeholder=""
 														name="offspringIdCard" required="true"></td>
 											</tr>
 											<tr>
@@ -564,10 +533,6 @@
 								</div>
 								<div class="tab-pane fade" id="editElderlyPeople">
 									<form role="form">
-										<%
-											Object edituserid = session.getAttribute("edituser");
-										%>
-											<input type="hidden" id="editUserId" value="<%=edituserid %>">
 										<input type="hidden" id="editElderlyPeopleId">
 										<table width="65%" align="center">
 											<tr>
@@ -602,7 +567,7 @@
 											<tr>
 												<td style="padding: 15px">เลขบัตรประชาชน</td>
 												<td><input id="editidCard" maxlength="13"
-														class="form-control" placeholder=""
+														data-mask="0-0000-0000-0-0"class="form-control" placeholder=""
 														name="editidCard" required="true"></td>
 											</tr>
 											<tr>
@@ -613,7 +578,7 @@
 											<tr>
 												<td style="padding: 15px">อายุ</td>
 												<td><input id="editage" maxlength="100"
-														class="form-control" placeholder=""
+														data-mask="000"class="form-control" placeholder=""
 														name="editage" required="true"></td>
 											</tr>
 											<tr>
@@ -631,7 +596,7 @@
 											<tr>
 												<td style="padding: 15px">เบอร์โทร</td>
 												<td><input id="edittel" maxlength="20"
-														class="form-control" placeholder=""
+														data-mask="000-000-0000"class="form-control" placeholder=""
 														name="edittel" required="true"></td>
 											</tr>
 											<tr>
@@ -673,7 +638,7 @@
 											<tr>
 												<td style="padding: 15px">เลขบัตรประชาชน</td>
 												<td><input id="editoffspringIdCard" maxlength="13"
-														class="form-control" placeholder=""
+														data-mask="0-0000-0000-0-0"class="form-control" placeholder=""
 														name="editoffspringIdCard" required="true"></td>
 											</tr>
 											<tr>
