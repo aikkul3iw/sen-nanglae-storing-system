@@ -46,11 +46,11 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-function getCurrentYear(){
-	var year = new Date();
-	document.getElementById("edu_year").value=(year.getFullYear()+543);
+	function getCurrentYear() {
+		var year = new Date();
+		document.getElementById("edu_year").value = (year.getFullYear() + 543);
 	}
-	
+
 	function listEducation() {
 
 		$("#loader").show();
@@ -81,34 +81,52 @@ function getCurrentYear(){
 							html += "</tr>";
 						}
 						$('#listEducation').html(html);
-						$(document).ready(function() {
-							var table = $('#resultTable').DataTable({
-								lengthChange : false,
-								buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2, 3 ]},customize : function(doc) {
-								doc.defaultStyle['font'] = 'THSarabun';
-										}
-									},
-								],
-							    language: {
-						              sProcessing: 'กำลังดำเนินการ...',
-						              sLengthMenu: 'แสดง_MENU_ แถว',
-						              sZeroRecords: 'ไม่พบข้อมูล',
-						              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
-						              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
-						              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
-						              sInfoPostFix: '',
-						              sSearch: 'ค้นหา:',
-							              oPaginate: {
-							                            sFirst: 'เิริ่มต้น',
-							                            sPrevious: 'ก่อนหน้า',
-							                            sNext: 'ถัดไป',
-							                            sLast: 'สุดท้าย'
-							              }
-						     }
-						});
-						table.buttons().container().appendTo('#page-wrapper .col-sm-6:eq(0)');
-					});
+						$(document)
+								.ready(
+										function() {
+											var table = $('#resultTable')
+													.DataTable(
+															{
+																lengthChange : false,
+																buttons : [
+																		'excel',
+																		{
+																			extend : 'pdf',
+																			exportOptions : {
+																				columns : [
+																						0,
+																						1,
+																						2,
+																						3 ]
+																			},
+																			customize : function(
+																					doc) {
+																				doc.defaultStyle['font'] = 'THSarabun';
+																			}
+																		}, ],
+																language : {
+																	sProcessing : 'กำลังดำเนินการ...',
+																	sLengthMenu : 'แสดง_MENU_ แถว',
+																	sZeroRecords : 'ไม่พบข้อมูล',
+																	sInfo : 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+																	sInfoEmpty : 'แสดง 0 ถึง 0 จาก 0 แถว',
+																	sInfoFiltered : '(กรองข้อมูล _MAX_ ทุกแถว)',
+																	sInfoPostFix : '',
+																	sSearch : 'ค้นหา:',
+																	oPaginate : {
+																		sFirst : 'เิริ่มต้น',
+																		sPrevious : 'ก่อนหน้า',
+																		sNext : 'ถัดไป',
+																		sLast : 'สุดท้าย'
+																	}
+																}
+															});
+											table
+													.buttons()
+													.container()
+													.appendTo(
+															'#page-wrapper .col-sm-6:eq(0)');
+										});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -135,7 +153,9 @@ function getCurrentYear(){
 
 			};
 			$.ajax({
-				url : "../NanglaeGov/saveEducation.do?id=" + $("#villageSelect").val() + "&user="+$('#userId').val(),
+				url : "../NanglaeGov/saveEducation.do?id="
+						+ $("#villageSelect").val() + "&user="
+						+ $('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -186,49 +206,59 @@ function getCurrentYear(){
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = edu_id
-		var obj = {
-			edu_id : id
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteEducation.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
+			var id = edu_id
+			var obj = {
+				edu_id : id
+			};
+			$.ajax({
+				url : "../NanglaeGov/deleteEducation.do",
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					location.reload();
+				}
+			});
 		});
 	}
 	function editEducation() {
-		var obj = {
-			edu_id : $("#editEduId").val(),
-			edu_name : $('#editEduName').val(),
-			edu_type : $('#editEduType').val()
+		if ($('#editEduName').val() == "") {
+			document.getElementById('editEduName').style.borderColor = "red";
+			return false;
+		} else if ($('#editEduType').val() == "") {
+			document.getElementById('editEduType').style.borderColor = "red";
+			return false;
+		} else {
+			var obj = {
+				edu_id : $("#editEduId").val(),
+				edu_name : $('#editEduName').val(),
+				edu_type : $('#editEduType').val()
 
-		};
-		$.ajax({
-			url : "../NanglaeGov/saveEducation.do?id=" + $("#editVillageSelect").val() + "&editUserId="+$('#editUserId').val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
+			};
+			$.ajax({
+				url : "../NanglaeGov/saveEducation.do?id="
+						+ $("#editVillageSelect").val() + "&editUserId="
+						+ $('#editUserId').val(),
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
+				},
+				error : function(data, status, er) {
+					alert('error');
+				}
+			});
+		}
 	}
 	function setEditEducation(edu_id) {
 
@@ -277,7 +307,8 @@ function getCurrentYear(){
 </script>
 </head>
 
-<body onload="listEducation();listVillage();editVillageSelect();getCurrentYear()">
+<body
+	onload="listEducation();listVillage();editVillageSelect();getCurrentYear()">
 
 	<div id="wrapper">
 
@@ -297,10 +328,10 @@ function getCurrentYear(){
 			<!-- /.navbar-header -->
 
 			<ul class="nav navbar-top-links navbar-right">
-			<%
-				Object Name = session.getAttribute("Name");
-				out.println("ยินดีต้อนรับ    " +Name);
-			%>
+				<%
+					Object Name = session.getAttribute("Name");
+					out.println("ยินดีต้อนรับ    " + Name);
+				%>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<i class="fa fa-caret-down"></i>
@@ -318,7 +349,7 @@ function getCurrentYear(){
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="superMenu.jsp" %>
+			<%@include file="superMenu.jsp"%>
 		</nav>
 		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
@@ -334,10 +365,8 @@ function getCurrentYear(){
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#listEduPrime"
-									data-toggle="tab">รายชื่อโรงเรียนประถม</a></li>
-								<li><a href="#listEduKid" data-toggle="tab">รายชื่อศุนย์เด็กเล็ก</a>
-								</li>
-								<li><a href="#addEducation" data-toggle="tab">เพิ่มการศึกษา</a>
+									data-toggle="tab">ข้อมูลสถานศึกษา</a></li>
+								<li><a href="#addEducation" data-toggle="tab">เพิ่มข้อมูลสถานศึกษา</a>
 								</li>
 							</ul>
 							<div class="panel-body">
@@ -349,8 +378,8 @@ function getCurrentYear(){
 										<div class="table-responsive">
 											<table id="resultTable"
 												class="table table-striped table-bordered table-hover">
-												
-<!-- Start change table -->
+
+												<!-- Start change table -->
 												<thead>
 													<tr>
 														<th>ชื่อสถานศึกษา</th>
@@ -361,155 +390,22 @@ function getCurrentYear(){
 												</thead>
 												<tbody id="listEducation">
 												</tbody>
-<!-- End change table -->
-												
-											</table>
-										</div>
-									</div>
-									<div class="tab-pane fade" id="listEduKid">
-										พ.ศ. <select>
-											<option value="2558">2558</option>
-											<option value="2559">2559</option>
-										</select> <br>
-										<br>
-										<div class="table-responsive">
-											<table class="table table-striped table-bordered table-hover">
-												<thead>
-													<tr>
-														<th><center>
-																ที่</b>
-															</center></th>
-														<th><center>
-																ชื่อโรงเรียน</b>
-															</center></th>
-														<th><center>
-																ที่ตั้ง</b>
-															</center></th>
-														<th><center>
-																จำนวนนักเรียน(คน)</b>
-															</center></th>
-													</tr>
-
-												</thead>
-												<tbody>
-													<tr>
-														<td><center>1</center></td>
-														<td>ศูนย์พัฒนาเด็กเล็กโรงเรียนบ้านนางแล</td>
-														<td>หมู่ 3 บ้านนางแลเหนือ</td>
-														<td><center>18</center></td>
-													</tr>
-													<tr>
-														<td><center>2</center></td>
-														<td>ศูนย์พัฒนาเด็กเล็กโรงเรียนอนุบาลนางแล(บ้านทุ่ง)</td>
-														<td>หมู่ 5 บ้านเด่น</td>
-														<td><center>40</center></td>
-													</tr>
-													<tr>
-														<td><center>3</center></td>
-														<td>ศูนย์พัฒนาเด็กเล็กโรงเรียนบ้านนางแลใน</td>
-														<td>หมู่ 7 บ้านนางอลใน</td>
-														<td><center>32</center></td>
-													</tr>
-													<tr>
-														<td><center>4</center></td>
-														<td>ศูนย์พัฒนาเด็กเล็กบ้านลิไข่</td>
-														<td>หมู่ 7 บ้านนางอลใน(บ้านลิไข่)</td>
-														<td><center>13</center></td>
-													</tr>
-													<tr>
-														<td><center>5</center></td>
-														<td>ศูนย์พัฒนาเด็กเล็กบเานป่ารวก</td>
-														<td>เทศบาลตำบลนางแล หมู่ 12 บ้านขัวแตะ</td>
-														<td><center>29</center></td>
-													</tr>
-													<tr>
-														<td><center>6</center></td>
-														<td>ศูนย์พัฒนาเด็กเล็กโรงเรียนบ้านสันต้นขาม</td>
-														<td>หมู่ 16 บ้านสันต้นขาม</td>
-														<td><center>28</center></td>
-													</tr>
-													<tr>
-														<td colspan="3"><center>รวม</center></td>
-														<td><center>160</center></td>
-													</tr>
-												</tbody>
-											</table>
-											<table class="table table-striped table-bordered table-hover">
-												<thead>
-													<tr>
-														<th><center>
-																ที่</b>
-															</center></th>
-														<th><center>
-																ชื่อโรงเรียน</b>
-															</center></th>
-														<th><center>
-																ที่ตั้ง</b>
-															</center></th>
-														<th><center>
-																จำนวนนักเรียน(คน)</b>
-															</center></th>
-													</tr>
-
-												</thead>
-												<tbody>
-													<tr>
-														<td><center>1</center></td>
-														<td>โรงเรียนบ้านนางแล</td>
-														<td>หมู่ 3 บ้านนางแลเหนือ</td>
-														<td><center>85</center></td>
-													</tr>
-													<tr>
-														<td><center>2</center></td>
-														<td>โรงเรียนเม็งรายวิทยาคม(โรงเรียนมัธยมศึกษา)</td>
-														<td>หมู่ 3 บ้านนางแลเหนือ</td>
-														<td><center>1,083</center></td>
-													</tr>
-													<tr>
-														<td><center>3</center></td>
-														<td>โรงเรียนอนุบาลนางแล(บ้านทุ่ง)</td>
-														<td>หมู่ 5 บ้านเด่น</td>
-														<td><center>293</center></td>
-													</tr>
-													<tr>
-														<td><center>4</center></td>
-														<td>โรงเรียนบ้านนางใน</td>
-														<td>หมู่ 7 บ้านนางอลใน</td>
-														<td><center>127</center></td>
-													</tr>
-													<tr>
-														<td><center>5</center></td>
-														<td>โรงเรียนบ้านป่ารวก</td>
-														<td>หมู่ 10 บ้านป่าซางวิวัฒน์</td>
-														<td><center>67</center></td>
-													</tr>
-													<tr>
-														<td><center>6</center></td>
-														<td>โรงเรียนบ้านสันต้นขาม</td>
-														<td>หมู่ 16 บ้านสันต้นขาม</td>
-														<td><center>64</center></td>
-													</tr>
-
-													<tr>
-														<td colspan="3"><center>รวม</center></td>
-														<td><center>1,719</center></td>
-													</tr>
-												</tbody>
+												<!-- End change table -->
 											</table>
 										</div>
 									</div>
 									<div class="tab-pane fade" id="addEducation">
 										<form role="form">
-										<%
-											Object userid = session.getAttribute("user");
-										%>
-										<input type="hidden" id="userId" value="<%=userid %>">
+											<%
+												Object userid = session.getAttribute("user");
+											%>
+											<input type="hidden" id="userId" value="<%=userid%>">
 											<table width="50%" align="center">
 												<tr>
 
 													<td align="pull-right" style="padding: 15px">ชื่อสถานศึกษา</td>
 													<td><input type="text" id="edu_name" maxlength="100"
-														class="form-control" placeholder="ระบุชื่อสถานศึกษา"
+														class="form-control" placeholder="ต.ย. โรงเรียนบ้านนางแล"
 														name="edu-name" required="true"></td>
 												</tr>
 												<tr>
@@ -518,7 +414,8 @@ function getCurrentYear(){
 														name="water-location">
 															<option value="">เลือกประเภท</option>
 															<option value="ศูนย์เด็กเล็ก">ศูนย์เด็กเล็ก</option>
-															<option value="โรงเรียน">โรงเรียน</option>
+															<option value="โรงเรียน">โรงเรียนประถม</option>
+															<option value="โรงเรียน">โรงเรียนมัธยม</option>
 													</select></td>
 												</tr>
 												<tr>
@@ -541,39 +438,26 @@ function getCurrentYear(){
 									</div>
 									<div class="tab-pane fade" id="editEducation">
 										<form role="form">
-										<%
-											Object edituserid = session.getAttribute("edituser");
-										%>
-										<input type="hidden" id="editUserId" value="<%=edituserid %>">
+											<%
+												Object edituserid = session.getAttribute("edituser");
+											%>
+											<input type="hidden" id="editUserId" value="<%=edituserid%>">
 											<input type="hidden" id="editEduId">
 											<table width="50%" align="center">
-												<tr>
-													<td style="padding: 10px">ปีข้อมูล</td>
-													<td><input id="editEduYear" maxlength="4"
-														class="form-control" placeholder="" value="2558"
-														name="tran-year" required="true"></td>
-												</tr>
 												<tr>
 													<td style="padding: 10px">ชื่อสถานศึกษา</td>
 													<td><input type="text" id="editEduName"
 														maxlength="100" class="form-control"
-														placeholder="ระบุชื่อสถานศึกษา" name="edu-name"
-														required="true"></td>
+														placeholder="ต.ย. โรงเรียนบ้านนางแล" name="edu-name"></td>
 												</tr>
 												<tr>
 													<td style="padding: 10px">ประเภทสถานศึกษา</td>
 													<td><select id="editEduType" class="form-control"
 														name="water-location">
-															<option value="">เลือกประเภท</option>
 															<option value="ศูนย์เด็กเล็ก">ศูนย์เด็กเล็ก</option>
-															<option value="โรงเรียน">โรงเรียน</option>
+															<option value="โรงเรียน">โรงเรียนประถม</option>
+															<option value="โรงเรียน">โรงเรียนมัธยม</option>
 													</select></td>
-												</tr>
-												<tr>
-													<td style="padding: 10px">จำนวนนักเรียน</td>
-													<td><input id="editStudent" maxlength="4"
-														class="form-control" placeholder="" name="edu-amount"
-														required="true"></td>
 												</tr>
 												<tr>
 													<td style="padding: 10px">ที่ตั้ง</td>

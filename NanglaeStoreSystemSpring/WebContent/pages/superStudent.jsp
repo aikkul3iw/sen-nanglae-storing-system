@@ -46,25 +46,26 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-function getCurrentYear(){
-	var year = new Date();
-	document.getElementById("stu_year").value=(year.getFullYear()+543);
+	function getCurrentYear() {
+		var year = new Date();
+		document.getElementById("stu_year").value = (year.getFullYear() + 543);
 	}
-	
+
 	function listStudent() {
 		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listStudent.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
+		$
+				.ajax({
+					url : "../NanglaeGov/listStudent.do",
+					type : "POST",
+					success : function(data) {
+						var html = '';
+						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].location.edu_name
+									+ data[i].stu_year
 									+ "</td>"
 									+ "<td>"
-									+ data[i].stu_year
+									+ data[i].location.edu_name
 									+ "</td>"
 									+ "<td>"
 									+ data[i].stu_male
@@ -80,74 +81,106 @@ function getCurrentYear(){
 							html += "</tr>";
 						}
 						$('#listStudent').html(html);
-						$(document).ready(function() {
-							var table = $('#resultTable').DataTable({
-								lengthChange : false,
-								buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2, 3 ]},customize : function(doc) {
-								doc.defaultStyle['font'] = 'THSarabun';
-										}
-									},
-								],
-							    language: {
-						              sProcessing: 'กำลังดำเนินการ...',
-						              sLengthMenu: 'แสดง_MENU_ แถว',
-						              sZeroRecords: 'ไม่พบข้อมูล',
-						              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
-						              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
-						              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
-						              sInfoPostFix: '',
-						              sSearch: 'ค้นหา:',
-							              oPaginate: {
-							                            sFirst: 'เิริ่มต้น',
-							                            sPrevious: 'ก่อนหน้า',
-							                            sNext: 'ถัดไป',
-							                            sLast: 'สุดท้าย'
-							              }
-						     }
-							});
-						table.buttons().container().appendTo('#page-wrapper .col-sm-6:eq(0)');
-					});
+						$(document)
+								.ready(
+										function() {
+											var table = $('#resultTable')
+													.DataTable(
+															{
+																lengthChange : false,
+																buttons : [
+																		'excel',
+																		{
+																			extend : 'pdf',
+																			exportOptions : {
+																				columns : [
+																						0,
+																						1,
+																						2,
+																						3 ]
+																			},
+																			customize : function(
+																					doc) {
+																				doc.defaultStyle['font'] = 'THSarabun';
+																			}
+																		}, ],
+																language : {
+																	sProcessing : 'กำลังดำเนินการ...',
+																	sLengthMenu : 'แสดง_MENU_ แถว',
+																	sZeroRecords : 'ไม่พบข้อมูล',
+																	sInfo : 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+																	sInfoEmpty : 'แสดง 0 ถึง 0 จาก 0 แถว',
+																	sInfoFiltered : '(กรองข้อมูล _MAX_ ทุกแถว)',
+																	sInfoPostFix : '',
+																	sSearch : 'ค้นหา:',
+																	oPaginate : {
+																		sFirst : 'เิริ่มต้น',
+																		sPrevious : 'ก่อนหน้า',
+																		sNext : 'ถัดไป',
+																		sLast : 'สุดท้าย'
+																	}
+																}
+															});
+											table
+													.buttons()
+													.container()
+													.appendTo(
+															'#page-wrapper .col-sm-6:eq(0)');
+										});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
 						alert('error');
 						$("#loader").hide();
 					}
-			});
+				});
 	}
 </script>
 <script type='text/javascript'>
 	function createStudent() {
 		$("#loader").show();
-		var obj = {
-			studentId : 0,
-			stu_year : $('#stu_year').val(),
-			stu_male : $('#stu_male').val(),
-			stu_female : $('#stu_female').val()
+		if ($('#stu_year').val() == "") {
+			document.getElementById('stu_year').style.borderColor = "red";
+			return false;
+		} else if ($('#stu_male').val() == "") {
+			document.getElementById('stu_male').style.borderColor = "red";
+			return false;
+		} else if ($('#stu_female').val() == "") {
+			document.getElementById('stu_female').style.borderColor = "red";
+			return false;
+		} else {
+			var obj = {
+				studentId : 0,
+				stu_year : $('#stu_year').val(),
+				stu_male : $('#stu_male').val(),
+				stu_female : $('#stu_female').val()
 
-		};
-		$.ajax({
-			url : "../NanglaeGov/saveStudent.do?id=" + $("#eduSelect").val() + "&user="+$('#userId').val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
-			error : function(data, status, er) {
-				alert('error');
-				alert(JSON.stringify(obj));
-				$("#loader").hide();
-			}
-		});
+			};
+			$
+					.ajax({
+						url : "../NanglaeGov/saveStudent.do?id="
+								+ $("#eduSelect").val() + "&user="
+								+ $('#userId').val(),
+						type : "POST",
+						dataType : "JSON",
+						data : JSON.stringify(obj),
+						contentType : "application/json",
+						mimeType : "application/json",
+						success : function(data) {
+							swal({
+								title : 'บันทึกข้อมูลสำเร็จ',
+								type : 'success'
+							}).then(function() {
+								location.reload();
+							});
+						},
+						error : function(data, status, er) {
+							alert('error');
+							alert(JSON.stringify(obj));
+							$("#loader").hide();
+						}
+					});
+		}
 	}
 	function listEducation() {
 		$("#loader").show();
@@ -179,53 +212,65 @@ function getCurrentYear(){
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var obj = {
-			studentId : studentId
+			var obj = {
+				studentId : studentId
 
-		};
-		//alert(id);
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/deleteStudent.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
+			};
+			//alert(id);
+			//alert(JSON.stringify(obj));
+			$.ajax({
+				url : "../NanglaeGov/deleteStudent.do",
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					location.reload();
+				}
+			});
 		});
 	}
 	function editStudent() {
-		var obj = {
-			studentId : $("#editStudentId").val(),
-			stu_year : $('#editStuYear').val(),
-			stu_male : $('#editStuMale').val(),
-			stu_female : $('#editStuFemale').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveStudent.do?id="
-					+ $("#editEduSelect").val() + "&editUserId="+$('#editUserId').val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
+		if ($('#editStuYear').val() == "") {
+			document.getElementById('editStuYear').style.borderColor = "red";
+			return false;
+		} else if ($('#editStuMale').val() == "") {
+			document.getElementById('editStuMale').style.borderColor = "red";
+			return false;
+		} else if ($('#editStuFemale').val() == "") {
+			document.getElementById('editStuFemale').style.borderColor = "red";
+			return false;
+		} else {
+			var obj = {
+				studentId : $("#editStudentId").val(),
+				stu_year : $('#editStuYear').val(),
+				stu_male : $('#editStuMale').val(),
+				stu_female : $('#editStuFemale').val()
+			};
+			//alert(JSON.stringify(obj));
+			$.ajax({
+				url : "../NanglaeGov/saveStudent.do?id="
+						+ $("#editEduSelect").val() + "&editUserId="
+						+ $('#editUserId').val(),
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
+				},
+				error : function(data, status, er) {
+					alert('error');
+				}
+			});
+		}
 	}
 	function setEditStudent(studentId) {
 
@@ -276,7 +321,8 @@ function getCurrentYear(){
 </script>
 </head>
 
-<body onload="listStudent();listEducation();editEducationSelect();getCurrentYear()">
+<body
+	onload="listStudent();listEducation();editEducationSelect();getCurrentYear()">
 
 	<div id="wrapper">
 
@@ -296,10 +342,10 @@ function getCurrentYear(){
 			<!-- /.navbar-header -->
 
 			<ul class="nav navbar-top-links navbar-right">
-			<%
-				Object Name = session.getAttribute("Name");
-				out.println("ยินดีต้อนรับ    " +Name);
-			%>
+				<%
+					Object Name = session.getAttribute("Name");
+					out.println("ยินดีต้อนรับ    " + Name);
+				%>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<i class="fa fa-caret-down"></i>
@@ -317,7 +363,7 @@ function getCurrentYear(){
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="superMenu.jsp" %>
+			<%@include file="superMenu.jsp"%>
 		</nav>
 		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
@@ -334,7 +380,7 @@ function getCurrentYear(){
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#listCommerce"
 									data-toggle="tab">ข้อมูลนักเรียน</a></li>
-								<li><a href="#addCommerce" data-toggle="tab">เพิ่มนักเรียน</a>
+								<li><a href="#addCommerce" data-toggle="tab">เพิ่มข้อมูลนักเรียน</a>
 								</li>
 							</ul>
 							<div class="panel-body">
@@ -349,8 +395,8 @@ function getCurrentYear(){
 												<!-- Start change table -->
 												<thead>
 													<tr>
+														<th>ปีข้อมูล</th>
 														<th>โรงเรียน</th>
-														<th>ปี</th>
 														<th>ชาย</th>
 														<th>หญิง</th>
 														<th style="text-align: center;">ตัวเลือก</th>
@@ -364,35 +410,40 @@ function getCurrentYear(){
 									</div>
 									<div class="tab-pane fade" id="addCommerce">
 										<form role="form">
-										<%
-											Object userid = session.getAttribute("user");
-										%>
-										<input type="hidden" id="userId" value="<%=userid %>">
+											<%
+												Object userid = session.getAttribute("user");
+											%>
+											<input type="hidden" id="userId" value="<%=userid%>">
 											<table width="50%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
+													<td align="pull-right" style="padding: 15px">ปีข้อมูล
+														<font color="red" size="3">*</font>
+													</td>
 													<td><input id="stu_year" maxlength="100"
-														class="form-control" placeholder="ระบุปี"
-														name="stu-year" required="true"></td>
+														class="form-control" name="stu-year"></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ชาย</td>
-													<td><input id="stu_male" 
-														class="form-control" placeholder="ระบุจำนวน"
-														name="stu-male" required="true"></td>
-												</tr>
-												<tr>
-													<td align="pull-right" style="padding: 15px">หญิง</td>
-													<td><input id="stu_female" 
-														class="form-control" placeholder="ระบุจำนวน"
-														name="stu-female" required="true"></td>
-												</tr>
-												<tr>
-													<td align="pull-right" style="padding: 15px">โรงเรียน</td>
-													<td><select id="eduSelect" class="form-control"
-														placeholder="" name="edu-Select" required="true">
-
+													<td align="pull-right" style="padding: 15px">โรงเรียน
+														<font color="red" size="3">*</font>
+													</td>
+													<td><select id="eduSelect" class="form-control" name="edu-Select" required="true">
 													</select></td>
+												</tr>
+												<tr>
+													<td align="pull-right" style="padding: 15px">จำนวนนักเรียนชาย
+														<font color="red" size="3">*</font>
+													</td>
+													<td><input id="stu_male" class="form-control"
+														placeholder="ต.ย. 100" data-mask="0000" name="stu-male"></td>
+													<td style="padding-left: 10px">คน</td>
+												</tr>
+												<tr>
+													<td align="pull-right" style="padding: 15px">จำนวนนักเรียนหญิง
+														<font color="red" size="3">*</font>
+													</td>
+													<td><input id="stu_female" class="form-control"
+														placeholder="ต.ย. 100" data-mask="0000" name="stu-female"></td>
+													<td style="padding-left: 10px">คน</td>
 												</tr>
 												<tr>
 													<td></td>
@@ -408,36 +459,44 @@ function getCurrentYear(){
 									</div>
 									<div class="tab-pane fade" id="editStudent">
 										<form role="form">
-										<%
-											Object edituserid = session.getAttribute("edituser");
-										%>
-											<input type="hidden" id="editUserId" value="<%=edituserid %>">
+											<%
+												Object edituserid = session.getAttribute("edituser");
+											%>
+											<input type="hidden" id="editUserId" value="<%=edituserid%>">
 											<input type="hidden" id="editStudentId">
 											<table width="50%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input id="editStuYear" maxlength="100"
-														class="form-control" placeholder="ระบุปี"
-														name="stu-year" required="true"></td>
+													<td align="pull-right" style="padding: 15px">ปีข้อมูล
+														<font color="red" size="3">*</font>
+													</td>
+													<td><input id="editStuYear" maxlength="4"
+														class="form-control" placeholder="ต.ย. 2560" name="stu-year"
+														required="true"></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ชาย</td>
-													<td><input id="editStuMale" 
-														class="form-control" placeholder="ระบุจำนวน"
-														name="stu-male" required="true"></td>
-												</tr>
-												<tr>
-													<td align="pull-right" style="padding: 15px">หญิง</td>
-													<td><input id="editStuFemale" 
-														class="form-control" placeholder="ระบุจำนวน"
-														name="stu-female" required="true"></td>
-												</tr>
-												<tr>
-													<td align="pull-right" style="padding: 15px">โรงเรียน</td>
+													<td align="pull-right" style="padding: 15px">โรงเรียน
+														<font color="red" size="3">*</font>
+													</td>
 													<td><select id="editEduSelect" class="form-control"
-														placeholder="" name="edu-Select" required="true">
+														placeholder="" name="edu-Select">
 
 													</select></td>
+												</tr>
+												<tr>
+													<td align="pull-right" style="padding: 15px">จำนวนนักเรียนชาย
+														<font color="red" size="3">*</font>
+													</td>
+													<td><input id="editStuMale" class="form-control"
+														placeholder="ต.ย. 100" data-mask="0000" name="stu-male"></td>
+													<td style="padding-left: 10px">คน</td>
+												</tr>
+												<tr>
+													<td align="pull-right" style="padding: 15px">จำนวนนักเรียนหญิง
+														<font color="red" size="3">*</font>
+													</td>
+													<td><input id="editStuFemale" class="form-control"
+														placeholder="ต.ย. 100" data-mask="0000" name="stu-female"></td>
+													<td style="padding-left: 10px">คน</td>
 												</tr>
 												<tr>
 													<td></td>

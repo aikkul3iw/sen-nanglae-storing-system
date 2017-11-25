@@ -71,10 +71,10 @@
 									+ data[i].per_tel_number
 									+ "</td>"
 									+ "<td>"
-									+ data[i].per_address
+									+ data[i].per_email
 									+ "</td>"
 									+ "<td>"
-									+ data[i].per_email
+									+ data[i].per_address
 									+ "</td>"
 									+ "<td style=\"text-align: center;\"><button href=\"#editPersonnel\" data-toggle=\"tab\" onclick=\"setEditPersonnel("
 									+ data[i].per_id
@@ -85,34 +85,52 @@
 							html += "</tr>";
 						}
 						$('#listPersonnels').html(html);
-						$(document).ready(function() {
-							var table = $('#resultTable').DataTable({
-								lengthChange : false,
-								buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2, 3 ]},customize : function(doc) {
-								doc.defaultStyle['font'] = 'THSarabun';
-										}
-									},
-								],
-							    language: {
-						              sProcessing: 'กำลังดำเนินการ...',
-						              sLengthMenu: 'แสดง_MENU_ แถว',
-						              sZeroRecords: 'ไม่พบข้อมูล',
-						              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
-						              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
-						              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
-						              sInfoPostFix: '',
-						              sSearch: 'ค้นหา:',
-							              oPaginate: {
-							                            sFirst: 'เิริ่มต้น',
-							                            sPrevious: 'ก่อนหน้า',
-							                            sNext: 'ถัดไป',
-							                            sLast: 'สุดท้าย'
-							              }
-						     }
-						});
-						table.buttons().container().appendTo('#page-wrapper .col-sm-6:eq(0)');
-					});
+						$(document)
+								.ready(
+										function() {
+											var table = $('#resultTable')
+													.DataTable(
+															{
+																lengthChange : false,
+																buttons : [
+																		'excel',
+																		{
+																			extend : 'pdf',
+																			exportOptions : {
+																				columns : [
+																						0,
+																						1,
+																						2,
+																						3 ]
+																			},
+																			customize : function(
+																					doc) {
+																				doc.defaultStyle['font'] = 'THSarabun';
+																			}
+																		}, ],
+																language : {
+																	sProcessing : 'กำลังดำเนินการ...',
+																	sLengthMenu : 'แสดง_MENU_ แถว',
+																	sZeroRecords : 'ไม่พบข้อมูล',
+																	sInfo : 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+																	sInfoEmpty : 'แสดง 0 ถึง 0 จาก 0 แถว',
+																	sInfoFiltered : '(กรองข้อมูล _MAX_ ทุกแถว)',
+																	sInfoPostFix : '',
+																	sSearch : 'ค้นหา:',
+																	oPaginate : {
+																		sFirst : 'เิริ่มต้น',
+																		sPrevious : 'ก่อนหน้า',
+																		sNext : 'ถัดไป',
+																		sLast : 'สุดท้าย'
+																	}
+																}
+															});
+											table
+													.buttons()
+													.container()
+													.appendTo(
+															'#page-wrapper .col-sm-6:eq(0)');
+										});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -164,7 +182,8 @@
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/savePersonnel.do?user="+$('#userId').val(),
+				url : "../NanglaeGov/savePersonnel.do?user="
+						+ $('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -195,58 +214,85 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = per_id;
-		var obj = {
-			per_id : id
+			var id = per_id;
+			var obj = {
+				per_id : id
 
-		};
-		$.ajax({
-			url : "../NanglaeGov/deletePersonnel.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
+			};
+			$.ajax({
+				url : "../NanglaeGov/deletePersonnel.do",
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					location.reload();
+				}
+			});
 		});
 	}
 	function editPersonnel() {
-		var obj = {
-			per_id : $("#editPerId").val(),
-			per_title : $('#editPerTitle').val(),
-			per_firstname : $('#editPerFirstname').val(),
-			per_lastname : $('#editPerLastname').val(),
-			per_position : $('#editPerPosition').val(),
-			per_salary : $('#editPerSalary').val(),
-			per_tel_number : $('#editPerTelNumber').val(),
-			per_address : $('#editPerAddress').val(),
-			per_email : $('#editPerEmail').val(),
-			per_picture : $('#editPerPicture').val()
-		};
+		if ($('#editPerTitle').val() == "") {
+			document.getElementById('editPerTitle').style.borderColor = "red";
+			return false;
+		} else if ($('#editPerFirstname').val() == "") {
+			document.getElementById('editPerFirstname').style.borderColor = "red";
+			return false;
+		} else if ($('#editPerLastname').val() == "") {
+			document.getElementById('editPerLastname').style.borderColor = "red";
+			return false;
+		} else if ($('#editPerPosition').val() == "") {
+			document.getElementById('editPerPosition').style.borderColor = "red";
+			return false;
+		} else if ($('#editPerSalary').val() == "") {
+			document.getElementById('editPerSalary').style.borderColor = "red";
+			return false;
+		} else if ($('#editPerTelNumber').val() == "") {
+			document.getElementById('editPerTelNumber').style.borderColor = "red";
+			return false;
+		} else if ($('#editPerAddress').val() == "") {
+			document.getElementById('editPerAddress').style.borderColor = "red";
+			return false;
+		} else if ($('#editPerEmail').val() == "") {
+			document.getElementById('editPerEmail').style.borderColor = "red";
+			return false;
+		} else {
+			var obj = {
+				per_id : $("#editPerId").val(),
+				per_title : $('#editPerTitle').val(),
+				per_firstname : $('#editPerFirstname').val(),
+				per_lastname : $('#editPerLastname').val(),
+				per_position : $('#editPerPosition').val(),
+				per_salary : $('#editPerSalary').val(),
+				per_tel_number : $('#editPerTelNumber').val(),
+				per_address : $('#editPerAddress').val(),
+				per_email : $('#editPerEmail').val(),
+				per_picture : $('#editPerPicture').val()
+			};
 
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/savePersonnel.do?editUserId="+$('#editUserId').val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
-			error : function(data, status, er) {
-				alert('ไม่สามารถบันทึกข้อมูลได้');
-			}
-		});
+			//alert(JSON.stringify(obj));
+			$.ajax({
+				url : "../NanglaeGov/savePersonnel.do?editUserId="
+						+ $('#editUserId').val(),
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
+				},
+				error : function(data, status, er) {
+					alert('ไม่สามารถบันทึกข้อมูลได้');
+				}
+			});
+		}
 	}
 	function setEditPersonnel(per_id) {
 
@@ -302,10 +348,10 @@
 			<!-- /.navbar-header -->
 
 			<ul class="nav navbar-top-links navbar-right">
-			<%
-				Object Name = session.getAttribute("Name");
-				out.println("ยินดีต้อนรับ    " +Name);
-			%>
+				<%
+					Object Name = session.getAttribute("Name");
+					out.println("ยินดีต้อนรับ    " + Name);
+				%>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<i class="fa fa-caret-down"></i>
@@ -323,7 +369,7 @@
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="superMenu.jsp" %>
+			<%@include file="superMenu.jsp"%>
 		</nav>
 	</div>
 	<div id="page-wrapper" style="background-color: #d7f0f5">
@@ -355,20 +401,20 @@
 									<div class="table-responsive">
 										<table class="table table-striped table-bordered table-hover"
 											id="resultTable">
-<!-- Start change table -->
-												<thead>
-													<tr>
-														<th>ชื่อ</th>
-														<th>ตำแหน่ง</th>
-														<th>เบอร์โทรศัพท์</th>
-														<th>ที่อยู่</th>
-														<th>อีเมลล์</th>
-														<th style="text-align: center;">ตัวเลือก</th>
-													</tr>
-												</thead>
-												<tbody id="listPersonnels">
-												</tbody>
-<!-- End change table -->
+											<!-- Start change table -->
+											<thead>
+												<tr>
+													<th>ชื่อ</th>
+													<th>ตำแหน่ง</th>
+													<th>เบอร์โทรศัพท์</th>
+													<th>อีเมลล์</th>
+													<th>ที่อยู่</th>
+													<th style="text-align: center;">ตัวเลือก</th>
+												</tr>
+											</thead>
+											<tbody id="listPersonnels">
+											</tbody>
+											<!-- End change table -->
 										</table>
 									</div>
 								</div>
@@ -377,56 +423,71 @@
 										<%
 											Object userid = session.getAttribute("user");
 										%>
-										<input type="hidden" id="userId" value="<%=userid %>">
+										<input type="hidden" id="userId" value="<%=userid%>">
 										<table width="50%" align="center">
 											<tr>
-
-												<td align="pull-right" style="padding: 15px">คำนำหน้าชื่อ</td>
-												<td><input class="form-control" maxlength="6"
-													id="per_title" placeholder="นาย/นาง/นางสาว" name="pertitle"
-													required></td>
-
+												<td align="pull-right" style="padding: 15px">คำนำหน้าชื่อ
+													<font color="red" size="3">*</font>
+												</td>
+												<td><select id="per_title" class="form-control"
+													placeholder="" name="per_title">
+														<option value="">เลือกคำนำหน้าชื่อ</option>
+														<option value="นาย">นาย</option>
+														<option value="นาง">นาง</option>
+														<option value="นางสาว">นางสาว</option>
+												</select></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ชื่อ</td>
+												<td align="pull-right" style="padding: 15px">ชื่อ <font
+													color="red" size="3">*</font></td>
 												<td><input class="form-control" maxlength="50"
-													id="per_firstname" placeholder="ระบุชื่อ"
+													id="per_firstname" placeholder="ต.ย. สมควร"
 													name="perfirstname" required></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">นามสกุล</td>
+												<td align="pull-right" style="padding: 15px">นามสกุล <font
+													color="red" size="3">*</font></td>
 												<td><input class="form-control" maxlength="50"
-													id="per_lastname" placeholder="ระบุนามสกุล"
+													id="per_lastname" placeholder="ต.ย. ทองดี"
 													name="perlastname" required></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ตำแหน่ง</td>
+												<td align="pull-right" style="padding: 15px">ตำแหน่ง <font
+													color="red" size="3">*</font></td>
 												<td><input class="form-control" maxlength="50"
-													id="per_position" placeholder="ระบุตำแหน่ง"
+													id="per_position" placeholder="ต.ย. หัวหน้าฝ่ายอำนวยการ"
 													name="perposition" required></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">เงินเดือน</td>
+												<td align="pull-right" style="padding: 15px">เงินเดือน
+													<font color="red" size="3">*</font>
+												</td>
 												<td><input class="form-control" maxlength="6"
-													id="per_salary" placeholder="ต.ย. 75000" name="persalary"
+													id="per_salary" data-mask="000000" placeholder="ต.ย. 75000"
+													name="persalary" required></td>
+												<td style="padding-left: 10px">บาท</td>
+											</tr>
+											<tr>
+												<td align="pull-right" style="padding: 15px">เบอร์โทรติดต่อ
+													<font color="red" size="3">*</font>
+												</td>
+												<td><input class="form-control"
+													data-mask="000-000-0000" placeholder="ต.ย. 089-899-8999"
+													maxlength="10" id="per_tel_number" name="pertelnumber"
 													required></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">เบอร์โทรติดต่อ</td>
-												<td><input class="form-control" data-mask="000-000-0000"placeholder="ต.ย. 089-8998999" maxlength="10"
-													id="per_tel_number" 
-													name="pertelnumber" required ></td>
-											</tr>
-											<tr>
-												<td align="pull-right" style="padding: 15px">อีเมล์</td>
+												<td align="pull-right" style="padding: 15px">อีเมล์ <font
+													color="red" size="3">*</font></td>
 												<td><input class="form-control" maxlength="30"
 													id="per_email" placeholder="ต.ย. test@test.com"
 													name="peremail" required></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ที่อยู่</td>
+												<td align="pull-right" style="padding: 15px">ที่อยู่ <font
+													color="red" size="3">*</font></td>
 												<td><textarea class="form-control" maxlength="100"
-														id="per_address" placeholder="ระบุที่อยู่"
+														id="per_address" placeholder="ต.ย. 17/4 หมู่ 5 ถ.บำรุงราษฎร์ ต.พิบูลสงคราม อ.เมือง จ.กรุงเทพมหานคร 10400"
 														name="peraddress" required></textarea></td>
 											</tr>
 											<tr>
@@ -446,61 +507,65 @@
 										<%
 											Object edituserid = session.getAttribute("edituser");
 										%>
-										<input type="hidden" id="editUserId" value="<%=edituserid %>">
+										<input type="hidden" id="editUserId" value="<%=edituserid%>">
 										<input type="hidden" id="editPerId">
 										<table width="50%" align="center">
 											<tr>
-
-												<td align="pull-right" style="padding: 15px">คำนำหน้าชื่อ</td>
+												<td align="pull-right" style="padding: 15px">คำนำหน้าชื่อ
+													<font color="red" size="3">*</font>
+												</td>
+												<td><select id="editPerTitle" class="form-control"
+													placeholder="" name="editPerTitle">
+														<option value="นาย">นาย</option>
+														<option value="นาง">นาง</option>
+														<option value="นางสาว">นางสาว</option>
+												</select></td>
+											</tr>
+											<tr>
+												<td align="pull-right" style="padding: 15px">ชื่อ <font
+													color="red" size="3">*</font></td>
+												<td><input class="form-control" maxlength="50"
+													id="editPerFirstname" placeholder="ต.ย. สมควร" name="per-firstname"></td>
+											</tr>
+											<tr>
+												<td align="pull-right" style="padding: 15px">นามสกุล <font
+													color="red" size="3">*</font></td>
+												<td><input class="form-control" maxlength="50"
+													id="editPerLastname" placeholder="ต.ย. ทองดี" name="per-lastname"></td>
+											</tr>
+											<tr>
+												<td align="pull-right" style="padding: 15px">ตำแหน่ง <font
+													color="red" size="3">*</font></td>
+												<td><input class="form-control" maxlength="50"
+													id="editPerPosition" placeholder="ต.ย. หัวหน้าฝ่ายอำนวยการ" name="per-position"></td>
+											</tr>
+											<tr>
+												<td align="pull-right" style="padding: 15px">เงินเดือน
+													<font color="red" size="3">*</font>
+												</td>
 												<td><input class="form-control" maxlength="6"
-													id="editPerTitle" placeholder="" name="per-title"
-													required="true"></td>
-
+													id="editPerSalary" data-mask="000000" placeholder="ต.ย. 75000"
+													name="per-salary"></td>
+												<td style="padding-left: 10px">บาท</td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ชื่อ</td>
-												<td><input class="form-control" maxlength="50"
-													id="editPerFirstname" placeholder="" name="per-firstname"
-													required="true"></td>
+												<td align="pull-right" style="padding: 15px">เบอร์โทรติดต่อ
+													<font color="red" size="3">*</font>
+												</td>
+												<td><input class="form-control" id="editPerTelNumber"
+													data-mask="000-000-0000" placeholder="ต.ย. 089-899-8999" name="per-tel"></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">นามสกุล</td>
-												<td><input class="form-control" maxlength="50"
-													id="editPerLastname" placeholder="" name="per-lastname"
-													required="true"></td>
-											</tr>
-											<tr>
-												<td align="pull-right" style="padding: 15px">ตำแหน่ง</td>
-												<td><input class="form-control" maxlength="50"
-													id="editPerPosition" placeholder="" name="per-position"
-													required="true"></td>
-											</tr>
-											<tr>
-												<td align="pull-right" style="padding: 15px">เงินเดือน</td>
-												<td><input class="form-control" maxlength="6"
-													id="editPerSalary" placeholder="" name="per-salary"
-													required="true"></td>
-											</tr>
-											<tr>
-												<td align="pull-right" style="padding: 15px">เบอร์โทรติดต่อ</td>
-												<td><input class="form-control" 
-													id="editPerTelNumber" data-mask="000-000-0000" placeholder="" name="per-tel"
-													required="true"></td>
-											</tr>
-											<tr>
-												<td align="pull-right" style="padding: 15px">อีเมล์</td>
+												<td align="pull-right" style="padding: 15px">อีเมล ์ <font
+													color="red" size="3">*</font></td>
 												<td><input class="form-control" maxlength="30"
-													id="editPerEmail" placeholder="" name="per-email"
-													required="true"></td>
+													id="editPerEmail" placeholder="ต.ย. test@test.com" name="per-email"></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ที่อยู่</td>
+												<td align="pull-right" style="padding: 15px">ที่อยู่ <font
+													color="red" size="3">*</font></td>
 												<td><textarea class="form-control" maxlength="100"
-														id="editPerAddress" placeholder="" name="per-address"
-														required="true"></textarea></td>
-											</tr>
-											<tr>
-												<td><p id="errorMsg"></p></td>
+														id="editPerAddress" placeholder="ต.ย. 17/4 หมู่ 5 ถ.บำรุงราษฎร์ ต.พิบูลสงคราม อ.เมือง จ.กรุงเทพมหานคร 10400" name="per-address"></textarea></td>
 											</tr>
 											<tr>
 												<td></td>
@@ -523,37 +588,37 @@
 	</div>
 
 	<!-- jQuery -->
-		<script src="../NanglaeGov/vendor/jquery/jquery.min.js"></script>
+	<script src="../NanglaeGov/vendor/jquery/jquery.min.js"></script>
 
-		<!-- Bootstrap Core JavaScript -->
-		<script src="../NanglaeGov/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="../NanglaeGov/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-		<!-- Metis Menu Plugin JavaScript -->
-		<script src="../NanglaeGov/vendor/metisMenu/metisMenu.min.js"></script>
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="../NanglaeGov/vendor/metisMenu/metisMenu.min.js"></script>
 
-		<!-- DataTables JavaScript -->
-		<script
-			src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
-		<script src="../NanglaeGov/js/dataTables.buttons.min.js"></script>
-		<script src="../NanglaeGov/js/pdfmake.min.js"></script>
-		<script src="../NanglaeGov/vendor/datatables/js/vfs_fonts.js"></script>
-		<script src="../NanglaeGov/js/buttons.html5.min.js"></script>
-		<script src="../NanglaeGov/js/buttons.print.min.js"></script>
-		<script
-			src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-		<script
-			src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script>
-		<script src="../NanglaeGov/js/buttons.bootstrap.min.js"></script>
-		<script src="../NanglaeGov/js/buttons.colVis.min.js"></script>
-		<script src="../NanglaeGov/js/jszip.min.js"></script>
+	<!-- DataTables JavaScript -->
+	<script
+		src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="../NanglaeGov/js/dataTables.buttons.min.js"></script>
+	<script src="../NanglaeGov/js/pdfmake.min.js"></script>
+	<script src="../NanglaeGov/vendor/datatables/js/vfs_fonts.js"></script>
+	<script src="../NanglaeGov/js/buttons.html5.min.js"></script>
+	<script src="../NanglaeGov/js/buttons.print.min.js"></script>
+	<script
+		src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+	<script
+		src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script>
+	<script src="../NanglaeGov/js/buttons.bootstrap.min.js"></script>
+	<script src="../NanglaeGov/js/buttons.colVis.min.js"></script>
+	<script src="../NanglaeGov/js/jszip.min.js"></script>
 
-		<!-- Custom Theme JavaScript -->
-		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
-		<!-- Sweetalert2 JavaScript -->
-		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
-		<!-- Mask plug in -->
-		<script src="../NanglaeGov/js/jquery.mask.js"></script>
-		<script src="../NanglaeGov/js/jquery.mask.min.js"></script>
+	<!-- Custom Theme JavaScript -->
+	<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
+	<!-- Sweetalert2 JavaScript -->
+	<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
+	<!-- Mask plug in -->
+	<script src="../NanglaeGov/js/jquery.mask.js"></script>
+	<script src="../NanglaeGov/js/jquery.mask.min.js"></script>
 
 </body>
 

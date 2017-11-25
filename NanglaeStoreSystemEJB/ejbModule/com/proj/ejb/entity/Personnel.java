@@ -26,7 +26,6 @@ public class Personnel implements Serializable {
 	private String per_address;
 	private String per_email;
 	private String per_picture;
-	private int per_year;
 	
 	@OneToMany(mappedBy = "location", cascade = { CascadeType.ALL })
 	// @JsonIgnore
@@ -110,14 +109,6 @@ public class Personnel implements Serializable {
 
 	public void setPer_picture(String per_picture) {
 		this.per_picture = per_picture;
-	}
-
-	public int getPer_year() {
-		return per_year;
-	}
-
-	public void setPer_year(int per_year) {
-		this.per_year = per_year;
 	}
 
 }
