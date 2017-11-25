@@ -458,7 +458,7 @@
 											<tr>
 												<td style="padding: 15px">เลขบัตรประชาชน</td>
 												<td><input id="idCard" maxlength="13"
-														class="form-control" placeholder=""
+														data-mask="0-0000-0000-0-0"class="form-control" placeholder=""
 														name="idCard" required="true"></td>
 											</tr>
 											<tr>
@@ -469,7 +469,7 @@
 											<tr>
 												<td style="padding: 15px">อายุ</td>
 												<td><input id="age" maxlength="100"
-														class="form-control" placeholder=""
+														data-mask="000"class="form-control" placeholder=""
 														name="age" required="true"></td>
 											</tr>
 											<tr>
@@ -487,7 +487,7 @@
 											<tr>
 												<td style="padding: 15px">เบอร์โทร</td>
 												<td><input id="tel" maxlength="20"
-														class="form-control" placeholder=""
+														data-mask="000-000-0000"class="form-control" placeholder=""
 														name="tel" required="true"></td>
 											</tr>
 											<tr>
@@ -529,7 +529,7 @@
 											<tr>
 												<td style="padding: 15px">เลขบัตรประชาชน</td>
 												<td><input id="offspringIdCard" maxlength="13"
-														class="form-control" placeholder=""
+														data-mask="0-0000-0000-0-0"class="form-control" placeholder=""
 														name="offspringIdCard" required="true"></td>
 											</tr>
 											<tr>
@@ -593,7 +593,7 @@
 											<tr>
 												<td style="padding: 15px">เลขบัตรประชาชน</td>
 												<td><input id="editidCard" maxlength="13"
-														class="form-control" placeholder=""
+														data-mask="0-0000-0000-0-0"class="form-control" placeholder=""
 														name="editidCard" required="true"></td>
 											</tr>
 											<tr>
@@ -604,7 +604,7 @@
 											<tr>
 												<td style="padding: 15px">อายุ</td>
 												<td><input id="editage" maxlength="100"
-														class="form-control" placeholder=""
+														data-mask="000"class="form-control" placeholder=""
 														name="editage" required="true"></td>
 											</tr>
 											<tr>
@@ -622,7 +622,7 @@
 											<tr>
 												<td style="padding: 15px">เบอร์โทร</td>
 												<td><input id="edittel" maxlength="20"
-														class="form-control" placeholder=""
+														data-mask="000-000-0000"class="form-control" placeholder=""
 														name="edittel" required="true"></td>
 											</tr>
 											<tr>
@@ -664,7 +664,7 @@
 											<tr>
 												<td style="padding: 15px">เลขบัตรประชาชน</td>
 												<td><input id="editoffspringIdCard" maxlength="13"
-														class="form-control" placeholder=""
+														data-mask="0-0000-0000-0-0"class="form-control" placeholder=""
 														name="editoffspringIdCard" required="true"></td>
 											</tr>
 											<tr>
