@@ -358,7 +358,7 @@
 
 													<td align="pull-right" style="padding: 15px">หมู่ที่ <font
 														color="red" size="3">*</font></td>
-													<td><input class="form-control"
+													<td><input class="form-control" data-mask="00"
 														placeholder="ระบุเลขที่หมู่บ้าน" name="vil-number"
 														maxlength="2" id="vil_number"></td>
 
