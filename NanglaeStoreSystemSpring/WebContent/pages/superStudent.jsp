@@ -420,7 +420,7 @@
 														<font color="red" size="3">*</font>
 													</td>
 													<td><input id="stu_year" maxlength="100"
-														class="form-control" name="stu-year"></td>
+														class="form-control" name="stu-year" placeholder="ระบุปีข้อมูล"></td>
 												</tr>
 												<tr>
 													<td align="pull-right" style="padding: 15px">โรงเรียน
@@ -434,7 +434,7 @@
 														<font color="red" size="3">*</font>
 													</td>
 													<td><input id="stu_male" class="form-control"
-														placeholder="ต.ย. 100" data-mask="0000" name="stu-male"></td>
+														placeholder="ระบุจำนวนนักเรียน" data-mask="0000" name="stu-male"></td>
 													<td style="padding-left: 10px">คน</td>
 												</tr>
 												<tr>
@@ -442,7 +442,7 @@
 														<font color="red" size="3">*</font>
 													</td>
 													<td><input id="stu_female" class="form-control"
-														placeholder="ต.ย. 100" data-mask="0000" name="stu-female"></td>
+														placeholder="ระบุจำนวนนักเรียน" data-mask="0000" name="stu-female"></td>
 													<td style="padding-left: 10px">คน</td>
 												</tr>
 												<tr>
@@ -470,7 +470,7 @@
 														<font color="red" size="3">*</font>
 													</td>
 													<td><input id="editStuYear" maxlength="4"
-														class="form-control" placeholder="ต.ย. 2560" name="stu-year"
+														class="form-control" placeholder="ระบุปีข้อมูล" name="stu-year"
 														required="true"></td>
 												</tr>
 												<tr>
@@ -487,7 +487,7 @@
 														<font color="red" size="3">*</font>
 													</td>
 													<td><input id="editStuMale" class="form-control"
-														placeholder="ต.ย. 100" data-mask="0000" name="stu-male"></td>
+														placeholder="ระบุจำนวนนักเรียน" data-mask="0000" name="stu-male"></td>
 													<td style="padding-left: 10px">คน</td>
 												</tr>
 												<tr>
@@ -495,7 +495,7 @@
 														<font color="red" size="3">*</font>
 													</td>
 													<td><input id="editStuFemale" class="form-control"
-														placeholder="ต.ย. 100" data-mask="0000" name="stu-female"></td>
+														placeholder="ระบุจำนวนนักเรียน" data-mask="0000" name="stu-female"></td>
 													<td style="padding-left: 10px">คน</td>
 												</tr>
 												<tr>

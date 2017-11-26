@@ -46,11 +46,11 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-function getCurrentYear(){
-	var year = new Date();
-	document.getElementById("lab_year").value=(year.getFullYear()+543);
+	function getCurrentYear() {
+		var year = new Date();
+		document.getElementById("lab_year").value = (year.getFullYear() + 543);
 	}
-	
+
 	function listLabor() {
 		$("#loader").show();
 		$
@@ -82,33 +82,52 @@ function getCurrentYear(){
 							html += "</tr>";
 						}
 						$('#listLabors').html(html);
-						$(document).ready(function() {
-							var table = $('#resultTable').DataTable({
-								lengthChange : false,
-								buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2, 3 ]},customize : function(doc) {
-								doc.defaultStyle['font'] = 'THSarabun';
-										}
-									},
-								],language: {
-						              sProcessing: 'กำลังดำเนินการ...',
-						              sLengthMenu: 'แสดง_MENU_ แถว',
-						              sZeroRecords: 'ไม่พบข้อมูล',
-						              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
-						              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
-						              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
-						              sInfoPostFix: '',
-						              sSearch: 'ค้นหา:',
-							              oPaginate: {
-							                            sFirst: 'เิริ่มต้น',
-							                            sPrevious: 'ก่อนหน้า',
-							                            sNext: 'ถัดไป',
-							                            sLast: 'สุดท้าย'
-							              }
-							     }
-						});
-						table.buttons().container().appendTo('#page-wrapper .col-sm-6:eq(0)');
-					});
+						$(document)
+								.ready(
+										function() {
+											var table = $('#resultTable')
+													.DataTable(
+															{
+																lengthChange : false,
+																buttons : [
+																		'excel',
+																		{
+																			extend : 'pdf',
+																			exportOptions : {
+																				columns : [
+																						0,
+																						1,
+																						2,
+																						3 ]
+																			},
+																			customize : function(
+																					doc) {
+																				doc.defaultStyle['font'] = 'THSarabun';
+																			}
+																		}, ],
+																language : {
+																	sProcessing : 'กำลังดำเนินการ...',
+																	sLengthMenu : 'แสดง_MENU_ แถว',
+																	sZeroRecords : 'ไม่พบข้อมูล',
+																	sInfo : 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+																	sInfoEmpty : 'แสดง 0 ถึง 0 จาก 0 แถว',
+																	sInfoFiltered : '(กรองข้อมูล _MAX_ ทุกแถว)',
+																	sInfoPostFix : '',
+																	sSearch : 'ค้นหา:',
+																	oPaginate : {
+																		sFirst : 'เิริ่มต้น',
+																		sPrevious : 'ก่อนหน้า',
+																		sNext : 'ถัดไป',
+																		sLast : 'สุดท้าย'
+																	}
+																}
+															});
+											table
+													.buttons()
+													.container()
+													.appendTo(
+															'#page-wrapper .col-sm-6:eq(0)');
+										});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -142,7 +161,7 @@ function getCurrentYear(){
 				lab_work : $('#lab_work').val()
 			};
 			$.ajax({
-				url : "../NanglaeGov/saveLabor.do?user="+$('#userId').val(),
+				url : "../NanglaeGov/saveLabor.do?user=" + $('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -173,52 +192,67 @@ function getCurrentYear(){
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = lab_id;
-		var obj = {
-			lab_id : id
+			var id = lab_id;
+			var obj = {
+				lab_id : id
 
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteLabor.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
+			};
+			$.ajax({
+				url : "../NanglaeGov/deleteLabor.do",
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					location.reload();
+				}
+			});
 		});
 	}
 	function editLabor() {
-		var obj = {
-			lab_id : $("#editLabId").val(),
-			lab_year : $('#editLabYear').val(),
-			lab_type : $('#editLabType').val(),
-			lab_amount : $('#editLabAmount').val(),
-			lab_work : $('#editLabWork').val(),
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveLabor.do?editUserId="+$('#editUserId').val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
-			error : function(data, status, er) {
-				alert('ไม่สามารถบนนทึกข้อมูลได้');
-			}
-		});
+		if ($('#editLabYear').val() == "") {
+			document.getElementById('editLabYear').style.borderColor = "red";
+			return false;
+		} else if ($('#editLabType').val() == "") {
+			document.getElementById('editLabType').style.borderColor = "red";
+			return false;
+		} else if ($('#editLabAmount').val() == "") {
+			document.getElementById('editLabAmount').style.borderColor = "red";
+			return false;
+		} else if ($('#editLabWork').val() == "") {
+			document.getElementById('editLabWork').style.borderColor = "red";
+			return false;
+		} else {
+			var obj = {
+				lab_id : $("#editLabId").val(),
+				lab_year : $('#editLabYear').val(),
+				lab_type : $('#editLabType').val(),
+				lab_amount : $('#editLabAmount').val(),
+				lab_work : $('#editLabWork').val(),
+			};
+			//alert(JSON.stringify(obj));
+			$.ajax({
+				url : "../NanglaeGov/saveLabor.do?editUserId="
+						+ $('#editUserId').val(),
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
+				},
+				error : function(data, status, er) {
+					alert('ไม่สามารถบนนทึกข้อมูลได้');
+				}
+			});
+		}
 	}
 	function setEditLabor(lab_id) {
 
@@ -269,10 +303,10 @@ function getCurrentYear(){
 			<!-- /.navbar-header -->
 
 			<ul class="nav navbar-top-links navbar-right">
-			<%
-				Object Name = session.getAttribute("Name");
-				out.println("ยินดีต้อนรับ    " +Name);
-			%>
+				<%
+					Object Name = session.getAttribute("Name");
+					out.println("ยินดีต้อนรับ    " + Name);
+				%>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<i class="fa fa-caret-down"></i>
@@ -290,7 +324,7 @@ function getCurrentYear(){
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="superMenu.jsp" %>
+			<%@include file="superMenu.jsp"%>
 		</nav>
 		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
@@ -307,7 +341,7 @@ function getCurrentYear(){
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#listLabor" data-toggle="tab">ข้อมูลแรงงาน</a>
 								</li>
-								<li><a href="#addLabor" data-toggle="tab" id="addlabor">เพิ่มแรงงาน</a></li>
+								<li><a href="#addLabor" data-toggle="tab" id="addlabor">เพิ่มข้อมูลแรงงาน</a></li>
 							</ul>
 							<div class="panel-body">
 
@@ -317,7 +351,7 @@ function getCurrentYear(){
 										<div class="table-responsive">
 											<table class="table table-striped table-bordered table-hover"
 												id="resultTable">
-<!-- Start change table -->
+												<!-- Start change table -->
 												<thead>
 													<tr>
 														<th>ปีที่บันทึกข้อมูล</th>
@@ -329,42 +363,53 @@ function getCurrentYear(){
 												</thead>
 												<tbody id="listLabors">
 												</tbody>
-<!-- End change table -->
+												<!-- End change table -->
 											</table>
 										</div>
 									</div>
 									<div class="tab-pane fade" id="addLabor">
 										<form role="form" data-toggle="validator" id="testform">
-										<%
-											Object userid = session.getAttribute("user");
-										%>
-										<input type="hidden" id="userId" value="<%=userid %>">
+											<%
+												Object userid = session.getAttribute("user");
+											%>
+											<input type="hidden" id="userId" value="<%=userid%>">
 											<table width="50%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input maxlength="4" data-mask="0000"class="form-control"
-														id="lab_year" placeholder="" value="2558" name="vil-year"></td>
+													<td align="pull-right" style="padding: 15px">ปีข้อมูล
+														<font color="red" size="3">*</font>
+													</td>
+													<td><input maxlength="4" data-mask="0000"
+														class="form-control" id="lab_year" placeholder="ระบุปีข้อมูล"
+														 name="lab_year"></td>
+												</tr>
+												<tr>
+												<td align="pull-right" style="padding: 15px">ประเภทแรงาน
+													<font color="red" size="3">*</font>
+												</td>
+												<td><select id="lab_type" class="form-control"
+													placeholder="" name="lab_type">
+														<option value="">เลือกประเภทแรงาน</option>
+														<option value="แรงงานภายใน">แรงงานภายใน</option>
+														<option value="แรงงานภายนอก">แรงงานภายนอก</option>
+												</select></td>
 												</tr>
 												<tr>
 
-													<td align="pull-right" style="padding: 15px">ชื่อ</td>
-													<td><input class="form-control" maxlength="100"
-														id="lab_type" placeholder="ระบุชื่อแรงงาน" required></td>
-
-												</tr>
-
-												<tr>
-
-													<td align="pull-right" style="padding: 15px">จำนวนแรงงาน</td>
+													<td align="pull-right" style="padding: 15px">จำนวนแรงงาน
+														<font color="red" size="3">*</font>
+													</td>
 													<td><input class="form-control" maxlength="5"
-														id="lab_amount" data-mask="00000" placeholder="ระบุจำนวนแรงงาน" required></td>
+														id="lab_amount" data-mask="0000"
+														placeholder="ระบุจำนวนแรงงาน" required></td>
 													<td style="padding: 15px">คน</td>
 
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">การใช้แรงงาน</td>
+													<td align="pull-right" style="padding: 15px">การใช้แรงงาน
+														<font color="red" size="3">*</font>
+													</td>
 													<td><textarea class="form-control" maxlength="255"
-															id="lab_work" placeholder="ระบุรายละเอียดการใช้แรงงาน"
+															id="lab_work" placeholder="ต.ย. แรงงานใช้ในการเกษตร"
 															name="per-address" required></textarea></td>
 												</tr>
 												<tr>
@@ -372,8 +417,9 @@ function getCurrentYear(){
 													<td align="center" style="padding: 15px">
 														<button style="width: 100px" type="reset"
 															class="btn btn-warning">ล้างข้อมูล</button> <input
-														style="width: 100px" type="button" id="save"class="btn btn-success"
-														value="บันทึก" onclick="createLabor()" />
+														style="width: 100px" type="button" id="save"
+														class="btn btn-success" value="บันทึก"
+														onclick="createLabor()" />
 													</td>
 												</tr>
 											</table>
@@ -381,38 +427,46 @@ function getCurrentYear(){
 									</div>
 									<div class="tab-pane fade" id="editLabor">
 										<form role="form">
-										<%
-											Object edituserid = session.getAttribute("edituser");
-										%>
-											<input type="hidden" id="editUserId" value="<%=edituserid %>">
+											<%
+												Object edituserid = session.getAttribute("edituser");
+											%>
+											<input type="hidden" id="editUserId" value="<%=edituserid%>">
 											<input type="hidden" id="editLabId">
 											<table width="50%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
+													<td align="pull-right" style="padding: 15px">ปีข้อมูล
+														<font color="red" size="3">*</font>
+													</td>
 													<td><input class="form-control" maxlength="4"
-														id="editLabYear" data-mask="00000"placeholder="" value="2558"
-														name="vil-year"></td>
+														id="editLabYear" data-mask="0000" placeholder="ระบุปีข้อมูล" name="editLabYear"></td>
+												</tr>
+												<tr>
+												<td align="pull-right" style="padding: 15px">ประเภทแรงาน
+													<font color="red" size="3">*</font>
+												</td>
+												<td><select id="editLabType" class="form-control"
+													placeholder="" name="editLabType">
+														<option value="แรงงานภายใน">แรงงานภายใน</option>
+														<option value="แรงงานภายนอก">แรงงานภายนอก</option>
+												</select></td>
 												</tr>
 												<tr>
 
-													<td align="pull-right" style="padding: 15px">ชื่อ</td>
-													<td><input class="form-control" maxlength="100"
-														id="editLabType" placeholder="" required="true"></td>
-
-												</tr>
-
-												<tr>
-
-													<td align="pull-right" style="padding: 15px">จำนวนแรงงาน</td>
+													<td align="pull-right" style="padding: 15px">จำนวนแรงงาน
+														<font color="red" size="3">*</font>
+													</td>
 													<td><input class="form-control" maxlength="5"
-														id="editLabAmount" data-mask="0000000" placeholder="" required="true"></td>
+														id="editLabAmount" data-mask="0000" placeholder="ระบุจำนวนแรงงาน"
+														required="true"></td>
 													<td style="padding: 15px">คน</td>
 
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">การใช้แรงงาน</td>
+													<td align="pull-right" style="padding: 15px">การใช้แรงงาน
+														<font color="red" size="3">*</font>
+													</td>
 													<td><textarea class="form-control" maxlength="255"
-															id="editLabWork" placeholder="" name="per-address"
+															id="editLabWork" placeholder="ต.ย. แรงงานใช้ในการเกษตร" name="per-address"
 															required="true"></textarea></td>
 												</tr>
 												<tr>
@@ -464,7 +518,7 @@ function getCurrentYear(){
 		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
 		<!-- Sweetalert2 JavaScript -->
 		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
-		
+
 		<!-- Mask plug in -->
 		<script src="../NanglaeGov/js/jquery.mask.js"></script>
 		<script src="../NanglaeGov/js/jquery.mask.min.js"></script>

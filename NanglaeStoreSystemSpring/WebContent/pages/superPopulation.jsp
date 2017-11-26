@@ -46,11 +46,11 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-function getCurrentYear(){
-	var year = new Date();
-	document.getElementById("pop_year").value=(year.getFullYear()+543);
+	function getCurrentYear() {
+		var year = new Date();
+		document.getElementById("pop_year").value = (year.getFullYear() + 543);
 	}
-	
+
 	function numberWithCommas(x) {
 		var parts = x.toString().split(".");
 		parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -119,7 +119,7 @@ function getCurrentYear(){
 									+ ");\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i></button></td>"
 
 							html += "</tr>";
-							
+
 						}
 						html2 += "<tr>";
 						html2 += "<td>" + numberWithCommas(totalAllPopMale)
@@ -128,65 +128,84 @@ function getCurrentYear(){
 								+ "</td>";
 						html2 += "<td>" + numberWithCommas(totalAllPop)
 								+ "</td>";
-						html2 += "<td>"
-								+ numberWithCommas(totalAllPopHouse)
+						html2 += "<td>" + numberWithCommas(totalAllPopHouse)
 								+ "</td>";
 						html2 += "<tr>";
-								
+
 						$('#listPopulation11').html(html);
-						$('#resultTable').DataTable({
+						$('#resultTable')
+								.DataTable(
+										{
 
-							dom : 'Bfrtip',
-							buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2, 3, 4, 5, 6 ]},customize : function(doc) {
-								doc.defaultStyle['font'] = 'THSarabun';
-										}
-									},
-								],
-						    language: {
-					              sProcessing: 'กำลังดำเนินการ...',
-					              sLengthMenu: 'แสดง_MENU_ แถว',
-					              sZeroRecords: 'ไม่พบข้อมูล',
-					              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
-					              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
-					              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
-					              sInfoPostFix: '',
-					              sSearch: 'ค้นหา:',
-						              oPaginate: {
-						                            sFirst: 'เิริ่มต้น',
-						                            sPrevious: 'ก่อนหน้า',
-						                            sNext: 'ถัดไป',
-						                            sLast: 'สุดท้าย'
-						              }
-					     }
-						});
+											dom : 'Bfrtip',
+											buttons : [
+													'excel',
+													{
+														extend : 'pdf',
+														exportOptions : {
+															columns : [ 0, 1,
+																	2, 3, 4, 5,
+																	6 ]
+														},
+														customize : function(
+																doc) {
+															doc.defaultStyle['font'] = 'THSarabun';
+														}
+													}, ],
+											language : {
+												sProcessing : 'กำลังดำเนินการ...',
+												sLengthMenu : 'แสดง_MENU_ แถว',
+												sZeroRecords : 'ไม่พบข้อมูล',
+												sInfo : 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+												sInfoEmpty : 'แสดง 0 ถึง 0 จาก 0 แถว',
+												sInfoFiltered : '(กรองข้อมูล _MAX_ ทุกแถว)',
+												sInfoPostFix : '',
+												sSearch : 'ค้นหา:',
+												oPaginate : {
+													sFirst : 'เิริ่มต้น',
+													sPrevious : 'ก่อนหน้า',
+													sNext : 'ถัดไป',
+													sLast : 'สุดท้าย'
+												}
+											}
+										});
 						$('#resultlistPopulation11').html(html2);
-						$('#resultTable1').DataTable({
+						$('#resultTable1')
+								.DataTable(
+										{
 
-							dom : 'Bfrtip',
-							buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2, 3, 4, 5, 6 ]},customize : function(doc) {
-								doc.defaultStyle['font'] = 'THSarabun';
-										}
-									},
-								],
-						    language: {
-					              sProcessing: 'กำลังดำเนินการ...',
-					              sLengthMenu: 'แสดง_MENU_ แถว',
-					              sZeroRecords: 'ไม่พบข้อมูล',
-					              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
-					              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
-					              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
-					              sInfoPostFix: '',
-					              sSearch: 'ค้นหา:',
-						              oPaginate: {
-						                            sFirst: 'เิริ่มต้น',
-						                            sPrevious: 'ก่อนหน้า',
-						                            sNext: 'ถัดไป',
-						                            sLast: 'สุดท้าย'
-						              }
-					     }
-						});
+											dom : 'Bfrtip',
+											buttons : [
+													'excel',
+													{
+														extend : 'pdf',
+														exportOptions : {
+															columns : [ 0, 1,
+																	2, 3, 4, 5,
+																	6 ]
+														},
+														customize : function(
+																doc) {
+															doc.defaultStyle['font'] = 'THSarabun';
+														}
+													}, ],
+											language : {
+												sProcessing : 'กำลังดำเนินการ...',
+												sLengthMenu : 'แสดง_MENU_ แถว',
+												sZeroRecords : 'ไม่พบข้อมูล',
+												sInfo : 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+												sInfoEmpty : 'แสดง 0 ถึง 0 จาก 0 แถว',
+												sInfoFiltered : '(กรองข้อมูล _MAX_ ทุกแถว)',
+												sInfoPostFix : '',
+												sSearch : 'ค้นหา:',
+												oPaginate : {
+													sFirst : 'เิริ่มต้น',
+													sPrevious : 'ก่อนหน้า',
+													sNext : 'ถัดไป',
+													sLast : 'สุดท้าย'
+												}
+											}
+										});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -204,7 +223,7 @@ function getCurrentYear(){
 					success : function(data) {
 						var html3 = '';
 						var html4 = '';
-						
+
 						var totalThaiM = 0;
 						var totalThaiF = 0;
 						var totalThai = 0;
@@ -312,9 +331,12 @@ function getCurrentYear(){
 								+ "</td>";
 						html4 += "<td>" + numberWithCommas(totalOtherF)
 								+ "</td>";
-						html4 += "<td>" + numberWithCommas(totalOther) + "</td>";
-						html4 += "<td>" + numberWithCommas(totalThaiM) + "</td>";
-						html4 += "<td>" + numberWithCommas(totalThaiF) + "</td>";
+						html4 += "<td>" + numberWithCommas(totalOther)
+								+ "</td>";
+						html4 += "<td>" + numberWithCommas(totalThaiM)
+								+ "</td>";
+						html4 += "<td>" + numberWithCommas(totalThaiF)
+								+ "</td>";
 						html4 += "<td>" + numberWithCommas(totalThai) + "</td>";
 						html4 += "<td>" + numberWithCommas(totalChineseM)
 								+ "</td>";
@@ -329,59 +351,84 @@ function getCurrentYear(){
 						html4 += "<td>" + numberWithCommas(totalAllNation)
 								+ "</td>";
 						html4 += "</tr>";
-								
+
 						$('#listPopulation12').html(html3);
-						$('#resultTable2-1').DataTable({
+						$('#resultTable2-1')
+								.DataTable(
+										{
 
-							dom : 'Bfrtip',
-							buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 ]},customize : function(doc) {
-								doc.defaultStyle['font'] = 'THSarabun';
-										}
-									},
-								],language: {
-					              sProcessing: 'กำลังดำเนินการ...',
-					              sLengthMenu: 'แสดง_MENU_ แถว',
-					              sZeroRecords: 'ไม่พบข้อมูล',
-					              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
-					              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
-					              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
-					              sInfoPostFix: '',
-					              sSearch: 'ค้นหา:',
-						              oPaginate: {
-						                            sFirst: 'เิริ่มต้น',
-						                            sPrevious: 'ก่อนหน้า',
-						                            sNext: 'ถัดไป',
-						                            sLast: 'สุดท้าย'
-						              }
-							}
-						});
+											dom : 'Bfrtip',
+											buttons : [
+													'excel',
+													{
+														extend : 'pdf',
+														exportOptions : {
+															columns : [ 0, 1,
+																	2, 3, 4, 5,
+																	6, 7, 8, 9,
+																	10, 11, 12,
+																	13, 14 ]
+														},
+														customize : function(
+																doc) {
+															doc.defaultStyle['font'] = 'THSarabun';
+														}
+													}, ],
+											language : {
+												sProcessing : 'กำลังดำเนินการ...',
+												sLengthMenu : 'แสดง_MENU_ แถว',
+												sZeroRecords : 'ไม่พบข้อมูล',
+												sInfo : 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+												sInfoEmpty : 'แสดง 0 ถึง 0 จาก 0 แถว',
+												sInfoFiltered : '(กรองข้อมูล _MAX_ ทุกแถว)',
+												sInfoPostFix : '',
+												sSearch : 'ค้นหา:',
+												oPaginate : {
+													sFirst : 'เิริ่มต้น',
+													sPrevious : 'ก่อนหน้า',
+													sNext : 'ถัดไป',
+													sLast : 'สุดท้าย'
+												}
+											}
+										});
 						$('#resultlistPopulation12').html(html4);
-						$('#resultTable2-2').DataTable({
+						$('#resultTable2-2')
+								.DataTable(
+										{
 
-							dom : 'Bfrtip',
-							buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]},customize : function(doc) {
-								doc.defaultStyle['font'] = 'THSarabun';
-										}
-									},
-								],language: {
-					              sProcessing: 'กำลังดำเนินการ...',
-					              sLengthMenu: 'แสดง_MENU_ แถว',
-					              sZeroRecords: 'ไม่พบข้อมูล',
-					              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
-					              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
-					              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
-					              sInfoPostFix: '',
-					              sSearch: 'ค้นหา:',
-						              oPaginate: {
-						                            sFirst: 'เิริ่มต้น',
-						                            sPrevious: 'ก่อนหน้า',
-						                            sNext: 'ถัดไป',
-						                            sLast: 'สุดท้าย'
-						              }
-							}
-						});
+											dom : 'Bfrtip',
+											buttons : [
+													'excel',
+													{
+														extend : 'pdf',
+														exportOptions : {
+															columns : [ 0, 1,
+																	2, 3, 4, 5,
+																	6, 7, 8, 9,
+																	10, 11 ]
+														},
+														customize : function(
+																doc) {
+															doc.defaultStyle['font'] = 'THSarabun';
+														}
+													}, ],
+											language : {
+												sProcessing : 'กำลังดำเนินการ...',
+												sLengthMenu : 'แสดง_MENU_ แถว',
+												sZeroRecords : 'ไม่พบข้อมูล',
+												sInfo : 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+												sInfoEmpty : 'แสดง 0 ถึง 0 จาก 0 แถว',
+												sInfoFiltered : '(กรองข้อมูล _MAX_ ทุกแถว)',
+												sInfoPostFix : '',
+												sSearch : 'ค้นหา:',
+												oPaginate : {
+													sFirst : 'เิริ่มต้น',
+													sPrevious : 'ก่อนหน้า',
+													sNext : 'ถัดไป',
+													sLast : 'สุดท้าย'
+												}
+											}
+										});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -509,60 +556,85 @@ function getCurrentYear(){
 						html6 += "<td>" + numberWithCommas(totalMilJoin)
 								+ "</td>";
 						html6 += "</tr>";
-								
-								$('#listPopulation13').html(html5);
-								$('#resultTable3-1').DataTable({
 
-									dom : 'Bfrtip',
-									buttons : ['excel',{extend : 'pdf',exportOptions : {
-										columns : [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ]},customize : function(doc) {
-										doc.defaultStyle['font'] = 'THSarabun';
-												}
-											},
-										],language: {
-							              sProcessing: 'กำลังดำเนินการ...',
-							              sLengthMenu: 'แสดง_MENU_ แถว',
-							              sZeroRecords: 'ไม่พบข้อมูล',
-							              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
-							              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
-							              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
-							              sInfoPostFix: '',
-							              sSearch: 'ค้นหา:',
-								              oPaginate: {
-								                            sFirst: 'เิริ่มต้น',
-								                            sPrevious: 'ก่อนหน้า',
-								                            sNext: 'ถัดไป',
-								                            sLast: 'สุดท้าย'
-								              }
-									}
-								});
-								$('#resultlistPopulation13').html(html6);
-								$('#resultTable3-2').DataTable({
+						$('#listPopulation13').html(html5);
+						$('#resultTable3-1')
+								.DataTable(
+										{
 
-									dom : 'Bfrtip',
-									buttons : ['excel',{extend : 'pdf',exportOptions : {
-										columns : [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]},customize : function(doc) {
-										doc.defaultStyle['font'] = 'THSarabun';
+											dom : 'Bfrtip',
+											buttons : [
+													'excel',
+													{
+														extend : 'pdf',
+														exportOptions : {
+															columns : [ 0, 1,
+																	2, 3, 4, 5,
+																	6, 7, 8, 9,
+																	10, 11, 12,
+																	13 ]
+														},
+														customize : function(
+																doc) {
+															doc.defaultStyle['font'] = 'THSarabun';
+														}
+													}, ],
+											language : {
+												sProcessing : 'กำลังดำเนินการ...',
+												sLengthMenu : 'แสดง_MENU_ แถว',
+												sZeroRecords : 'ไม่พบข้อมูล',
+												sInfo : 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+												sInfoEmpty : 'แสดง 0 ถึง 0 จาก 0 แถว',
+												sInfoFiltered : '(กรองข้อมูล _MAX_ ทุกแถว)',
+												sInfoPostFix : '',
+												sSearch : 'ค้นหา:',
+												oPaginate : {
+													sFirst : 'เิริ่มต้น',
+													sPrevious : 'ก่อนหน้า',
+													sNext : 'ถัดไป',
+													sLast : 'สุดท้าย'
 												}
-											},
-										],language: {
-							              sProcessing: 'กำลังดำเนินการ...',
-							              sLengthMenu: 'แสดง_MENU_ แถว',
-							              sZeroRecords: 'ไม่พบข้อมูล',
-							              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
-							              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
-							              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
-							              sInfoPostFix: '',
-							              sSearch: 'ค้นหา:',
-								              oPaginate: {
-								                            sFirst: 'เิริ่มต้น',
-								                            sPrevious: 'ก่อนหน้า',
-								                            sNext: 'ถัดไป',
-								                            sLast: 'สุดท้าย'
-								              }
-									}
-								
-									});
+											}
+										});
+						$('#resultlistPopulation13').html(html6);
+						$('#resultTable3-2')
+								.DataTable(
+										{
+
+											dom : 'Bfrtip',
+											buttons : [
+													'excel',
+													{
+														extend : 'pdf',
+														exportOptions : {
+															columns : [ 0, 1,
+																	2, 3, 4, 5,
+																	6, 7, 8, 9,
+																	10 ]
+														},
+														customize : function(
+																doc) {
+															doc.defaultStyle['font'] = 'THSarabun';
+														}
+													}, ],
+											language : {
+												sProcessing : 'กำลังดำเนินการ...',
+												sLengthMenu : 'แสดง_MENU_ แถว',
+												sZeroRecords : 'ไม่พบข้อมูล',
+												sInfo : 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+												sInfoEmpty : 'แสดง 0 ถึง 0 จาก 0 แถว',
+												sInfoFiltered : '(กรองข้อมูล _MAX_ ทุกแถว)',
+												sInfoPostFix : '',
+												sSearch : 'ค้นหา:',
+												oPaginate : {
+													sFirst : 'เิริ่มต้น',
+													sPrevious : 'ก่อนหน้า',
+													sNext : 'ถัดไป',
+													sLast : 'สุดท้าย'
+												}
+											}
+
+										});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -646,7 +718,9 @@ function getCurrentYear(){
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/savePopulation1.do?id=" + $("#villageSelect").val() + "&user="+$('#userId').val(),
+				url : "../NanglaeGov/savePopulation1.do?id="
+						+ $("#villageSelect").val() + "&user="
+						+ $('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -697,64 +771,117 @@ function getCurrentYear(){
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = pop_id;
-		var obj = {
-			pop_id : id
+			var id = pop_id;
+			var obj = {
+				pop_id : id
 
-		};
-		$.ajax({
-			url : "../NanglaeGov/deletePopulation1.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
+			};
+			$.ajax({
+				url : "../NanglaeGov/deletePopulation1.do",
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					location.reload();
+				}
+			});
 		});
 	}
 	function editPopulation1() {
-		var obj = {
-			pop_id : $("#editPopId").val(),
-			pop_year : $('#editPopYear').val(),
-			pop_house_amount : $('#editPopHouseAmount').val(),
-			pop_thai_nation_m : $('#editPopThaiNationMale').val(),
-			pop_thai_nation_f : $('#editPopThaiNationFemale').val(),
-			pop_chinese_nation_m : $('#editPopChineseNationMale').val(),
-			pop_chinese_nation_f : $('#editPopChineseNationFemale').val(),
-			pop_other_nation_m : $('#editPopOtherNationMale').val(),
-			pop_other_nation_f : $('#editPopOtherNationFemale').val(),
-			pop_elect15_m : $('#editPopElect15Male').val(),
-			pop_elect15_f : $('#editPopElect15Female').val(),
-			pop_elect18_m : $('#editPopElect18Male').val(),
-			pop_elect18_f : $('#editPopElect18Female').val(),
-			pop_elect20_m : $('#editPopElect20Male').val(),
-			pop_elect20_f : $('#editPopElect20Female').val(),
-			pop_military_select_reg : $('#editPopMilitarySelectReg').val(),
-			pop_military_select_join : $('#editPopMilitarySelectJoin').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/savePopulation1.do?id=" + $("#editVillageSelect").val() + "&editUserId="+$('#editUserId').val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
+		if ($('#editPopYear').val() == "") {
+			document.getElementById('editPopYear').style.borderColor = "red";
+			return false;
+		} else if ($('#editPopHouseAmount').val() == "") {
+			document.getElementById('editPopHouseAmount').style.borderColor = "red";
+			return false;
+		} else if ($('#editPopThaiNationMale').val() == "") {
+			document.getElementById('editPopThaiNationMale').style.borderColor = "red";
+			return false;
+		} else if ($('#editPopThaiNationFemale').val() == "") {
+			document.getElementById('editPopThaiNationFemale').style.borderColor = "red";
+			return false;
+		} else if ($('#editPopChineseNationMale').val() == "") {
+			document.getElementById('editPopChineseNationMale').style.borderColor = "red";
+			return false;
+		} else if ($('#editPopChineseNationFemale').val() == "") {
+			document.getElementById('editPopChineseNationFemale').style.borderColor = "red";
+			return false;
+		} else if ($('#editPopOtherNationMale').val() == "") {
+			document.getElementById('editPopOtherNationMale').style.borderColor = "red";
+			return false;
+		} else if ($('#editPopOtherNationFemale').val() == "") {
+			document.getElementById('editPopOtherNationFemale').style.borderColor = "red";
+			return false;
+		} else if ($('#editPopElect15Male').val() == "") {
+			document.getElementById('editPopElect15Male').style.borderColor = "red";
+			return false;
+		} else if ($('#editPopElect15Female').val() == "") {
+			document.getElementById('editPopElect15Female').style.borderColor = "red";
+			return false;
+		} else if ($('#editPopElect18Male').val() == "") {
+			document.getElementById('editPopElect18Male').style.borderColor = "red";
+			return false;
+		} else if ($('#editPopElect18Female').val() == "") {
+			document.getElementById('editPopElect18Female').style.borderColor = "red";
+			return false;
+		} else if ($('#editPopElect20Male').val() == "") {
+			document.getElementById('editPopElect20Male').style.borderColor = "red";
+			return false;
+		} else if ($('#editPopElect20Female').val() == "") {
+			document.getElementById('editPopElect20Female').style.borderColor = "red";
+			return false;
+		} else if ($('#editPopMilitarySelectReg').val() == "") {
+			document.getElementById('editPopMilitarySelectReg').style.borderColor = "red";
+			return false;
+		} else if ($('#editPopMilitarySelectJoin').val() == "") {
+			document.getElementById('editPopMilitarySelectJoin').style.borderColor = "red";
+			return false;
+		} else {
+			var obj = {
+				pop_id : $("#editPopId").val(),
+				pop_year : $('#editPopYear').val(),
+				pop_house_amount : $('#editPopHouseAmount').val(),
+				pop_thai_nation_m : $('#editPopThaiNationMale').val(),
+				pop_thai_nation_f : $('#editPopThaiNationFemale').val(),
+				pop_chinese_nation_m : $('#editPopChineseNationMale').val(),
+				pop_chinese_nation_f : $('#editPopChineseNationFemale').val(),
+				pop_other_nation_m : $('#editPopOtherNationMale').val(),
+				pop_other_nation_f : $('#editPopOtherNationFemale').val(),
+				pop_elect15_m : $('#editPopElect15Male').val(),
+				pop_elect15_f : $('#editPopElect15Female').val(),
+				pop_elect18_m : $('#editPopElect18Male').val(),
+				pop_elect18_f : $('#editPopElect18Female').val(),
+				pop_elect20_m : $('#editPopElect20Male').val(),
+				pop_elect20_f : $('#editPopElect20Female').val(),
+				pop_military_select_reg : $('#editPopMilitarySelectReg').val(),
+				pop_military_select_join : $('#editPopMilitarySelectJoin')
+						.val()
+			};
+			//alert(JSON.stringify(obj));
+			$.ajax({
+				url : "../NanglaeGov/savePopulation1.do?id="
+						+ $("#editVillageSelect").val() + "&editUserId="
+						+ $('#editUserId').val(),
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
+				},
+				error : function(data, status, er) {
+					alert('error');
+				}
+			});
+		}
 	}
 	function setEditPopulation1(pop_id) {
 
@@ -823,14 +950,14 @@ function getCurrentYear(){
 			}
 		});
 	}
-	
-	$(document).ready(function() {
-	    $("input[name$='cars']").click(function() {
-	        var test = $(this).val();
 
-	        $("div.desc").hide();
-	        $("#Cars" + test).show();
-	    });
+	$(document).ready(function() {
+		$("input[name$='cars']").click(function() {
+			var test = $(this).val();
+
+			$("div.desc").hide();
+			$("#Cars" + test).show();
+		});
 	});
 </script>
 </head>
@@ -856,10 +983,10 @@ function getCurrentYear(){
 			<!-- /.navbar-header -->
 
 			<ul class="nav navbar-top-links navbar-right">
-			<%
-				Object Name = session.getAttribute("Name");
-				out.println("ยินดีต้อนรับ    " +Name);
-			%>
+				<%
+					Object Name = session.getAttribute("Name");
+					out.println("ยินดีต้อนรับ    " + Name);
+				%>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<i class="fa fa-caret-down"></i>
@@ -877,7 +1004,7 @@ function getCurrentYear(){
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="superMenu.jsp" %>
+			<%@include file="superMenu.jsp"%>
 		</nav>
 		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
@@ -900,202 +1027,210 @@ function getCurrentYear(){
 
 								<!-- Tab panes -->
 								<div class="tab-content">
-									
-									
+
+
 									<div class="tab-pane fade in active" id="listAllPop">
 										<div id="myRadioGroup">
-										    <input type="radio" name="cars" checked="checked" value="2"  /> สถิติประชากรทั้งหมด<br>
-											<input type="radio" name="cars" value="3" /> สถิติประชากรแบ่งตามสัญชาติ<br>
-											<input type="radio" name="cars" value="4" /> สถิติประชากรแบ่งตามเลือกตั้ง<br>
-											
-											    <div id="Cars2" class="desc">
-											        <div class="table-responsive">
-														<table id="resultTable"
-															class="table table-striped table-bordered table-hover">
-			<!-- Start change table1 -->
-															<thead>
-																  <tr>
-																	<th rowspan="2">ปีข้อมูล</th>
-																	<th rowspan="2">หมู่ที่</th>
-																	<th rowspan="2">ชื่อหมู่บ้าน</th>
-																	<th style="text-align: center;" colspan="3">ประชากร</th>
-																	<th rowspan="2">ครัวเรือน</th>
-																	<th style="text-align: center;" rowspan="2">ตัวเลือก</th>
-																</tr>
-																<tr>
-																	<th>ชาย</th>
-																	<th>หญิง</th>
-																	<th>รวม</th>
-																</tr> 
-															
-															</thead>
-															<tbody id="listPopulation11">
-															</tbody>
-			<!-- End change table1 -->
-														</table>
-													</div>
-													
-													<div class="table-responsive">
-														<table id="resultTable1"
-															class="table table-striped table-bordered table-hover">
-			<!-- Start change result table1 -->
-															<thead>
-																<tr>
-																	<th>ชาย</th>
-																	<th>หญิง</th>
-																	<th>รวม</th>
-																	<th>ครัวเรือน</th>
-																</tr>
-															</thead>
-															<tbody id="resultlistPopulation11">
-															</tbody>
-			<!-- End change result table1 -->
-														</table>
-													</div>
-											    </div>
-											    
-											    <div id="Cars3" class="desc" style="display: none;">
-											        <div class="table-responsive">
-														<table id="resultTable2-1"
-															class="table table-striped table-bordered table-hover">
-			<!-- Start change table2 -->
-															<thead>
-																  <tr>
-																	<th rowspan="2">ปีข้อมูล</th>
-																	<th rowspan="2">หมู่ที่</th>
-																	<th rowspan="2">ชื่อหมู่บ้าน</th>
-																	<th style="text-align: center;" colspan="3">สัญชาติที่ไม่ใช่สัญชาติไทย</th>
-																	<th style="text-align: center;" colspan="3">สัญชาติไทย</th>
-																	<th style="text-align: center;" colspan="3">สัญชาติจีน</th>
-																	<th style="text-align: center;" colspan="3">ทุกสัญชาติ</th>
-																	<th style="text-align: center;" rowspan="2">ตัวเลือก</th>
-																</tr>
-																<tr>
-																	<th>ชาย</th>
-																	<th>หญิง</th>
-																	<th>รวม</th>
-																	<th>ชาย</th>
-																	<th>หญิง</th>
-																	<th>รวม</th>
-																	<th>ชาย</th>
-																	<th>หญิง</th>
-																	<th>รวม</th>
-																	<th>ชาย</th>
-																	<th>หญิง</th>
-																	<th>รวม</th>
-																</tr> 
-															
-															</thead>
-															<tbody id="listPopulation12">
-															</tbody>
-			<!-- End change table2 -->
-														</table>
-													</div>
-													<div class="table-responsive">
-														<table id="resultTable2-2"
-															class="table table-striped table-bordered table-hover">
-			<!-- Start change result table2 -->
-															<thead>
-																<tr>
-																	<th style="text-align: center;" colspan="3">สัญชาติที่ไม่ใช่สัญชาติไทย</th>
-																	<th style="text-align: center;" colspan="3">สัญชาติไทย</th>
-																	<th style="text-align: center;" colspan="3">สัญชาติจีน</th>
-																	<th style="text-align: center;" colspan="3">ทุกสัญชาติ</th>
-																</tr>
-																<tr>
-																	<th>ชาย</th>
-																	<th>หญิง</th>
-																	<th>รวม</th>
-																	<th>ชาย</th>
-																	<th>หญิง</th>
-																	<th>รวม</th>
-																	<th>ชาย</th>
-																	<th>หญิง</th>
-																	<th>รวม</th>
-																	<th>ชาย</th>
-																	<th>หญิง</th>
-																	<th>รวม</th>
-																</tr>
-															</thead>
-															<tbody id="resultlistPopulation12">
-															</tbody>
-			<!-- End change result table2 -->
-														</table>
-													</div>
-											    </div>
-											    
-											    <div id="Cars4" class="desc" style="display: none;">
-											        <div class="table-responsive">
-														<table id="resultTable3-1"
-															class="table table-striped table-bordered table-hover">
-			<!-- Start change table3 -->
-															<thead>
-																  <tr>
-																	<th rowspan="2">ปีข้อมูล</th>
-																	<th rowspan="2">หมู่ที่</th>
-																	<th rowspan="2">ชื่อหมู่บ้าน</th>
-																	<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ 15 ปี</th>
-																	<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ 18 ปี</th>
-																	<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ 20 ปี</th>
-																	<th style="text-align: center;" rowspan="2">บุคคลที่ต้องขึ้นทะเบียนทหาร</th>
-																	<th style="text-align: center;" rowspan="2">บุคคลที่ต้องเข้ารับเกณฑ์ทหาร</th>
-																	<th style="text-align: center;" rowspan="2">ตัวเลือก</th>
-																</tr>
-																<tr>
-																	<th>ชาย</th>
-																	<th>หญิง</th>
-																	<th>รวม</th>
-																	<th>ชาย</th>
-																	<th>หญิง</th>
-																	<th>รวม</th>
-																	<th>ชาย</th>
-																	<th>หญิง</th>
-																	<th>รวม</th>
-																</tr> 
-															
-															</thead>
-															<tbody id="listPopulation13">
-															</tbody>
-			<!-- End change table3 -->
-														</table>
-													</div>
-													<div class="table-responsive">
-														<table id="resultTable3-2"
-															class="table table-striped table-bordered table-hover">
-			<!-- Start change result table3 -->
-															<thead>
-																<tr>
-																	<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ 15 ปี</th>
-																	<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ 18 ปี</th>
-																	<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ 20 ปี</th>
-																	<th style="text-align: center;" rowspan="2">บุคคลที่ต้องขึ้นทะเบียนทหาร</th>
-																	<th style="text-align: center;" rowspan="2">บุคคลที่ต้องเข้ารับเกณฑ์ทหาร</th>
-																</tr>
-																<tr>
-																	<th>ชาย</th>
-																	<th>หญิง</th>
-																	<th>รวม</th>
-																	<th>ชาย</th>
-																	<th>หญิง</th>
-																	<th>รวม</th>
-																	<th>ชาย</th>
-																	<th>หญิง</th>
-																	<th>รวม</th>
-																</tr>
-															</thead>
-															<tbody id="resultlistPopulation13">
-															</tbody>
-			<!-- End change result table3 -->
-														</table>
-													</div>
-											    </div>
+											<input type="radio" name="cars" checked="checked" value="2" />
+											สถิติประชากรทั้งหมด<br> <input type="radio" name="cars"
+												value="3" /> สถิติประชากรแบ่งตามสัญชาติ<br> <input
+												type="radio" name="cars" value="4" />
+											สถิติประชากรแบ่งตามเลือกตั้ง<br>
+
+											<div id="Cars2" class="desc">
+												<div class="table-responsive">
+													<table id="resultTable"
+														class="table table-striped table-bordered table-hover">
+														<!-- Start change table1 -->
+														<thead>
+															<tr>
+																<th rowspan="2">ปีข้อมูล</th>
+																<th rowspan="2">หมู่ที่</th>
+																<th rowspan="2">ชื่อหมู่บ้าน</th>
+																<th style="text-align: center;" colspan="3">ประชากร</th>
+																<th rowspan="2">ครัวเรือน</th>
+																<th style="text-align: center;" rowspan="2">ตัวเลือก</th>
+															</tr>
+															<tr>
+																<th>ชาย</th>
+																<th>หญิง</th>
+																<th>รวม</th>
+															</tr>
+
+														</thead>
+														<tbody id="listPopulation11">
+														</tbody>
+														<!-- End change table1 -->
+													</table>
+												</div>
+
+												<div class="table-responsive">
+													<table id="resultTable1"
+														class="table table-striped table-bordered table-hover">
+														<!-- Start change result table1 -->
+														<thead>
+															<tr>
+																<th>ชาย</th>
+																<th>หญิง</th>
+																<th>รวม</th>
+																<th>ครัวเรือน</th>
+															</tr>
+														</thead>
+														<tbody id="resultlistPopulation11">
+														</tbody>
+														<!-- End change result table1 -->
+													</table>
+												</div>
+											</div>
+
+											<div id="Cars3" class="desc" style="display: none;">
+												<div class="table-responsive">
+													<table id="resultTable2-1"
+														class="table table-striped table-bordered table-hover">
+														<!-- Start change table2 -->
+														<thead>
+															<tr>
+																<th rowspan="2">ปีข้อมูล</th>
+																<th rowspan="2">หมู่ที่</th>
+																<th rowspan="2">ชื่อหมู่บ้าน</th>
+																<th style="text-align: center;" colspan="3">สัญชาติที่ไม่ใช่สัญชาติไทย</th>
+																<th style="text-align: center;" colspan="3">สัญชาติไทย</th>
+																<th style="text-align: center;" colspan="3">สัญชาติจีน</th>
+																<th style="text-align: center;" colspan="3">ทุกสัญชาติ</th>
+																<th style="text-align: center;" rowspan="2">ตัวเลือก</th>
+															</tr>
+															<tr>
+																<th>ชาย</th>
+																<th>หญิง</th>
+																<th>รวม</th>
+																<th>ชาย</th>
+																<th>หญิง</th>
+																<th>รวม</th>
+																<th>ชาย</th>
+																<th>หญิง</th>
+																<th>รวม</th>
+																<th>ชาย</th>
+																<th>หญิง</th>
+																<th>รวม</th>
+															</tr>
+
+														</thead>
+														<tbody id="listPopulation12">
+														</tbody>
+														<!-- End change table2 -->
+													</table>
+												</div>
+												<div class="table-responsive">
+													<table id="resultTable2-2"
+														class="table table-striped table-bordered table-hover">
+														<!-- Start change result table2 -->
+														<thead>
+															<tr>
+																<th style="text-align: center;" colspan="3">สัญชาติที่ไม่ใช่สัญชาติไทย</th>
+																<th style="text-align: center;" colspan="3">สัญชาติไทย</th>
+																<th style="text-align: center;" colspan="3">สัญชาติจีน</th>
+																<th style="text-align: center;" colspan="3">ทุกสัญชาติ</th>
+															</tr>
+															<tr>
+																<th>ชาย</th>
+																<th>หญิง</th>
+																<th>รวม</th>
+																<th>ชาย</th>
+																<th>หญิง</th>
+																<th>รวม</th>
+																<th>ชาย</th>
+																<th>หญิง</th>
+																<th>รวม</th>
+																<th>ชาย</th>
+																<th>หญิง</th>
+																<th>รวม</th>
+															</tr>
+														</thead>
+														<tbody id="resultlistPopulation12">
+														</tbody>
+														<!-- End change result table2 -->
+													</table>
+												</div>
+											</div>
+
+											<div id="Cars4" class="desc" style="display: none;">
+												<div class="table-responsive">
+													<table id="resultTable3-1"
+														class="table table-striped table-bordered table-hover">
+														<!-- Start change table3 -->
+														<thead>
+															<tr>
+																<th rowspan="2">ปีข้อมูล</th>
+																<th rowspan="2">หมู่ที่</th>
+																<th rowspan="2">ชื่อหมู่บ้าน</th>
+																<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ
+																	15 ปี</th>
+																<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ
+																	18 ปี</th>
+																<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ
+																	20 ปี</th>
+																<th style="text-align: center;" rowspan="2">บุคคลที่ต้องขึ้นทะเบียนทหาร</th>
+																<th style="text-align: center;" rowspan="2">บุคคลที่ต้องเข้ารับเกณฑ์ทหาร</th>
+																<th style="text-align: center;" rowspan="2">ตัวเลือก</th>
+															</tr>
+															<tr>
+																<th>ชาย</th>
+																<th>หญิง</th>
+																<th>รวม</th>
+																<th>ชาย</th>
+																<th>หญิง</th>
+																<th>รวม</th>
+																<th>ชาย</th>
+																<th>หญิง</th>
+																<th>รวม</th>
+															</tr>
+
+														</thead>
+														<tbody id="listPopulation13">
+														</tbody>
+														<!-- End change table3 -->
+													</table>
+												</div>
+												<div class="table-responsive">
+													<table id="resultTable3-2"
+														class="table table-striped table-bordered table-hover">
+														<!-- Start change result table3 -->
+														<thead>
+															<tr>
+																<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ
+																	15 ปี</th>
+																<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ
+																	18 ปี</th>
+																<th style="text-align: center;" colspan="3">บุคคลมีสิทธิ์เลือกตั้งอายุ
+																	20 ปี</th>
+																<th style="text-align: center;" rowspan="2">บุคคลที่ต้องขึ้นทะเบียนทหาร</th>
+																<th style="text-align: center;" rowspan="2">บุคคลที่ต้องเข้ารับเกณฑ์ทหาร</th>
+															</tr>
+															<tr>
+																<th>ชาย</th>
+																<th>หญิง</th>
+																<th>รวม</th>
+																<th>ชาย</th>
+																<th>หญิง</th>
+																<th>รวม</th>
+																<th>ชาย</th>
+																<th>หญิง</th>
+																<th>รวม</th>
+															</tr>
+														</thead>
+														<tbody id="resultlistPopulation13">
+														</tbody>
+														<!-- End change result table3 -->
+													</table>
+												</div>
+											</div>
 										</div>
-										
-										
+
+
 									</div>
-									
-										
-										
+
+
+
 									<div class="tab-pane fade" id="listAgePop">
 										<div class="table-responsive">
 											<table class="table table-striped table-bordered table-hover">
@@ -1211,20 +1346,22 @@ function getCurrentYear(){
 									</div>
 									<div class="tab-pane fade" id="addPop">
 										<form role="form">
-										<%
-											Object userid = session.getAttribute("user");
-										%>
-										<input type="hidden" id="userId" value="<%=userid %>">
+											<%
+												Object userid = session.getAttribute("user");
+											%>
+											<input type="hidden" id="userId" value="<%=userid%>">
 											<table width="75%" align="center">
 												<tr>
-													<td style="padding: 15px">ปีข้อมูล</td>
+													<td style="padding: 15px">ปีข้อมูล <font color="red"
+														size="3">*</font></td>
 													<td align="center"><input maxlength="4" id="pop_year"
-														class="form-control" placeholder="" value="2558"
+														class="form-control" placeholder="ต.ย. 2560" value="2558"
 														name="pop-year" style="width: 70%" required></td>
 													<td></td>
 												</tr>
 												<tr>
-													<td style="padding: 15px">หมู่บ้าน</td>
+													<td style="padding: 15px">หมู่บ้าน <font color="red"
+														size="3">*</font></td>
 													<td align="center"><select class="form-control"
 														id="villageSelect" placeholder="" name="vil-name"
 														style="width: 70%" required>
@@ -1232,11 +1369,12 @@ function getCurrentYear(){
 													</select></td>
 												</tr>
 												<tr>
-													<td style="padding: 15px">จำนวนครัวเรือน</td>
+													<td style="padding: 15px">จำนวนครัวเรือน <font
+														color="red" size="3">*</font></td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_house_amount"
-														data-mask="0000000" placeholder="ระบุจำนวนครัวเรือน" name="pop-year"
-														style="width: 70%"></td>
+														data-mask="000" placeholder="ระบุจำนวนคน"
+														name="pop-year" style="width: 70%"></td>
 													<td style="">ครัวเรือน</td>
 													<td></td>
 												</tr>
@@ -1247,42 +1385,45 @@ function getCurrentYear(){
 													<td align="center"><b>หญิง</b></td>
 												</tr>
 												<tr>
-													<td style="padding: 10px">สัญชาติไทย</td>
+													<td style="padding: 10px">สัญชาติไทย <font color="red"
+														size="3">*</font></td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_thai_nation_m"
-														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-thai-m"
-														style="width: 70%" required></td>
+														data-mask="0000" placeholder="ระบุจำนวนคน"
+														name="pop-thai-m" style="width: 70%" required></td>
 													<td>คน</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_thai_nation_f"
-														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-thai-f"
-														style="width: 70%" required></td>
+														data-mask="0000" placeholder="ระบุจำนวนคน"
+														name="pop-thai-f" style="width: 70%" required></td>
 													<td>คน</td>
 												</tr>
 												<tr>
-													<td style="padding: 10px">สัญชาติจีน</td>
+													<td style="padding: 10px">สัญชาติจีน <font color="red"
+														size="3">*</font></td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_chinese_nation_m"
-														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-chn-m"
-														style="width: 70%" required></td>
+														data-mask="0000" placeholder="ระบุจำนวนคน"
+														name="pop-chn-m" style="width: 70%" required></td>
 													<td>คน</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_chinese_nation_f"
-														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-chn-f"
-														style="width: 70%" required></td>
+														data-mask="0000" placeholder="ระบุจำนวนคน"
+														name="pop-chn-f" style="width: 70%" required></td>
 													<td>คน</td>
 												</tr>
 												<tr>
-													<td style="padding: 10px">สัญชาติอื่นๆ</td>
+													<td style="padding: 10px">สัญชาติอื่นๆ <font
+														color="red" size="3">*</font></td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_other_nation_m"
-														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-oth-m"
-														style="width: 70%" required></td>
+														data-mask="0000" placeholder="ระบุจำนวนคน"
+														name="pop-oth-m" style="width: 70%" required></td>
 													<td>คน</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_other_nation_f"
-														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-oth-f"
-														style="width: 70%" required></td>
+														data-mask="0000" placeholder="ระบุจำนวนคน"
+														name="pop-oth-f" style="width: 70%" required></td>
 													<td>คน</td>
 												</tr>
 												<tr>
@@ -1292,42 +1433,45 @@ function getCurrentYear(){
 													<td align="center"><b>หญิง</b></td>
 												</tr>
 												<tr>
-													<td style="padding: 10px">อายุ 15 ปี</td>
+													<td style="padding: 10px">อายุ 15 ปี <font color="red"
+														size="3">*</font></td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_elect15_m"
-														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-elec-15-m"
-														style="width: 70%" required></td>
+														data-mask="0000" placeholder="ระบุจำนวนคน"
+														name="pop-elec-15-m" style="width: 70%" required></td>
 													<td>คน</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_elect15_f"
-														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-elec-15-f"
-														style="width: 70%" required></td>
+														data-mask="0000" placeholder="ระบุจำนวนคน"
+														name="pop-elec-15-f" style="width: 70%" required></td>
 													<td>คน</td>
 												</tr>
 												<tr>
-													<td style="padding: 10px">อายุ 18 ปี</td>
+													<td style="padding: 10px">อายุ 18 ปี <font color="red"
+														size="3">*</font></td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_elect18_m"
-														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-elec-18-m"
-														style="width: 70%" required></td>
+														data-mask="0000" placeholder="ระบุจำนวนคน"
+														name="pop-elec-18-m" style="width: 70%" required></td>
 													<td>คน</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_elect18_f"
-														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-elec-18-f"
-														style="width: 70%" required></td>
+														data-mask="0000" placeholder="ระบุจำนวนคน"
+														name="pop-elec-18-f" style="width: 70%" required></td>
 													<td>คน</td>
 												</tr>
 												<tr>
-													<td style="padding: 10px">อายุ 20 ปี</td>
+													<td style="padding: 10px">อายุ 20 ปี <font color="red"
+														size="3">*</font></td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_elect20_m"
-														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-elec-20-m"
-														style="width: 70%" required></td>
+														data-mask="0000" placeholder="ระบุจำนวนคน"
+														name="pop-elec-20-m" style="width: 70%" required></td>
 													<td>คน</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_elect20_f"
-														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-elec-20-f"
-														style="width: 70%" required></td>
+														data-mask="0000" placeholder="ระบุจำนวนคน"
+														name="pop-elec-20-f" style="width: 70%" required></td>
 													<td>คน</td>
 												</tr>
 												<tr>
@@ -1336,19 +1480,21 @@ function getCurrentYear(){
 													<td></td>
 												</tr>
 												<tr>
-													<td style="padding: 10px">บุคคลต้องขึ้นทะเบียนทหาร</td>
+													<td style="padding: 10px">บุคคลต้องขึ้นทะเบียนทหาร <font
+														color="red" size="3">*</font></td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_military_select_reg"
-														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-mil-join-m"
-														style="width: 70%" required></td>
+														data-mask="0000" placeholder="ระบุจำนวนคน"
+														name="pop-mil-join-m" style="width: 70%" required></td>
 													<td>คน</td>
 												</tr>
 												<tr>
-													<td style="padding: 10px">บุคคลต้องเข้ารับเกณฑ์ทหาร</td>
+													<td style="padding: 10px">บุคคลต้องเข้ารับเกณฑ์ทหาร <font
+														color="red" size="3">*</font></td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="pop_military_select_join"
-														data-mask="0000000" placeholder="ระบุจำนวนคน" name="pop-mil-reg-m"
-														style="width: 70%" required></td>
+														data-mask="0000" placeholder="ระบุจำนวนคน"
+														name="pop-mil-reg-m" style="width: 70%" required></td>
 													<td>คน</td>
 												</tr>
 												<tr>
@@ -1365,21 +1511,23 @@ function getCurrentYear(){
 									</div>
 									<div class="tab-pane fade" id="editPop">
 										<form role="form">
-										<%
-											Object edituserid = session.getAttribute("edituser");
-										%>
-										<input type="hidden" id="editUserId" value="<%=edituserid %>">
+											<%
+												Object edituserid = session.getAttribute("edituser");
+											%>
+											<input type="hidden" id="editUserId" value="<%=edituserid%>">
 											<input type="hidden" id="editPopId">
 											<table width="75%" align="center">
 												<tr>
-													<td style="padding: 15px">ปีข้อมูล</td>
+													<td style="padding: 15px">ปีข้อมูล <font color="red"
+														size="3">*</font></td>
 													<td align="center"><input maxlength="4"
-														id="editPopYear" class="form-control" placeholder=""
+														id="editPopYear" class="form-control" placeholder="ต.ย. 2560"
 														value="2558" name="pop-year" style="width: 70%" required></td>
 													<td></td>
 												</tr>
 												<tr>
-													<td style="padding: 15px">หมู่บ้าน</td>
+													<td style="padding: 15px">หมู่บ้าน <font color="red"
+														size="3">*</font></td>
 													<td align="center"><select maxlength="4"
 														class="form-control" id="editVillageSelect" placeholder=""
 														name="vil-name" style="width: 70%" required>
@@ -1387,10 +1535,11 @@ function getCurrentYear(){
 													</select></td>
 												</tr>
 												<tr>
-													<td style="padding: 15px">จำนวนครัวเรือน</td>
+													<td style="padding: 15px">จำนวนครัวเรือน <font
+														color="red" size="3">*</font></td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="editPopHouseAmount"
-														placeholder="" name="pop-year" style="width: 70%" required></td>
+														placeholder="ระบุจำนวนคน" data-mask="000" name="pop-year" style="width: 70%" required></td>
 													<td style="">ครัวเรือน</td>
 													<td></td>
 												</tr>
@@ -1401,41 +1550,44 @@ function getCurrentYear(){
 													<td align="center"><b>หญิง</b></td>
 												</tr>
 												<tr>
-													<td style="padding: 10px">สัญชาติไทย</td>
+													<td style="padding: 10px">สัญชาติไทย <font color="red"
+														size="3">*</font></td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="editPopThaiNationMale"
-														placeholder="" name="pop-thai-m" style="width: 70%"
+														placeholder="ระบุจำนวนคน" data-mask="0000" name="pop-thai-m" style="width: 70%"
 														required></td>
 													<td>คน</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="editPopThaiNationFemale"
-														placeholder="" name="pop-thai-f" style="width: 70%"
+														placeholder="ระบุจำนวนคน" data-mask="0000" name="pop-thai-f" style="width: 70%"
 														required></td>
 													<td>คน</td>
 												</tr>
 												<tr>
-													<td style="padding: 10px">สัญชาติจีน</td>
+													<td style="padding: 10px">สัญชาติจีน <font color="red"
+														size="3">*</font></td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="editPopChineseNationMale"
-														placeholder="" name="pop-chn-m" style="width: 70%"
+														placeholder="ระบุจำนวนคน" data-mask="0000" name="pop-chn-m" style="width: 70%"
 														required></td>
 													<td>คน</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="editPopChineseNationFemale"
-														placeholder="" name="pop-chn-f" style="width: 70%"
+														placeholder="ระบุจำนวนคน" data-mask="0000" name="pop-chn-f" style="width: 70%"
 														required></td>
 													<td>คน</td>
 												</tr>
 												<tr>
-													<td style="padding: 10px">สัญชาติอื่นๆ</td>
+													<td style="padding: 10px">สัญชาติอื่นๆ <font
+														color="red" size="3">*</font></td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="editPopOtherNationMale"
-														placeholder="" name="pop-oth-m" style="width: 70%"
+														placeholder="ระบุจำนวนคน" data-mask="0000" name="pop-oth-m" style="width: 70%"
 														required></td>
 													<td>คน</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="editPopOtherNationFemale"
-														placeholder="" name="pop-oth-f" style="width: 70%"
+														placeholder="ระบุจำนวนคน" data-mask="0000" name="pop-oth-f" style="width: 70%"
 														required></td>
 													<td>คน</td>
 												</tr>
@@ -1445,41 +1597,44 @@ function getCurrentYear(){
 													<td></td>
 												</tr>
 												<tr>
-													<td style="padding: 10px">อายุ 15 ปี</td>
+													<td style="padding: 10px">อายุ 15 ปี <font color="red"
+														size="3">*</font></td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="editPopElect15Male"
-														placeholder="" name="pop-elec-15-m" style="width: 70%"
+														placeholder="ระบุจำนวนคน" data-mask="0000" name="pop-elec-15-m" style="width: 70%"
 														required></td>
 													<td>คน</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="editPopElect15Female"
-														placeholder="" name="pop-elec-15-f" style="width: 70%"
+														placeholder="ระบุจำนวนคน" data-mask="0000" name="pop-elec-15-f" style="width: 70%"
 														required></td>
 													<td>คน</td>
 												</tr>
 												<tr>
-													<td style="padding: 10px">อายุ 18 ปี</td>
+													<td style="padding: 10px">อายุ 18 ปี <font color="red"
+														size="3">*</font></td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="editPopElect18Male"
-														placeholder="" name="pop-elec-18-m" style="width: 70%"
+														placeholder="ระบุจำนวนคน" data-mask="0000" name="pop-elec-18-m" style="width: 70%"
 														required></td>
 													<td>คน</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="editPopElect18Female"
-														placeholder="" name="pop-elec-18-f" style="width: 70%"
+														placeholder="ระบุจำนวนคน" data-mask="0000" name="pop-elec-18-f" style="width: 70%"
 														required></td>
 													<td>คน</td>
 												</tr>
 												<tr>
-													<td style="padding: 10px">อายุ 20 ปี</td>
+													<td style="padding: 10px">อายุ 20 ปี <font color="red"
+														size="3">*</font></td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="editPopElect20Male"
-														placeholder="" name="pop-elec-20-m" style="width: 70%"
+														placeholder="ระบุจำนวนคน" data-mask="0000" name="pop-elec-20-m" style="width: 70%"
 														required></td>
 													<td>คน</td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="editPopElect20Female"
-														placeholder="" name="pop-elec-20-f" style="width: 70%"
+														placeholder="ระบุจำนวนคน" data-mask="0000" name="pop-elec-20-f" style="width: 70%"
 														required></td>
 													<td>คน</td>
 												</tr>
@@ -1489,18 +1644,20 @@ function getCurrentYear(){
 													<td></td>
 												</tr>
 												<tr>
-													<td style="padding: 10px">บุคคลต้องขึ้นทะเบียนทหาร</td>
+													<td style="padding: 10px">บุคคลต้องขึ้นทะเบียนทหาร <font
+														color="red" size="3">*</font></td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="editPopMilitarySelectReg"
-														placeholder="" name="pop-mil-join-m" style="width: 70%"
+														placeholder="ระบุจำนวนคน" data-mask="0000" name="pop-mil-join-m" style="width: 70%"
 														required></td>
 													<td>คน</td>
 												</tr>
 												<tr>
-													<td style="padding: 10px">บุคคลต้องเข้ารับเกณฑ์ทหาร</td>
+													<td style="padding: 10px">บุคคลต้องเข้ารับเกณฑ์ทหาร <font
+														color="red" size="3">*</font></td>
 													<td align="center"><input maxlength="4"
 														class="form-control" id="editPopMilitarySelectJoin"
-														placeholder="" name="pop-mil-reg-m" style="width: 70%"
+														placeholder="ระบุจำนวนคน" data-mask="0000" name="pop-mil-reg-m" style="width: 70%"
 														required></td>
 													<td>คน</td>
 												</tr>

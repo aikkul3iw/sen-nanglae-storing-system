@@ -403,13 +403,13 @@
 											<table width="50%" align="center">
 												<tr>
 
-													<td align="pull-right" style="padding: 15px">ชื่อสถานศึกษา</td>
+													<td align="pull-right" style="padding: 15px">ชื่อสถานศึกษา <font color="red" size="3">*</font></td>
 													<td><input type="text" id="edu_name" maxlength="100"
 														class="form-control" placeholder="ต.ย. โรงเรียนบ้านนางแล"
 														name="edu-name" required="true"></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ประเภทสถานศึกษา</td>
+													<td align="pull-right" style="padding: 15px">ประเภทสถานศึกษา <font color="red" size="3">*</font></td>
 													<td><select id="edu_type" class="form-control"
 														name="water-location">
 															<option value="">เลือกประเภท</option>
@@ -419,7 +419,7 @@
 													</select></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
+													<td align="pull-right" style="padding: 15px">ที่ตั้ง <font color="red" size="3">*</font></td>
 													<td><select id="villageSelect" class="form-control"
 														name="edu-location">
 													</select></td>
@@ -445,13 +445,13 @@
 											<input type="hidden" id="editEduId">
 											<table width="50%" align="center">
 												<tr>
-													<td style="padding: 10px">ชื่อสถานศึกษา</td>
+													<td style="padding: 10px">ชื่อสถานศึกษา <font color="red" size="3">*</font></td>
 													<td><input type="text" id="editEduName"
 														maxlength="100" class="form-control"
 														placeholder="ต.ย. โรงเรียนบ้านนางแล" name="edu-name"></td>
 												</tr>
 												<tr>
-													<td style="padding: 10px">ประเภทสถานศึกษา</td>
+													<td style="padding: 10px">ประเภทสถานศึกษา <font color="red" size="3">*</font></td>
 													<td><select id="editEduType" class="form-control"
 														name="water-location">
 															<option value="ศูนย์เด็กเล็ก">ศูนย์เด็กเล็ก</option>
@@ -460,7 +460,7 @@
 													</select></td>
 												</tr>
 												<tr>
-													<td style="padding: 10px">ที่ตั้ง</td>
+													<td style="padding: 10px">ที่ตั้ง <font color="red" size="3">*</font></td>
 													<td><select id="editVillageSelect"
 														class="form-control" name="edu-location">
 													</select></td>

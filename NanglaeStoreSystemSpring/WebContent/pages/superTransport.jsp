@@ -57,10 +57,10 @@
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].tran_name
+									+ data[i].type
 									+ "</td>"
 									+ "<td>"
-									+ data[i].type
+									+ data[i].tran_name
 									+ "</td>"
 									+ "<td>"
 									+ data[i].description
@@ -74,34 +74,52 @@
 							html += "</tr>";
 						}
 						$('#listTransports').html(html);
-						$(document).ready(function() {
-							var table = $('#resultTable').DataTable({
-								lengthChange : false,
-								buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2, 3 ]},customize : function(doc) {
-								doc.defaultStyle['font'] = 'THSarabun';
-										}
-									},
-								],
-							    language: {
-						              sProcessing: 'กำลังดำเนินการ...',
-						              sLengthMenu: 'แสดง_MENU_ แถว',
-						              sZeroRecords: 'ไม่พบข้อมูล',
-						              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
-						              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
-						              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
-						              sInfoPostFix: '',
-						              sSearch: 'ค้นหา:',
-							              oPaginate: {
-							                            sFirst: 'เิริ่มต้น',
-							                            sPrevious: 'ก่อนหน้า',
-							                            sNext: 'ถัดไป',
-							                            sLast: 'สุดท้าย'
-							              }
-						     }
-						});
-						table.buttons().container().appendTo('#page-wrapper .col-sm-6:eq(0)');
-					});
+						$(document)
+								.ready(
+										function() {
+											var table = $('#resultTable')
+													.DataTable(
+															{
+																lengthChange : false,
+																buttons : [
+																		'excel',
+																		{
+																			extend : 'pdf',
+																			exportOptions : {
+																				columns : [
+																						0,
+																						1,
+																						2,
+																						3 ]
+																			},
+																			customize : function(
+																					doc) {
+																				doc.defaultStyle['font'] = 'THSarabun';
+																			}
+																		}, ],
+																language : {
+																	sProcessing : 'กำลังดำเนินการ...',
+																	sLengthMenu : 'แสดง_MENU_ แถว',
+																	sZeroRecords : 'ไม่พบข้อมูล',
+																	sInfo : 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+																	sInfoEmpty : 'แสดง 0 ถึง 0 จาก 0 แถว',
+																	sInfoFiltered : '(กรองข้อมูล _MAX_ ทุกแถว)',
+																	sInfoPostFix : '',
+																	sSearch : 'ค้นหา:',
+																	oPaginate : {
+																		sFirst : 'เิริ่มต้น',
+																		sPrevious : 'ก่อนหน้า',
+																		sNext : 'ถัดไป',
+																		sLast : 'สุดท้าย'
+																	}
+																}
+															});
+											table
+													.buttons()
+													.container()
+													.appendTo(
+															'#page-wrapper .col-sm-6:eq(0)');
+										});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -131,7 +149,8 @@
 				description : $('#description').val()
 			};
 			$.ajax({
-				url : "../NanglaeGov/saveTransport.do?user="+$('#userId').val(),
+				url : "../NanglaeGov/saveTransport.do?user="
+						+ $('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -162,51 +181,63 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = tran_id;
-		var obj = {
-			tran_id : id
+			var id = tran_id;
+			var obj = {
+				tran_id : id
 
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteTransport.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
+			};
+			$.ajax({
+				url : "../NanglaeGov/deleteTransport.do",
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					location.reload();
+				}
+			});
 		});
 	}
 	function editTransport() {
-		var obj = {
-			tran_id : $("#editTranId").val(),
-			tran_name : $('#editTranName').val(),
-			type : $('#editType').val(),
-			description : $('#editDescription').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveTransport.do?editUserId="+$('#editUserId').val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
+		if ($('#editTranName').val() == "") {
+			document.getElementById('editTranName').style.borderColor = "red";
+			return false;
+		} else if ($('#editType').val() == "") {
+			document.getElementById('editType').style.borderColor = "red";
+			return false;
+		} else if ($('#editDescription').val() == "") {
+			document.getElementById('editDescription').style.borderColor = "red";
+			return false;
+		} else {
+			var obj = {
+				tran_id : $("#editTranId").val(),
+				tran_name : $('#editTranName').val(),
+				type : $('#editType').val(),
+				description : $('#editDescription').val()
+			};
+			//alert(JSON.stringify(obj));
+			$.ajax({
+				url : "../NanglaeGov/saveTransport.do?editUserId="
+						+ $('#editUserId').val(),
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
+				},
+				error : function(data, status, er) {
+					alert('error');
+				}
+			});
+		}
 	}
 	function setEditTransport(tran_id) {
 
@@ -256,10 +287,10 @@
 			<!-- /.navbar-header -->
 
 			<ul class="nav navbar-top-links navbar-right">
-			<%
-				Object Name = session.getAttribute("Name");
-				out.println("ยินดีต้อนรับ    " +Name);
-			%>
+				<%
+					Object Name = session.getAttribute("Name");
+					out.println("ยินดีต้อนรับ    " + Name);
+				%>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<i class="fa fa-caret-down"></i>
@@ -277,7 +308,7 @@
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="superMenu.jsp" %>
+			<%@include file="superMenu.jsp"%>
 		</nav>
 		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
@@ -293,8 +324,8 @@
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#listTransport"
-									data-toggle="tab">รายชื่อระบบคมนาคมขนส่ง</a></li>
-								<li><a href="#addTransport" data-toggle="tab">เพิ่มระบบคมนาคมขนส่ง</a>
+									data-toggle="tab">ข้อมูลระบบคมนาคมขนส่ง</a></li>
+								<li><a href="#addTransport" data-toggle="tab">เพิ่มข้อมูลระบบคมนาคมขนส่ง</a>
 								</li>
 							</ul>
 							<div class="panel-body">
@@ -305,50 +336,52 @@
 										<div class="table-responsive">
 											<table id="resultTable"
 												class="table table-striped table-bordered table-hover">
-<!-- Start change table -->
+												<!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่บันทึกข้อมูล</th>
-														<th>การคมนาคม</th>
-														<th>ประเภท</th>
+														<th>ประเภทถนน</th>
+														<th>ชื่อถนน</th>
 														<th>รายละเอียด</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
 												</thead>
 												<tbody id="listTransports">
 												</tbody>
-<!-- End change table -->
+												<!-- End change table -->
 											</table>
 										</div>
 									</div>
 									<div class="tab-pane fade" id="addTransport">
 										<form role="form">
-										<%
-											Object userid = session.getAttribute("user");
-										%>
-										<input type="hidden" id="userId" value="<%=userid %>">
-											<table width="70%" align="center">
+											<%
+												Object userid = session.getAttribute("user");
+											%>
+											<input type="hidden" id="userId" value="<%=userid%>">
+											<table width="50%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">การคมนาคม</td>
+													<td align="pull-right" style="padding: 15px">ประเภทถนน
+														<font color="red" size="3">*</font>
+													</td>
+													<td><select id="type" class="form-control" name="type">
+															<option value="">เลือกประเภทถนน</option>
+															<option value="ถนนสายหลัก">ถนนสายหลัก</option>
+															<option value="ถนนสายรอง">ถนนสายรอง</option>
+													</select></td>
+												</tr>
+												<tr>
+													<td align="pull-right" style="padding: 15px">ชื่อถนน <font
+														color="red" size="3">*</font></td>
 													<td><input class="form-control" maxlength="50"
-														id="tran_name" placeholder="ระบุการคมนาคม"
-														name="tran-name" required="true" style="width: 70%"></td>
+														id="tran_name" placeholder="ต.ย. A3" name="tran-name"></td>
 
 												</tr>
 												<tr>
-												<td align="pull-right" style="padding: 15px">ประเภท</td>
-												<td><select id="gander" class="form-control"
-													name="gander">
-														<option value="">เลือกประเภท</option>
-														<option value="ถนนสายหลัก">ถนนสายหลัก</option>
-														<option value="ระบบขนส่งสาธารณะ">ระบบขนส่งสาธารณะ</option>
-												</select></td>
-												</tr>
-												<tr>
-													<td align="pull-right" style="padding: 15px">รายละเอียด</td>
+													<td align="pull-right" style="padding: 15px">รายละเอียด
+														<font color="red" size="3">*</font>
+													</td>
 													<td><textarea class="form-control" maxlength="255"
 															id="description" rows="3" name="tran-connect"
-															required="true" placeholder="ระบุรายละเอียดเพิ่มเติม"></textarea></td>
+															placeholder="ต.ย. ถนนหลักลาดผ่านตัวตำบล"></textarea></td>
 												</tr>
 												<tr>
 													<td></td>
@@ -364,37 +397,34 @@
 									</div>
 									<div class="tab-pane fade" id="editTransport">
 										<form role="form">
-										<%
-											Object edituserid = session.getAttribute("edituser");
-										%>
-											<input type="hidden" id="editUserId" value="<%=edituserid %>">
+											<%
+												Object edituserid = session.getAttribute("edituser");
+											%>
+											<input type="hidden" id="editUserId" value="<%=edituserid%>">
 											<input type="hidden" id="editTranId">
-											<table width="70%" align="center">
+											<table width="50%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">ปีข้อมูล</td>
-													<td><input class="form-control" maxlength="4"
-														id="editTranYear" placeholder="" value="2558"
-														name="tran-year" required="true" style="width: 70%"></td>
+													<td align="pull-right" style="padding: 15px">ประเภทถนน
+														<font color="red" size="3">*</font>
+													</td>
+													<td><select id="editType" class="form-control"
+														name="editType">
+															<option value="ถนนสายหลัก">ถนนสายหลัก</option>
+															<option value="ถนนสายรอง">ถนนสายรอง</option>
+													</select></td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">การคมนาคม</td>
+													<td align="pull-right" style="padding: 15px">ชื่อถนน <font
+														color="red" size="3">*</font></td>
 													<td><input class="form-control" maxlength="50"
-														id="editTranName" placeholder="" name="tran-name"
-														required="true" style="width: 70%"></td>
-
+														id="editTranName" placeholder="ต.ย. A3" name="tran-name"></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ประเภท</td>
-													<td><input class="form-control" maxlength="50"
-														id="editType" placeholder="" name="tran-distance"
-														required="true" style="width: 70%"></td>
-												</tr>
-												<tr>
-													<td align="pull-right" style="padding: 15px">รายละเอียด</td>
+													<td align="pull-right" style="padding: 15px">รายละเอียด
+														<font color="red" size="3">*</font>
+													</td>
 													<td><textarea class="form-control" maxlength="255"
-															id="editDescription" rows="3" name="tran-connect"
-															required="true"></textarea></td>
+															id="editDescription" placeholder="ต.ย. ถนนหลักลาดผ่านตัวตำบล" rows="3" name="tran-connect"></textarea></td>
 												</tr>
 												<tr>
 													<td></td>

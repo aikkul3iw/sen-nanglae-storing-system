@@ -46,11 +46,11 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-function getCurrentYear(){
-	var year = new Date();
-	document.getElementById("elec_year").value=(year.getFullYear()+543);
+	function getCurrentYear() {
+		var year = new Date();
+		document.getElementById("elec_year").value = (year.getFullYear() + 543);
 	}
-	
+
 	function listElectricity() {
 		$("#loader").show();
 		$
@@ -59,7 +59,7 @@ function getCurrentYear(){
 					type : "POST",
 					success : function(data) {
 						var html = '';
-						
+
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
@@ -83,34 +83,53 @@ function getCurrentYear(){
 							html += "</tr>";
 						}
 						$('#listElectricitys').html(html);
-						$(document).ready(function() {
-							var table = $('#resultTable').DataTable({
-								lengthChange : false,
-								buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2, 3, 4 ]},customize : function(doc) {
-								doc.defaultStyle['font'] = 'THSarabun';
-										}
-									},
-								],
-							    language: {
-						              sProcessing: 'กำลังดำเนินการ...',
-						              sLengthMenu: 'แสดง_MENU_ แถว',
-						              sZeroRecords: 'ไม่พบข้อมูล',
-						              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
-						              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
-						              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
-						              sInfoPostFix: '',
-						              sSearch: 'ค้นหา:',
-							              oPaginate: {
-							                            sFirst: 'เิริ่มต้น',
-							                            sPrevious: 'ก่อนหน้า',
-							                            sNext: 'ถัดไป',
-							                            sLast: 'สุดท้าย'
-							              }
-						     }
-						});
-						table.buttons().container().appendTo('#page-wrapper .col-sm-6:eq(0)');
-					});
+						$(document)
+								.ready(
+										function() {
+											var table = $('#resultTable')
+													.DataTable(
+															{
+																lengthChange : false,
+																buttons : [
+																		'excel',
+																		{
+																			extend : 'pdf',
+																			exportOptions : {
+																				columns : [
+																						0,
+																						1,
+																						2,
+																						3,
+																						4 ]
+																			},
+																			customize : function(
+																					doc) {
+																				doc.defaultStyle['font'] = 'THSarabun';
+																			}
+																		}, ],
+																language : {
+																	sProcessing : 'กำลังดำเนินการ...',
+																	sLengthMenu : 'แสดง_MENU_ แถว',
+																	sZeroRecords : 'ไม่พบข้อมูล',
+																	sInfo : 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+																	sInfoEmpty : 'แสดง 0 ถึง 0 จาก 0 แถว',
+																	sInfoFiltered : '(กรองข้อมูล _MAX_ ทุกแถว)',
+																	sInfoPostFix : '',
+																	sSearch : 'ค้นหา:',
+																	oPaginate : {
+																		sFirst : 'เิริ่มต้น',
+																		sPrevious : 'ก่อนหน้า',
+																		sNext : 'ถัดไป',
+																		sLast : 'สุดท้าย'
+																	}
+																}
+															});
+											table
+													.buttons()
+													.container()
+													.appendTo(
+															'#page-wrapper .col-sm-6:eq(0)');
+										});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -138,7 +157,9 @@ function getCurrentYear(){
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/saveElectricity.do?id=" + $("#villageSelect").val() + "&user="+$('#userId').val(),
+				url : "../NanglaeGov/saveElectricity.do?id="
+						+ $("#villageSelect").val() + "&user="
+						+ $('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -189,52 +210,62 @@ function getCurrentYear(){
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = elec_id
-		var obj = {
-			elec_id : id
+			var id = elec_id
+			var obj = {
+				elec_id : id
 
-		};
-		//alert(id);
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/deleteElectricity.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
+			};
+			//alert(id);
+			//alert(JSON.stringify(obj));
+			$.ajax({
+				url : "../NanglaeGov/deleteElectricity.do",
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					location.reload();
+				}
+			});
 		});
 	}
 	function editElectricity() {
-		var obj = {
-			elec_id : $("#editElecId").val(),
-			elec_area : $('#editElecArea').val(),
-			elec_status : $('#editElecStatus').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveElectricity.do?id=" + $("#editVillageSelect").val() + "&editUserId="+$('#editUserId').val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
+		if ($('#editElecArea').val() == "") {
+			document.getElementById('editElecArea').style.borderColor = "red";
+			return false;
+		} else if ($('#editElecStatus').val() == "") {
+			document.getElementById('editElecStatus').style.borderColor = "red";
+			return false;
+		} else {
+			var obj = {
+				elec_id : $("#editElecId").val(),
+				elec_area : $('#editElecArea').val(),
+				elec_status : $('#editElecStatus').val()
+			};
+			//alert(JSON.stringify(obj));
+			$.ajax({
+				url : "../NanglaeGov/saveElectricity.do?id="
+						+ $("#editVillageSelect").val() + "&editUserId="
+						+ $('#editUserId').val(),
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
+				},
+				error : function(data, status, er) {
+					alert('error');
+				}
+			});
+		}
 	}
 	function setEditElectricity(elec_id) {
 
@@ -284,7 +315,7 @@ function getCurrentYear(){
 </script>
 </head>
 
-<body onload="listElectricity();listVillage();editVillageSelect();getCurrentYear()">
+<body onload="listElectricity();listVillage();editVillageSelect()">
 
 	<div id="wrapper">
 
@@ -304,10 +335,10 @@ function getCurrentYear(){
 			<!-- /.navbar-header -->
 
 			<ul class="nav navbar-top-links navbar-right">
-			<%
-				Object Name = session.getAttribute("Name");
-				out.println("ยินดีต้อนรับ    " +Name);
-			%>
+				<%
+					Object Name = session.getAttribute("Name");
+					out.println("ยินดีต้อนรับ    " + Name);
+				%>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<i class="fa fa-caret-down"></i>
@@ -325,7 +356,7 @@ function getCurrentYear(){
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="superMenu.jsp" %>
+			<%@include file="superMenu.jsp"%>
 		</nav>
 		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
@@ -353,53 +384,58 @@ function getCurrentYear(){
 										<div class="table-responsive">
 											<table id="resultTable"
 												class="table table-striped table-bordered table-hover">
-<!-- Start change table -->
+												<!-- Start change table -->
 												<thead>
 													<tr>
 														<th>หมู่ที่</th>
 														<th>ชื่อหมู่บ้าน</th>
-														<th>ระบบไฟฟ้า</th>
+														<th>สถานะระบบไฟฟ้า</th>
 														<th>พื้นที่ขาดแคลน</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
 												</thead>
 												<tbody id="listElectricitys">
 												</tbody>
-<!-- End change table -->
+												<!-- End change table -->
 											</table>
 										</div>
 									</div>
 									<div class="tab-pane fade" id="addElection">
 										<form role="form">
-										<%
-											Object userid = session.getAttribute("user");
-										%>
-										<input type="hidden" id="userId" value="<%=userid %>">
-											<table width="50%" align="center">
+											<%
+												Object userid = session.getAttribute("user");
+											%>
+											<input type="hidden" id="userId" value="<%=userid%>">
+											<table width="65%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">หมู่บ้าน</td>
+													<td align="pull-right" style="padding: 15px">ชื่อหมู่บ้าน
+														<font color="red" size="3">*</font>
+													</td>
 													<td><select class="form-control" id="villageSelect"
-														placeholder="" name="vil-name" required="true">
+														placeholder="" name="villageSelect" required="true">
 
 													</select></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">สถานะระบบไฟฟ้า</td>
+													<td align="pull-right" style="padding: 15px">สถานะระบบไฟฟ้า
+														<font color="red" size="3">*</font>
+													</td>
 													<td><select id="elec_status" class="form-control"
-														placeholder="" name="vil-name" required="true">
-															<option>กรุณาเลือก</option>
+														placeholder="" name="elec_status">
+															<option>เลือกสถานะระบบไฟฟ้า</option>
 															<option value="มีระบบไฟฟ้าทั่วถึง">มีระบบไฟฟ้าทั่วถึง</option>
 															<option value="มีระบบไฟฟ้าเกือบทั่วถึง">มีระบบไฟฟ้าเกือบทั่วถึง</option>
 															<option value="ไม่มีระบบไฟฟ้า">ไม่มีระบบไฟฟ้า</option>
 													</select></td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">พื้นที่ขาดแคลนไฟฟ้า</td>
+													<td align="pull-right" style="padding: 15px">พื้นที่ขาดแคลนไฟฟ้า
+														<font color="red" size="3">*</font>
+													</td>
 													<td><textarea class="form-control" maxlength="100"
-															id="elec_area" placeholder="ระบุหมู่บ้านที่ขาดแคลนไฟฟ้า"
-															name="vil-number" required="true"></textarea></td>
-
+															id="elec_area"
+															placeholder="หมายเหตุ : ถ้าไม่ได้ระบุบพื้นที่ขาดแคลนไฟฟ้าให้ใส่ - ตรงช่องพื้นที่ขาดแคลนไฟฟ้า"
+															name="elec_area"></textarea></td>
 												</tr>
 												<tr>
 													<td></td>
@@ -415,37 +451,41 @@ function getCurrentYear(){
 									</div>
 									<div class="tab-pane fade" id="editElection">
 										<form role="form">
-										<%
-											Object edituserid = session.getAttribute("edituser");
-										%>
-										<input type="hidden" id="editUserId" value="<%=edituserid %>">
+											<%
+												Object edituserid = session.getAttribute("edituser");
+											%>
+											<input type="hidden" id="editUserId" value="<%=edituserid%>">
 											<input type="hidden" id="editElecId">
-											<table width="50%" align="center">
+											<table width="65%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">หมู่บ้าน</td>
+													<td align="pull-right" style="padding: 15px">ชื่อหมู่บ้าน
+														<font color="red" size="3">*</font>
+													</td>
 													<td><select class="form-control"
-														id="editVillageSelect" placeholder="" name="vil-name"
-														required="true">
+														id="editVillageSelect" placeholder=""
+														name="editVillageSelect">
 
 													</select></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">สถานะระบบไฟฟ้า</td>
+													<td align="pull-right" style="padding: 15px">สถานะระบบไฟฟ้า
+														<font color="red" size="3">*</font>
+													</td>
 													<td><select id="editElecStatus" class="form-control"
-														placeholder="" name="vil-name" required="true">
-															<option>กรุณาเลือก</option>
+														placeholder="" name="editElecStatus">
 															<option value="มีระบบไฟฟ้าทั่วถึง">มีระบบไฟฟ้าทั่วถึง</option>
 															<option value="มีระบบไฟฟ้าเกือบทั่วถึง">มีระบบไฟฟ้าเกือบทั่วถึง</option>
 															<option value="ไม่มีระบบไฟฟ้า">ไม่มีระบบไฟฟ้า</option>
 													</select></td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">พื้นที่ขาดแคลนไฟฟ้า</td>
+													<td align="pull-right" style="padding: 15px">พื้นที่ขาดแคลนไฟฟ้า
+														<font color="red" size="3">*</font>
+													</td>
 													<td><textarea class="form-control" maxlength="100"
-															id="editElecArea" placeholder="" name="vil-number"
-															required="true"></textarea></td>
-
+															id="editElecArea"
+															placeholder="หมายเหตุ : ถ้าไม่ได้ระบุบพื้นที่ขาดแคลนไฟฟ้าให้ใส่ - ตรงช่องพื้นที่ขาดแคลนไฟฟ้า"
+															name="editElecArea"></textarea></td>
 												</tr>
 												<tr>
 													<td></td>
