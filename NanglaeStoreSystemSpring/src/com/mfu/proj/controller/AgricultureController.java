@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.proj.ejb.entity.Activity;
 import com.proj.ejb.entity.Agriculture;
 import com.proj.ejb.entity.User;
+import com.proj.ejb.entity.Village;
 import com.proj.ejb.face.ActivityService;
 import com.proj.ejb.face.AgricultureService;
 import com.proj.ejb.face.UserService;
@@ -57,6 +58,7 @@ public class AgricultureController {
 	public @ResponseBody String saveAgriculture(@RequestBody Agriculture agriculture, HttpServletRequest request) {
 		try {
 			if (agriculture.getAgi_id() == 0) {
+				String logStringNew = agriculture.getAgi_name()+", "+agriculture.getAgi_area()+", "+agriculture.getAgi_description();
 				String id = request.getParameter("user");
 				agrServ.save(agriculture);
 				Activity atv = new Activity();
@@ -66,9 +68,14 @@ public class AgricultureController {
 				atv.setAtv_date(date);
 				atv.setAtv_action("เพิ่ม");
 				atv.setAtv_data("การเกษตรกรรม");
+				atv.setAtv_old("-");
+				atv.setAtv_new(logStringNew);
 				atvServ.save(atv);
 			} else {
 				String editid = request.getParameter("editUserId");
+				Agriculture agrOld = agrServ.findAgricultureById(agriculture.getAgi_id());
+				String logStringOld = agrOld.getAgi_name()+", "+agrOld.getAgi_area()+", "+agrOld.getAgi_description();
+				String logStringNew = agriculture.getAgi_name()+", "+agriculture.getAgi_area()+", "+agriculture.getAgi_description();
 				agrServ.update(agriculture);
 				Activity atv2 = new Activity();
 				atv2.setUser(userServ.findUserById(Long.parseLong(editid)));
@@ -77,6 +84,8 @@ public class AgricultureController {
 				atv2.setAtv_date(date);
 				atv2.setAtv_action("แก้ไข");
 				atv2.setAtv_data("การเกษตรกรรม");
+				atv2.setAtv_old(logStringOld);
+				atv2.setAtv_new(logStringNew);
 				atvServ.save(atv2);
 			}
 		} catch (Exception e) {
@@ -90,11 +99,24 @@ public class AgricultureController {
 	}
 
 	@RequestMapping("/deleteAgriculture")
-	public @ResponseBody String deleteAgriculture(@RequestBody Agriculture agriculture) {
+	public @ResponseBody String deleteAgriculture(@RequestBody Agriculture agriculture, HttpServletRequest request) {
 
 		try {
+			String id = request.getParameter("userdelete");
 			if (agriculture.getAgi_id() != 0) {
+				Agriculture agrOld = agrServ.findAgricultureById(agriculture.getAgi_id());
+				String logStringOld = agrOld.getAgi_name()+", "+agrOld.getAgi_area()+", "+agrOld.getAgi_description();
 				agrServ.delete(agriculture.getAgi_id());
+				Activity atv3 = new Activity();
+				atv3.setUser(userServ.findUserById(Long.parseLong(id)));
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String date = sdf.format(new Date());
+				atv3.setAtv_date(date);
+				atv3.setAtv_action("ลบ");
+				atv3.setAtv_data("การเกษตรกรรม");
+				atv3.setAtv_old(logStringOld);
+				atv3.setAtv_new("-");
+				atvServ.save(atv3);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
