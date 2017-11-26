@@ -166,6 +166,10 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
+			<%
+			Object userdelete = session.getAttribute("userdelete");
+			%>
+			var usdelete="<%=userdelete%>"; 
 			var id = agi_id
 			var obj = {
 				agi_id : id
@@ -174,7 +178,7 @@
 			//alert(id);
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/deleteAgriculture.do",
+				url : "../NanglaeGov/deleteAgriculture.do?userdelete="+usdelete,
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),

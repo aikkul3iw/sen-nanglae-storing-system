@@ -47,7 +47,7 @@ public class ActivityServiceBean implements ActivityService {
 	@Override
 	public List<Activity> listAllActivity() {
 		// TODO Auto-generated method stub
-		List<Activity> list = em.createQuery("SELECT act FROM Activity act").getResultList();
+		List<Activity> list = em.createQuery("SELECT act FROM Activity act ORDER BY act.atv_date DESC").getResultList();
 		return list;
 	}
 

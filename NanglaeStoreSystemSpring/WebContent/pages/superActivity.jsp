@@ -80,6 +80,7 @@
 						$(document).ready(function() {
 							var table = $('#resultTable').DataTable({
 								lengthChange : false,
+								ordering : false,
 								buttons : ['excel',{extend : 'pdf',exportOptions : {
 								columns : [ 0, 1, 2, 3 ]},customize : function(doc) {
 								doc.defaultStyle['font'] = 'THSarabun';

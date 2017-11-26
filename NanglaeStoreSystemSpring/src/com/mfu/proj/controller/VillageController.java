@@ -63,7 +63,6 @@ public class VillageController {
 			
 			if (village.getVil_id() == 0) {
 				String logStringNew = "หมู่: "+village.getVil_number()+", บ้าน: "+village.getVil_name()+", ผู้ใหญ่บ้าน: "+village.getVil_chief();
-				//System.out.println(logStringNew);
 				String id = request.getParameter("user");
 				vilServ.save(village);
 				Activity atv = new Activity();
