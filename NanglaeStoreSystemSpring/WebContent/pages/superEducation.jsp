@@ -366,7 +366,7 @@
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#listEduPrime"
 									data-toggle="tab">ข้อมูลสถานศึกษา</a></li>
-								<li><a href="#addEducation" data-toggle="tab">เพิ่มข้อมูลสถานศึกษา</a>
+								<li><a href="#addEducation" data-toggle="tab" id="addeducation">เพิ่มข้อมูลสถานศึกษา</a>
 								</li>
 							</ul>
 							<div class="panel-body">
@@ -430,7 +430,7 @@
 														<button style="width: 100px" type="reset"
 															class="btn btn-warning">ล้างข้อมูล</button> <input
 														style="width: 100px" type="button" class="btn btn-success"
-														value="บันทึก" onclick="createEducation()" />
+														id="save" value="บันทึก" onclick="createEducation()" />
 													</td>
 												</tr>
 											</table>

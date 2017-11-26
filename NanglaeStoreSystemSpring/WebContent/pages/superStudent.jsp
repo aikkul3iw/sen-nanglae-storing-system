@@ -380,7 +380,7 @@
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#listCommerce"
 									data-toggle="tab">ข้อมูลนักเรียน</a></li>
-								<li><a href="#addCommerce" data-toggle="tab">เพิ่มข้อมูลนักเรียน</a>
+								<li><a href="#addCommerce" data-toggle="tab" id="addstudent">เพิ่มข้อมูลนักเรียน</a>
 								</li>
 							</ul>
 							<div class="panel-body">
@@ -451,7 +451,7 @@
 														<button style="width: 100px" type="reset"
 															class="btn btn-warning">ล้างข้อมูล</button> <input
 														style="width: 100px" type="button" class="btn btn-success"
-														value="บันทึก" onclick="createStudent()" />
+														id="save" value="บันทึก" onclick="createStudent()" />
 													</td>
 												</tr>
 											</table>

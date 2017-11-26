@@ -312,7 +312,7 @@
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#listVillage" data-toggle="tab">รายชื่อหมู่บ้าน</a>
 								</li>
-								<li><a href="#addVillage" data-toggle="tab">เพิ่มหมู่บ้าน</a>
+								<li><a href="#addVillage" data-toggle="tab" id="addvillage">เพิ่มหมู่บ้าน</a>
 								</li>
 							</ul>
 							<div class="panel-body">
@@ -382,7 +382,7 @@
 														<button style="width: 100px" type="reset"
 															class="btn btn-warning">ล้างข้อมูล</button> <input
 														style="width: 100px" type="button" value="บันทึก"
-														onclick="createVillage()" class="btn btn-success" />
+														id="save" onclick="createVillage()" class="btn btn-success" />
 													</td>
 												</tr>
 											</table>

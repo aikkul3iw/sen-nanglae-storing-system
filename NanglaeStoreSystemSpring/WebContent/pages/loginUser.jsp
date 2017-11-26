@@ -63,7 +63,7 @@
 			</form:select><br> -->
 			
 			<a href="logout.do"><input  class="btn btn-danger" style="width: 160px" value="ยกเลิก" /></a>
-			<input class="btn btn-success" style="width: 160px" type="submit" value="เข้าสู่ระบบ" />
+			<input class="btn btn-success" style="width: 160px" name="login" type="submit" value="เข้าสู่ระบบ" />
 		</form:form>
 	 </div>
                 </div>
