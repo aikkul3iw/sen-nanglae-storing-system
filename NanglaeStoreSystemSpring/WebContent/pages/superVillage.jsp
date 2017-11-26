@@ -167,17 +167,14 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-			<%
-			Object userdelete = session.getAttribute("userdelete");
-			%>
-			var usdelete="<%=userdelete%>"; 
-			alert(usdelete); 
+			<%Object userdelete = session.getAttribute("userdelete");%>
+			var usdelete="<%=userdelete%>";
 			var id = vil_id;
 			var obj = {
 				vil_id : id
 			};
 			$.ajax({
-				url : "../NanglaeGov/deleteVillage.do?userdelete="+usdelete,
+				url : "../NanglaeGov/deleteVillage.do?userdelete=" + usdelete,
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -191,33 +188,45 @@
 
 	}
 	function editVillage() {
-		var obj = {
-			vil_id : $("#editVilId").val(),
-			vil_name : $('#editVilName').val(),
-			vil_number : $('#editVilNumber').val(),
-			vil_chief : $('#editVilChief').val()
-		};
+		if ($('#editVilNumber').val() == "") {
+			document.getElementById('editVilNumber').style.borderColor = "red";
+			return false;
+		} else if ($('#editVilName').val() == "") {
+			document.getElementById('editVilName').style.borderColor = "red";
+			return false;
+		} else if ($('#editVilChief').val() == "") {
+			document.getElementById('editVilChief').style.borderColor = "red";
+			return false;
+		} else {
+			var obj = {
+				vil_id : $("#editVilId").val(),
+				vil_name : $('#editVilName').val(),
+				vil_number : $('#editVilNumber').val(),
+				vil_chief : $('#editVilChief').val()
+			};
 
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveVillage.do?editUserId="+$('#editUserId').val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
-			error : function(data, status, er) {
-				alert('ไม่สามารถบันทึกข้อมูลได้');
-			}
-		});
+			//alert(JSON.stringify(obj));
+			$.ajax({
+				url : "../NanglaeGov/saveVillage.do?editUserId="
+						+ $('#editUserId').val(),
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
+				},
+				error : function(data, status, er) {
+					alert('ไม่สามารถบันทึกข้อมูลได้');
+				}
+			});
+		}
 	}
 	function setEditVillage(vil_id) {
 
@@ -274,10 +283,10 @@
 			<!-- /.navbar-header -->
 
 			<ul class="nav navbar-top-links navbar-right">
-			<%
-				Object Name = session.getAttribute("Name");
-				out.println("ยินดีต้อนรับ    " +Name);
-			%>
+				<%
+					Object Name = session.getAttribute("Name");
+					out.println("ยินดีต้อนรับ    " + Name);
+				%>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<i class="fa fa-caret-down"></i>
@@ -295,7 +304,7 @@
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="superMenu.jsp" %>
+			<%@include file="superMenu.jsp"%>
 		</nav>
 		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
@@ -310,9 +319,9 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#listVillage" data-toggle="tab">รายชื่อหมู่บ้าน</a>
+								<li class="active"><a href="#listVillage" data-toggle="tab">ข้อมูลหมู่บ้าน</a>
 								</li>
-								<li><a href="#addVillage" data-toggle="tab" id="addvillage">เพิ่มหมู่บ้าน</a>
+								<li><a href="#addVillage" data-toggle="tab" id="addvillage">ข้อมูลเพิ่มหมู่บ้าน</a>
 								</li>
 							</ul>
 							<div class="panel-body">
@@ -328,7 +337,7 @@
 													<tr>
 														<th>หมู่ที่</th>
 														<th>ชื่อหมู่บ้าน</th>
-														<th>ชื่อกำนัน/ผู้ใหญ่บ้าน</th>
+														<th>ผู้ใหญ่บ้าน</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
 												</thead>
@@ -340,41 +349,35 @@
 									</div>
 									<div class="tab-pane fade" id="addVillage">
 										<form role="form" name="vilForm" id="formCreate">
-										<%
-											Object userid = session.getAttribute("user");
-										%>
-										<input type="hidden" id="userId" value="<%=userid %>">
+											<%
+												Object userid = session.getAttribute("user");
+											%>
+											<input type="hidden" id="userId" value="<%=userid%>">
 											<table width="50%" align="center">
 												<tr>
 
-													<td align="pull-right" style="padding: 15px">หมู่ที่</td>
+													<td align="pull-right" style="padding: 15px">หมู่ที่ <font
+														color="red" size="3">*</font></td>
 													<td><input class="form-control"
 														placeholder="ระบุเลขที่หมู่บ้าน" name="vil-number"
-														maxlength="2" id="vil_number" required onblur="validate()"></td>
+														maxlength="2" id="vil_number"></td>
 
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อหมู่บ้าน</td>
+													<td align="pull-right" style="padding: 15px">ชื่อหมู่บ้าน
+														<font color="red" size="3">*</font>
+													</td>
 													<td><input class="form-control"
 														placeholder="ระบุชื่อหมู่บ้าน" name="vil-name"
-														maxlength="50" id="vil_name" required></td>
+														maxlength="50" id="vil_name"></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อกำนัน/ผู้ใหญ่บ้าน</td>
+													<td align="pull-right" style="padding: 15px">ชื่อผู้ใหญ่บ้าน
+														<font color="red" size="3">*</font>
+													</td>
 													<td><input class="form-control"
 														placeholder="ระบุชื่อผู้ใหญ่บ้าน" name="vilChief"
-														maxlength="50" id="vil_chief" required></td>
-												</tr>
-
-												<tr>
-													<td></td>
-													<td>
-														<div class="form-group">
-															<div class="col-md-9 col-md-offset-3">
-																<div id="messages"></div>
-															</div>
-														</div>
-													</td>
+														maxlength="50" id="vil_chief"></td>
 												</tr>
 												<tr>
 													<td></td>
@@ -382,7 +385,8 @@
 														<button style="width: 100px" type="reset"
 															class="btn btn-warning">ล้างข้อมูล</button> <input
 														style="width: 100px" type="button" value="บันทึก"
-														id="save" onclick="createVillage()" class="btn btn-success" />
+														id="save" onclick="createVillage()"
+														class="btn btn-success" />
 													</td>
 												</tr>
 											</table>
@@ -390,29 +394,32 @@
 									</div>
 									<div class="tab-pane fade" id="editVillage">
 										<form role="form">
-										<%
-											Object edituserid = session.getAttribute("edituser");
-										%>
-											<input type="hidden" id="editUserId" value="<%=edituserid %>">
+											<%
+												Object edituserid = session.getAttribute("edituser");
+											%>
+											<input type="hidden" id="editUserId" value="<%=edituserid%>">
 											<input type="hidden" id="editVilId">
 											<table width="50%" align="center">
 												<tr>
 
-													<td align="pull-right" style="padding: 15px">หมู่ที่</td>
-													<td><input class="form-control" placeholder=""
+													<td align="pull-right" style="padding: 15px">หมู่ที่ <font
+														color="red" size="3">*</font></td>
+													<td><input class="form-control" placeholder="ระบุเลขที่หมู่บ้าน"
 														name="vil-number" maxlength="2" id="editVilNumber"
 														required=""></td>
 
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อหมู่บ้าน</td>
-													<td><input class="form-control" placeholder=""
+													<td align="pull-right" style="padding: 15px">ชื่อหมู่บ้าน <font
+														color="red" size="3">*</font></td>
+													<td><input class="form-control" placeholder="ระบุชื่อหมู่บ้าน"
 														name="vil-name" maxlength="50" id="editVilName"
 														required=""></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อกำนัน/ผู้ใหญ่บ้าน</td>
-													<td><input class="form-control" placeholder=""
+													<td align="pull-right" style="padding: 15px">ชื่อผู้ใหญ่บ้าน <font
+														color="red" size="3">*</font></td>
+													<td><input class="form-control" placeholder="ระบุชื่อผู้ใหญ่บ้าน"
 														name="vilChief" maxlength="50" id="editVilChief"
 														required=""></td>
 												</tr>

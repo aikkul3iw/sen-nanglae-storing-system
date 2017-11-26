@@ -78,34 +78,52 @@
 							html += "</tr>";
 						}
 						$('#listReligions').html(html);
-						$(document).ready(function() {
-							var table = $('#resultTable').DataTable({
-								lengthChange : false,
-								buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2, 3 ]},customize : function(doc) {
-								doc.defaultStyle['font'] = 'THSarabun';
-										}
-									},
-								],
-							    language: {
-						              sProcessing: 'กำลังดำเนินการ...',
-						              sLengthMenu: 'แสดง_MENU_ แถว',
-						              sZeroRecords: 'ไม่พบข้อมูล',
-						              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
-						              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
-						              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
-						              sInfoPostFix: '',
-						              sSearch: 'ค้นหา:',
-							              oPaginate: {
-							                            sFirst: 'เิริ่มต้น',
-							                            sPrevious: 'ก่อนหน้า',
-							                            sNext: 'ถัดไป',
-							                            sLast: 'สุดท้าย'
-							              }
-						     }
-						});
-						table.buttons().container().appendTo('#page-wrapper .col-sm-6:eq(0)');
-					});
+						$(document)
+								.ready(
+										function() {
+											var table = $('#resultTable')
+													.DataTable(
+															{
+																lengthChange : false,
+																buttons : [
+																		'excel',
+																		{
+																			extend : 'pdf',
+																			exportOptions : {
+																				columns : [
+																						0,
+																						1,
+																						2,
+																						3 ]
+																			},
+																			customize : function(
+																					doc) {
+																				doc.defaultStyle['font'] = 'THSarabun';
+																			}
+																		}, ],
+																language : {
+																	sProcessing : 'กำลังดำเนินการ...',
+																	sLengthMenu : 'แสดง_MENU_ แถว',
+																	sZeroRecords : 'ไม่พบข้อมูล',
+																	sInfo : 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+																	sInfoEmpty : 'แสดง 0 ถึง 0 จาก 0 แถว',
+																	sInfoFiltered : '(กรองข้อมูล _MAX_ ทุกแถว)',
+																	sInfoPostFix : '',
+																	sSearch : 'ค้นหา:',
+																	oPaginate : {
+																		sFirst : 'เิริ่มต้น',
+																		sPrevious : 'ก่อนหน้า',
+																		sNext : 'ถัดไป',
+																		sLast : 'สุดท้าย'
+																	}
+																}
+															});
+											table
+													.buttons()
+													.container()
+													.appendTo(
+															'#page-wrapper .col-sm-6:eq(0)');
+										});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -133,7 +151,9 @@
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/saveReligion.do?id=" + $("#villageSelect").val() + "&user="+$('#userId').val(),
+				url : "../NanglaeGov/saveReligion.do?id="
+						+ $("#villageSelect").val() + "&user="
+						+ $('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -161,6 +181,7 @@
 			type : "POST",
 			success : function(data) {
 				var html = '';
+				html += "<option value=\"\">เลือกหมู่บ้าน</option>";
 				for (var i = 0; i < data.length; i++) {
 					html += "<option value=\""+data[i].vil_id+"\">"
 							+ data[i].vil_name + "</option>";
@@ -183,51 +204,63 @@
 			cancelButtonColor : '#d33',
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
-		}).then(function() {
-		var id = rel_id;
-		var obj = {
-			rel_id : id
+		}).then(
+				function() {
+					<%Object userdelete = session.getAttribute("userdelete");%>
+					var usdelete="<%=userdelete%>";
+					var id = rel_id;
+					var obj = {
+						rel_id : id
 
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteReligion.do?id=" + $("#editVillageSelect").val() + "&editUserId="+$('#editUserId').val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
-		});
+					};
+					$.ajax({
+						url : "../NanglaeGov/deleteReligion.do?userdelete=" + usdelete,
+						type : "POST",
+						dataType : "JSON",
+						data : JSON.stringify(obj),
+						contentType : "application/json",
+						mimeType : "application/json",
+						success : function(data) {
+							location.reload();
+						}
+					});
+				});
 	}
 	function editReligion() {
-		var obj = {
-			rel_id : $("#editReligionId").val(),
-			rel_name : $('#editReligionName').val(),
-			rel_type : $('#editReligionType').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveReligion.do?id=" + $("#editVillageSelect").val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
+		if ($('#editReligionName').val() == "") {
+			document.getElementById('editReligionName').style.borderColor = "red";
+			return false;
+		} else if ($('#editReligionType').val() == "") {
+			document.getElementById('editReligionType').style.borderColor = "red";
+			return false;
+		} else {
+			var obj = {
+				rel_id : $("#editReligionId").val(),
+				rel_name : $('#editReligionName').val(),
+				rel_type : $('#editReligionType').val()
+			};
+			//alert(JSON.stringify(obj));
+			$.ajax({
+				url : "../NanglaeGov/saveReligion.do?id="
+						+ $("#editVillageSelect").val()+ "&editUserId=" + $('#editUserId').val(),
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
+				},
+				error : function(data, status, er) {
+					alert('error');
+				}
+			});
+		}
 	}
 	function setEditReligion(rel_id) {
 
@@ -297,10 +330,10 @@
 			<!-- /.navbar-header -->
 
 			<ul class="nav navbar-top-links navbar-right">
-			<%
-				Object Name = session.getAttribute("Name");
-				out.println("ยินดีต้อนรับ    " +Name);
-			%>
+				<%
+					Object Name = session.getAttribute("Name");
+					out.println("ยินดีต้อนรับ    " + Name);
+				%>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<i class="fa fa-caret-down"></i>
@@ -318,7 +351,7 @@
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="superMenu.jsp" %>
+			<%@include file="superMenu.jsp"%>
 		</nav>
 	</div>
 	<div id="page-wrapper" style="background-color: #d7f0f5">
@@ -336,7 +369,7 @@
 						<ul class="nav nav-tabs">
 							<li class="active"><a href="#listVillage" data-toggle="tab">ข้อมูลการศาสนา</a>
 							</li>
-							<li><a href="#addReligion" data-toggle="tab">เพิ่มการศาสนา</a>
+							<li><a href="#addReligion" data-toggle="tab">เพิ่มข้อมูลการศาสนา</a>
 							</li>
 						</ul>
 						<div class="panel-body">
@@ -347,18 +380,18 @@
 									<div class="table-responsive">
 										<table id="resultTable"
 											class="table table-striped table-bordered table-hover">
-<!-- Start change table -->
+											<!-- Start change table -->
 											<thead>
 												<tr>
-													<th>ชื่อ</th>
+													<th>ชื่อสถานที่ประกอบพิธี</th>
 													<th>ศาสนา</th>
-													<th>ที่ตั้ง</th>
+													<th>ตั้งอยู่หมู่บ้าน</th>
 													<th style="text-align: center;">ตัวเลือก</th>
 												</tr>
 											</thead>
 											<tbody id="listReligions">
 											</tbody>
-<!-- End change table -->
+											<!-- End change table -->
 										</table>
 									</div>
 								</div>
@@ -367,21 +400,22 @@
 										<%
 											Object userid = session.getAttribute("user");
 										%>
-										<input type="hidden" id="userId" value="<%=userid %>">
+										<input type="hidden" id="userId" value="<%=userid%>">
 										<table width="50%" align="center">
 											<tr>
-
-												<td align="pull-right" style="padding: 15px">ชื่อ</td>
+												<td align="pull-right" style="padding: 15px">ชื่อสถานที่ประกอบพิธี
+													<font color="red" size="3">*</font>
+												</td>
 												<td><input class="form-control" maxlength="100"
 													id="rel_name"
 													placeholder="ระบุชื่อสถานที่ประกอบพิธีกรรมทางศาสนา"
-													name="vil-number" required="true"></td>
-
+													name="rel_name"></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ศาสนา</td>
+												<td align="pull-right" style="padding: 15px">ศาสนา <font
+													color="red" size="3">*</font></td>
 												<td><select class="form-control" id="rel_type"
-													placeholder="" name="vil-name" required="true">
+													placeholder="" name="vil-name">
 														<option value="">เลือกศาสนา</option>
 														<option value="พุทธ">พุทธ</option>
 														<option value="คริสต์">คริสต์</option>
@@ -390,10 +424,11 @@
 												</select></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
+												<td align="pull-right" style="padding: 15px">ตั้งอยู่หมู่บ้าน
+													<font color="red" size="3">*</font>
+												</td>
 												<td><select class="form-control" id="villageSelect"
-													placeholder="" name="vil-name" required="true">
-
+													placeholder="" name="vil-name">
 												</select></td>
 											</tr>
 											<tr>
@@ -413,23 +448,24 @@
 										<%
 											Object edituserid = session.getAttribute("edituser");
 										%>
-										<input type="hidden" id="editUserId" value="<%=edituserid %>">
+										<input type="hidden" id="editUserId" value="<%=edituserid%>">
 										<input type="hidden" id="editReligionId">
 										<table width="50%" align="center">
 											<tr>
 
-												<td align="pull-right" style="padding: 15px">ชื่อ</td>
+												<td align="pull-right" style="padding: 15px">ชื่อสถานที่ประกอบพิธี
+													<font color="red" size="3">*</font>
+												</td>
 												<td><input class="form-control" maxlength="100"
 													id="editReligionName"
 													placeholder="ระบุชื่อสถานที่ประกอบพิธีกรรมทางศาสนา"
-													name="vil-number" required="true"></td>
-
+													name="vil-number"></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ศาสนา</td>
+												<td align="pull-right" style="padding: 15px">ศาสนา <font
+													color="red" size="3">*</font></td>
 												<td><select class="form-control" id="editReligionType"
-													placeholder="" name="vil-name" required="true">
-														<option value="">เลือกศาสนา</option>
+													placeholder="" name="editReligionType">
 														<option value="พุทธ">พุทธ</option>
 														<option value="คริสต์">คริสต์</option>
 														<option value="อิสลาม">อิสลาม</option>
@@ -437,10 +473,11 @@
 												</select></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
+												<td align="pull-right" style="padding: 15px">ตั้งอยู่หมู่บ้าน
+													<font color="red" size="3">*</font>
+												</td>
 												<td><select class="form-control" id="editVillageSelect"
-													placeholder="" name="vil-name" required="true">
-
+													placeholder="" name="editVillageSelect">
 												</select></td>
 											</tr>
 											<tr>
@@ -464,37 +501,37 @@
 	</div>
 
 	<!-- jQuery -->
-		<script src="../NanglaeGov/vendor/jquery/jquery.min.js"></script>
+	<script src="../NanglaeGov/vendor/jquery/jquery.min.js"></script>
 
-		<!-- Bootstrap Core JavaScript -->
-		<script src="../NanglaeGov/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="../NanglaeGov/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-		<!-- Metis Menu Plugin JavaScript -->
-		<script src="../NanglaeGov/vendor/metisMenu/metisMenu.min.js"></script>
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="../NanglaeGov/vendor/metisMenu/metisMenu.min.js"></script>
 
-		<!-- DataTables JavaScript -->
-		<script
-			src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
-		<script src="../NanglaeGov/js/dataTables.buttons.min.js"></script>
-		<script src="../NanglaeGov/js/pdfmake.min.js"></script>
-		<script src="../NanglaeGov/vendor/datatables/js/vfs_fonts.js"></script>
-		<script src="../NanglaeGov/js/buttons.html5.min.js"></script>
-		<script src="../NanglaeGov/js/buttons.print.min.js"></script>
-		<script
-			src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-		<script
-			src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script>
-		<script src="../NanglaeGov/js/buttons.bootstrap.min.js"></script>
-		<script src="../NanglaeGov/js/buttons.colVis.min.js"></script>
-		<script src="../NanglaeGov/js/jszip.min.js"></script>
+	<!-- DataTables JavaScript -->
+	<script
+		src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="../NanglaeGov/js/dataTables.buttons.min.js"></script>
+	<script src="../NanglaeGov/js/pdfmake.min.js"></script>
+	<script src="../NanglaeGov/vendor/datatables/js/vfs_fonts.js"></script>
+	<script src="../NanglaeGov/js/buttons.html5.min.js"></script>
+	<script src="../NanglaeGov/js/buttons.print.min.js"></script>
+	<script
+		src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+	<script
+		src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script>
+	<script src="../NanglaeGov/js/buttons.bootstrap.min.js"></script>
+	<script src="../NanglaeGov/js/buttons.colVis.min.js"></script>
+	<script src="../NanglaeGov/js/jszip.min.js"></script>
 
-		<!-- Custom Theme JavaScript -->
-		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
-		<!-- Sweetalert2 JavaScript -->
-		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
-		<!-- Mask plug in -->
-		<script src="../NanglaeGov/js/jquery.mask.js"></script>
-		<script src="../NanglaeGov/js/jquery.mask.min.js"></script>
+	<!-- Custom Theme JavaScript -->
+	<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
+	<!-- Sweetalert2 JavaScript -->
+	<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
+	<!-- Mask plug in -->
+	<script src="../NanglaeGov/js/jquery.mask.js"></script>
+	<script src="../NanglaeGov/js/jquery.mask.min.js"></script>
 </body>
 
 </body>

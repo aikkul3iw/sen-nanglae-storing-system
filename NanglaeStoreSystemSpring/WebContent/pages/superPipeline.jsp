@@ -77,34 +77,53 @@
 							html += "</tr>";
 						}
 						$('#listPipelines').html(html);
-						$(document).ready(function() {
-							var table = $('#resultTable').DataTable({
-								lengthChange : false,
-								buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2, 3, 5 ]},customize : function(doc) {
-								doc.defaultStyle['font'] = 'THSarabun';
-										}
-									},
-								],
-							    language: {
-						              sProcessing: 'กำลังดำเนินการ...',
-						              sLengthMenu: 'แสดง_MENU_ แถว',
-						              sZeroRecords: 'ไม่พบข้อมูล',
-						              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
-						              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
-						              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
-						              sInfoPostFix: '',
-						              sSearch: 'ค้นหา:',
-							              oPaginate: {
-							                            sFirst: 'เิริ่มต้น',
-							                            sPrevious: 'ก่อนหน้า',
-							                            sNext: 'ถัดไป',
-							                            sLast: 'สุดท้าย'
-							              }
-						     }
-						});
-						table.buttons().container().appendTo('#page-wrapper .col-sm-6:eq(0)');
-					});
+						$(document)
+								.ready(
+										function() {
+											var table = $('#resultTable')
+													.DataTable(
+															{
+																lengthChange : false,
+																buttons : [
+																		'excel',
+																		{
+																			extend : 'pdf',
+																			exportOptions : {
+																				columns : [
+																						0,
+																						1,
+																						2,
+																						3,
+																						5 ]
+																			},
+																			customize : function(
+																					doc) {
+																				doc.defaultStyle['font'] = 'THSarabun';
+																			}
+																		}, ],
+																language : {
+																	sProcessing : 'กำลังดำเนินการ...',
+																	sLengthMenu : 'แสดง_MENU_ แถว',
+																	sZeroRecords : 'ไม่พบข้อมูล',
+																	sInfo : 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+																	sInfoEmpty : 'แสดง 0 ถึง 0 จาก 0 แถว',
+																	sInfoFiltered : '(กรองข้อมูล _MAX_ ทุกแถว)',
+																	sInfoPostFix : '',
+																	sSearch : 'ค้นหา:',
+																	oPaginate : {
+																		sFirst : 'เิริ่มต้น',
+																		sPrevious : 'ก่อนหน้า',
+																		sNext : 'ถัดไป',
+																		sLast : 'สุดท้าย'
+																	}
+																}
+															});
+											table
+													.buttons()
+													.container()
+													.appendTo(
+															'#page-wrapper .col-sm-6:eq(0)');
+										});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -132,7 +151,9 @@
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/savePipeline.do?id=" + $("#villageSelect").val() + "&user="+$('#userId').val(),
+				url : "../NanglaeGov/savePipeline.do?id="
+						+ $("#villageSelect").val() + "&user="
+						+ $('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -160,6 +181,7 @@
 			type : "POST",
 			success : function(data) {
 				var html = '';
+				html += "<option value=\"\">เลือกหมู่บ้าน</option>";
 				for (var i = 0; i < data.length; i++) {
 					html += "<option value=\""+data[i].vil_id+"\">"
 							+ data[i].vil_name + "</option>";
@@ -183,50 +205,62 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = pipe_id;
-		var obj = {
-			pipe_id : id
+			<%Object userdelete = session.getAttribute("userdelete");%>
+			var usdelete="<%=userdelete%>";
+			var id = pipe_id;
+			var obj = {
+				pipe_id : id
 
-		};
-		$.ajax({
-			url : "../NanglaeGov/deletePipeline.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
+			};
+			$.ajax({
+				url : "../NanglaeGov/deletePipeline.do?userdelete=" + usdelete,
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					location.reload();
+				}
+			});
 		});
 	}
 	function editPipeline() {
-		var obj = {
-			pipe_id : $("#editPipeId").val(),
-			pipe_system : $('#editPipeSystem').val(),
-			pipe_description : $('#editPipeDescription').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/savePipeline.do?id=" + $("#editVillageSelect").val() + "&editUserId="+$('#editUserId').val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
+		if ($('#editPipeSystem').val() == "") {
+			document.getElementById('editPipeSystem').style.borderColor = "red";
+			return false;
+		} else if ($('#editPipeDescription').val() == "") {
+			document.getElementById('editPipeDescription').style.borderColor = "red";
+			return false;
+		} else {
+			var obj = {
+				pipe_id : $("#editPipeId").val(),
+				pipe_system : $('#editPipeSystem').val(),
+				pipe_description : $('#editPipeDescription').val()
+			};
+			//alert(JSON.stringify(obj));
+			$.ajax({
+				url : "../NanglaeGov/savePipeline.do?id="
+						+ $("#editVillageSelect").val() + "&editUserId="
+						+ $('#editUserId').val(),
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
+				},
+				error : function(data, status, er) {
+					alert('error');
+				}
+			});
+		}
 	}
 	function setEditPipeline(pipe_id) {
 
@@ -296,10 +330,10 @@
 			<!-- /.navbar-header -->
 
 			<ul class="nav navbar-top-links navbar-right">
-			<%
-				Object Name = session.getAttribute("Name");
-				out.println("ยินดีต้อนรับ    " +Name);
-			%>
+				<%
+					Object Name = session.getAttribute("Name");
+					out.println("ยินดีต้อนรับ    " + Name);
+				%>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<i class="fa fa-caret-down"></i>
@@ -317,7 +351,7 @@
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="superMenu.jsp" %>
+			<%@include file="superMenu.jsp"%>
 		</nav>
 		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
@@ -334,7 +368,7 @@
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#listPipeline"
 									data-toggle="tab">ข้อมูลระบบประปา</a></li>
-								<li><a href="#addPipeline" data-toggle="tab">เพิ่มระบบประปา</a>
+								<li><a href="#addPipeline" data-toggle="tab">เพิ่มข้อมูลระบบประปา</a>
 								</li>
 							</ul>
 							<div class="panel-body">
@@ -345,51 +379,56 @@
 										<div class="table-responsive">
 											<table id="resultTable"
 												class="table table-striped table-bordered table-hover">
-<!-- Start change table -->
+												<!-- Start change table -->
 												<thead>
 													<tr>
 														<th>หมู่ที่</th>
 														<th>ชื่อหมู่บ้าน</th>
 														<th>สถานะระบบประปา</th>
-														<th>ใช้จาก</th>
+														<th>ใช้ระบบประปาจาก</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
 												</thead>
 												<tbody id="listPipelines">
 												</tbody>
-<!-- End change table -->
+												<!-- End change table -->
 											</table>
 										</div>
 									</div>
 									<div class="tab-pane fade" id="addPipeline">
 										<form role="form">
-										<%
-											Object userid = session.getAttribute("user");
-										%>
-										<input type="hidden" id="userId" value="<%=userid %>">
+											<%
+												Object userid = session.getAttribute("user");
+											%>
+											<input type="hidden" id="userId" value="<%=userid%>">
 											<table width="50%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">หมู่บ้าน</td>
+													<td align="pull-right" style="padding: 15px">ชื่อหมู่บ้าน
+														<font color="red" size="3">*</font>
+													</td>
 													<td><select id="villageSelect" class="form-control"
-														pipe-vil>
-
+														name="villageSelect">
 													</select></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">สถานะระบบประปาา</td>
+													<td align="pull-right" style="padding: 15px">สถานะระบบประปา
+														<font color="red" size="3">*</font>
+													</td>
 													<td><select id="pipe_system" class="form-control"
 														placeholder="" name="vil-name" required="true">
-															<option>กรุณาเลือก</option>
+															<option>เลือกสถานะระบบประปาา</option>
 															<option value="มีระบบประปา">มีระบบประปา</option>
 															<option value="ไม่มีระบบประปาา">ไม่มีระบบประปาา</option>
 													</select></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ใช้จาก</td>
-													<td><input id="pipe_description" maxlength="100"
-														class="form-control"
-														placeholder="ระบุแหล่งเชื่อมต่อระบบปะปา" name="pipe-year"
-														required="true"></td>
+													<td align="pull-right" style="padding: 15px">ใช้ระบบประปาจาก
+														<font color="red" size="3">*</font>
+													</td>
+													<td><textarea id="pipe_description" maxlength="100"
+															class="form-control"
+															placeholder="หมายเหตุ : ถ้าไม่มีระบบประปาให้ใส่ - ตรงช่องใช้ระบบประปาจาก"
+															name="pipe_description"></textarea></td>
 												</tr>
 												<tr>
 													<td></td>
@@ -405,33 +444,38 @@
 									</div>
 									<div class="tab-pane fade" id="editPipeline">
 										<form role="form">
-										<%
-											Object edituserid = session.getAttribute("edituser");
-										%>
-										<input type="hidden" id="editUserId" value="<%=edituserid %>">
+											<%
+												Object edituserid = session.getAttribute("edituser");
+											%>
+											<input type="hidden" id="editUserId" value="<%=edituserid%>">
 											<input type="hidden" id="editPipeId">
 											<table width="50%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">หมู่บ้าน</td>
+													<td align="pull-right" style="padding: 15px">ชื่อหมู่บ้าน
+														<font color="red" size="3">*</font>
+													</td>
 													<td><select id="editVillageSelect"
-														class="form-control" pipe-vil>
-
+														class="form-control" name="editVillageSelect">
 													</select></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">สถานะระบบประปาา</td>
+													<td align="pull-right" style="padding: 15px">สถานะระบบประปา
+														<font color="red" size="3">*</font>
+													</td>
 													<td><select id="editPipeSystem" class="form-control"
-														placeholder="" name="vil-name" required="true">
-															<option>กรุณาเลือก</option>
+														placeholder="" name="editPipeSystem">
 															<option value="มีระบบประปา">มีระบบประปา</option>
 															<option value="ไม่มีระบบประปาา">ไม่มีระบบประปาา</option>
 													</select></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ใช้จาก</td>
-													<td><input id="editPipeDescription" maxlength="100"
-														class="form-control" placeholder="" name="pipe-year"
-														required="true"></td>
+													<td align="pull-right" style="padding: 15px">ใช้ระบบประปาจาก
+														<font color="red" size="3">*</font>
+													</td>
+													<td><textarea id="editPipeDescription" maxlength="100"
+															class="form-control"
+															placeholder="หมายเหตุ : ถ้าไม่มีระบบประปาให้ใส่ - ตรงช่องใช้ระบบประปาจาก"
+															name="editPipeDescription"></textarea></td>
 												</tr>
 												<tr>
 													<td></td>
