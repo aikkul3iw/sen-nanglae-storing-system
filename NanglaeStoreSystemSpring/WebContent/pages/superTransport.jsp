@@ -132,11 +132,11 @@
 <script type='text/javascript'>
 	function createTransport() {
 		$("#loader").show();
-		if ($('#tran_name').val() == "") {
-			document.getElementById('tran_name').style.borderColor = "red";
-			return false;
-		} else if ($('#type').val() == "") {
+		if ($('#type').val() == "") {
 			document.getElementById('type').style.borderColor = "red";
+			return false;
+		} else if ($('#tran_name').val() == "") {
+			document.getElementById('tran_name').style.borderColor = "red";
 			return false;
 		} else if ($('#description').val() == "") {
 			document.getElementById('description').style.borderColor = "red";
@@ -181,13 +181,15 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
+			<%Object userdelete = session.getAttribute("userdelete");%>
+			var usdelete="<%=userdelete%>";
 			var id = tran_id;
 			var obj = {
 				tran_id : id
 
 			};
 			$.ajax({
-				url : "../NanglaeGov/deleteTransport.do",
+				url : "../NanglaeGov/deleteTransport.do?userdelete=" + usdelete,
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -200,11 +202,11 @@
 		});
 	}
 	function editTransport() {
-		if ($('#editTranName').val() == "") {
-			document.getElementById('editTranName').style.borderColor = "red";
-			return false;
-		} else if ($('#editType').val() == "") {
+		if ($('#editType').val() == "") {
 			document.getElementById('editType').style.borderColor = "red";
+			return false;
+		} else if ($('#editTranName').val() == "") {
+			document.getElementById('editTranName').style.borderColor = "red";
 			return false;
 		} else if ($('#editDescription').val() == "") {
 			document.getElementById('editDescription').style.borderColor = "red";

@@ -192,13 +192,15 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
+			<%Object userdelete = session.getAttribute("userdelete");%>
+			var usdelete="<%=userdelete%>";
 			var id = lab_id;
 			var obj = {
 				lab_id : id
 
 			};
 			$.ajax({
-				url : "../NanglaeGov/deleteLabor.do",
+				url : "../NanglaeGov/deleteLabor.do?userdelete=" + usdelete,
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),

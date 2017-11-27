@@ -207,7 +207,6 @@
 			type : "POST",
 			success : function(data) {
 				var html = '';
-				html += "<option value=\"\">เลือกหมู่บ้าน</option>";
 				for (var i = 0; i < data.length; i++) {
 					html += "<option value=\""+data[i].vil_id+"\">"
 							+ data[i].vil_name + "</option>";

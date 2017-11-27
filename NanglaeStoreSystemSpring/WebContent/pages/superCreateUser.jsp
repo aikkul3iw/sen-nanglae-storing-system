@@ -359,7 +359,7 @@
 													</select></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">สถนาะ</td>
+													<td align="pull-right" style="padding: 15px">สถานะ</td>
 													<td><select id="role" class="form-control"
 														name="roleSelect">
 														<option value="superuser">superuser</option>

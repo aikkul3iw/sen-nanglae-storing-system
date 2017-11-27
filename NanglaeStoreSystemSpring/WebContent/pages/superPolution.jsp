@@ -173,13 +173,15 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = pol_id;
-		var obj = {
-			pol_id : id
+			<%Object userdelete = session.getAttribute("userdelete");%>
+			var usdelete="<%=userdelete%>";
+			var id = pol_id;
+			var obj = {
+				pol_id : id
 		};
 
 		$.ajax({
-			url : "../NanglaeGov/deletePolution.do",
+			url : "../NanglaeGov/deletePolution.do?userdelete=" + usdelete,
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -193,6 +195,16 @@
 		});
 	}
 	function editPolution() {
+		if ($('#editPolName').val() == "") {
+			document.getElementById('editPolName').style.borderColor = "red";
+			return false;
+		} else if ($('#editPolEffect').val() == "") {
+			document.getElementById('editPolEffect').style.borderColor = "red";
+			return false;
+		} else if ($('#editPolArea').val() == "") {
+			document.getElementById('editPolArea').style.borderColor = "red";
+			return false;
+		} else {
 		var obj = {
 			pol_id : $('#editPolId').val(),
 			pol_name : $('#editPolName').val(),
@@ -219,6 +231,7 @@
 				alert('error');
 			}
 		});
+		}
 	}
 
 	function setEditPolution(pol_id) {
@@ -308,7 +321,7 @@
 						<ul class="nav nav-tabs">
 							<li class="active"><a href="#listPolution" data-toggle="tab">ข้อมูลมลพิษ</a>
 							</li>
-							<li><a href="#addPolution" data-toggle="tab" id="addpolution">เพิ่มมลพิษ</a>
+							<li><a href="#addPolution" data-toggle="tab" id="addpolution">เพิ่มข้อมูลมลพิษ</a>
 							</li>
 						</ul>
 						<div class="panel-body">
@@ -322,9 +335,9 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>มลพิษ</th>
-														<th>ผลกระทบ</th>
+														<th>ประเภทมลพิษ</th>
 														<th>พิ้นที่ได้รับผลกระทบ</th>
+														<th>ผลกระทบที่ได้รับ</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
 												</thead>
@@ -340,27 +353,23 @@
 											Object userid = session.getAttribute("user");
 										%>
 										<input type="hidden" id="userId" value="<%=userid %>">
-										<table width="70%" align="center">
+										<table width="60%" align="center">
 											<tr>
-
-												<td style="padding: 15px">มลพิษ</td>
+												<td style="padding: 15px">ประเภทมลพิษ <font color="red" size="3">*</font></td>
 												<td><input id="pol_name" maxlength="50"
-													class="form-control" placeholder="" name="vil-number"
-													required="true"></td>
-
+													class="form-control" placeholder="ระบุประเภทมลพิษ" name="pol_name"></td>
 											</tr>
 											<tr>
-												<td style="padding: 15px">ผลกระทบ</td>
-												<td><textarea id="pol_effect" maxlength="100"
-														class="form-control" placeholder="ระบุรายละเอียด"
-														name="vil-name" required="true"></textarea></td>
-											</tr>
-											<tr>
-												<td style="padding: 15px">พื้นที่ประสบปัญหา</td>
-												<td style="padding-top: 10px"><textarea id="pol_area"
+												<td style="padding: 15px">พื้นที่ได้รับผลกระทบ <font color="red" size="3">*</font></td>
+												<td><textarea id="pol_area"
 														maxlength="100" class="form-control"
-														placeholder="ระบุรายละเอียด" name="vil-name"
-														required="true"></textarea></td>
+														placeholder="ระบุพื้นที่ได้รับผลกระทบ" name="pol_area"></textarea></td>
+											</tr>
+											<tr>
+												<td style="padding: 15px">ผลกระทบที่ได้รับ <font color="red" size="3">*</font></td>
+												<td style="padding-top: 10px"><textarea id="pol_effect" maxlength="100"
+														class="form-control" placeholder="ระบุผลกระทบที่ได้รับ"
+														name="pol_effect"></textarea></td>
 											</tr>
 											<tr>
 												<td></td>
@@ -381,27 +390,24 @@
 										%>
 										<input type="hidden" id="editUserId" value="<%=edituserid %>">
 										<input type="hidden" id="editPolId">
-										<table width="65%" align="center">
+										<table width="60%" align="center">
 											<tr>
-
-												<td style="padding: 15px">มลพิษ</td>
+												<td style="padding: 15px">ประเภทมลพิษ <font color="red" size="3">*</font></td>
 												<td><input id="editPolName" maxlength="50"
-													class="form-control" placeholder="ระบุชื่อมลพิษ"
-													name=" required="true"></td>
-
+													class="form-control" placeholder="ระบุประเภทมลพิษ"
+													name="editPolName"></td>
 											</tr>
 											<tr>
-												<td style="padding: 15px">ผลกระทบ</td>
-												<td><textarea id="editPolEffect" maxlength="100"
-														class="form-control" placeholder="ระบุผลกระทบ" name=""
-														required="true"></textarea></td>
-											</tr>
-											<tr>
-												<td style="padding: 15px">พื้นที่ประสบปัญหา</td>
-												<td style="padding-top: 10px"><textarea
+												<td style="padding: 15px">พื้นที่ได้รับผลกระทบ <font color="red" size="3">*</font></td>
+												<td><textarea
 														id="editPolArea" maxlength="100" class="form-control"
-														placeholder="ระบุพื้นที่ประสบปัญหา" name=""
-														required="true"></textarea></td>
+														placeholder="ระบุพื้นที่ได้รับผลกระทบ" name="editPolArea"></textarea></td>
+											</tr>
+											<tr>
+												<td style="padding: 15px">ผลกระทบที่ได้รับ <font color="red" size="3">*</font></td>
+												<td style="padding-top: 10px"><textarea id="editPolEffect" maxlength="100"
+														class="form-control" placeholder="ระบุผลกระทบที่ได้รับ"
+														name="editPolEffect"></textarea></td>
 											</tr>
 											<tr>
 												<td></td>

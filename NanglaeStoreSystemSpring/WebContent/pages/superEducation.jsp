@@ -206,12 +206,14 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
+			<%Object userdelete = session.getAttribute("userdelete");%>
+			var usdelete="<%=userdelete%>";
 			var id = edu_id
 			var obj = {
 				edu_id : id
 			};
 			$.ajax({
-				url : "../NanglaeGov/deleteEducation.do",
+				url : "../NanglaeGov/deleteEducation.do?userdelete=" + usdelete,
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -383,8 +385,8 @@
 												<thead>
 													<tr>
 														<th>ชื่อสถานศึกษา</th>
-														<th>ประเภท</th>
-														<th>ที่ตั้ง</th>
+														<th>ประเภทสถานศึกษา</th>
+														<th>ตั้งอยู่หมู่บ้าน</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
 												</thead>
@@ -419,7 +421,7 @@
 													</select></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ที่ตั้ง <font color="red" size="3">*</font></td>
+													<td align="pull-right" style="padding: 15px">ตั้งอยู่หมู่บ้าน <font color="red" size="3">*</font></td>
 													<td><select id="villageSelect" class="form-control"
 														name="edu-location">
 													</select></td>
@@ -460,7 +462,7 @@
 													</select></td>
 												</tr>
 												<tr>
-													<td style="padding: 10px">ที่ตั้ง <font color="red" size="3">*</font></td>
+													<td style="padding: 10px">ตั้งอยู่หมู่บ้าน <font color="red" size="3">*</font></td>
 													<td><select id="editVillageSelect"
 														class="form-control" name="edu-location">
 													</select></td>

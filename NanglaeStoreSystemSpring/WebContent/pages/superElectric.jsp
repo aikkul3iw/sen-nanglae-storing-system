@@ -142,11 +142,11 @@
 <script type='text/javascript'>
 	function createElectricity() {
 		$("#loader").show();
-		if ($('#elec_area').val() == "") {
-			document.getElementById('elec_area').style.borderColor = "red";
-			return false;
-		} else if ($('#elec_status').val() == "") {
+		if ($('#elec_status').val() == "") {
 			document.getElementById('elec_status').style.borderColor = "red";
+			return false;
+		} else if ($('#elec_area').val() == "") {
+			document.getElementById('elec_area').style.borderColor = "red";
 			return false;
 		} else {
 			var obj = {
@@ -210,15 +210,16 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
+			<%Object userdelete = session.getAttribute("userdelete");%>
+			var usdelete="<%=userdelete%>";
 			var id = elec_id
 			var obj = {
 				elec_id : id
-
 			};
 			//alert(id);
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/deleteElectricity.do",
+				url : "../NanglaeGov/deleteElectricity.do?userdelete=" + usdelete,
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -231,11 +232,11 @@
 		});
 	}
 	function editElectricity() {
-		if ($('#editElecArea').val() == "") {
-			document.getElementById('editElecArea').style.borderColor = "red";
-			return false;
-		} else if ($('#editElecStatus').val() == "") {
+		if ($('#editElecStatus').val() == "") {
 			document.getElementById('editElecStatus').style.borderColor = "red";
+			return false;
+		} else if ($('#editElecArea').val() == "") {
+			document.getElementById('editElecArea').style.borderColor = "red";
 			return false;
 		} else {
 			var obj = {
@@ -422,7 +423,7 @@
 													</td>
 													<td><select id="elec_status" class="form-control"
 														placeholder="" name="elec_status">
-															<option>เลือกสถานะระบบไฟฟ้า</option>
+															<option value="">เลือกสถานะระบบไฟฟ้า</option>
 															<option value="มีระบบไฟฟ้าทั่วถึง">มีระบบไฟฟ้าทั่วถึง</option>
 															<option value="มีระบบไฟฟ้าเกือบทั่วถึง">มีระบบไฟฟ้าเกือบทั่วถึง</option>
 															<option value="ไม่มีระบบไฟฟ้า">ไม่มีระบบไฟฟ้า</option>

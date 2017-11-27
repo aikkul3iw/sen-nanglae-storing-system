@@ -155,13 +155,15 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = land_id;
-		var obj = {
-			land_id : id
+			<%Object userdelete = session.getAttribute("userdelete");%>
+			var usdelete="<%=userdelete%>";
+			var id = land_id;
+			var obj = {
+				land_id : id
 
 		};
 		$.ajax({
-			url : "../NanglaeGov/deleteLandResource.do",
+			url : "../NanglaeGov/deleteLandResource.do?userdelete=" + usdelete,
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -174,6 +176,13 @@
 		});
 	}
 	function editLandResource() {
+		if ($('#editLandType').val() == "") {
+			document.getElementById('editLandType').style.borderColor = "red";
+			return false;
+		} else if ($('#editLandUsage').val() == "") {
+			document.getElementById('editLandUsage').style.borderColor = "red";
+			return false;
+		} else {
 		var obj = {
 			land_id : $('#editLandId').val(),
 			land_type : $('#editLandType').val(),
@@ -199,6 +208,7 @@
 				alert('error');
 			}
 		});
+		}
 	}
 	function setEditLandResource(land_id) {
 
@@ -228,9 +238,7 @@
 </head>
 
 <body onload="listLandResource()">
-
 	<div id="wrapper">
-
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
 			style="margin-bottom: 0; background-color: #98c3e8">
@@ -283,9 +291,9 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#listLand" data-toggle="tab">ทรัพยากรดิน</a>
+								<li class="active"><a href="#listLand" data-toggle="tab">ข้อมูลทรัพยากรดิน</a>
 								</li>
-								<li><a href="#addLand" data-toggle="tab">เพิ่มทรัพยากรดิน</a>
+								<li><a href="#addLand" data-toggle="tab">เพิ่มข้อมูลทรัพยากรดิน</a>
 								</li>
 							</ul>
 							<div class="panel-body">
@@ -299,8 +307,8 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ทรัพยากรดิน</th>
-														<th>การใช้ประโยชน์</th>
+														<th>ประเภทของดิน</th>
+														<th>การนำไปใช้ประโยชน์</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
 												</thead>
@@ -318,16 +326,21 @@
 										<input type="hidden" id="userId" value="<%=userid %>">
 											<table width="50%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อ</td>
-													<td><input id="land_type" maxlength="50"
-														class="form-control" maxlength="100"
-														placeholder="ระบุชื่อทรัพยากรดิน" name="water-name"
-														required></td>
+												<td align="pull-right" style="padding: 15px">ประเภทของดิน
+													<font color="red" size="3">*</font>
+												</td>
+												<td><select id="land_type" class="form-control"
+													placeholder="" name="land_type">
+														<option value="">เลือกประเภทของดิน</option>
+														<option value="ดินเหนียว">ดินเหนียว</option>
+														<option value="ดินร่วน">ดินร่วน</option>
+														<option value="ดินทราย">ดินทราย</option>
+												</select></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ประเภทการใช้ประโยชน์</td>
+													<td align="pull-right" style="padding: 15px">การนำไปใช้ประโยชน์ <font color="red" size="3">*</font></td>
 													<td><input id="land_usage" maxlength="100"
-														class="form-control" maxlength="255" placeholder=""
+														class="form-control" maxlength="255" placeholder="ระบุการนำไปใช้ประโยชน์"
 														name="water-name" required="true"></td>
 												</tr>
 												<tr>
@@ -351,16 +364,21 @@
 											<input type="hidden" id="editLandId">
 											<table width="50%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อ</td>
-													<td><input id="editLandType" maxlength="50"
-														class="form-control" maxlength="100" placeholder=""
-														name="water-name" required></td>
+													<td align="pull-right" style="padding: 15px">ประเภทของดิน
+													<font color="red" size="3">*</font>
+													</td>
+													<td><select id="editLandType" class="form-control"
+														placeholder="" name="editLandType">
+															<option value="ดินเหนียว">ดินเหนียว</option>
+															<option value="ดินร่วน">ดินร่วน</option>
+															<option value="ดินทราย">ดินทราย</option>
+													</select></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ประเภทการใช้ประโยชน์</td>
+													<td align="pull-right" style="padding: 15px">การนำไปใช้ประโยชน์ <font color="red" size="3">*</font></td>
 													<td><input id="editLandUsage" maxlength="100"
-														class="form-control" maxlength="255" placeholder=""
-														name="water-name" required="true"></td>
+														class="form-control" maxlength="255" placeholder="ระบุการนำไปใช้ประโยชน์"
+														name="editLandUsage"></td>
 												</tr>
 												<tr>
 													<td></td>

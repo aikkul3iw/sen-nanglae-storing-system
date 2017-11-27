@@ -161,6 +161,7 @@
 			type : "POST",
 			success : function(data) {
 				var html = '';
+				html += "<option value=\"\">เลือกหมู่บ้าน</option>";
 				for (var i = 0; i < data.length; i++) {
 					html += "<option value=\""+data[i].vil_id+"\">"
 							+ data[i].vil_name + "</option>";
@@ -184,13 +185,15 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = frs_id
-		var obj = {
-			frs_id : id
+			<%Object userdelete = session.getAttribute("userdelete");%>
+			var usdelete="<%=userdelete%>";
+			var id = frs_id
+			var obj = {
+				frs_id : id
 
 		};
 		$.ajax({
-			url : "../NanglaeGov/deleteForest.do",
+			url : "../NanglaeGov/deleteForest.do?userdelete=" + usdelete,
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -203,6 +206,13 @@
 		});
 	}
 	function editForest() {
+		if ($('#editFrsType').val() == "") {
+			document.getElementById('editFrsType').style.borderColor = "red";
+			return false;
+		} else if ($('#editFrsUsage').val() == "") {
+			document.getElementById('editFrsUsage').style.borderColor = "red";
+			return false;
+		} else {
 		var obj = {
 			frs_id : $("#editFrsId").val(),
 			frs_type : $('#editFrsType').val(),
@@ -229,6 +239,7 @@
 				alert('error');
 			}
 		});
+		}
 	}
 	function setEditForest(frs_id) {
 
@@ -280,9 +291,7 @@
 </head>
 
 <body onload="listForest();listVillage();editVillageSelect()">
-
 	<div id="wrapper">
-
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
 			style="margin-bottom: 0; background-color: #98c3e8">
@@ -335,9 +344,9 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#listForest" data-toggle="tab">ทรัพยากรป่าไม้</a>
+								<li class="active"><a href="#listForest" data-toggle="tab">ข้อมูลทรัพยากรป่าไม้</a>
 								</li>
-								<li><a href="#addForest" data-toggle="tab">เพิ่มทรัพยากรป่าไม้</a>
+								<li><a href="#addForest" data-toggle="tab">เพิ่มข้อมูลทรัพยากรป่าไม้</a>
 								</li>
 							</ul>
 							<div class="panel-body">
@@ -351,9 +360,9 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ป่าไม้</th>
-														<th>ที่ตั้ง</th>
-														<th>การใช้ประโยนช์</th>
+														<th>ประเภทของป่าไม้</th>
+														<th>ตัอยู่หมู่บ้าน้ง</th>
+														<th>การนำไปใช้ประโยนช์</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
 												</thead>
@@ -371,23 +380,34 @@
 										<input type="hidden" id="userId" value="<%=userid %>">
 											<table width="50%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อ</td>
-													<td><input id="frs_type" maxlength="100"
-														class="form-control" placeholder="" name="water-name"
-														required="true"></td>
-												</tr>
-												<tr>
-													<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
-													<td><select id="villageSelect" class="form-control"
-														name="edu-location">
-
+													<td align="pull-right" style="padding: 15px">ประเภทของป่าไม้
+														<font color="red" size="3">*</font>
+													</td>
+													<td><select id="frs_type" class="form-control"
+														placeholder="" name="frs_type">
+															<option value="">เลือกประเภทของป่าไม้</option>
+															<option value="ป่าดิบชื้น">ป่าดิบชื้น</option>
+															<option value="ป่าดิบแล้ง">ป่าดิบแล้ง</option>
+															<option value="ป่าดิบเขา">ป่าดิบเขา</option>
+															<option value="ป่าสน">ป่าสน</option>
+															<option value="ป่าพรุ">ป่าพรุ</option>
+															<option value="ป่าชายเลน">ป่าชายเลน</option>
+															<option value="ป่าชายหาด">ป่าชายหาด</option>
+															<option value="ป่าสงวน">ป่าสงวน</option>
+															<option value="ป่าชุมชน">ป่าชุมชน</option>
+															<option value="ป่าสาธารณะ">ป่าสาธารณะ</option>
 													</select></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ประเภทการใช้ประโยชน์</td>
+													<td align="pull-right" style="padding: 15px">ตั้งอยู่หมู่บ้าน <font color="red" size="3">*</font></td>
+													<td><select id="villageSelect" class="form-control"
+														name="villageSelect">
+													</select></td>
+												</tr>
+												<tr>
+													<td align="pull-right" style="padding: 15px">การนำไปใช้ประโยชน์ <font color="red" size="3">*</font></td>
 													<td><input id="frs_usage" maxlength="255"
-														class="form-control" placeholder="" name="water-name"
-														required="true"></td>
+														class="form-control" placeholder="ระบุการนำไปใช้ประโยชน์" name="frs_usage"></td>
 												</tr>
 												<tr>
 													<td></td>
@@ -410,23 +430,33 @@
 											<input type="hidden" id="editFrsId">
 											<table width="50%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อ</td>
-													<td><input id="editFrsType" maxlength="100"
-														class="form-control" placeholder="" name="water-name"
-														required="true"></td>
-												</tr>
-												<tr>
-													<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
-													<td><select id="editVillageSelect"
-														class="form-control" name="edu-location">
-
+													<td align="pull-right" style="padding: 15px">ประเภทของป่าไม้
+														<font color="red" size="3">*</font>
+													</td>
+													<td><select id="editFrsType" class="form-control"
+														placeholder="" name="editFrsType">
+															<option value="ป่าดิบชื้น">ป่าดิบชื้น</option>
+															<option value="ป่าดิบแล้ง">ป่าดิบแล้ง</option>
+															<option value="ป่าดิบเขา">ป่าดิบเขา</option>
+															<option value="ป่าสน">ป่าสน</option>
+															<option value="ป่าพรุ">ป่าพรุ</option>
+															<option value="ป่าชายเลน">ป่าชายเลน</option>
+															<option value="ป่าชายหาด">ป่าชายหาด</option>
+															<option value="ป่าสงวน">ป่าสงวน</option>
+															<option value="ป่าชุมชน">ป่าชุมชน</option>
+															<option value="ป่าสาธารณะ">ป่าสาธารณะ</option>
 													</select></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ประเภทการใช้ประโยชน์</td>
+													<td align="pull-right" style="padding: 15px">ตั้งอยู่หมู่บ้าน <font color="red" size="3">*</font></td>
+													<td><select id="editVillageSelect"
+														class="form-control" name="editVillageSelect">
+													</select></td>
+												</tr>
+												<tr>
+													<td align="pull-right" style="padding: 15px">การนำไปใช้ประโยชน์ <font color="red" size="3">*</font></td>
 													<td><input id="editFrsUsage" maxlength="255"
-														class="form-control" placeholder="" name="water-name"
-														required="true"></td>
+														class="form-control" placeholder="ระบุการนำไปใช้ประโยชน์" name="editFrsUsage"></td>
 												</tr>
 												<tr>
 													<td></td>

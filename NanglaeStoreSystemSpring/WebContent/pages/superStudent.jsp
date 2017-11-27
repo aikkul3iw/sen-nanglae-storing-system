@@ -212,6 +212,8 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
+			<%Object userdelete = session.getAttribute("userdelete");%>
+			var usdelete="<%=userdelete%>";
 			var obj = {
 				studentId : studentId
 
@@ -219,7 +221,7 @@
 			//alert(id);
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/deleteStudent.do",
+				url : "../NanglaeGov/deleteStudent.do?userdelete=" + usdelete,
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),

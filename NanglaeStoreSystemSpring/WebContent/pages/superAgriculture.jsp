@@ -166,58 +166,69 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-			<%
-			Object userdelete = session.getAttribute("userdelete");
-			%>
-			var usdelete="<%=userdelete%>"; 
-			var id = agi_id
-			var obj = {
-				agi_id : id
+			<%Object userdelete = session.getAttribute("userdelete");%>
+			var usdelete="<%=userdelete%>";
+					var id = agi_id
+					var obj = {
+						agi_id : id
 
+					};
+					//alert(id);
+					//alert(JSON.stringify(obj));
+					$.ajax({
+						url : "../NanglaeGov/deleteAgriculture.do?userdelete="
+								+ usdelete,
+						type : "POST",
+						dataType : "JSON",
+						data : JSON.stringify(obj),
+						contentType : "application/json",
+						mimeType : "application/json",
+						success : function(data) {
+							//alert('success');
+							location.reload();
+						}
+					});
+				});
+	}
+	function editAgriculture() {
+		if ($('#editAgiName').val() == "") {
+			document.getElementById('editAgiName').style.borderColor = "red";
+			return false;
+		} else if ($('#editAgiArea').val() == "") {
+			document.getElementById('editAgiArea').style.borderColor = "red";
+			return false;
+		} else if ($('#editAgiDescription').val() == "") {
+			document.getElementById('editAgiDescription').style.borderColor = "red";
+			return false;
+		} else {
+			var obj = {
+				agi_id : $("#editAgiId").val(),
+				agi_name : $('#editAgiName').val(),
+				agi_area : $('#editAgiArea').val(),
+				agi_description : $('#editAgiDescription').val()
 			};
-			//alert(id);
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/deleteAgriculture.do?userdelete="+usdelete,
+				url : "../NanglaeGov/saveAgriculture.do?editUserId="
+						+ $('#editUserId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
 				contentType : "application/json",
 				mimeType : "application/json",
 				success : function(data) {
-					//alert('success');
-					location.reload();
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
+				},
+				error : function(data, status, er) {
+					alert('error');
 				}
 			});
-		});
-	}
-	function editAgriculture() {
-		var obj = {
-			agi_id : $("#editAgiId").val(),
-			agi_name : $('#editAgiName').val(),
-			agi_area : $('#editAgiArea').val(),
-			agi_description : $('#editAgiDescription').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveAgriculture.do?editUserId="+$('#editUserId').val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
+		}
 	}
 	function setEditAgriculture(agi_id) {
 
@@ -267,10 +278,10 @@
 			<!-- /.navbar-header -->
 
 			<ul class="nav navbar-top-links navbar-right">
-			<%
-				Object Name = session.getAttribute("Name");
-				out.println("ยินดีต้อนรับ    " +Name);
-			%>
+				<%
+					Object Name = session.getAttribute("Name");
+					out.println("ยินดีต้อนรับ    " + Name);
+				%>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<i class="fa fa-caret-down"></i>
@@ -288,8 +299,8 @@
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="superMenu.jsp" %>
-			
+			<%@include file="superMenu.jsp"%>
+
 		</nav>
 		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
@@ -304,9 +315,9 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#listAgri" data-toggle="tab">การเกษตรกรรม</a>
+								<li class="active"><a href="#listAgri" data-toggle="tab">ข้อมูลการเกษตรกรรม</a>
 								</li>
-								<li><a href="#addAgri" data-toggle="tab">เพิ่มการเกษตรกรรม</a>
+								<li><a href="#addAgri" data-toggle="tab">เพิ่มข้อมูลการเกษตรกรรม</a>
 								</li>
 							</ul>
 							<div class="panel-body">
@@ -322,10 +333,9 @@
 												<!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ปีที่ข้อมูล</th>
 														<th>พื้นที่เกษตรกรรม</th>
-														<th>จำนวน(ไร่)</th>
-														<th>การทำการเกษตร</th>
+														<th>จำนวนพื้นที่ (ไร่)</th>
+														<th>รายละเอียด</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
 												</thead>
@@ -337,32 +347,36 @@
 									</div>
 									<div class="tab-pane fade" id="addAgri">
 										<form role="form">
-										<%
-											Object userid = session.getAttribute("user");
-										%>
-										<input type="hidden" id="userId" value="<%=userid %>">
+											<%
+												Object userid = session.getAttribute("user");
+											%>
+											<input type="hidden" id="userId" value="<%=userid%>">
 											<table width="50%" align="center">
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">พื้นที่การเกษตร</td>
+													<td align="pull-right" style="padding: 15px">พื้นที่การเกษตร
+														<font color="red" size="3">*</font>
+													</td>
 													<td><input id="agi_name" maxlength="100"
 														class="form-control" placeholder="ระบุพื้นที่การเกษตร"
-														name="vil-number" required="true"></td>
-
+														name="vil-number"></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">จำนวนพื้นที่</td>
-													<td><input id="agi_area" maxlength="5"
-														class="form-control" data-mask="00000" placeholder="ระบุจำนวนพื้นที่"
-														name="vil-name" required="true"></td>
+													<td align="pull-right" style="padding: 15px">จำนวนพื้นที่
+														<font color="red" size="3">*</font>
+													</td>
+													<td><input id="agi_area" class="form-control"
+														data-mask="0000" placeholder="ระบุจำนวนพื้นที่"
+														name="vil-name"></td>
 													<td style="padding: 15px">ไร่</td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">การทำการเกษตร</td>
+													<td align="pull-right" style="padding: 15px">รายละเอียด
+														<font color="red" size="3">*</font>
+													</td>
 													<td><textarea id="agi_description" maxlength="255"
 															class="form-control"
-															placeholder="ระบุรายละเอียดเพิ่มเติม" name="vil-name"
-															required="true"></textarea></td>
+															placeholder="ระบุรายละเอียดเพิ่มเติม"
+															name="agi_description"></textarea></td>
 												</tr>
 												<tr>
 													<td></td>
@@ -378,32 +392,37 @@
 									</div>
 									<div class="tab-pane fade" id="editAgri">
 										<form role="form">
-										<%
-											Object edituserid = session.getAttribute("edituser");
-										%>
-											<input type="hidden" id="editUserId" value="<%=edituserid %>">
+											<%
+												Object edituserid = session.getAttribute("edituser");
+											%>
+											<input type="hidden" id="editUserId" value="<%=edituserid%>">
 											<input type="hidden" id="editAgiId">
 											<table width="50%" align="center">
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">พื้นที่การเกษตร</td>
+													<td align="pull-right" style="padding: 15px">พื้นที่การเกษตร
+														<font color="red" size="3">*</font>
+													</td>
 													<td><input id="editAgiName" maxlength="100"
-														class="form-control" placeholder="" name="vil-number"
-														required="true"></td>
-
+														class="form-control" placeholder="ระบุพื้นที่การเกษตร"
+														name="editAgiName"></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">จำนวนพื้นที่</td>
-													<td><input id="editAgiArea" maxlength="5"
-														class="form-control" data-mask="00000"placeholder="" name="vil-name"
-														required="true"></td>
+													<td align="pull-right" style="padding: 15px">จำนวนพื้นที่
+														<font color="red" size="3">*</font>
+													</td>
+													<td><input id="editAgiArea" class="form-control"
+														data-mask="0000" placeholder="ระบุจำนวนพื้นที่"
+														" name="editAgiArea"></td>
 													<td style="padding: 15px">ไร่</td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">การทำการเกษตร</td>
+													<td align="pull-right" style="padding: 15px">รายละเอียด
+														<font color="red" size="3">*</font>
+													</td>
 													<td><textarea id="editAgiDescription" maxlength="255"
-															class="form-control" placeholder="" name="vil-name"
-															required="true"></textarea></td>
+															class="form-control"
+															placeholder="ระบุรายละเอียดเพิ่มเติม"
+															name="editAgiDescription"></textarea></td>
 												</tr>
 												<tr>
 													<td></td>

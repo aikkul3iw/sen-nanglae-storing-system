@@ -57,10 +57,10 @@
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].water_name
+							        + data[i].water_type
 									+ "</td>"
 									+ "<td>"
-									+ data[i].water_type
+									+ data[i].water_name
 									+ "</td>"
 									+ "<td>"
 									+ "หมู่ที่ "
@@ -160,6 +160,7 @@
 			type : "POST",
 			success : function(data) {
 				var html = '';
+				html += "<option value=\"\">เลือกหมู่บ้าน</option>";
 				for (var i = 0; i < data.length; i++) {
 					html += "<option value=\""+data[i].vil_id+"\">"
 							+ data[i].vil_name + "</option>";
@@ -183,13 +184,15 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = water_id;
-		var obj = {
-			water_id : id
+			<%Object userdelete = session.getAttribute("userdelete");%>
+			var usdelete="<%=userdelete%>";
+			var id = water_id;
+			var obj = {
+				water_id : id
 
 		};
 		$.ajax({
-			url : "../NanglaeGov/deleteWater.do",
+			url : "../NanglaeGov/deleteWater.do?userdelete=" + usdelete,
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -202,6 +205,13 @@
 		});
 	}
 	function editWater() {
+		if ($('#editWaterName').val() == "") {
+			document.getElementById('editWaterName').style.borderColor = "red";
+			return false;
+		} else if ($('#editWaterType').val() == "") {
+			document.getElementById('editWaterType').style.borderColor = "red";
+			return false;
+		} else {
 		var obj = {
 			water_id : $("#editId").val(),
 			water_name : $('#editWaterName').val(),
@@ -227,6 +237,7 @@
 				alert('error');
 			}
 		});
+		}
 	}
 	function setEditWater(water_id) {
 
@@ -335,8 +346,8 @@
 					<div class="panel-body">
 						<ul class="nav nav-tabs">
 							<li class="active"><a href="#listResourceWater"
-								data-toggle="tab">ทรัพยากรน้ำ</a></li>
-							<li><a href="#addResourceWater" data-toggle="tab">เพิ่มทรัพยากรน้ำ</a>
+								data-toggle="tab">ข้อมูลทรัพยากรน้ำ</a></li>
+							<li><a href="#addResourceWater" data-toggle="tab">เพิ่มข้อมูลทรัพยากรน้ำ</a>
 							</li>
 						</ul>
 						<div class="panel-body">
@@ -350,70 +361,15 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
+														<th>ประเภทแหล่งน้ำ</th>
 														<th>ชื่อแหล่งน้ำ</th>
-														<th>ประเภท</th>
-														<th>ที่ตั้ง</th>
+														<th>ตั้งอยู่หมู่บ้าน</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
 												</thead>
 												<tbody id="listWaters">
 												</tbody>
 <!-- End change table -->
-										</table>
-									</div>
-								</div>
-								<div class="tab-pane fade" id="listResourceSoli">
-									<div class="table-responsive">
-										<table class="table table-striped table-bordered table-hover">
-											<thead>
-												<tr>
-													<th>ดิน</th>
-													<th>บริเวรที่ตั้ง</th>
-													<th>การใช้ประโยนช์</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>ดินแดงปนดิ</td>
-													<td>ทิศตะวันตกบริเวรป่าสงวน</td>
-													<td>พื้นที่ทำการเกษตร</td>
-												</tr>
-												<tr>
-													<td>ดินร่วนปนทราย</td>
-													<td>ทิศตะวันตกบริเวรป่าสงวน</td>
-													<td>พื้นที่ทำการเกษตร</td>
-												</tr>
-												<tr>
-													<td>ดินที่สูงที่ราบสูง</td>
-													<td>ทิศตะวันตกบริเวรป่าสงวน</td>
-													<td>พื้นที่ทำการเกษตร</td>
-												</tr>
-												<tr>
-													<td>ดินปนหิน</td>
-													<td>ทิศตะวันตกบริเวรป่าสงวน</td>
-													<td>พื้นที่ทำการเกษตร</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-								<div class="tab-pane fade" id="listResourceWood">
-									<div class="table-responsive">
-										<table class="table table-striped table-bordered table-hover">
-											<thead>
-												<tr>
-													<th>ป่าไม้</th>
-													<th>บริเวรที่ตั้ง</th>
-													<th>การใช้ประโยนช์</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>ป่าสงวนแห่งชาติ</td>
-													<td>หมู่ที่ 7</td>
-													<td>แหล่งต้นน้ำ และทรัพยากรที่อุดมสมบูรณ์</td>
-												</tr>
-											</tbody>
 										</table>
 									</div>
 								</div>
@@ -425,16 +381,11 @@
 										<input type="hidden" id="userId" value="<%=userid %>">
 										<table width="50%" align="center">
 											<tr>
-												<td align="pull-right" style="padding: 15px">ชื่อแหล่งน้ำ</td>
-												<td><input id="water_name" maxlength="50"
-													class="form-control" placeholder="ระบุชื่อแหล่งน้ำ"
-													name="water-name" required="true"></td>
-											</tr>
-											<tr>
-												<td align="pull-right" style="padding: 15px">ประเภท</td>
+												<td align="pull-right" style="padding: 15px">ประเภทแหล่งน้ำ <font
+													color="red" size="3">*</font></td>
 												<td><select id="water_type" class="form-control"
-													name="water-location">
-														<option value="">เลือกประเภท</option>
+													name="water_type">
+														<option value="">เลือกประเภทแหล่งน้ำ</option>
 														<option value="ลำห้วย">ลำห้วย</option>
 														<option value="สระน้ำ">สระน้ำ</option>
 														<option value="ลำคลอง">ลำคลอง</option>
@@ -443,10 +394,17 @@
 												</select></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
+												<td align="pull-right" style="padding: 15px">ชื่อแหล่งน้ำ <font
+													color="red" size="3">*</font></td>
+												<td><input id="water_name" maxlength="50"
+													class="form-control" placeholder="ระบุชื่อแหล่งน้ำ"
+													name="water-name"></td>
+											</tr>
+											<tr>
+												<td align="pull-right" style="padding: 15px">ตั้งอยู่หมู่บ้าน <font
+													color="red" size="3">*</font></td>
 												<td><select id="villageSelect" class="form-control"
 													name="water-location">
-
 												</select></td>
 											</tr>
 											<tr>
@@ -470,16 +428,10 @@
 										<input type="hidden" id="editId">
 										<table width="50%" align="center">
 											<tr>
-												<td align="pull-right" style="padding: 15px">ชื่อแหล่งน้ำ</td>
-												<td><input id="editWaterName" maxlength="50"
-													class="form-control" placeholder="" name="water-name"
-													required="true"></td>
-											</tr>
-											<tr>
-												<td align="pull-right" style="padding: 15px">ประเภท</td>
+												<td align="pull-right" style="padding: 15px">ประเภทแหล่งน้ำ <font
+													color="red" size="3">*</font></td>
 												<td><select id="editWaterType" class="form-control"
-													name="water-location">
-														<option value="">เลือกประเภท</option>
+													name="editWaterType">
 														<option value="ลำห้วย">ลำห้วย</option>
 														<option value="สระน้ำ">สระน้ำ</option>
 														<option value="ลำคลอง">ลำคลอง</option>
@@ -488,10 +440,16 @@
 												</select></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
+												<td align="pull-right" style="padding: 15px">ชื่อแหล่งน้ำ <font
+													color="red" size="3">*</font></td>
+												<td><input id="editWaterName" maxlength="50"
+													class="form-control" placeholder="ระบุชื่อแหล่งน้ำ" name="water-name"></td>
+											</tr>
+											<tr>
+												<td align="pull-right" style="padding: 15px">ตั้งอยู่หมู่บ้าน <font
+													color="red" size="3">*</font></td>
 												<td><select id="editVillageSelect" class="form-control"
-													name="water-location">
-
+													name="editVillageSelect">
 												</select></td>
 											</tr>
 											<tr>

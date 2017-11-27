@@ -52,9 +52,9 @@
 					<li><a href="superAgriculture.do">การเกษตรกรรม</a></li>
 					<li><a href="#">ทรัพยากรธรรมชาติ<span class="fa arrow"></span></a>
 						<ul class="nav nav-third-level">
-							<li><a href="superWaterresource.do">ทรัพยากรณ์น้ำ</a></li>
-							<li><a href="superLandresource.do">ทรัพยากรณ์ดิน</a></li>
-							<li><a href="superForestresource.do">ทรัพยากรณ์ป่าไม้</a></li>
+							<li><a href="superWaterresource.do">ทรัพยากรน้ำ</a></li>
+							<li><a href="superLandresource.do">ทรัพยากรดิน</a></li>
+							<li><a href="superForestresource.do">ทรัพยากรป่าไม้</a></li>
 						</ul></li>
 					<li><a href="superPolution.do">มลพิษ</a></li>
 				</ul> <!-- /.nav-second-level --></li>

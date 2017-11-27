@@ -181,7 +181,6 @@
 			type : "POST",
 			success : function(data) {
 				var html = '';
-				html += "<option value=\"\">เลือกหมู่บ้าน</option>";
 				for (var i = 0; i < data.length; i++) {
 					html += "<option value=\""+data[i].vil_id+"\">"
 							+ data[i].vil_name + "</option>";
@@ -416,7 +415,7 @@
 													</td>
 													<td><select id="pipe_system" class="form-control"
 														placeholder="" name="vil-name" required="true">
-															<option>เลือกสถานะระบบประปาา</option>
+															<option value="">เลือกสถานะระบบประปาา</option>
 															<option value="มีระบบประปา">มีระบบประปา</option>
 															<option value="ไม่มีระบบประปาา">ไม่มีระบบประปาา</option>
 													</select></td>
