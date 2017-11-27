@@ -22,7 +22,7 @@ public class AIDSpatients implements Serializable {
 	private String gender;
 	private String idCard;
 	private String birthday;
-	private int age;
+	private String age;
 	private String address1;
 	private String address2;
 	private String tel;
@@ -41,7 +41,13 @@ public class AIDSpatients implements Serializable {
 	private Village location;
 
 	
+	public String getAge() {
+		return age;
+	}
 
+	public void setAge(String age) {
+		this.age = age;
+	}
 	public String getTitles() {
 		return titles;
 	}
@@ -80,14 +86,6 @@ public class AIDSpatients implements Serializable {
 
 	public void setGender(String gender) {
 		this.gender = gender;
-	}
-
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
 	}
 
 	public String getAddress1() {

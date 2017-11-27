@@ -59,7 +59,7 @@
 							var id = data[i].elderPeId;
 							html += "<tr>";
 							html += "<td>"
-									+ data[i].titles+data[i].firstName+" "+data[i].lastname
+									+ data[i].titles+data[i].firstName+" "+data[i].lastName
 									+ "</td>"
 									+ "<td>"
 									+ data[i].age
@@ -100,8 +100,8 @@
 <script type='text/javascript'>
 	function createElderlyPeople() {
 		$("#loader").show();
-		if ($('#title').val() == "") {
-			document.getElementById('title').style.borderColor = "red";
+		if ($('#titles').val() == "") {
+			document.getElementById('titles').style.borderColor = "red";
 			return false;
 		} else if ($('#firstname').val() == "") {
 			document.getElementById('firstname').style.borderColor = "red";
@@ -159,8 +159,8 @@
 			var obj = {
 					elderPeId : 0,
 					titles : $('#titles').val(),
-					firstName : $('#firstname').val(),
-					lastName : $('#lastname').val(),
+					firstName : $('#firstName').val(),
+					lastName : $('#lastName').val(),
 					gender : $('#gender').val(),
 					idCard : $('#idCard').val(),
 					birthday : $('#birthday').val(),
@@ -177,9 +177,8 @@
 					allowanceEndDate : $('#allowanceEndDate').val(),
 					remark : $('#remark').val()
 			};
-			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/saveElderlyPeople.do",
+				url : "../NanglaeGov/saveElderlyPeople.do?user="+$('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -192,9 +191,11 @@
 					}).then(function() {
 						location.reload();
 					});
+
 				},
 				error : function(data, status, er) {
-					alert('error');
+					alert(JSON.stringify(obj));
+					alert('ERROR!!!');
 					$("#loader").hide();
 				}
 			});
@@ -371,7 +372,7 @@
 						<ul class="nav nav-tabs">
 							<li class="active"><a href="#listElderlyPeople" data-toggle="tab">ข้อมูล ผู้สูงอายุ</a>
 							</li>
-							<li><a href="#addElderlyPeople" data-toggle="tab">เพิ่ม ผู้สูงอายุ</a>
+							<li><a href="#addElderlyPeople" data-toggle="tab" id="addelderly">เพิ่ม ผู้สูงอายุ</a>
 							</li>
 						</ul>
 						<div class="panel-body">
@@ -399,7 +400,11 @@
 								</div>
 								<div class="tab-pane fade" id="addElderlyPeople">
 									<form role="form">
-										<table width="70%" align="center">
+										<%
+											Object userid = session.getAttribute("user");
+										%>
+										<input type="hidden" id="userId" value="<%=userid %>">
+										<table width="65%" align="center">
 											<tr>
 												<td></td>	
 												<td><select id="titles" class="form-control">
@@ -410,34 +415,34 @@
 											</tr>
 											<tr>
 												<td style="padding: 15px">ชื่อ</td>
-												<td><input id="firstname" maxlength="50"
-													class="form-control" placeholder="" name="firstname"
+												<td><input id="firstName" maxlength="50"
+													class="form-control" placeholder="" name="firstName"
 													required="true"></td>
 											</tr>
 											<tr>
 												<td style="padding: 15px">นามสกุล</td>
-												<td><input id="lastname" maxlength="50"
+												<td><input id="lastName" maxlength="50"
 														class="form-control" placeholder=""
-														name="lastname" required="true"></td>
+														name="lastName" required="true"></td>
 											</tr>
 											<tr>
 												<td></td>
 												<td>
 													<select id="gender"  class="form-control">
-													  <option value="volvo">ชาย</option>
-													  <option value="saab">หญิง</option>
+													  <option value="ชาย">ชาย</option>
+													  <option value="หญิง">หญิง</option>
 													</select>
 												</td>
 											</tr>
 											<tr>
 												<td style="padding: 15px">เลขบัตรประชาชน</td>
-												<td><input id="idCard" maxlength="13"
-														data-mask="0-0000-0000-0-0"class="form-control" placeholder=""
+												<td><input id="idCard" maxlength=""
+														data-mask="0-0000-00000-00-0"class="form-control" placeholder=""
 														name="idCard" required="true"></td>
 											</tr>
 											<tr>
 												<td style="padding: 15px">วันเกิด</td>
-												<td><input type="date" id="birthday"class="form-control"
+												<td><input  data-mask="00/00/0000" id="birthday"class="form-control"
 														name="birthday" required="true"></td>
 											</tr>
 											<tr>
@@ -466,13 +471,13 @@
 											</tr>
 											<tr>
 												<td style="padding: 15px">วันที่ขึ้นทะเบียนผู้สูงอายุ</td>
-												<td><input type="date" id="regisDate"
+												<td><input  data-mask="00/00/0000" id="regisDate"
 														class="form-control"
 														name="regisDate" required="true"></td>
 											</tr>
 											<tr>
 												<td style="padding: 15px">วันที่เริ่มได้รับเงินสงเคราะห์</td>
-												<td><input type="date" id="allowanceStartDate"
+												<td><input  data-mask="00/00/0000" id="allowanceStartDate"
 														class="form-control"
 														name="allowanceStartDate" required="true"></td>
 											</tr>
@@ -480,11 +485,11 @@
 												<td style="padding: 15px">ชื่อของทายาท</td>
 												<td>
 													<select id="offspringTitle"  class="form-control">
-													  <option value="volvo">ด.ช.</option>
-													  <option value="saab">ด.ญ.</option>
-													  <option value="mercedes">นาย</option>
-													  <option value="audi">นางสาว</option>
-													  <option value="audi">นาง</option>
+													  <option value="ด.ช.">ด.ช.</option>
+													  <option value="ด.ญ.">ด.ญ.</option>
+													  <option value="นาย">นาย</option>
+													  <option value="นางสาว">นางสาว</option>
+													  <option value="นาง">นาง</option>
 													</select>
 												</td>
 											</tr>
@@ -502,13 +507,13 @@
 											</tr>
 											<tr>
 												<td style="padding: 15px">เลขบัตรประชาชน</td>
-												<td><input id="offspringIdCard" maxlength="13"
-														data-mask="0-0000-0000-0-0"class="form-control" placeholder=""
+												<td><input id="offspringIdCard" maxlength=""
+														data-mask="0-0000-00000-00-0"class="form-control" placeholder=""
 														name="offspringIdCard" required="true"></td>
 											</tr>
 											<tr>
 												<td style="padding: 15px">วันสิ้นสุดรับเงินสงเคราะห์</td>
-												<td><input type="date" id="allowanceEndDate"
+												<td><input  data-mask="00/00/0000" id="allowanceEndDate"
 														class="form-control"
 														name="allowanceEndDate" required="true"></td>
 											</tr>
@@ -524,8 +529,8 @@
 												<td align="center" style="padding: 15px">
 													<button style="width: 100px" type="reset"
 														class="btn btn-warning">ล้างข้อมูล</button> <input
-													style="width: 100px" type="button" class="btn btn-success"
-													value="บันทึก" onclick="createElderlyPeople()" />
+													style="width: 100px" type="button" value="บันทึก"
+													id="save"  onclick="createElderlyPeople()" class="btn btn-success" />
 												</td>
 											</tr>
 										</table>
@@ -566,8 +571,8 @@
 											</tr>
 											<tr>
 												<td style="padding: 15px">เลขบัตรประชาชน</td>
-												<td><input id="editidCard" maxlength="13"
-														data-mask="0-0000-0000-0-0"class="form-control" placeholder=""
+												<td><input id="editidCard" maxlength=""
+														data-mask="0-0000-00000-00-0"class="form-control" placeholder=""
 														name="editidCard" required="true"></td>
 											</tr>
 											<tr>
@@ -637,8 +642,8 @@
 											</tr>
 											<tr>
 												<td style="padding: 15px">เลขบัตรประชาชน</td>
-												<td><input id="editoffspringIdCard" maxlength="13"
-														data-mask="0-0000-0000-0-0"class="form-control" placeholder=""
+												<td><input id="editoffspringIdCard" maxlength=""
+														data-mask="0-0000-00000-00-0"class="form-control" placeholder=""
 														name="editoffspringIdCard" required="true"></td>
 											</tr>
 											<tr>

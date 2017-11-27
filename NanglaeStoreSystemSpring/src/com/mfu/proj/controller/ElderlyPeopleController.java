@@ -54,8 +54,8 @@ public class ElderlyPeopleController {
 	public @ResponseBody String saveElderlyPeople(@RequestBody ElderlyPeople ElderlyPeople, HttpServletRequest request) {
 		try {
 			if (ElderlyPeople.getElderPeId() == 0) {
-				String id = request.getParameter("user");
 				ElderlyPeopleServ.save(ElderlyPeople);
+				String id = request.getParameter("user");
 				Activity atv = new Activity();
 				atv.setUser(userServ.findUserById(Long.parseLong(id)));
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -65,8 +65,8 @@ public class ElderlyPeopleController {
 				atv.setAtv_data("ผู้สูงอายุ");
 				atvServ.save(atv);
 			} else {
+				ElderlyPeopleServ.update(ElderlyPeople);
 				String editid = request.getParameter("editUserId");
-				ElderlyPeopleServ.update(ElderlyPeople);	
 				Activity atv2 = new Activity();
 				atv2.setUser(userServ.findUserById(Long.parseLong(editid)));
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

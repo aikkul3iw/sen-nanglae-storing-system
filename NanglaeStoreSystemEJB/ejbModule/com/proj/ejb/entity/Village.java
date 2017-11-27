@@ -28,16 +28,12 @@ public class Village implements Serializable {
 	private List<Agriculture> agricultures;
 
 	@OneToMany(mappedBy = "location", cascade = { CascadeType.ALL })
-	// @JsonIgnore
-	private List<AIDSpatients> AIDSpatients;
-
-	@OneToMany(mappedBy = "location", cascade = { CascadeType.ALL })
 	@JsonIgnore
 	private List<Disabled> disableds;
-
+	
 	@OneToMany(mappedBy = "location", cascade = { CascadeType.ALL })
-	// @JsonIgnore
-	private List<ElderlyPeople> elderlyPeoples;
+	//@JsonIgnore
+	private List<AIDSpatients> AIDSpatients;
 
 	@OneToMany(mappedBy = "location", cascade = { CascadeType.ALL })
 	// @JsonIgnore

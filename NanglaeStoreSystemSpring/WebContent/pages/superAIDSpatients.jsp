@@ -124,7 +124,7 @@ function getAddress(){
 	function createAIDSpatients() {
 		$("#loader").show();
 		var obj = {
-			AIDSpatientsId : 0,
+				AIDSpatientsId : 0,
 			titles : $('#titles').val(),
 			firstName : $('#firstName').val(),
 			lastName : $('#lastName').val(),
@@ -146,20 +146,20 @@ function getAddress(){
 			
 		};
 		$.ajax({
-			url : "../NanglaeGov/saveAIDSpatients.do?id=" + $("#villageSelect").val() + "&user="+$('#userId').val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
+			url : "../NanglaeGov/saveAIDSpatients.do?id="+ $("#villageSelect").val() + "&user="+ $('#userId').val(),
+		type : "POST",
+		dataType : "JSON",
+		data : JSON.stringify(obj),
+		contentType : "application/json",
+		mimeType : "application/json",
+		success : function(data) {
+			swal({
+				title : 'บันทึกข้อมูลสำเร็จ',
+				type : 'success'
+			}).then(function() {
+				location.reload();
+			});
+		},
 			error : function(data, status, er) {
 				alert('error');
 				alert(JSON.stringify(obj));
@@ -354,7 +354,7 @@ function getAddress(){
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#listCommerce"
 									data-toggle="tab">ข้อมูลผู้ป่วยเอดส์</a></li>
-								<li><a href="#addCommerce" data-toggle="tab">เพิ่มผู้ป่วยเอดส์</a>
+								<li><a href="#addCommerce" data-toggle="tab" id="addaid">เพิ่มผู้ป่วยเอดส์</a>
 								</li>
 							</ul>
 							<div class="panel-body">
@@ -395,7 +395,7 @@ function getAddress(){
 											<tr>
 													<td align="pull-right" style="padding: 15px">คำนำหน้าชื่อ</td>
 													<td><select id="titles" class="form-control"
-														placeholder="" name="title" required="true">
+														placeholder="" name="titles" required="true">
 															<option value="">เลือกคำนำหน้าชื่อ</option>
 															<option value="นาย">นาย</option>
 															<option value="นาง">นาง</option>
@@ -446,7 +446,7 @@ function getAddress(){
 												<tr>
 													<td align="pull-right" style="padding: 15px">หมู่บ้านที่ตั้ง</td>
 													<td><select id="villageSelect" class="form-control"
-														placeholder="" name="vil-name" required="true">
+														placeholder="" name="villageSelect" required="true">
 													</select></td>
 												</tr>
 												<tr>
@@ -535,7 +535,7 @@ function getAddress(){
 														<button style="width: 100px" type="reset"
 															class="btn btn-warning">ล้างข้อมูล</button> <input
 														style="width: 100px" type="button" class="btn btn-success"
-														value="บันทึก" onclick="createAIDSpatients()" />
+														value="บันทึก" id="save"onclick="createAIDSpatients()" />
 													</td>
 												</tr>
 											</table>

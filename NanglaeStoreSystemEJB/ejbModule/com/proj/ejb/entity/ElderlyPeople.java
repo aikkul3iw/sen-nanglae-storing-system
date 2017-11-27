@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 public class ElderlyPeople implements Serializable {
 	@Id
@@ -20,25 +22,23 @@ public class ElderlyPeople implements Serializable {
 	private String firstName;
 	private String lastName;
 	private String gender;
-	private int idCard;
-	private Date birthday;
-	private int age;
+	private String idCard;
+	private String birthday;
+	private String age;
 	private String address1;
 	private String address2;
 	private String tel;
-	private Date regisDate;
-	private Date allowanceStartDate;
+	private String regisDate;
+	private String allowanceStartDate;
 	private String offspringTitle;
 	private String offspringFirstname;
 	private String offspringLastname;
 	private String offspringIdCard;
-	private Date allowanceEndDate;
+	private String allowanceEndDate;
 	private String remark;
 
 	// map with village
 	@ManyToOne(fetch = FetchType.EAGER)
-	// @JsonIgnore
-	private Village location;
 
 	public long getElderPeId() {
 		return elderPeId;
@@ -56,19 +56,19 @@ public class ElderlyPeople implements Serializable {
 		this.gender = gender;
 	}
 
-	public int getIdCard() {
+	public String getIdCard() {
 		return idCard;
 	}
 
-	public void setIdCard(int idCard) {
+	public void setIdCard(String idCard) {
 		this.idCard = idCard;
 	}
 
-	public int getAge() {
+	public String getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(String age) {
 		this.age = age;
 	}
 
@@ -96,14 +96,6 @@ public class ElderlyPeople implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public Date getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
-
 	public String getAddress1() {
 		return address1;
 	}
@@ -126,38 +118,6 @@ public class ElderlyPeople implements Serializable {
 
 	public void setTel(String tel) {
 		this.tel = tel;
-	}
-
-	public Date getAllowanceEndDate() {
-		return allowanceEndDate;
-	}
-
-	public void setAllowanceEndDate(Date allowanceEndDate) {
-		this.allowanceEndDate = allowanceEndDate;
-	}
-
-	public Village getLocation() {
-		return location;
-	}
-
-	public void setLocation(Village location) {
-		this.location = location;
-	}
-
-	public Date getRegisDate() {
-		return regisDate;
-	}
-
-	public void setRegisDate(Date regisDate) {
-		this.regisDate = regisDate;
-	}
-
-	public Date getAllowanceStartDate() {
-		return allowanceStartDate;
-	}
-
-	public void setAllowanceStartDate(Date allowanceStartDate) {
-		this.allowanceStartDate = allowanceStartDate;
 	}
 
 	public String getOffspringTitle() {
@@ -199,5 +159,38 @@ public class ElderlyPeople implements Serializable {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getRegisDate() {
+		return regisDate;
+	}
+
+	public void setRegisDate(String regisDate) {
+		this.regisDate = regisDate;
+	}
+
+	public String getAllowanceStartDate() {
+		return allowanceStartDate;
+	}
+
+	public void setAllowanceStartDate(String allowanceStartDate) {
+		this.allowanceStartDate = allowanceStartDate;
+	}
+
+	public String getAllowanceEndDate() {
+		return allowanceEndDate;
+	}
+
+	public void setAllowanceEndDate(String allowanceEndDate) {
+		this.allowanceEndDate = allowanceEndDate;
+	}
+	
 
 }
