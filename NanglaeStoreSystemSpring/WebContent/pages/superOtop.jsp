@@ -46,8 +46,6 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-
-	
 	function listOtop() {
 		$("#loader").show();
 
@@ -66,10 +64,10 @@
 									+ data[i].otop_name
 									+ "</td>"
 									+ "<td>"
-									+ data[i].tel
+									+ data[i].otop_price
 									+ "</td>"
 									+ "<td>"
-									+ data[i].otop_price
+									+ data[i].tel
 									+ "</td>"
 									+ "<td>"
 									+ data[i].otop_description
@@ -89,34 +87,54 @@
 							html += "</tr>";
 						}
 						$('#listOtops').html(html);
-						$(document).ready(function() {
-							var table = $('#resultTable').DataTable({
-								lengthChange : false,
-								buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2, 3, 4, 5 ]},customize : function(doc) {
-								doc.defaultStyle['font'] = 'THSarabun';
-										}
-									},
-								],
-							    language: {
-						              sProcessing: 'กำลังดำเนินการ...',
-						              sLengthMenu: 'แสดง_MENU_ แถว',
-						              sZeroRecords: 'ไม่พบข้อมูล',
-						              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
-						              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
-						              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
-						              sInfoPostFix: '',
-						              sSearch: 'ค้นหา:',
-							              oPaginate: {
-							                            sFirst: 'เิริ่มต้น',
-							                            sPrevious: 'ก่อนหน้า',
-							                            sNext: 'ถัดไป',
-							                            sLast: 'สุดท้าย'
-							              }
-						     }
-						});
-						table.buttons().container().appendTo('#page-wrapper .col-sm-6:eq(0)');
-					});
+						$(document)
+								.ready(
+										function() {
+											var table = $('#resultTable')
+													.DataTable(
+															{
+																lengthChange : false,
+																buttons : [
+																		'excel',
+																		{
+																			extend : 'pdf',
+																			exportOptions : {
+																				columns : [
+																						0,
+																						1,
+																						2,
+																						3,
+																						4,
+																						5 ]
+																			},
+																			customize : function(
+																					doc) {
+																				doc.defaultStyle['font'] = 'THSarabun';
+																			}
+																		}, ],
+																language : {
+																	sProcessing : 'กำลังดำเนินการ...',
+																	sLengthMenu : 'แสดง_MENU_ แถว',
+																	sZeroRecords : 'ไม่พบข้อมูล',
+																	sInfo : 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+																	sInfoEmpty : 'แสดง 0 ถึง 0 จาก 0 แถว',
+																	sInfoFiltered : '(กรองข้อมูล _MAX_ ทุกแถว)',
+																	sInfoPostFix : '',
+																	sSearch : 'ค้นหา:',
+																	oPaginate : {
+																		sFirst : 'เิริ่มต้น',
+																		sPrevious : 'ก่อนหน้า',
+																		sNext : 'ถัดไป',
+																		sLast : 'สุดท้าย'
+																	}
+																}
+															});
+											table
+													.buttons()
+													.container()
+													.appendTo(
+															'#page-wrapper .col-sm-6:eq(0)');
+										});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -160,7 +178,7 @@
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/saveOtop.do?user="+$('#userId').val(),
+				url : "../NanglaeGov/saveOtop.do?user=" + $('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -193,55 +211,78 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = otopId;
-		var obj = {
-			otopId : id
-		};
+			<%Object userdelete = session.getAttribute("userdelete");%>
+			var usdelete="<%=userdelete%>";
+			var id = otopId;
+			var obj = {
+				otopId : id
+			};
 
-		$.ajax({
-			url : "../NanglaeGov/deleteOtop.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				location.reload();
-			}
-		});
+			$.ajax({
+				url : "../NanglaeGov/deleteOtop.do?userdelete=" + usdelete,
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					//alert('success');
+					location.reload();
+				}
+			});
 		});
 	}
 	function editOtop() {
-		var obj = {
-			otopId : $('#editOtopId').val(),
-			otop_name : $('#editotop_name').val(),
-			tel : $('#editotop_tel').val(),
-			otop_price : $('#editotop_price').val(),
-			otop_description : $('#editotop_description').val(),
-			latitute : $('#editotop_latitute').val(),
-			longitute : $('#editotop_longitute').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveOtop.do?editUserId="+$('#editUserId').val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
+		if ($('#editotop_name').val() == "") {
+			document.getElementById('editotop_name').style.borderColor = "red";
+			return false;
+		} else if ($('#editotop_tel').val() == "") {
+			document.getElementById('editotop_tel').style.borderColor = "red";
+			return false;
+		} else if ($('#editotop_price').val() == "") {
+			document.getElementById('editotop_price').style.borderColor = "red";
+			return false;
+		} else if ($('#editotop_description').val() == "") {
+			document.getElementById('editotop_description').style.borderColor = "red";
+			return false;
+		} else if ($('#editotop_latitute').val() == "") {
+			document.getElementById('editotop_latitute').style.borderColor = "red";
+			return false;
+		} else if ($('#editotop_longitute').val() == "") {
+			document.getElementById('editotop_longitute').style.borderColor = "red";
+			return false;
+		} else {
+			var obj = {
+				otopId : $('#editOtopId').val(),
+				otop_name : $('#editotop_name').val(),
+				tel : $('#editotop_tel').val(),
+				otop_price : $('#editotop_price').val(),
+				otop_description : $('#editotop_description').val(),
+				latitute : $('#editotop_latitute').val(),
+				longitute : $('#editotop_longitute').val()
+			};
+			//alert(JSON.stringify(obj));
+			$.ajax({
+				url : "../NanglaeGov/saveOtop.do?editUserId="
+						+ $('#editUserId').val(),
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
+				},
+				error : function(data, status, er) {
+					alert('error');
+				}
+			});
+		}
 	}
 
 	function setEditOtop(otopId) {
@@ -295,10 +336,10 @@
 			<!-- /.navbar-header -->
 
 			<ul class="nav navbar-top-links navbar-right">
-			<%
-				Object Name = session.getAttribute("Name");
-				out.println("ยินดีต้อนรับ    " +Name);
-			%>
+				<%
+					Object Name = session.getAttribute("Name");
+					out.println("ยินดีต้อนรับ    " + Name);
+				%>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<i class="fa fa-caret-down"></i>
@@ -316,13 +357,13 @@
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="superMenu.jsp" %>
+			<%@include file="superMenu.jsp"%>
 		</nav>
 	</div>
 	<div id="page-wrapper" style="background-color: #d7f0f5">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Otop</h1>
+				<h1 class="page-header">โอทอป</h1>
 			</div>
 			<!-- /.col-lg-12 -->
 		</div>
@@ -332,34 +373,33 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<ul class="nav nav-tabs">
-							<li class="active"><a href="#listOtop" data-toggle="tab">ข้อมูล Otop</a>
+							<li class="active"><a href="#listOtop" data-toggle="tab">ข้อมูลโอทอป</a>
 							</li>
-							<li><a href="#addOtop" data-toggle="tab">เพิ่ม Otop</a>
+							<li><a href="#addOtop" data-toggle="tab">เพิ่มข้อมูลโอทอป</a>
 							</li>
 						</ul>
 						<div class="panel-body">
-
 							<!-- Tab panes -->
 							<div class="tab-content">
 								<div class="tab-pane fade in active" id="listOtop">
 									<div class="table-responsive">
 										<table id="resultTable"
 											class="table table-striped table-bordered table-hover">
-<!-- Start change table -->
-												<thead>
-													<tr>
-														<th>ชื่อ</th>
-														<th>เบอร์โทร</th>
-														<th>ราคา</th>
-														<th>รายละเอียด</th>
-														<th>ละดิจูด</th>
-														<th>ลองติจูด</th>
-														<th style="text-align: center;">ตัวเลือก</th>
-													</tr>
-												</thead>
-												<tbody id="listOtops">
-												</tbody>
-<!-- End change table -->
+											<!-- Start change table -->
+											<thead>
+												<tr>
+													<th>ชื่อสินค้า</th>
+													<th>ราคา (บาท)</th>
+													<th>เบอร์โทรศัพท์</th>
+													<th>รายละเอียด</th>
+													<th>ละดิจูด</th>
+													<th>ลองจิจูด</th>
+													<th style="text-align: center;">ตัวเลือก</th>
+												</tr>
+											</thead>
+											<tbody id="listOtops">
+											</tbody>
+											<!-- End change table -->
 										</table>
 									</div>
 								</div>
@@ -368,44 +408,47 @@
 										<%
 											Object userid = session.getAttribute("user");
 										%>
-										<input type="hidden" id="userId" value="<%=userid %>">
-										<table width="70%" align="center">
+										<input type="hidden" id="userId" value="<%=userid%>">
+										<table width="50%" align="center">
 											<tr>
-												<td style="padding: 15px">ชื่อ</td>
+												<td style="padding: 15px">ชื่อสินค้า <font color="red"
+													size="3">*</font></td>
 												<td><input id="otop_name" maxlength="50"
-													class="form-control" placeholder="" name="otop_name"
-													required="true"></td>
+													class="form-control" placeholder="ระบุชื่อสินค้า"
+													name="otop_name"></td>
 											</tr>
 											<tr>
-												<td style="padding: 15px">เบอร์โทร</td>
-												<td><input id="otop_tel" maxlength="10"
-														class="form-control" placeholder="080-000-0000"
-														name="otop_tel" required="true"></td>
+												<td style="padding: 15px">ราคา <font color="red"
+													size="3">*</font></td>
+												<td><input id="otop_price" data-mask="0000"
+													class="form-control" placeholder="ระบุราคาสินค้า"
+													name="otop_price"></td>
+												<td style="padding-left: 10px">บาท</td>
 											</tr>
 											<tr>
-												<td style="padding: 15px">ราคา</td>
-												<td style="padding-top: 10px"><input id="otop_price"
-														maxlength="100" class="form-control"
-														placeholder="" name="otop_price"
-														required="true"></td>
+												<td style="padding: 15px">เบอร์โทรศัพท์ <font
+													color="red" size="3">*</font></td>
+												<td><input id="otop_tel" data-mask="000-000-0000"
+													class="form-control" placeholder="ระบุเบอร์โทรศัพท์"></td>
 											</tr>
 											<tr>
-												<td style="padding: 15px">รายละเอียด</td>
+												<td style="padding: 15px">รายละเอียด <font color="red"
+													size="3">*</font></td>
 												<td><input id="otop_description" maxlength="100"
-														class="form-control" placeholder="ระบุรายละเอียด"
-														name="otop_description" required="true"></td>
+													class="form-control" placeholder="ระบุรายละเอียด"
+													name="otop_description"></td>
 											</tr>
 											<tr>
 												<td style="padding: 15px">ละดิจูด</td>
-												<td><input id="otop_latitute" maxlength="100"
-														class="form-control" placeholder=""
-														name="otop_latitute" required="true"></td>
+												<td><input id="otop_latitute" class="form-control"
+													data-mask="00.0000000" placeholder="ระบุละดิจูด"
+													name="otop_latitute"></td>
 											</tr>
 											<tr>
-												<td style="padding: 15px">ลองติจูด</td>
-												<td><input id="otop_longitute" maxlength="100"
-														class="form-control" placeholder=""
-														name="otop_longitute" required="true"></td>
+												<td style="padding: 15px">ลองจิจูด</td>
+												<td><input id="otop_longitute" data-mask="00.0000000"
+													class="form-control" placeholder="ระบุลองจิจูด"
+													name="otop_longitute"></td>
 											</tr>
 											<tr>
 												<td></td>
@@ -424,45 +467,49 @@
 										<%
 											Object edituserid = session.getAttribute("edituser");
 										%>
-											<input type="hidden" id="editUserId" value="<%=edituserid %>">
+										<input type="hidden" id="editUserId" value="<%=edituserid%>">
 										<input type="hidden" id="editOtopId">
-										<table width="65%" align="center">
+										<table width="50%" align="center">
 											<tr>
-												<td style="padding: 15px">ชื่อ</td>
+												<td style="padding: 15px">ชื่อสินค้า <font color="red"
+													size="3">*</font></td>
 												<td><input id="editotop_name" maxlength="50"
 													class="form-control" placeholder="" name="editotop_name"
 													required="true"></td>
 											</tr>
 											<tr>
-												<td style="padding: 15px">เบอร์โทร</td>
-												<td><input id="editotop_tel" maxlength="10"
-														class="form-control" placeholder="080-000-0000"
-														name="editotop_tel" required="true"></td>
+												<td style="padding: 15px">ราคา <font color="red"
+													size="3">*</font></td>
+												<td><input id="editotop_price" data-mask="0000"
+													class="form-control" placeholder="ระบุราคาสินค้า" name="editotop_price"></td>
+												<td style="padding-left: 10px">บาท</td>
 											</tr>
 											<tr>
-												<td style="padding: 15px">ราคา</td>
-												<td style="padding-top: 10px"><input id="editotop_price"
-														maxlength="100" class="form-control"
-														placeholder="" name="editotop_price"
-														required="true"></td>
+												<td style="padding: 15px">เบอร์โทรศัพท์ <font
+													color="red" size="3">*</font></td>
+												<td><input id="editotop_tel" data-mask="000-000-0000"
+													class="form-control" placeholder="ระบุเบอร์โทรศัพท์"
+													name="editotop_tel"></td>
 											</tr>
 											<tr>
-												<td style="padding: 15px">รายละเอียด</td>
+												<td style="padding: 15px">รายละเอียด <font color="red"
+													size="3">*</font></td>
 												<td><input id="editotop_description" maxlength="100"
-														class="form-control" placeholder="ระบุรายละเอียด"
-														name="editotop_description" required="true"></td>
+													class="form-control" placeholder="ระบุรายละเอียด"></td>
 											</tr>
 											<tr>
-												<td style="padding: 15px">ละดิจูด</td>
-												<td><input id="editotop_latitute" maxlength="100"
-														class="form-control" placeholder=""
-														name="editotop_latitute" required="true"></td>
+												<td style="padding: 15px">ละดิจูด <font
+													color="red" size="3">*</font></td>
+												<td><input id="editotop_latitute" class="form-control"
+													data-mask="00.0000000" placeholder="ระบุละดิจูด"
+													name="editotop_latitute"></td>
 											</tr>
 											<tr>
-												<td style="padding: 15px">ลองติจูด</td>
-												<td><input id="editotop_longitute" maxlength="100"
-														class="form-control" placeholder=""
-														name="editotop_longitute" required="true"></td>
+												<td style="padding: 15px">ลองจิจูด <font
+													color="red" size="3">*</font></td>
+												<td><input id="editotop_longitute" class="form-control"
+													data-mask="00.0000000" placeholder="ระบุลองจิจูด"
+													name="editotop_longitute"></td>
 											</tr>
 											<tr>
 												<td></td>
@@ -470,8 +517,7 @@
 													href="#listOtop" data-toggle="tab"><button
 															style="width: 100px" class="btn btn-danger">ยกเลิก</button></a>
 													<input style="width: 100px" type="button"
-													class="btn btn-success" value="บันทึก"
-													onclick="editOtop()" /></td>
+													class="btn btn-success" value="บันทึก" onclick="editOtop()" /></td>
 											</tr>
 										</table>
 									</form>
@@ -485,39 +531,39 @@
 	</div>
 
 	<!-- jQuery -->
-		<script src="../NanglaeGov/vendor/jquery/jquery.min.js"></script>
+	<script src="../NanglaeGov/vendor/jquery/jquery.min.js"></script>
 
-		<!-- Bootstrap Core JavaScript -->
-		<script src="../NanglaeGov/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="../NanglaeGov/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-		<!-- Metis Menu Plugin JavaScript -->
-		<script src="../NanglaeGov/vendor/metisMenu/metisMenu.min.js"></script>
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="../NanglaeGov/vendor/metisMenu/metisMenu.min.js"></script>
 
-		<!-- DataTables JavaScript -->
-		<script
-			src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
-		<script src="../NanglaeGov/js/dataTables.buttons.min.js"></script>
-		<script src="../NanglaeGov/js/pdfmake.min.js"></script>
-		<script src="../NanglaeGov/vendor/datatables/js/vfs_fonts.js"></script>
-		<script src="../NanglaeGov/js/buttons.html5.min.js"></script>
-		<script src="../NanglaeGov/js/buttons.print.min.js"></script>
-		<script
-			src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-		<script
-			src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script>
-		<script src="../NanglaeGov/js/buttons.bootstrap.min.js"></script>
-		<script src="../NanglaeGov/js/buttons.colVis.min.js"></script>
-		<script src="../NanglaeGov/js/jszip.min.js"></script>
+	<!-- DataTables JavaScript -->
+	<script
+		src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="../NanglaeGov/js/dataTables.buttons.min.js"></script>
+	<script src="../NanglaeGov/js/pdfmake.min.js"></script>
+	<script src="../NanglaeGov/vendor/datatables/js/vfs_fonts.js"></script>
+	<script src="../NanglaeGov/js/buttons.html5.min.js"></script>
+	<script src="../NanglaeGov/js/buttons.print.min.js"></script>
+	<script
+		src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+	<script
+		src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script>
+	<script src="../NanglaeGov/js/buttons.bootstrap.min.js"></script>
+	<script src="../NanglaeGov/js/buttons.colVis.min.js"></script>
+	<script src="../NanglaeGov/js/jszip.min.js"></script>
 
-		<!-- Custom Theme JavaScript -->
-		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
-		<!-- Sweetalert2 JavaScript -->
-		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
-		<!-- Mask plug in -->
-		<script src="../NanglaeGov/js/jquery.mask.js"></script>
-		<!-- Mask plug in -->
-		<script src="../NanglaeGov/js/jquery.mask.js"></script>
-		<script src="../NanglaeGov/js/jquery.mask.min.js"></script>
+	<!-- Custom Theme JavaScript -->
+	<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
+	<!-- Sweetalert2 JavaScript -->
+	<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
+	<!-- Mask plug in -->
+	<script src="../NanglaeGov/js/jquery.mask.js"></script>
+	<!-- Mask plug in -->
+	<script src="../NanglaeGov/js/jquery.mask.js"></script>
+	<script src="../NanglaeGov/js/jquery.mask.min.js"></script>
 </body>
 
 </html>

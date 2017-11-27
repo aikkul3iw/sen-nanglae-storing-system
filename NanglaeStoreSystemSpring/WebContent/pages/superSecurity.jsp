@@ -54,7 +54,7 @@
 					type : "POST",
 					success : function(data) {
 						var html = '';
-						
+
 						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
@@ -72,34 +72,51 @@
 							html += "</tr>";
 						}
 						$('#listLASucritys').html(html);
-						$(document).ready(function() {
-							var table = $('#resultTable').DataTable({
-								lengthChange : false,
-								buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2 ]},customize : function(doc) {
-								doc.defaultStyle['font'] = 'THSarabun';
-										}
-									},
-								],
-							    language: {
-						              sProcessing: 'กำลังดำเนินการ...',
-						              sLengthMenu: 'แสดง_MENU_ แถว',
-						              sZeroRecords: 'ไม่พบข้อมูล',
-						              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
-						              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
-						              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
-						              sInfoPostFix: '',
-						              sSearch: 'ค้นหา:',
-							              oPaginate: {
-							                            sFirst: 'เิริ่มต้น',
-							                            sPrevious: 'ก่อนหน้า',
-							                            sNext: 'ถัดไป',
-							                            sLast: 'สุดท้าย'
-							              }
-						     }
-						});
-						table.buttons().container().appendTo('#page-wrapper .col-sm-6:eq(0)');
-					});
+						$(document)
+								.ready(
+										function() {
+											var table = $('#resultTable')
+													.DataTable(
+															{
+																lengthChange : false,
+																buttons : [
+																		'excel',
+																		{
+																			extend : 'pdf',
+																			exportOptions : {
+																				columns : [
+																						0,
+																						1,
+																						2 ]
+																			},
+																			customize : function(
+																					doc) {
+																				doc.defaultStyle['font'] = 'THSarabun';
+																			}
+																		}, ],
+																language : {
+																	sProcessing : 'กำลังดำเนินการ...',
+																	sLengthMenu : 'แสดง_MENU_ แถว',
+																	sZeroRecords : 'ไม่พบข้อมูล',
+																	sInfo : 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+																	sInfoEmpty : 'แสดง 0 ถึง 0 จาก 0 แถว',
+																	sInfoFiltered : '(กรองข้อมูล _MAX_ ทุกแถว)',
+																	sInfoPostFix : '',
+																	sSearch : 'ค้นหา:',
+																	oPaginate : {
+																		sFirst : 'เิริ่มต้น',
+																		sPrevious : 'ก่อนหน้า',
+																		sNext : 'ถัดไป',
+																		sLast : 'สุดท้าย'
+																	}
+																}
+															});
+											table
+													.buttons()
+													.container()
+													.appendTo(
+															'#page-wrapper .col-sm-6:eq(0)');
+										});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -127,7 +144,8 @@
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/saveLASucrity.do?user="+$('#userId').val(),
+				url : "../NanglaeGov/saveLASucrity.do?user="
+						+ $('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -158,50 +176,61 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = sec_id;
-		var obj = {
-			sec_id : id
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteLASucrity.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
+			<%Object userdelete = session.getAttribute("userdelete");%>
+			var usdelete="<%=userdelete%>";
+			var id = sec_id;
+			var obj = {
+				sec_id : id
+			};
+			$.ajax({
+				url : "../NanglaeGov/deleteLASucrity.do?userdelete=" + usdelete,
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					location.reload();
+				}
+			});
 		});
 	}
 	function editLASucrity() {
-		var obj = {
-			sec_id : $("#editSecId").val(),
-			sec_name : $('#editSecName').val(),
-			sec_member : $('#editSecMember').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveLASucrity.do?editUserId="+$('#editUserId').val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
+		$("#loader").show();
+		if ($('#editSecName').val() == "") {
+			document.getElementById('editSecName').style.borderColor = "red";
+			return false;
+		} else if ($('#editSecMember').val() == "") {
+			document.getElementById('editSecMember').style.borderColor = "red";
+			return false;
+		} else {
+			var obj = {
+				sec_id : $("#editSecId").val(),
+				sec_name : $('#editSecName').val(),
+				sec_member : $('#editSecMember').val()
+			};
+			//alert(JSON.stringify(obj));
+			$.ajax({
+				url : "../NanglaeGov/saveLASucrity.do?editUserId="
+						+ $('#editUserId').val(),
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
+				},
+				error : function(data, status, er) {
+					alert('error');
+				}
+			});
+		}
 	}
 	function setEditLASucrity(sec_id) {
 
@@ -229,11 +258,8 @@
 	}
 </script>
 </head>
-
 <body onload="listLASucrity()">
-
 	<div id="wrapper">
-
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
 			style="margin-bottom: 0; background-color: #98c3e8">
@@ -250,10 +276,10 @@
 			<!-- /.navbar-header -->
 
 			<ul class="nav navbar-top-links navbar-right">
-			<%
-				Object Name = session.getAttribute("Name");
-				out.println("ยินดีต้อนรับ    " +Name);
-			%>
+				<%
+					Object Name = session.getAttribute("Name");
+					out.println("ยินดีต้อนรับ    " + Name);
+				%>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<i class="fa fa-caret-down"></i>
@@ -271,7 +297,7 @@
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="superMenu.jsp" %>
+			<%@include file="superMenu.jsp"%>
 		</nav>
 		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
@@ -288,7 +314,7 @@
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#listSecurity"
 									data-toggle="tab">ข้อมูลความปลอดภัยในชีวิตและทรัพย์สิน</a></li>
-								<li><a href="#addSecurity" data-toggle="tab">เพิ่มความปลอดภัยในชีวิตและทรัพย์สิน</a>
+								<li><a href="#addSecurity" data-toggle="tab">เพิ่มข้อมูลความปลอดภัยในชีวิตและทรัพย์สิน</a>
 								</li>
 							</ul>
 							<div class="panel-body">
@@ -299,41 +325,38 @@
 										<div class="table-responsive">
 											<table id="resultTable"
 												class="table table-striped table-bordered table-hover">
-<!-- Start change table -->
+												<!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ชื่อ</th>
-														<th>จำนวน</th>
+														<th>ชื่อหน่วยงานความปลอดภัย</th>
+														<th>จำนวนสมาชิก (คน)</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
 												</thead>
 												<tbody id="listLASucritys">
 												</tbody>
-<!-- End change table -->
+												<!-- End change table -->
 											</table>
 										</div>
 									</div>
 									<div class="tab-pane fade" id="addSecurity">
 										<form role="form">
-										<%
-											Object userid = session.getAttribute("user");
-										%>
-										<input type="hidden" id="userId" value="<%=userid %>">
-											<table width="50%" align="center">
+											<%
+												Object userid = session.getAttribute("user");
+											%>
+											<input type="hidden" id="userId" value="<%=userid%>">
+											<table width="55%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อ</td>
+													<td align="pull-right" style="padding: 15px">ชื่อหน่วยงานความปลอดภัย <font color="red" size="3">*</font></td>
 													<td><input id="sec_name" maxlength="100"
-														class="form-control" placeholder="ระบุชื่อ"
-														name="vil-number" required></td>
-
+														class="form-control" placeholder="ระบุชื่อหน่วยงานความปลอดภัย"
+														name="sec_name"></td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">จำนวน</td>
-													<td><input id="sec_member" maxlength="15"
-														class="form-control" placeholder="ระบุจำนวน"
-														name="vil-number" required></td>
-
+													<td align="pull-right" style="padding: 15px">จำนวนสมาชิก <font color="red" size="3">*</font></td>
+													<td><input id="sec_member" data-mask="0000"
+														class="form-control" placeholder="ระบุจำนวนสมาชิก" name="sec_member"></td>
+													<td style="padding-left: 10px">คน</td>
 												</tr>
 												<tr>
 													<td></td>
@@ -349,26 +372,23 @@
 									</div>
 									<div class="tab-pane fade" id="editSecurity">
 										<form role="form">
-										<%
-											Object edituserid = session.getAttribute("edituser");
-										%>
-											<input type="hidden" id="editUserId" value="<%=edituserid %>">
+											<%
+												Object edituserid = session.getAttribute("edituser");
+											%>
+											<input type="hidden" id="editUserId" value="<%=edituserid%>">
 											<input type="hidden" id="editSecId">
-											<table width="50%" align="center">
+											<table width="55%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อ</td>
+													<td align="pull-right" style="padding: 15px">ชื่อหน่วยงานความปลอดภัย <font color="red" size="3">*</font></td>
 													<td><input id="editSecName" maxlength="100"
-														class="form-control" placeholder="ระบุชื่อ"
-														name="vil-number" required></td>
-
+														class="form-control" placeholder="ระบุชื่อหน่วยงานความปลอดภัย"
+														name="editSecName"></td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">จำนวน</td>
-													<td><input id="editSecMember" maxlength="15"
-														class="form-control" placeholder="ระบุจำนวน"
-														name="vil-number" required></td>
-
+													<td align="pull-right" style="padding: 15px">จำนวนสมาชิก <font color="red" size="3">*</font></td>
+													<td><input id="editSecMember" data-mask="0000"
+														class="form-control" placeholder="ระบุจำนวนสมาชิก"
+														name="editSecMember"></td>
 												</tr>
 												<tr>
 													<td></td>

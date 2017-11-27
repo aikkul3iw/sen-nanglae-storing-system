@@ -83,34 +83,54 @@
 							html += "</tr>";
 						}
 						$('#listIndustrys').html(html);
-						$(document).ready(function() {
-							var table = $('#resultTable').DataTable({
-								lengthChange : false,
-								buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2, 3, 4, 5 ]},customize : function(doc) {
-								doc.defaultStyle['font'] = 'THSarabun';
-										}
-									},
-								],
-							    language: {
-						              sProcessing: 'กำลังดำเนินการ...',
-						              sLengthMenu: 'แสดง_MENU_ แถว',
-						              sZeroRecords: 'ไม่พบข้อมูล',
-						              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
-						              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
-						              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
-						              sInfoPostFix: '',
-						              sSearch: 'ค้นหา:',
-							              oPaginate: {
-							                            sFirst: 'เิริ่มต้น',
-							                            sPrevious: 'ก่อนหน้า',
-							                            sNext: 'ถัดไป',
-							                            sLast: 'สุดท้าย'
-							              }
-						     }
-						});
-						table.buttons().container().appendTo('#page-wrapper .col-sm-6:eq(0)');
-					});
+						$(document)
+								.ready(
+										function() {
+											var table = $('#resultTable')
+													.DataTable(
+															{
+																lengthChange : false,
+																buttons : [
+																		'excel',
+																		{
+																			extend : 'pdf',
+																			exportOptions : {
+																				columns : [
+																						0,
+																						1,
+																						2,
+																						3,
+																						4,
+																						5 ]
+																			},
+																			customize : function(
+																					doc) {
+																				doc.defaultStyle['font'] = 'THSarabun';
+																			}
+																		}, ],
+																language : {
+																	sProcessing : 'กำลังดำเนินการ...',
+																	sLengthMenu : 'แสดง_MENU_ แถว',
+																	sZeroRecords : 'ไม่พบข้อมูล',
+																	sInfo : 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+																	sInfoEmpty : 'แสดง 0 ถึง 0 จาก 0 แถว',
+																	sInfoFiltered : '(กรองข้อมูล _MAX_ ทุกแถว)',
+																	sInfoPostFix : '',
+																	sSearch : 'ค้นหา:',
+																	oPaginate : {
+																		sFirst : 'เิริ่มต้น',
+																		sPrevious : 'ก่อนหน้า',
+																		sNext : 'ถัดไป',
+																		sLast : 'สุดท้าย'
+																	}
+																}
+															});
+											table
+													.buttons()
+													.container()
+													.appendTo(
+															'#page-wrapper .col-sm-6:eq(0)');
+										});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -146,7 +166,9 @@
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/saveIndustry.do?id=" + $("#villageSelect").val() + "&user="+$('#userId').val(),
+				url : "../NanglaeGov/saveIndustry.do?id="
+						+ $("#villageSelect").val() + "&user="
+						+ $('#userId').val(),
 				dataType : "JSON",
 				data : JSON.stringify(obj),
 				contentType : "application/json",
@@ -173,6 +195,7 @@
 			type : "POST",
 			success : function(data) {
 				var html = '';
+				html += "<option value=\"\">เลือกหมู่บ้าน</option>";
 				for (var i = 0; i < data.length; i++) {
 					html += "<option value=\""+data[i].vil_id+"\">"
 							+ data[i].vil_name + "</option>";
@@ -196,52 +219,70 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = ins_id;
-		var obj = {
-			ins_id : id
+			<%Object userdelete = session.getAttribute("userdelete");%>
+			var usdelete="<%=userdelete%>";
+			var id = ins_id;
+			var obj = {
+				ins_id : id
 
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteIndustry.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
+			};
+			$.ajax({
+				url : "../NanglaeGov/deleteIndustry.do?userdelete=" + usdelete,
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					location.reload();
+				}
+			});
 		});
 	}
 	function editIndustry() {
-		var obj = {
-			ins_id : $("#editInsId").val(),
-			ins_name : $('#editInsName').val(),
-			ins_size : $('#editInsSize').val(),
-			ins_type : $('#editInsType').val(),
-			ins_labor : $('#editInsLabor').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveIndustry.do?id=" + $("#editVillageSelect").val() + "&editUserId="+$('#editUserId').val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
+		if ($('#editInsName').val() == "") {
+			document.getElementById('editInsName').style.borderColor = "red";
+			return false;
+		} else if ($('#editInsSize').val() == "") {
+			document.getElementById('editInsSize').style.borderColor = "red";
+			return false;
+		} else if ($('#editInsType').val() == "") {
+			document.getElementById('editInsType').style.borderColor = "red";
+			return false;
+		} else if ($('#editInsLabor').val() == "") {
+			document.getElementById('editInsLabor').style.borderColor = "red";
+			return false;
+		} else {
+			var obj = {
+				ins_id : $("#editInsId").val(),
+				ins_name : $('#editInsName').val(),
+				ins_size : $('#editInsSize').val(),
+				ins_type : $('#editInsType').val(),
+				ins_labor : $('#editInsLabor').val()
+			};
+			//alert(JSON.stringify(obj));
+			$.ajax({
+				url : "../NanglaeGov/saveIndustry.do?id="
+						+ $("#editVillageSelect").val() + "&editUserId="
+						+ $('#editUserId').val(),
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
+				},
+				error : function(data, status, er) {
+					alert('error');
+				}
+			});
+		}
 	}
 	function setEditIndustry(ins_id) {
 
@@ -313,10 +354,10 @@
 			<!-- /.navbar-header -->
 
 			<ul class="nav navbar-top-links navbar-right">
-			<%
-				Object Name = session.getAttribute("Name");
-				out.println("ยินดีต้อนรับ    " +Name);
-			%>
+				<%
+					Object Name = session.getAttribute("Name");
+					out.println("ยินดีต้อนรับ    " + Name);
+				%>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<i class="fa fa-caret-down"></i>
@@ -334,7 +375,7 @@
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="superMenu.jsp" %>
+			<%@include file="superMenu.jsp"%>
 		</nav>
 	</div>
 	<div id="page-wrapper" style="background-color: #d7f0f5">
@@ -352,7 +393,7 @@
 						<ul class="nav nav-tabs">
 							<li class="active"><a href="#listIndust" data-toggle="tab">ข้อมูลการอุตสาหกรรม</a>
 							</li>
-							<li><a href="#addIndustry" data-toggle="tab">เพิ่มการอุตสาหกรรม</a>
+							<li><a href="#addIndustry" data-toggle="tab">เพิ่มข้อมูลการอุตสาหกรรม</a>
 							</li>
 						</ul>
 						<div class="panel-body">
@@ -362,14 +403,15 @@
 								<div class="tab-pane fade in active" id="listIndust">
 									<div class="table-responsive">
 										<table id="resultTable"
-											class="table table-striped table-bordered table-hover" style="white-space:nowrap;">
+											class="table table-striped table-bordered table-hover"
+											style="white-space: nowrap;">
 											<!-- Start change table -->
 											<thead>
 												<tr>
-													<th>ชื่ออุตสาหกรรม</th>
-													<th>ที่ตั้ง</th>
-													<th>ขนาด</th>
-													<th>มูลค่าอุตสาหกรรม(ล้านบาท)</th>
+													<th>ชื่อโรงงาน</th>
+													<th>ตั้งอยู่บ้าน</th>
+													<th>ขนาดโรงงาน</th>
+													<th>มูลค่าโรงงาน(ล้านบาท)</th>
 													<th>จำนวนแรงงาน(คน)</th>
 													<th style="text-align: center;">ตัวเลือก</th>
 												</tr>
@@ -385,41 +427,51 @@
 										<%
 											Object userid = session.getAttribute("user");
 										%>
-										<input type="hidden" id="userId" value="<%=userid %>">
+										<input type="hidden" id="userId" value="<%=userid%>">
 										<table width="50%" align="center">
 											<tr>
-												<td align="pull-right" style="padding: 15px">ชื่อ</td>
+												<td align="pull-right" style="padding: 15px">ชื่อโรงงาน
+													<font color="red" size="3">*</font>
+												</td>
 												<td><input class="form-control" maxlength="100"
-													id="ins_name" placeholder="ระบุชื่อ" name="vil-year"></td>
+													id="ins_name" placeholder="ระบุชื่อโรงงาน" name="ins_name"></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
+												<td align="pull-right" style="padding: 15px">ตั้งอยู่หมู่บ้าน
+													<font color="red" size="3">*</font>
+												</td>
 												<td><select id="villageSelect" class="form-control"
-													name="vil-name" required="true">
-
+													name="vil-name">
 												</select></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ขนาด</td>
+												<td align="pull-right" style="padding: 15px">ขนาดโรงงาน
+													<font color="red" size="3">*</font>
+												</td>
 												<td><select id="ins_size" class="form-control"
-													name="water-location">
+													name="ins_size">
+														<option value="">เลือกขนาดโรงงาน</option>
 														<option value="เล็ก">เล็ก</option>
 														<option value="กลาง">กลาง</option>
 														<option value="ใหญ่">ใหญ่</option>
 												</select></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">มูลค่าอุตสาหกรรม</td>
-												<td><input id="ins_type" data-mask="000000000"
-													class="form-control" placeholder="ระบุมูลค่าอุตสาหกรรม"
-													name="vil-year"></td>
+												<td align="pull-right" style="padding: 15px">มูลค่าโรงงาน
+													<font color="red" size="3">*</font>
+												</td>
+												<td><input id="ins_type" data-mask="000"
+													class="form-control" placeholder="ระบุมูลค่าโรงงาน"
+													name="ins_type"></td>
 												<td style="padding: 10px">ล้านบาท</td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">จำนวนแรงงาน</td>
-												<td><input id="ins_labor" data-mask="00000"
+												<td align="pull-right" style="padding: 15px">จำนวนแรงงาน
+													<font color="red" size="3">*</font>
+												</td>
+												<td><input id="ins_labor" data-mask="0000"
 													class="form-control" placeholder="ระบุจำนวนแรงงาน"
-													name="vil-year"></td>
+													name="ins_labor"></td>
 												<td style="padding: 10px">คน</td>
 											</tr>
 											<tr>
@@ -439,42 +491,53 @@
 										<%
 											Object edituserid = session.getAttribute("edituser");
 										%>
-										<input type="hidden" id="editUserId" value="<%=edituserid %>">
+										<input type="hidden" id="editUserId" value="<%=edituserid%>">
 										<input type="hidden" id="editInsId">
 										<table width="50%" align="center">
 											<tr>
-												<td align="pull-right" style="padding: 15px">ชื่อ</td>
+												<td align="pull-right" style="padding: 15px">ชื่อโรงงาน
+													<font color="red" size="3">*</font>
+												</td>
 												<td><input class="form-control" maxlength="100"
-													id="editInsName" placeholder="ระบุชื่อ" name="vil-year"></td>
+													id="editInsName" placeholder="ระบุชื่อโรงงาน"
+													name="editInsName"></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
+												<td align="pull-right" style="padding: 15px">ตั้งอยู่หมู่บ้าน
+													<font color="red" size="3">*</font>
+												</td>
 												<td><select id="editVillageSelect" class="form-control"
-													name="vil-name" required="true">
+													name="editVillageSelect">
 
 												</select></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ขนาด</td>
+												<td align="pull-right" style="padding: 15px">ขนาดโรงาน
+													<font color="red" size="3">*</font>
+												</td>
 												<td><select id="editInsSize" class="form-control"
-													name="water-location">
+													name="editInsSize">
 														<option value="เล็ก">เล็ก</option>
 														<option value="กลาง">กลาง</option>
 														<option value="ใหญ่">ใหญ่</option>
 												</select></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">มูลค่าอุตสาหกรรม</td>
-												<td><input id="editInsType" 
-													class="form-control" data-mask="00000000" placeholder="ระบุมูลค่าอุตสาหกรรม"
-													name="vil-year"></td>
+												<td align="pull-right" style="padding: 15px">มูลค่าโรงงาน
+													<font color="red" size="3">*</font>
+												</td>
+												<td><input id="editInsType" class="form-control"
+													data-mask="000" placeholder="ระบุมูลค่าโรงงาน"
+													name="editInsType"></td>
 												<td style="padding: 10px">ล้านบาท</td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">จำนวนแรงงาน</td>
+												<td align="pull-right" style="padding: 15px">จำนวนแรงงาน
+													<font color="red" size="3">*</font>
+												</td>
 												<td><input id="editInsLabor" maxlength="4"
 													class="form-control" placeholder="ระบุจำนวนแรงงาน"
-													name="vil-year"></td>
+													name="editInsLabor"></td>
 												<td style="padding: 10px">คน</td>
 											</tr>
 											<tr>
@@ -498,37 +561,37 @@
 	</div>
 
 	<!-- jQuery -->
-		<script src="../NanglaeGov/vendor/jquery/jquery.min.js"></script>
+	<script src="../NanglaeGov/vendor/jquery/jquery.min.js"></script>
 
-		<!-- Bootstrap Core JavaScript -->
-		<script src="../NanglaeGov/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="../NanglaeGov/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-		<!-- Metis Menu Plugin JavaScript -->
-		<script src="../NanglaeGov/vendor/metisMenu/metisMenu.min.js"></script>
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="../NanglaeGov/vendor/metisMenu/metisMenu.min.js"></script>
 
-		<!-- DataTables JavaScript -->
-		<script
-			src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
-		<script src="../NanglaeGov/js/dataTables.buttons.min.js"></script>
-		<script src="../NanglaeGov/js/pdfmake.min.js"></script>
-		<script src="../NanglaeGov/vendor/datatables/js/vfs_fonts.js"></script>
-		<script src="../NanglaeGov/js/buttons.html5.min.js"></script>
-		<script src="../NanglaeGov/js/buttons.print.min.js"></script>
-		<script
-			src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-		<script
-			src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script>
-		<script src="../NanglaeGov/js/buttons.bootstrap.min.js"></script>
-		<script src="../NanglaeGov/js/buttons.colVis.min.js"></script>
-		<script src="../NanglaeGov/js/jszip.min.js"></script>
+	<!-- DataTables JavaScript -->
+	<script
+		src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="../NanglaeGov/js/dataTables.buttons.min.js"></script>
+	<script src="../NanglaeGov/js/pdfmake.min.js"></script>
+	<script src="../NanglaeGov/vendor/datatables/js/vfs_fonts.js"></script>
+	<script src="../NanglaeGov/js/buttons.html5.min.js"></script>
+	<script src="../NanglaeGov/js/buttons.print.min.js"></script>
+	<script
+		src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+	<script
+		src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script>
+	<script src="../NanglaeGov/js/buttons.bootstrap.min.js"></script>
+	<script src="../NanglaeGov/js/buttons.colVis.min.js"></script>
+	<script src="../NanglaeGov/js/jszip.min.js"></script>
 
-		<!-- Custom Theme JavaScript -->
-		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
-		<!-- Sweetalert2 JavaScript -->
-		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
-		<!-- Mask plug in -->
-		<script src="../NanglaeGov/js/jquery.mask.js"></script>
-		<script src="../NanglaeGov/js/jquery.mask.min.js"></script>
+	<!-- Custom Theme JavaScript -->
+	<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
+	<!-- Sweetalert2 JavaScript -->
+	<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
+	<!-- Mask plug in -->
+	<script src="../NanglaeGov/js/jquery.mask.js"></script>
+	<script src="../NanglaeGov/js/jquery.mask.min.js"></script>
 
 </body>
 

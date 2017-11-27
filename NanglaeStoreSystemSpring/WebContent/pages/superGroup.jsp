@@ -63,6 +63,9 @@
 									+ "<td>"
 									+ data[i].grp_member
 									+ "</td>"
+									+ "<td>"
+									+ data[i].unit
+									+ "</td>"
 									+ "<td style=\"text-align: center;\"><button href=\"#editGroup\" data-toggle=\"tab\" onclick=\"setEditLocalg("
 									+ data[i].grp_id
 									+ ");\" class=\"btn btn-warning\"><i class=\"fa fa-wrench\"></i></button>&nbsp;&nbsp;<button  onclick=\"deleteLocalg("
@@ -118,13 +121,15 @@
 		} else if ($('#grp_member').val() == "") {
 			document.getElementById('grp_member').style.borderColor = "red";
 			return false;
+		} else if ($('#unit').val() == "") {
+			document.getElementById('unit').style.borderColor = "red";
+			return false;
 		} else {
 			var obj = {
 				grp_id : 0,
 				grp_name : $('#grp_name').val(),
 				grp_member : $('#grp_member').val(),
-				grp_area : $('#grp_area').val()
-
+				unit : $('#unit').val()
 			};
 			$.ajax({
 				url : "../NanglaeGov/saveLocalg.do?user="+$('#userId').val(),
@@ -158,51 +163,63 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = grp_id
-		var obj = {
-			grp_id : id
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteLocalg.do?editUserId="+$('#editUserId').val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
+			<%Object userdelete = session.getAttribute("userdelete");%>
+			var usdelete="<%=userdelete%>";
+			var id = grp_id
+			var obj = {
+				grp_id : id
+			};
+			$.ajax({
+				url : "../NanglaeGov/deleteLocalg.do?userdelete=" + usdelete,
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					location.reload();
+				}
+			});
 		});
 	}
 	function editLocalg() {
-		var obj = {
-			grp_id : $("#editGroupId").val(),
-			grp_name : $('#editGroupName').val(),
-			grp_member : $('#editGroupMember').val(),
-			grp_area : $('#editGroupArea').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveLocalg.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
+		if ($('#editGroupName').val() == "") {
+			document.getElementById('editGroupName').style.borderColor = "red";
+			return false;
+		} else if ($('#editGroupMember').val() == "") {
+			document.getElementById('editGroupMember').style.borderColor = "red";
+			return false;
+		} else if ($('#editUnit').val() == "") {
+			document.getElementById('editUnit').style.borderColor = "red";
+			return false;
+		} else {
+			var obj = {
+				grp_id : $("#editGroupId").val(),
+				grp_name : $('#editGroupName').val(),
+				grp_member : $('#editGroupMember').val(),
+				unit : $('#editUnit').val()
+			};
+			//alert(JSON.stringify(obj));
+			$.ajax({
+				url : "../NanglaeGov/saveLocalg.do?editUserId="+ $('#editUserId').val(),
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
+				},
+				error : function(data, status, er) {
+					alert('error');
+				}
+			});
+		}
 	}
 	function setEditLocalg(grp_id) {
 
@@ -222,7 +239,7 @@
 				$("#editGroupId").val(data.grp_id);
 				$("#editGroupName").val(data.grp_name);
 				$("#editGroupMember").val(data.grp_member);
-				$("#editGroupArea").val(data.grp_area);
+				$("#editUnit").val(data.unit);
 			},
 			error : function(data, status, er) {
 				alert('error');
@@ -233,9 +250,7 @@
 </head>
 
 <body onload="listLocalg()">
-
 	<div id="wrapper">
-
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
 			style="margin-bottom: 0; background-color: #98c3e8">
@@ -252,10 +267,10 @@
 			<!-- /.navbar-header -->
 
 			<ul class="nav navbar-top-links navbar-right">
-			<%
-				Object Name = session.getAttribute("Name");
-				out.println("ยินดีต้อนรับ    " +Name);
-			%>
+				<%
+					Object Name = session.getAttribute("Name");
+					out.println("ยินดีต้อนรับ    " + Name);
+				%>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<i class="fa fa-caret-down"></i>
@@ -273,7 +288,7 @@
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="superMenu.jsp" %>
+			<%@include file="superMenu.jsp"%>
 		</nav>
 		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
@@ -290,7 +305,7 @@
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#listGroup" data-toggle="tab">ข้อมูลกลุ่มในชุมชน</a>
 								</li>
-								<li><a href="#addGroup" data-toggle="tab">เพิ่มกลุ่มในชุมชน</a>
+								<li><a href="#addGroup" data-toggle="tab">เพิ่มข้อมูลกลุ่มในชุมชน</a>
 								</li>
 							</ul>
 							<div class="panel-body">
@@ -304,8 +319,9 @@
 												<!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ชื่อ</th>
+														<th>ชื่อกลุ่ม</th>
 														<th>จำนวน</th>
+														<th>หน่วย</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
 												</thead>
@@ -317,26 +333,32 @@
 									</div>
 									<div class="tab-pane fade" id="addGroup">
 										<form role="form">
-										<%
-											Object userid = session.getAttribute("user");
-										%>
-										<input type="hidden" id="userId" value="<%=userid %>">
+											<%
+												Object userid = session.getAttribute("user");
+											%>
+											<input type="hidden" id="userId" value="<%=userid%>">
 											<table width="50%" align="center">
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">ชื่อ</td>
+													<td align="pull-right" style="padding: 15px">ชื่อกลุ่ม
+														<font color="red" size="3">*</font>
+													</td>
 													<td><input id="grp_name" maxlength="100"
-														class="form-control" placeholder="ระบุชื่อ"
-														name="vil-number" required="true"></td>
-
+														class="form-control" placeholder="ระบุชื่อกลุ่ม"
+														name="grp_name"></td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">จำนวน</td>
-													<td><input id="grp_member" maxlength="25"
+													<td align="pull-right" style="padding: 15px">จำนวน <font
+														color="red" size="3">*</font></td>
+													<td><input id="grp_member" data-mask="000"
 														class="form-control" placeholder="ระบุจำนวน"
-														name="vil-number" required="true"></td>
-
+														name="grp_member"></td>
+													<td style="padding-left: 5px"><select
+														id="unit" class="form-control"
+														name="unit">
+															<option value="">เลือกหน่วย</option>
+															<option value="คน">คน</option>
+															<option value="กลุ่ม">กลุ่ม</option>
+													</select></td>
 												</tr>
 												<tr>
 													<td></td>
@@ -352,27 +374,29 @@
 									</div>
 									<div class="tab-pane fade" id="editGroup">
 										<form role="form">
-										<%
-											Object edituserid = session.getAttribute("edituser");
-										%>
-											<input type="hidden" id="editUserId" value="<%=edituserid %>">
+											<%
+												Object edituserid = session.getAttribute("edituser");
+											%>
+											<input type="hidden" id="editUserId" value="<%=edituserid%>">
 											<input type="hidden" id="editGroupId">
 											<table width="50%" align="center">
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">ชื่อ</td>
+													<td align="pull-right" style="padding: 15px">ชื่อกลุ่ม
+														<font color="red" size="3">*</font></td>
 													<td><input id="editGroupName" maxlength="100"
-														class="form-control" placeholder="ระบุชื่อ"
-														name="vil-number" required="true"></td>
-
+														class="form-control" placeholder="ระบุชื่อกลุ่ม"></td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">จำนวน</td>
-													<td><input id="editGroupMember" maxlength="25"
-														class="form-control" placeholder="ระบุจำนวน"
-														name="vil-number" required="true"></td>
-
+													<td align="pull-right" style="padding: 15px">จำนวน <font
+														color="red" size="3">*</font></td>
+													<td><input id="editGroupMember" data-mask="000"
+														class="form-control" placeholder="ระบุจำนวน"></td>
+													<td style="padding-left: 5px"><select
+														id="editUnit" class="form-control"
+														name="editUnit">
+															<option value="คน">คน</option>
+															<option value="กลุ่ม">กลุ่ม</option>
+													</select></td>
 												</tr>
 												<tr>
 													<td></td>

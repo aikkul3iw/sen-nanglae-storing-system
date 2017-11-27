@@ -176,6 +176,13 @@
 		});
 	}
 	function editService() {
+		if ($('#editSerName').val() == "") {
+			document.getElementById('editSerName').style.borderColor = "red";
+			return false;
+		} else if ($('#editSerDescription').val() == "") {
+			document.getElementById('editSerDescription').style.borderColor = "red";
+			return false;
+		} else {
 		var obj = {
 			ser_id : $("#editSerId").val(),
 			ser_name : $('#editSerName').val(),
@@ -201,6 +208,7 @@
 				alert('error');
 			}
 		});
+		}
 	}
 	function setEditService(ser_id) {
 
@@ -301,8 +309,8 @@
 <!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ชื่อ</th>
-														<th>การให้บริการ</th>
+														<th>ชื่อศูนย์บริการ</th>
+														<th>รายละเอียด</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
 												</thead>
@@ -320,19 +328,16 @@
 										<input type="hidden" id="userId" value="<%=userid %>">
 											<table width="50%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อ</td>
+													<td align="pull-right" style="padding: 15px">ชื่อศูนย์บริการ <font color="red" size="3">*</font></td>
 													<td><input id="ser_name" maxlength="100"
 														class="form-control" placeholder="ระบุชื่อศูนย์บริการ"
-														name="ser_name" required="true"></td>
-
+														name="ser_name"></td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">ขอบเขตการให้บริการ</td>
+													<td align="pull-right" style="padding: 15px">รายละเอียด <font color="red" size="3">*</font></td>
 													<td><textarea id="ser_description" maxlength="255"
-															class="form-control" placeholder="ระบุขอบเขตการให้บริการ"
-															name="ser_capacity" required="true"></textarea></td>
-
+															class="form-control" placeholder="ระบุรายละเอียดการให้บริการ"
+															name="ser_description"></textarea></td>
 												</tr>
 												<tr>
 													<td></td>
@@ -355,19 +360,16 @@
 											<input type="hidden" id="editSerId">
 											<table width="50%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">ชื่อ</td>
+													<td align="pull-right" style="padding: 15px">ชื่อศูนย์บริการ <font color="red" size="3">*</font></td>
 													<td><input id="editSerName" maxlength="100"
 														class="form-control" placeholder="ระบุชื่อศูนย์บริการ"
-														name="editSerName" required></td>
-
+														name="editSerName"></td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">ขอบเขตการให้บริการ</td>
+													<td align="pull-right" style="padding: 15px">รายละเอียด <font color="red" size="3">*</font></td>
 													<td><textarea id="editSerDescription" maxlength="255"
-															class="form-control" placeholder="ระบุขอบเขตการให้บริการ"
-															name="editSerCapacity" required></textarea></td>
-
+															class="form-control" placeholder="ระบุรายละเอียดการให้บริการ"
+															name="editSerDescription"></textarea></td>
 												</tr>
 												<tr>
 													<td></td>

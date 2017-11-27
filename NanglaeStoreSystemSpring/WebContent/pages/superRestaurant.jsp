@@ -159,7 +159,8 @@
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/saveRestaurant.do?id=" + $("#villageSelect").val(),
+				url : "../NanglaeGov/saveRestaurant.do?id=" + $("#villageSelect").val() + "&user="
+				+ $('#userId').val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -188,6 +189,7 @@
 			type : "POST",
 			success : function(data) {
 				var html = '';
+				html += "<option value=\"\">เลือกหมู่บ้าน</option>";
 				for (var i = 0; i < data.length; i++) {
 					html += "<option value=\""+data[i].vil_id+"\">"
 							+ data[i].vil_name + "</option>";
@@ -212,62 +214,80 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = restaurantId;
-		var obj = {
-				restaurantId : id
-		};
-
-		$.ajax({
-			url : "../NanglaeGov/deleteRestaurant.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				//alert('success');
-				location.reload();
-			}
-		});
-		});
+			<%Object userdelete = session.getAttribute("userdelete");%>
+			var usdelete="<%=userdelete%>";
+					var id = restaurantId;
+					var obj = {
+						restaurantId : id
+					};
+					$.ajax({
+						url : "../NanglaeGov/deleteRestaurant.do?userdelete="
+								+ usdelete,
+						type : "POST",
+						dataType : "JSON",
+						data : JSON.stringify(obj),
+						contentType : "application/json",
+						mimeType : "application/json",
+						success : function(data) {
+							//alert('success');
+							location.reload();
+						}
+					});
+				});
 	}
 	function editRestaurant() {
-		var obj = {
+		if ($('#editres_name').val() == "") {
+			document.getElementById('editres_name').style.borderColor = "red";
+			return false;
+		} else if ($('#editres_menu').val() == "") {
+			document.getElementById('editres_menu').style.borderColor = "red";
+			return false;
+		} else if ($('#editlatitute').val() == "") {
+			document.getElementById('editlatitute').style.borderColor = "red";
+			return false;
+		} else if ($('#editlongitute').val() == "") {
+			document.getElementById('editlongitute').style.borderColor = "red";
+			return false;
+		} else if ($('#edithouseId').val() == "") {
+			document.getElementById('edithouseId').style.borderColor = "red";
+			return false;
+		} else {
+			var obj = {
 				restaurantId : $('#editRestaurantId').val(),
 				res_name : $('#editres_name').val(),
 				res_menu : $('#editres_menu').val(),
 				latitute : $('#editlatitute').val(),
 				longitute : $('#editlongitute').val(),
 				houseId : $('#edithouseId').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveRestaurant.do?id=" + $("#editVillageSelect").val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
+			};
+			//alert(JSON.stringify(obj));
+			$.ajax({
+				url : "../NanglaeGov/saveRestaurant.do?id="
+						+ $("#editVillageSelect").val() + "&editUserId="
+						+ $('#editUserId').val(),
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
+				},
+				error : function(data, status, er) {
+					alert('error');
+				}
+			});
+		}
 	}
-
-	function setEditRestaurant(restaurantId) {
-
+function setEditRestaurant(restaurantId) {
 		var obj = {
-				restaurantId : restaurantId
+			restaurantId : restaurantId
 		};
-
 		$.ajax({
 			url : "../NanglaeGov/findRestaurant.do",
 			type : "POST",
@@ -290,7 +310,7 @@
 			}
 		});
 	}
-	function editVillageSelect() {
+function editVillageSelect() {
 		$("#loader").show();
 		$.ajax({
 			url : "../NanglaeGov/listVillage.do",
@@ -302,7 +322,6 @@
 							+ data[i].vil_name + "</option>";
 				}
 				$('#editVillageSelect').html(html);
-
 			},
 			error : function(data, status, er) {
 				alert('error');
@@ -312,7 +331,6 @@
 	}
 </script>
 </head>
-
 <body onload="listRestaurant();listVillage();editVillageSelect();">
 
 	<div id="wrapper">
@@ -333,10 +351,10 @@
 			<!-- /.navbar-header -->
 
 			<ul class="nav navbar-top-links navbar-right">
-			<%
-				Object Name = session.getAttribute("Name");
-				out.println("ยินดีต้อนรับ    " +Name);
-			%>
+				<%
+					Object Name = session.getAttribute("Name");
+					out.println("ยินดีต้อนรับ    " + Name);
+				%>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<i class="fa fa-caret-down"></i>
@@ -354,13 +372,13 @@
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="superMenu.jsp" %>
+			<%@include file="superMenu.jsp"%>
 		</nav>
 	</div>
 	<div id="page-wrapper" style="background-color: #d7f0f5">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Restaurant</h1>
+				<h1 class="page-header">ร้านอาหาร</h1>
 			</div>
 			<!-- /.col-lg-12 -->
 		</div>
@@ -370,73 +388,64 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<ul class="nav nav-tabs">
-							<li class="active"><a href="#listResInfor" data-toggle="tab">ข้อมูล ร้านอาหาร</a>
-							</li>
-							<li><a href="#addRestaurant" data-toggle="tab">เพิ่ม ร้านอาหาร</a>
-							</li>
+							<li class="active"><a href="#listResInfor" data-toggle="tab">ข้อมูลร้านอาหาร</a></li>
+							<li><a href="#addRestaurant" data-toggle="tab">เพิ่มข้อมูลร้านอาหาร</a></li>
 						</ul>
 						<div class="panel-body">
-
 							<!-- Tab panes -->
 							<div class="tab-content">
 								<div class="tab-pane fade in active" id="listResInfor">
 									<div class="table-responsive">
 										<table id="resultTable"
 											class="table table-striped table-bordered table-hover">
-<!-- Start change table -->
-												<thead>
-													<tr>
-														<th>ชื่อ</th>
-														<th>เมนูแนะนำ</th>
-														<th>ละติจูด</th>
-														<th>ลองจิจูด</th>
-														<th>เลขที่ตั้ง</th>
-														<th>หมูบ้านที่ตั้งที่ตั้ง</th>
-														<th style="text-align: center;">ตัวเลือก</th>
-													</tr>
-												</thead>
-												<tbody id="listRestaurant">
-												</tbody>
-<!-- End change table -->
+											<!-- Start change table -->
+											<thead>
+												<tr>
+													<th>ชื่อร้านอาหาร</th>
+													<th>เมนูแนะนำ</th>
+													<th>ละติจูด</th>
+													<th>ลองจิจูด</th>
+													<th>บ้านเลขที่</th>
+													<th>ตั้งอยู่หมุ่บ้าน</th>
+													<th style="text-align: center;">ตัวเลือก</th>
+												</tr>
+											</thead>
+											<tbody id="listRestaurant">
+											</tbody>
+											<!-- End change table -->
 										</table>
 									</div>
 								</div>
 								<div class="tab-pane fade" id="addRestaurant">
 									<form role="form">
-										<table width="70%" align="center">
+										<table width="45%" align="center">
 											<tr>
-												<td style="padding: 15px">ชื่อ</td>
+												<td style="padding: 15px">ชื่อร้านอาหาร <font color="red" size="3">*</font></td>
 												<td><input id="res_name" maxlength="50"
-													class="form-control" placeholder="" name="res_name"
-													required="true"></td>
+													class="form-control" placeholder="ระบุชื่อร้านอาหาร" name="res_name"></td>
 											</tr>
 											<tr>
-												<td style="padding: 15px">เมนูแนะนำ</td>
-												<td><input id="res_menu" maxlength="10"
-														class="form-control" placeholder=""
-														name="res_menu" required="true"></td>
-											</tr>
-											
-											<tr>
-												<td style="padding: 15px">ละดิจูด</td>
-												<td><input id="latitute" maxlength="100"
-														class="form-control" placeholder=""
-														name="latitute" required="true"></td>
+												<td style="padding: 15px">เมนูแนะนำ <font color="red" size="3">*</font></td>
+												<td><input id="res_menu" maxlength="50"
+													class="form-control" placeholder="ระบุเมนูแนะนำ" name="res_menu"></td>
 											</tr>
 											<tr>
-												<td style="padding: 15px">ลองติจูด</td>
-												<td><input id="longitute" maxlength="100"
-														class="form-control" placeholder=""
-														name="longitute" required="true"></td>
+												<td style="padding: 15px">ละดิจูด <font color="red" size="3">*</font></td>
+												<td><input id="latitute" data-mask="00.0000000"
+													class="form-control" placeholder="ระบุละดิจูด" name="latitute"></td>
 											</tr>
 											<tr>
-												<td style="padding: 15px">เลขที่ตั้ง</td>
-												<td><input id="houseId" maxlength="100"
-														class="form-control" placeholder=""
-														name="houseId" required="true"></td>
+												<td style="padding: 15px">ลองจิจูด <font color="red" size="3">*</font></td>
+												<td><input id="longitute" data-mask="00.0000000"
+													class="form-control" placeholder="ระบุลองจิจูด" name="longitute"></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">หมูบ้านที่ตั้ง</td>
+												<td style="padding: 15px">บ้านเลขที่ <font color="red" size="3">*</font></td>
+												<td><input id="houseId" maxlength="10"
+													class="form-control" placeholder="ระบุบ้านเลขที่" name="houseId"></td>
+											</tr>
+											<tr>
+												<td align="pull-right" style="padding: 15px">ตั้งอยู่หมู่บ้าน <font color="red" size="3">*</font></td>
 												<td><select id="villageSelect" class="form-control"
 													name="edu-location">
 												</select></td>
@@ -456,45 +465,38 @@
 								<div class="tab-pane fade" id="editRestaurant">
 									<form role="form">
 										<input type="hidden" id="editRestaurantId">
-										<table width="65%" align="center">
+										<table width="45%" align="center">
 											<tr>
-												<td style="padding: 15px">ชื่อ</td>
+												<td style="padding: 15px">ชื่อร้านอาหาร <font color="red" size="3">*</font></td>
 												<td><input id="editres_name" maxlength="50"
-													class="form-control" placeholder="" name="editres_name"
-													required="true"></td>
+													class="form-control" placeholder="ระบุชื่อร้านอาหาร" name="editres_name"></td>
 											</tr>
 											<tr>
-												<td style="padding: 15px">เมนูแนะนำ</td>
-												<td><input id="editres_menu" maxlength="10"
-														class="form-control" placeholder=""
-														name="editres_menu" required="true"></td>
-											</tr>
-											
-											<tr>
-												<td style="padding: 15px">ละดิจูด</td>
-												<td><input id="editlatitute" maxlength="100"
-														class="form-control" placeholder=""
-														name="editlatitute" required="true"></td>
+												<td style="padding: 15px">เมนูแนะนำ <font color="red" size="3">*</font></td>
+												<td><input id="editres_menu" maxlength="50"
+													class="form-control" placeholder="ระบุเมนูแนะนำ" name="editres_menu"></td>
 											</tr>
 											<tr>
-												<td style="padding: 15px">ลองติจูด</td>
-												<td><input id="editlongitute" maxlength="100"
-														class="form-control" placeholder=""
-														name="editlongitute" required="true"></td>
+												<td style="padding: 15px">ละดิจูด <font color="red" size="3">*</font></td>
+												<td><input id="editlatitute" data-mask="00.0000000"
+													class="form-control" placeholder="ระบุละติจูด" name="editlatitute"></td>
 											</tr>
 											<tr>
-												<td style="padding: 15px">เลขที่ตั้ง</td>
-												<td><input id="edithouseId" maxlength="100"
-														class="form-control" placeholder=""
-														name="edithouseId" required="true"></td>
+												<td style="padding: 15px">ลองจิจูด <font color="red" size="3">*</font></td>
+												<td><input id="editlongitute" data-mask="00.0000000"
+													class="form-control" placeholder="ระบุลองจิจูด" name="editlongitute"></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">หมูบ้านที่ตั้ง</td>
+												<td style="padding: 15px">บ้านเลขที่ <font color="red" size="3">*</font></td>
+												<td><input id="edithouseId" maxlength="10"
+													class="form-control" placeholder="ระบุบ้านเลขที่" name="edithouseId"></td>
+											</tr>
+											<tr>
+												<td align="pull-right" style="padding: 15px">ตั้งอยู่หมู่บ้าน <font color="red" size="3">*</font></td>
 												<td><select id="editVillageSelect" class="form-control"
 													name="edu-location">
 												</select></td>
 											</tr>
-											
 											<tr>
 												<td></td>
 												<td align="center" style="padding: 15px"><a
@@ -516,39 +518,39 @@
 	</div>
 
 	<!-- jQuery -->
-		<script src="../NanglaeGov/vendor/jquery/jquery.min.js"></script>
+	<script src="../NanglaeGov/vendor/jquery/jquery.min.js"></script>
 
-		<!-- Bootstrap Core JavaScript -->
-		<script src="../NanglaeGov/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="../NanglaeGov/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-		<!-- Metis Menu Plugin JavaScript -->
-		<script src="../NanglaeGov/vendor/metisMenu/metisMenu.min.js"></script>
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="../NanglaeGov/vendor/metisMenu/metisMenu.min.js"></script>
 
-		<!-- DataTables JavaScript -->
-		<script
-			src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
-		<script src="../NanglaeGov/js/dataTables.buttons.min.js"></script>
-		<script src="../NanglaeGov/js/pdfmake.min.js"></script>
-		<script src="../NanglaeGov/vendor/datatables/js/vfs_fonts.js"></script>
-		<script src="../NanglaeGov/js/buttons.html5.min.js"></script>
-		<script src="../NanglaeGov/js/buttons.print.min.js"></script>
-		<script
-			src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-		<script
-			src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script>
-		<script src="../NanglaeGov/js/buttons.bootstrap.min.js"></script>
-		<script src="../NanglaeGov/js/buttons.colVis.min.js"></script>
-		<script src="../NanglaeGov/js/jszip.min.js"></script>
+	<!-- DataTables JavaScript -->
+	<script
+		src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="../NanglaeGov/js/dataTables.buttons.min.js"></script>
+	<script src="../NanglaeGov/js/pdfmake.min.js"></script>
+	<script src="../NanglaeGov/vendor/datatables/js/vfs_fonts.js"></script>
+	<script src="../NanglaeGov/js/buttons.html5.min.js"></script>
+	<script src="../NanglaeGov/js/buttons.print.min.js"></script>
+	<script
+		src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+	<script
+		src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script>
+	<script src="../NanglaeGov/js/buttons.bootstrap.min.js"></script>
+	<script src="../NanglaeGov/js/buttons.colVis.min.js"></script>
+	<script src="../NanglaeGov/js/jszip.min.js"></script>
 
-		<!-- Custom Theme JavaScript -->
-		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
-		<!-- Sweetalert2 JavaScript -->
-		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
-		<!-- Mask plug in -->
-		<script src="../NanglaeGov/js/jquery.mask.js"></script>
-		<!-- Mask plug in -->
-		<script src="../NanglaeGov/js/jquery.mask.js"></script>
-		<script src="../NanglaeGov/js/jquery.mask.min.js"></script>
+	<!-- Custom Theme JavaScript -->
+	<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
+	<!-- Sweetalert2 JavaScript -->
+	<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
+	<!-- Mask plug in -->
+	<script src="../NanglaeGov/js/jquery.mask.js"></script>
+	<!-- Mask plug in -->
+	<script src="../NanglaeGov/js/jquery.mask.js"></script>
+	<script src="../NanglaeGov/js/jquery.mask.min.js"></script>
 </body>
 
 </html>

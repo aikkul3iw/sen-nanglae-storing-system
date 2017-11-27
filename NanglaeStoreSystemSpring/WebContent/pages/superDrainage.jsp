@@ -77,34 +77,52 @@
 							html += "</tr>";
 						}
 						$('#listDrainages').html(html);
-						$(document).ready(function() {
-							var table = $('#resultTable').DataTable({
-								lengthChange : false,
-								buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2, 3 ]},customize : function(doc) {
-								doc.defaultStyle['font'] = 'THSarabun';
-										}
-									},
-								],
-							    language: {
-						              sProcessing: 'กำลังดำเนินการ...',
-						              sLengthMenu: 'แสดง_MENU_ แถว',
-						              sZeroRecords: 'ไม่พบข้อมูล',
-						              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
-						              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
-						              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
-						              sInfoPostFix: '',
-						              sSearch: 'ค้นหา:',
-							              oPaginate: {
-							                            sFirst: 'เิริ่มต้น',
-							                            sPrevious: 'ก่อนหน้า',
-							                            sNext: 'ถัดไป',
-							                            sLast: 'สุดท้าย'
-							              }
-						     }
-						});
-						table.buttons().container().appendTo('#page-wrapper .col-sm-6:eq(0)');
-					});
+						$(document)
+								.ready(
+										function() {
+											var table = $('#resultTable')
+													.DataTable(
+															{
+																lengthChange : false,
+																buttons : [
+																		'excel',
+																		{
+																			extend : 'pdf',
+																			exportOptions : {
+																				columns : [
+																						0,
+																						1,
+																						2,
+																						3 ]
+																			},
+																			customize : function(
+																					doc) {
+																				doc.defaultStyle['font'] = 'THSarabun';
+																			}
+																		}, ],
+																language : {
+																	sProcessing : 'กำลังดำเนินการ...',
+																	sLengthMenu : 'แสดง_MENU_ แถว',
+																	sZeroRecords : 'ไม่พบข้อมูล',
+																	sInfo : 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+																	sInfoEmpty : 'แสดง 0 ถึง 0 จาก 0 แถว',
+																	sInfoFiltered : '(กรองข้อมูล _MAX_ ทุกแถว)',
+																	sInfoPostFix : '',
+																	sSearch : 'ค้นหา:',
+																	oPaginate : {
+																		sFirst : 'เิริ่มต้น',
+																		sPrevious : 'ก่อนหน้า',
+																		sNext : 'ถัดไป',
+																		sLast : 'สุดท้าย'
+																	}
+																}
+															});
+											table
+													.buttons()
+													.container()
+													.appendTo(
+															'#page-wrapper .col-sm-6:eq(0)');
+										});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
@@ -131,7 +149,8 @@
 			};
 			//alert(JSON.stringify(obj));
 			$.ajax({
-				url : "../NanglaeGov/saveDrainage.do?id=" + $("#villageSelect").val(),
+				url : "../NanglaeGov/saveDrainage.do?id="
+						+ $("#villageSelect").val(),
 				type : "POST",
 				dataType : "JSON",
 				data : JSON.stringify(obj),
@@ -162,21 +181,23 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = drain_id;
-		var obj = {
-			drain_id : id
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteDrainage.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
+			<%Object userdelete = session.getAttribute("userdelete");%>
+			var usdelete="<%=userdelete%>";
+			var id = drain_id;
+			var obj = {
+				drain_id : id
+			};
+			$.ajax({
+				url : "../NanglaeGov/deleteDrainage.do?userdelete=" + usdelete,
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					location.reload();
+				}
+			});
 		});
 	}
 	function listVillage() {
@@ -186,6 +207,7 @@
 			type : "POST",
 			success : function(data) {
 				var html = '';
+				html += "<option value=\"\">เลือกหมู่บ้าน</option>";
 				for (var i = 0; i < data.length; i++) {
 					html += "<option value=\""+data[i].vil_id+"\">"
 							+ data[i].vil_name + "</option>";
@@ -200,31 +222,41 @@
 		});
 	}
 	function editDrainage() {
-		var obj = {
-			drain_id : $("#editDrainId").val(),
-			drain_name : $('#editDrainName').val(),
-			drain_description : $('#editDrainDescription').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveDrainage.do?id=" + $("#editVillageSelect").val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
+		if ($('#editDrainName').val() == "") {
+			document.getElementById('editDrainName').style.borderColor = "red";
+			return false;
+		} else if ($('#editDrainDescription').val() == "") {
+			document.getElementById('editDrainDescription').style.borderColor = "red";
+			return false;
+		} else {
+			var obj = {
+				drain_id : $("#editDrainId").val(),
+				drain_name : $('#editDrainName').val(),
+				drain_description : $('#editDrainDescription').val()
+			};
+			//alert(JSON.stringify(obj));
+			$.ajax({
+				url : "../NanglaeGov/saveDrainage.do?id="
+						+ $("#editVillageSelect").val() + "&editUserId="
+						+ $('#editUserId').val(),
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
+				},
+				error : function(data, status, er) {
+					alert('error');
+				}
+			});
+		}
 	}
 	function setEditDrainage(drain_id) {
 
@@ -294,10 +326,10 @@
 			<!-- /.navbar-header -->
 
 			<ul class="nav navbar-top-links navbar-right">
-			<%
-				Object Name = session.getAttribute("Name");
-				out.println("ยินดีต้อนรับ    " +Name);
-			%>
+				<%
+					Object Name = session.getAttribute("Name");
+					out.println("ยินดีต้อนรับ    " + Name);
+				%>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<i class="fa fa-caret-down"></i>
@@ -315,7 +347,7 @@
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="superMenu.jsp" %>
+			<%@include file="superMenu.jsp"%>
 		</nav>
 	</div>
 	<div id="page-wrapper" style="background-color: #d7f0f5">
@@ -333,7 +365,7 @@
 						<ul class="nav nav-tabs">
 							<li class="active"><a href="#listDrain" data-toggle="tab">ข้อมูลระบบระบายน้ำ</a>
 							</li>
-							<li><a href="#addDrain" data-toggle="tab">เพิ่มระบบระบายน้ำ</a>
+							<li><a href="#addDrain" data-toggle="tab">เพิ่มข้อมูลระบบระบายน้ำ</a>
 							</li>
 						</ul>
 						<div class="panel-body">
@@ -348,9 +380,9 @@
 											<!-- Start change table -->
 											<thead>
 												<tr>
-													<th>ระบบระบายน้ำ</th>
-													<th>ที่ตั้ง</th>
-													<th>พื้นที่เชื่อมต่อ</th>
+													<th>ชื่อระบบระบายน้ำ</th>
+													<th>ตั้งอยู่หมู่บ้าน</th>
+													<th>ไหลผ่าน</th>
 													<th style="text-align: center;">ตัวเลือก</th>
 												</tr>
 											</thead>
@@ -364,28 +396,28 @@
 									<form role="form">
 										<table width="50%" align="center">
 											<tr>
-
-												<td align="pull-right" style="padding: 15px">ชื่อ</td>
+												<td align="pull-right" style="padding: 15px">ชื่อระบบระบายน้ำ
+													<font color="red" size="3">*</font>
+												</td>
 												<td><input id="drain_name" maxlength="50"
-													class="form-control" placeholder="ระบุชื่อระบบระบายน้ำ"
-													name="vil-number" required="true"></td>
-
+													class="form-control" placeholder="ต.ย. ห้วยหนองแหน"
+													name="drain_name"></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
+												<td align="pull-right" style="padding: 15px">ตั้งอยู่หมู่บ้าน
+													<font color="red" size="3">*</font>
+												</td>
 												<td><select id="villageSelect" class="form-control"
-													placeholder="" name="vil-name" required="true">
-
+													placeholder="" name="villageSelect">
 												</select></td>
 											</tr>
 											<tr>
-
-												<td align="pull-right" style="padding: 15px">ไหลผ่าน</td>
-												<td><textarea id="drain_description"
-														maxlength="255" class="form-control"
-														placeholder="ระบุหมู่บ้านที่ไหลผ่าน" name="vil-number"
-														required="true"></textarea></td>
-
+												<td align="pull-right" style="padding: 15px">ไหลผ่าน <font
+													color="red" size="3">*</font></td>
+												<td><textarea id="drain_description" maxlength="255"
+														class="form-control"
+														placeholder="ต.ย. หมู่บ้านป่าห้า หมู่บ้านป่ารวก"
+														name="drain_description" required="true"></textarea></td>
 											</tr>
 											<tr>
 												<td></td>
@@ -404,28 +436,28 @@
 										<input type="hidden" id="editDrainId">
 										<table width="50%" align="center">
 											<tr>
-
-												<td align="pull-right" style="padding: 15px">ชื่อ</td>
+												<td align="pull-right" style="padding: 15px">ชื่อระบบระบายน้ำ
+													<font color="red" size="3">*</font>
+												</td>
 												<td><input id="editDrainName" maxlength="50"
-													class="form-control" placeholder="ระบุชื่อระบบระบายน้ำ"
-													name="vil-number" required="true"></td>
-
+													class="form-control" placeholder="ต.ย. ห้วยหนองแหน"
+													name="editDrainName" required="true"></td>
 											</tr>
 											<tr>
-												<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
+												<td align="pull-right" style="padding: 15px">ตั้งอยู่หมู่บ้าน
+													<font color="red" size="3">*</font>
+												</td>
 												<td><select id="editVillageSelect" class="form-control"
-													placeholder="" name="vil-name" required="true">
-
+													placeholder="" name="editVillageSelect" required="true">
 												</select></td>
 											</tr>
 											<tr>
-
-												<td align="pull-right" style="padding: 15px">ไหลผ่าน</td>
-												<td><textarea id="editDrainDescription"
-														maxlength="255" class="form-control"
-														placeholder="ระบุหมู่บ้านที่ไหลผ่าน" name="vil-number"
-														required="true"></textarea></td>
-
+												<td align="pull-right" style="padding: 15px">ไหลผ่าน <font
+													color="red" size="3">*</font></td>
+												<td><textarea id="editDrainDescription" maxlength="255"
+														class="form-control"
+														placeholder="ต.ย. หมู่บ้านป่าห้า หมู่บ้านป่ารวก"
+														name="editDrainDescription" required="true"></textarea></td>
 											</tr>
 											<tr>
 												<td></td>
@@ -447,38 +479,38 @@
 		</div>
 	</div>
 
-		<!-- jQuery -->
-		<script src="../NanglaeGov/vendor/jquery/jquery.min.js"></script>
+	<!-- jQuery -->
+	<script src="../NanglaeGov/vendor/jquery/jquery.min.js"></script>
 
-		<!-- Bootstrap Core JavaScript -->
-		<script src="../NanglaeGov/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="../NanglaeGov/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-		<!-- Metis Menu Plugin JavaScript -->
-		<script src="../NanglaeGov/vendor/metisMenu/metisMenu.min.js"></script>
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="../NanglaeGov/vendor/metisMenu/metisMenu.min.js"></script>
 
-		<!-- DataTables JavaScript -->
-		<script
-			src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
-		<script src="../NanglaeGov/js/dataTables.buttons.min.js"></script>
-		<script src="../NanglaeGov/js/pdfmake.min.js"></script>
-		<script src="../NanglaeGov/vendor/datatables/js/vfs_fonts.js"></script>
-		<script src="../NanglaeGov/js/buttons.html5.min.js"></script>
-		<script src="../NanglaeGov/js/buttons.print.min.js"></script>
-		<script
-			src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-		<script
-			src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script>
-		<script src="../NanglaeGov/js/buttons.bootstrap.min.js"></script>
-		<script src="../NanglaeGov/js/buttons.colVis.min.js"></script>
-		<script src="../NanglaeGov/js/jszip.min.js"></script>
+	<!-- DataTables JavaScript -->
+	<script
+		src="../NanglaeGov/vendor/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="../NanglaeGov/js/dataTables.buttons.min.js"></script>
+	<script src="../NanglaeGov/js/pdfmake.min.js"></script>
+	<script src="../NanglaeGov/vendor/datatables/js/vfs_fonts.js"></script>
+	<script src="../NanglaeGov/js/buttons.html5.min.js"></script>
+	<script src="../NanglaeGov/js/buttons.print.min.js"></script>
+	<script
+		src="../NanglaeGov/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+	<script
+		src="../NanglaeGov/vendor/datatables-responsive/dataTables.responsive.js"></script>
+	<script src="../NanglaeGov/js/buttons.bootstrap.min.js"></script>
+	<script src="../NanglaeGov/js/buttons.colVis.min.js"></script>
+	<script src="../NanglaeGov/js/jszip.min.js"></script>
 
-		<!-- Custom Theme JavaScript -->
-		<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
-		<!-- Sweetalert2 JavaScript -->
-		<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
-		<!-- Mask plug in -->
-		<script src="../NanglaeGov/js/jquery.mask.js"></script>
-		<script src="../NanglaeGov/js/jquery.mask.min.js"></script>
+	<!-- Custom Theme JavaScript -->
+	<script src="../NanglaeGov/dist/js/sb-admin-2.js"></script>
+	<!-- Sweetalert2 JavaScript -->
+	<script src="../NanglaeGov/js/sweetalert2.min.js"></script>
+	<!-- Mask plug in -->
+	<script src="../NanglaeGov/js/jquery.mask.js"></script>
+	<script src="../NanglaeGov/js/jquery.mask.min.js"></script>
 </body>
 
 </html>

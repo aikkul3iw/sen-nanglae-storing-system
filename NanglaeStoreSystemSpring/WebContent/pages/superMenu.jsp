@@ -34,12 +34,12 @@
 							<li><a href="superReligion.do">การศาสนา</a></li>
 							<li><a href="superCommerce.do">การพาณิชย์</a></li>
 							<li><a href="superTourism.do">แหล่งท่องเที่ยว</a></li>
-							<li><a href="superOtop.do">OTOP</a></li>
+							<li><a href="superOtop.do">โอทอป</a></li>
 							<li><a href="superRestaurant.do">ร้านอาหาร</a></li>
 						</ul> <!-- /.nav-third-level --></li>
 					<li name="service"><a href="#">บริการ<span class="fa arrow"></span></a>
 						<ul class="nav nav-third-level">
-							<li><a href="superHealth.do">การสาธารสุข</a></li>
+							<li><a href="superHealth.do">สาธารสุข</a></li>
 							<li><a href="superSecurity.do">ความปลอดภัยในชีวิตและทรัพย์สิน</a></li>
 							<li><a href="superGroup.do">กลุ่มในชุมชน</a></li>
 							<li><a href="superService.do">ศูนย์บริการประชาชน</a></li>

@@ -15,8 +15,7 @@ public class Localg implements Serializable {
 
 	private String grp_name;
 	private int grp_member;
-	private String grp_descripton;
-	private String grp_unit;
+	private String unit;
 
 	public long getGrp_id() {
 		return grp_id;
@@ -42,20 +41,12 @@ public class Localg implements Serializable {
 		this.grp_member = grp_member;
 	}
 
-	public String getGrp_descripton() {
-		return grp_descripton;
+	public String getUnit() {
+		return unit;
 	}
 
-	public void setGrp_descripton(String grp_descripton) {
-		this.grp_descripton = grp_descripton;
-	}
-
-	public String getGrp_unit() {
-		return grp_unit;
-	}
-
-	public void setGrp_unit(String grp_unit) {
-		this.grp_unit = grp_unit;
+	public void setUnit(String unit) {
+		this.unit = unit;
 	}
 
 }

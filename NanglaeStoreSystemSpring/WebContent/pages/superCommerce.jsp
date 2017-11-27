@@ -46,19 +46,20 @@
 
 <script type='text/javascript' src="../NanglaeGov/js/jquery.js"></script>
 <script type='text/javascript'>
-function getCurrentYear(){
-	var year = new Date();
-	document.getElementById("com_year").value=(year.getFullYear()+543);
+	function getCurrentYear() {
+		var year = new Date();
+		document.getElementById("com_year").value = (year.getFullYear() + 543);
 	}
-	
+
 	function listCommerce() {
 		$("#loader").show();
-		$.ajax({
-			url : "../NanglaeGov/listCommerce.do",
-			type : "POST",
-			success : function(data) {
-				var html = '';
-				for (var i = 0; i < data.length; i++) {
+		$
+				.ajax({
+					url : "../NanglaeGov/listCommerce.do",
+					type : "POST",
+					success : function(data) {
+						var html = '';
+						for (var i = 0; i < data.length; i++) {
 							html += "<tr>";
 							html += "<td>"
 									+ data[i].com_name
@@ -83,74 +84,108 @@ function getCurrentYear(){
 							html += "</tr>";
 						}
 						$('#listCommerces').html(html);
-						$(document).ready(function() {
-							var table = $('#resultTable').DataTable({
-								lengthChange : false,
-								buttons : ['excel',{extend : 'pdf',exportOptions : {
-								columns : [ 0, 1, 2, 3 ]},customize : function(doc) {
-								doc.defaultStyle['font'] = 'THSarabun';
-										}
-									},
-								],
-							    language: {
-						              sProcessing: 'กำลังดำเนินการ...',
-						              sLengthMenu: 'แสดง_MENU_ แถว',
-						              sZeroRecords: 'ไม่พบข้อมูล',
-						              sInfo: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
-						              sInfoEmpty: 'แสดง 0 ถึง 0 จาก 0 แถว',
-						              sInfoFiltered: '(กรองข้อมูล _MAX_ ทุกแถว)',
-						              sInfoPostFix: '',
-						              sSearch: 'ค้นหา:',
-							              oPaginate: {
-							                            sFirst: 'เิริ่มต้น',
-							                            sPrevious: 'ก่อนหน้า',
-							                            sNext: 'ถัดไป',
-							                            sLast: 'สุดท้าย'
-							              }
-						     }
-							});
-						table.buttons().container().appendTo('#page-wrapper .col-sm-6:eq(0)');
-					});
+						$(document)
+								.ready(
+										function() {
+											var table = $('#resultTable')
+													.DataTable(
+															{
+																lengthChange : false,
+																buttons : [
+																		'excel',
+																		{
+																			extend : 'pdf',
+																			exportOptions : {
+																				columns : [
+																						0,
+																						1,
+																						2,
+																						3 ]
+																			},
+																			customize : function(
+																					doc) {
+																				doc.defaultStyle['font'] = 'THSarabun';
+																			}
+																		}, ],
+																language : {
+																	sProcessing : 'กำลังดำเนินการ...',
+																	sLengthMenu : 'แสดง_MENU_ แถว',
+																	sZeroRecords : 'ไม่พบข้อมูล',
+																	sInfo : 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+																	sInfoEmpty : 'แสดง 0 ถึง 0 จาก 0 แถว',
+																	sInfoFiltered : '(กรองข้อมูล _MAX_ ทุกแถว)',
+																	sInfoPostFix : '',
+																	sSearch : 'ค้นหา:',
+																	oPaginate : {
+																		sFirst : 'เิริ่มต้น',
+																		sPrevious : 'ก่อนหน้า',
+																		sNext : 'ถัดไป',
+																		sLast : 'สุดท้าย'
+																	}
+																}
+															});
+											table
+													.buttons()
+													.container()
+													.appendTo(
+															'#page-wrapper .col-sm-6:eq(0)');
+										});
 						$("#loader").hide();
 					},
 					error : function(data, status, er) {
 						alert('error');
 						$("#loader").hide();
 					}
-			});
+				});
 	}
 </script>
 <script type='text/javascript'>
 	function createCommerce() {
 		$("#loader").show();
-		var obj = {
-			com_id : 0,
-			com_name : $('#com_name').val(),
-			com_type : $('#com_type').val(),
-			com_house_number : $('#com_house_number').val(),
-			com_description : $('#com_description').val()
+		if ($('#com_name').val() == "") {
+			document.getElementById('com_name').style.borderColor = "red";
+			return false;
+		} else if ($('#com_type').val() == "") {
+			document.getElementById('com_type').style.borderColor = "red";
+			return false;
+		} else if ($('#com_house_number').val() == "") {
+			document.getElementById('com_house_number').style.borderColor = "red";
+			return false;
+		} else if ($('#com_description').val() == "") {
+			document.getElementById('com_description').style.borderColor = "red";
+			return false;
+		} else {
+			var obj = {
+				com_id : 0,
+				com_name : $('#com_name').val(),
+				com_type : $('#com_type').val(),
+				com_house_number : $('#com_house_number').val(),
+				com_description : $('#com_description').val()
 
-		};
-		$.ajax({
-			url : "../NanglaeGov/saveCommerce.do?id=" + $("#villageSelect").val() + "&user="+$('#userId').val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
-			error : function(data, status, er) {
-				alert('error');
-				$("#loader").hide();
-			}
-		});
+			};
+			$.ajax({
+				url : "../NanglaeGov/saveCommerce.do?id="
+						+ $("#villageSelect").val() + "&user="
+						+ $('#userId').val(),
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
+				},
+				error : function(data, status, er) {
+					alert('error');
+					$("#loader").hide();
+				}
+			});
+		}
 	}
 	function listVillage() {
 		$("#loader").show();
@@ -182,54 +217,72 @@ function getCurrentYear(){
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = com_id
-		var obj = {
-			com_id : id
+			<%Object userdelete = session.getAttribute("userdelete");%>
+			var usdelete="<%=userdelete%>";
+			var id = com_id
+			var obj = {
+				com_id : id
 
-		};
-		//alert(id);
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/deleteCommerce.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
+			};
+			//alert(id);
+			//alert(JSON.stringify(obj));
+			$.ajax({
+				url : "../NanglaeGov/deleteCommerce.do?userdelete=" + usdelete,
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					location.reload();
+				}
+			});
 		});
 	}
 	function editCommerce() {
-		var obj = {
-			com_id : $("#editComId").val(),
-			com_name : $('#editComName').val(),
-			com_type : $('#editComType').val(),
-			com_house_number : $('#editComHouseNumber').val(),
-			com_description : $('#editComDescription').val()
-		};
-		//alert(JSON.stringify(obj));
-		$.ajax({
-			url : "../NanglaeGov/saveCommerce.do?id=" + $("#editVillageSelect").val() + "&editUserId="+$('#editUserId').val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
+		if ($('#editComName').val() == "") {
+			document.getElementById('editComName').style.borderColor = "red";
+			return false;
+		} else if ($('#editComType').val() == "") {
+			document.getElementById('editComType').style.borderColor = "red";
+			return false;
+		} else if ($('#editComHouseNumber').val() == "") {
+			document.getElementById('editComHouseNumber').style.borderColor = "red";
+			return false;
+		} else if ($('#editComDescription').val() == "") {
+			document.getElementById('editComDescription').style.borderColor = "red";
+			return false;
+		} else {
+			var obj = {
+				com_id : $("#editComId").val(),
+				com_name : $('#editComName').val(),
+				com_type : $('#editComType').val(),
+				com_house_number : $('#editComHouseNumber').val(),
+				com_description : $('#editComDescription').val()
+			};
+			//alert(JSON.stringify(obj));
+			$.ajax({
+				url : "../NanglaeGov/saveCommerce.do?id="
+						+ $("#editVillageSelect").val() + "&editUserId="
+						+ $('#editUserId').val(),
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
+				},
+				error : function(data, status, er) {
+					alert('error');
+				}
+			});
+		}
 	}
 	function setEditCommerce(com_id) {
 
@@ -281,7 +334,8 @@ function getCurrentYear(){
 </script>
 </head>
 
-<body onload="listCommerce();listVillage();editVillageSelect();getCurrentYear()">
+<body
+	onload="listCommerce();listVillage();editVillageSelect()">
 
 	<div id="wrapper">
 
@@ -301,10 +355,10 @@ function getCurrentYear(){
 			<!-- /.navbar-header -->
 
 			<ul class="nav navbar-top-links navbar-right">
-			<%
-				Object Name = session.getAttribute("Name");
-				out.println("ยินดีต้อนรับ    " +Name);
-			%>
+				<%
+					Object Name = session.getAttribute("Name");
+					out.println("ยินดีต้อนรับ    " + Name);
+				%>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<i class="fa fa-caret-down"></i>
@@ -322,7 +376,7 @@ function getCurrentYear(){
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="superMenu.jsp" %>
+			<%@include file="superMenu.jsp"%>
 		</nav>
 		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
@@ -339,7 +393,7 @@ function getCurrentYear(){
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#listCommerce"
 									data-toggle="tab">ข้อมูลการพาณิชย์</a></li>
-								<li><a href="#addCommerce" data-toggle="tab">เพิ่มการพาณิชย์</a>
+								<li><a href="#addCommerce" data-toggle="tab">เพิ่มข้อมูลการพาณิชย์</a>
 								</li>
 							</ul>
 							<div class="panel-body">
@@ -354,9 +408,9 @@ function getCurrentYear(){
 												<!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ชื่อ</th>
-														<th>ประเภท</th>
-														<th>ที่ตั้ง</th>
+														<th>ชื่อการพาณิชย์</th>
+														<th>ประเภทการพาณิชย์</th>
+														<th>ตั้งอยู่หมู่บ้าน</th>
 														<th>รายละเอียด</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
@@ -369,24 +423,26 @@ function getCurrentYear(){
 									</div>
 									<div class="tab-pane fade" id="addCommerce">
 										<form role="form">
-										<%
-											Object userid = session.getAttribute("user");
-										%>
-										<input type="hidden" id="userId" value="<%=userid %>">
+											<%
+												Object userid = session.getAttribute("user");
+											%>
+											<input type="hidden" id="userId" value="<%=userid%>">
 											<table width="50%" align="center">
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">ชื่อ</td>
+													<td align="pull-right" style="padding: 15px">ชื่อการพาณิชย์
+														<font color="red" size="3">*</font>
+													</td>
 													<td><input id="com_name" maxlength="100"
 														class="form-control" placeholder="ระบุชื่อการพาณิชย์"
-														name="vil-number" required="true"></td>
-
+														name="vil-number"></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ประเภท</td>
+													<td align="pull-right" style="padding: 15px">ประเภทการพาณิชย์
+														<font color="red" size="3">*</font>
+													</td>
 													<td><select id="com_type" class="form-control"
-														placeholder="" name="vil-name" required="true">
-															<option value="">เลือกประเภท</option>
+														placeholder="" name="com_type">
+															<option value="">เลือกประเภทการพาณิชย์</option>
 															<option value="ร้านค้า">ร้านค้า</option>
 															<option value="ร้านอาหาร">ร้านอาหาร</option>
 															<option value="ร้านเสริมสวย">ร้านเสริมสวย</option>
@@ -395,27 +451,29 @@ function getCurrentYear(){
 													</select></td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">เลขที่ตั้ง</td>
+													<td align="pull-right" style="padding: 15px">บ้านเลขที่
+														<font color="red" size="3">*</font>
+													</td>
 													<td><input id="com_house_number" maxlength="7"
-														class="form-control" placeholder="ระบุเลขที่ตั้ง"
-														name="vil-number" required="true"></td>
+														class="form-control" placeholder="ระบุบ้านเลขที่"
+														name="com_house_number"></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">หมู่บ้านที่ตั้ง</td>
+													<td align="pull-right" style="padding: 15px">ตั้งอยู่หมู่บ้าน
+														<font color="red" size="3">*</font>
+													</td>
 													<td><select id="villageSelect" class="form-control"
-														placeholder="" name="vil-name" required="true">
-
+														placeholder="" name="vil-name">
 													</select></td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">รายละเอียด</td>
+													<td align="pull-right" style="padding: 15px">รายละเอียด
+														<font color="red" size="3">*</font>
+													</td>
 													<td><textarea id="com_description" maxlength="255"
 															class="form-control"
-															placeholder="ระบุรายละเอียดเพิ่มเติม" name="vil-number"
-															required="true"></textarea></td>
-
+															placeholder="ระบุรายละเอียดเพิ่มเติม"
+															name="com_description"></textarea></td>
 												</tr>
 												<tr>
 													<td></td>
@@ -431,25 +489,26 @@ function getCurrentYear(){
 									</div>
 									<div class="tab-pane fade" id="editCommerce">
 										<form role="form">
-										<%
-											Object edituserid = session.getAttribute("edituser");
-										%>
-										<input type="hidden" id="editUserId" value="<%=edituserid %>">
+											<%
+												Object edituserid = session.getAttribute("edituser");
+											%>
+											<input type="hidden" id="editUserId" value="<%=edituserid%>">
 											<input type="hidden" id="editComId">
 											<table width="50%" align="center">
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">ชื่อ</td>
+													<td align="pull-right" style="padding: 15px">ชื่อการพาณิชย์
+														<font color="red" size="3">*</font>
+													</td>
 													<td><input id="editComName" maxlength="100"
 														class="form-control" placeholder="ระบุชื่อการพาณิชย์"
-														name="vil-number" required="true"></td>
-
+														name="editComName"></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ประเภท</td>
+													<td align="pull-right" style="padding: 15px">ประเภทการพาณิชย์
+														<font color="red" size="3">*</font>
+													</td>
 													<td><select id="editComType" class="form-control"
-														placeholder="" name="vil-name" required="true">
-															<option value="">เลือกประเภท</option>
+														placeholder="" name="editComType">
 															<option value="ร้านค้า">ร้านค้า</option>
 															<option value="ร้านอาหาร">ร้านอาหาร</option>
 															<option value="ร้านเสริมสวย">ร้านเสริมสวย</option>
@@ -458,28 +517,30 @@ function getCurrentYear(){
 													</select></td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">เลขที่ตั้ง</td>
+													<td align="pull-right" style="padding: 15px">บ้านเลขที่
+														<font color="red" size="3">*</font>
+													</td>
 													<td><input id="editComHouseNumber" maxlength="7"
-														class="form-control" placeholder="ระบุเลขที่ตั้ง"
-														name="vil-number" required="true"></td>
+														class="form-control" placeholder="ระบุบ้านเลขที่"
+														name="editComHouseNumber"></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">หมู่บ้านที่ตั้ง</td>
+													<td align="pull-right" style="padding: 15px">ตั้งอยู่หมู่บ้าน
+														<font color="red" size="3">*</font>
+													</td>
 													<td><select id="editVillageSelect"
-														class="form-control" placeholder="" name="vil-name"
-														required="true">
-
+														class="form-control" placeholder=""
+														name="editVillageSelect">
 													</select></td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">รายละเอียด</td>
+													<td align="pull-right" style="padding: 15px">รายละเอียด
+														<font color="red" size="3">*</font>
+													</td>
 													<td><textarea id="editComDescription" maxlength="255"
 															class="form-control"
-															placeholder="ระบุรายละเอียดเพิ่มเติม" name="vil-number"
-															required="true"></textarea></td>
-
+															placeholder="ระบุรายละเอียดเพิ่มเติม"
+															name="editComDescription"></textarea></td>
 												</tr>
 												<tr>
 													<td></td>

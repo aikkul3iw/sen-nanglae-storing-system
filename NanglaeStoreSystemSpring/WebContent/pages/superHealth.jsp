@@ -160,6 +160,7 @@
 			type : "POST",
 			success : function(data) {
 				var html = '';
+				html += "<option value=\"\">เลือกหมู่บ้าน</option>";
 				for (var i = 0; i < data.length; i++) {
 					html += "<option value=\""+data[i].vil_id+"\">"
 							+ data[i].vil_name + "</option>";
@@ -183,57 +184,65 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = hlt_id;
-		var obj = {
-			hlt_id : id
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/deleteHealth.do",
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				location.reload();
-			}
-		});
+			<%Object userdelete = session.getAttribute("userdelete");%>
+			var usdelete="<%=userdelete%>";
+			var id = hlt_id;
+			var obj = {
+				hlt_id : id
+			};
+			$.ajax({
+				url : "../NanglaeGov/deleteHealth.do?userdelete=" + usdelete,
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					location.reload();
+				}
+			});
 		});
 	}
 	function editHealth() {
-		var obj = {
-			hlt_id : $("#editHltId").val(),
-			hlt_name : $('#editHltName').val(),
-			hlt_description : $('#editHltDescription').val()
-
-		};
-		$.ajax({
-			url : "../NanglaeGov/saveHealth.do?id=" + $("#editVillageSelect").val() + "&editUserId="+$('#editUserId').val(),
-			type : "POST",
-			dataType : "JSON",
-			data : JSON.stringify(obj),
-			contentType : "application/json",
-			mimeType : "application/json",
-			success : function(data) {
-				swal({
-					title : 'บันทึกข้อมูลสำเร็จ',
-					type : 'success'
-				}).then(function() {
-					location.reload();
-				});
-			},
-			error : function(data, status, er) {
-				alert('error');
-			}
-		});
+		if ($('#editHltName').val() == "") {
+			document.getElementById('editHltName').style.borderColor = "red";
+			return false;
+		} else if ($('#editHltDescription').val() == "") {
+			document.getElementById('editHltDescription').style.borderColor = "red";
+			return false;
+		} else {
+			var obj = {
+				hlt_id : $("#editHltId").val(),
+				hlt_name : $('#editHltName').val(),
+				hlt_description : $('#editHltDescription').val()
+			};
+			$.ajax({
+				url : "../NanglaeGov/saveHealth.do?id="
+						+ $("#editVillageSelect").val() + "&editUserId="
+						+ $('#editUserId').val(),
+				type : "POST",
+				dataType : "JSON",
+				data : JSON.stringify(obj),
+				contentType : "application/json",
+				mimeType : "application/json",
+				success : function(data) {
+					swal({
+						title : 'บันทึกข้อมูลสำเร็จ',
+						type : 'success'
+					}).then(function() {
+						location.reload();
+					});
+				},
+				error : function(data, status, er) {
+					alert('error');
+				}
+			});
+		}
 	}
 	function setEditHealth(hlt_id) {
-
 		var obj = {
 			hlt_id : hlt_id
 		};
-
 		$.ajax({
 			url : "../NanglaeGov/findHealth.do",
 			type : "POST",
@@ -247,7 +256,6 @@
 				$("#editHltName").val(data.hlt_name);
 				$("#editHltDescription").val(data.hlt_description);
 				$('#editVillageSelect').val(data.location.vil_id);
-
 			},
 			error : function(data, status, er) {
 				alert('error');
@@ -261,12 +269,12 @@
 			type : "POST",
 			success : function(data) {
 				var html = '';
+				html += "<option value=\"\">เลือกหมู่บ้าน</option>";
 				for (var i = 0; i < data.length; i++) {
 					html += "<option value=\""+data[i].vil_id+"\">"
 							+ data[i].vil_name + "</option>";
 				}
 				$('#editVillageSelect').html(html);
-
 			},
 			error : function(data, status, er) {
 				alert('error');
@@ -280,7 +288,6 @@
 <body onload="listHealth();listVillage();editVillageSelect()">
 
 	<div id="wrapper">
-
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
 			style="margin-bottom: 0; background-color: #98c3e8">
@@ -297,10 +304,10 @@
 			<!-- /.navbar-header -->
 
 			<ul class="nav navbar-top-links navbar-right">
-			<%
-				Object Name = session.getAttribute("Name");
-				out.println("ยินดีต้อนรับ    " +Name);
-			%>
+				<%
+					Object Name = session.getAttribute("Name");
+					out.println("ยินดีต้อนรับ    " + Name);
+				%>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<i class="fa fa-caret-down"></i>
@@ -318,13 +325,13 @@
 			</ul>
 			<!-- /.navbar-top-links -->
 
-			<%@include file="superMenu.jsp" %>
+			<%@include file="superMenu.jsp"%>
 		</nav>
 		<div id="page-wrapper" style="background-color: #d7f0f5">
 			<div class="row">
 				<div class="col-lg-12">
 					<h1 class="page-header">
-						การสาธารสุข
+						สาธารสุข
 						<h1>
 				</div>
 				<!-- /.col-lg-12 -->
@@ -337,11 +344,10 @@
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#listHealth" data-toggle="tab">ข้อมูลสาธารณสุข</a>
 								</li>
-								<li><a href="#addHealth" data-toggle="tab">เพิ่มสาธารณสุข</a>
+								<li><a href="#addHealth" data-toggle="tab">เพิ่มข้อมูลสาธารณสุข</a>
 								</li>
 							</ul>
 							<div class="panel-body">
-
 								<!-- Tab panes -->
 								<div class="tab-content">
 									<div class="tab-pane fade in active" id="listHealth">
@@ -351,9 +357,9 @@
 												<!-- Start change table -->
 												<thead>
 													<tr>
-														<th>ชื่อ</th>
-														<th>ที่ตั้ง</th>
-														<th>ขอบเขตการให้บริการ</th>
+														<th>ชื่อสถานที่บริการทางด้านสุขภาพ</th>
+														<th>ตั้งอยู่หมู่บ้าน</th>
+														<th>รายละเอียด</th>
 														<th style="text-align: center;">ตัวเลือก</th>
 													</tr>
 												</thead>
@@ -365,34 +371,27 @@
 									</div>
 									<div class="tab-pane fade" id="addHealth">
 										<form role="form">
-										<%
-											Object userid = session.getAttribute("user");
-										%>
-										<input type="hidden" id="userId" value="<%=userid %>">
-											<table width="50%" align="center">
+											<%
+												Object userid = session.getAttribute("user");
+											%>
+											<input type="hidden" id="userId" value="<%=userid%>">
+											<table width="60%" align="center">
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">ชื่อ</td>
+													<td align="pull-right" style="padding: 15px">ชื่อสถานที่บริการทางด้านสุขภาพ <font color="red" size="3">*</font></td>
 													<td><input id="hlt_name" maxlength="100"
-														class="form-control"
-														placeholder="ระบุชื่อสถานบริการสุขภาพ" name="vil-number"
-														required="true"></td>
-
+														class="form-control" placeholder="ระบุชื่อสถานที่บริการทางด้านสุขภาพ" name="hlt_name"></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
+													<td align="pull-right" style="padding: 15px">ตั้งอยู่หมู่บ้าน <font color="red" size="3">*</font></td>
 													<td><select id="villageSelect" class="form-control"
-														placeholder="" name="vil-name" required="true">
-
+														placeholder="" name="vil-name">
 													</select></td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">ขอบเขตการให้บริการ</td>
+													<td align="pull-right" style="padding: 15px">รายละเอียด <font color="red" size="3">*</font></td>
 													<td><textarea id="hlt_description" maxlength="255"
-															class="form-control" placeholder="ระบุการให้บริการ"
-															name="vil-number" required="true"></textarea></td>
-
+															class="form-control" placeholder="ต.ย. ให้บริการเกี่ยวกับทางด้านสุขภาพ"
+															name="hlt_description"></textarea></td>
 												</tr>
 												<tr>
 													<td></td>
@@ -408,36 +407,29 @@
 									</div>
 									<div class="tab-pane fade" id="editHealth">
 										<form role="form">
-										<%
-											Object edituserid = session.getAttribute("edituser");
-										%>
-										<input type="hidden" id="editUserId" value="<%=edituserid %>">
+											<%
+												Object edituserid = session.getAttribute("edituser");
+											%>
+											<input type="hidden" id="editUserId" value="<%=edituserid%>">
 											<input type="hidden" id="editHltId">
-											<table width="50%" align="center">
+											<table width="60%" align="center">
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">ชื่อ</td>
+													<td align="pull-right" style="padding: 15px">ชื่อสถานที่บริการทางด้านสุขภาพ <font color="red" size="3">*</font></td>
 													<td><input id="editHltName" maxlength="100"
 														class="form-control"
-														placeholder="ระบุชื่อสถานบริการสุขภาพ" name="vil-number"
-														required="true"></td>
-
+														placeholder="ระบุชื่อสถานที่บริการทางด้านสุขภาพ" name="editHltName"></td>
 												</tr>
 												<tr>
-													<td align="pull-right" style="padding: 15px">ที่ตั้ง</td>
+													<td align="pull-right" style="padding: 15px">ตั้งอยู่หมู่บ้าน <font color="red" size="3">*</font></td>
 													<td><select id="editVillageSelect"
-														class="form-control" placeholder="" name="vil-name"
-														required="true">
-
+														class="form-control" placeholder="" name="vil-name">
 													</select></td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">ขอบเขตการให้บริการ</td>
+													<td align="pull-right" style="padding: 15px">รายละเอียด <font color="red" size="3">*</font></td>
 													<td><textarea id="editHltDescription" maxlength="255"
-															class="form-control" placeholder="ระบุการให้บริการ"
-															name="vil-number" required="true"></textarea></td>
-
+															class="form-control" placeholder="ต.ย. ให้บริการเกี่ยวกับทางด้านสุขภาพ"
+															name="editHltDescription"></textarea></td>
 												</tr>
 												<tr>
 													<td></td>

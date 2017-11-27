@@ -252,13 +252,15 @@
 			confirmButtonText : 'ตกลง',
 			cancelButtonText : 'ยกเลิก'
 		}).then(function() {
-		var id = ivn_id;
-		var obj = {
-			ivn_id : id
+			<%Object userdelete = session.getAttribute("userdelete");%>
+			var usdelete="<%=userdelete%>";
+			var id = ivn_id;
+			var obj = {
+				ivn_id : id
 
 		};
 		$.ajax({
-			url : "../NanglaeGov/deleteInventory.do",
+			url : "../NanglaeGov/deleteInventory.do?userdelete=" + usdelete,
 			type : "POST",
 			dataType : "JSON",
 			data : JSON.stringify(obj),
@@ -271,6 +273,22 @@
 		});
 	}
 	function editInventory() {
+		if ($('#editIvnYear').val() == "") {
+			document.getElementById('editIvnYear').style.borderColor = "red";
+			return false;
+		} else if ($('#editIvnCollect').val() == "") {
+			document.getElementById('editIvnCollect').style.borderColor = "red";
+			return false;
+		} else if ($('#editIvnGovProvide').val() == "") {
+			document.getElementById('editIvnGovProvide').style.borderColor = "red";
+			return false;
+		} else if ($('#editIvnGorPurchase').val() == "") {
+			document.getElementById('editIvnGorPurchase').style.borderColor = "red";
+			return false;
+		} else if ($('#editInvOutcome').val() == "") {
+			document.getElementById('editInvOutcome').style.borderColor = "red";
+			return false;
+		} else {
 		var obj = {
 			ivn_id : $('#editIvnId').val(),
 			ivn_year : $("#editIvnYear").val(),
@@ -299,6 +317,7 @@
 				alert('error');
 			}
 		});
+		}
 	}
 	function setEditInventory(ivn_id) {
 
@@ -331,9 +350,7 @@
 </head>
 
 <body onload="listInventory();getCurrentYear()">
-
 	<div id="wrapper">
-
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
 			style="margin-bottom: 0; background-color: #98c3e8">
@@ -388,7 +405,7 @@
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#listInven" data-toggle="tab">ข้อมูลการคลัง</a>
 								</li>
-								<li><a href="#addInven" data-toggle="tab">เพิ่มการคลัง</a>
+								<li><a href="#addInven" data-toggle="tab">เพิ่มข้อมูลการคลัง</a>
 								</li>
 							</ul>
 							<div class="panel-body">
@@ -436,43 +453,33 @@
 										<input type="hidden" id="userId" value="<%=userid %>">
 											<table width="50%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">ปีงบประมาณ</td>
-													<td><input id="ivn_year" maxlength="4"
-														class="form-control" placeholder="" name="vil-number"
-														required="true"></td>
-
+													<td align="pull-right" style="padding: 15px">ปีงบประมาณ <font color="red" size="3">*</font></td>
+													<td><input id="ivn_year" data-mask="000000000"
+														class="form-control" placeholder="ระบุปีข้อมูล" name="ivn_year"></td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">รายได้จัดเก็บเอง</td>
-													<td><input id="ivn_collect" maxlength="15"
-														class="form-control" placeholder="" name="vil-number"
-														required="true"></td>
-
+													<td align="pull-right" style="padding: 15px">รายได้จัดเก็บเอง <font color="red" size="3">*</font></td>
+													<td><input id="ivn_collect" data-mask="000000000"
+														class="form-control" placeholder="ระบุรายได้จัดเก็บเอง" name="ivn_collect"></td>
+													<td style="padding-left: 10px">บาท</td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">รายได้รัฐจัดสรรให้</td>
-													<td><input id="ivn_gov_provide" maxlength="15"
-														class="form-control" placeholder="" name="vil-number"
-														required="true"></td>
-
+													<td align="pull-right" style="padding: 15px">รายได้รัฐจัดสรรให้ <font color="red" size="3">*</font></td>
+													<td><input id="ivn_gov_provide" data-mask="000000000"
+														class="form-control" placeholder="ระบุรายได้รัฐจัดสรรให้" name="ivn_gov_provide"></td>
+													<td style="padding-left: 10px">บาท</td>												
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">รายได้อุดหนุนจากรัฐบาล</td>
-													<td><input id="ivn_gor_purchase" maxlength="15"
-														class="form-control" placeholder="" name="vil-number"
-														required="true"></td>
-
+													<td align="pull-right" style="padding: 15px">รายได้อุดหนุนจากรัฐบาล <font color="red" size="3">*</font></td>
+													<td><input id="ivn_gor_purchase" data-mask="000000000"
+														class="form-control" placeholder="ระบุรายได้อุดหนุนจากรัฐบาล" name="ivn_gor_purchase"></td>
+													<td style="padding-left: 10px">บาท</td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">รายจ่าย</td>
-													<td><input id="inv_outcome" maxlength="15"
-														class="form-control" placeholder="" name="vil-number"
-														required="true"></td>
-
+													<td align="pull-right" style="padding: 15px">รายจ่าย <font color="red" size="3">*</font></td>
+													<td><input id="inv_outcome" data-mask="000000000"
+														class="form-control" placeholder="ระบุรายจ่าย" name="inv_outcome"></td>
+													<td style="padding-left: 10px">บาท</td>
 												</tr>
 												<tr>
 													<td></td>
@@ -486,35 +493,6 @@
 											</table>
 										</form>
 									</div>
-									<!-- Start modal -->
-									<div>
-										<div class="modal fade" id="DeleteModal" tabindex="-1"
-											role="dialog" aria-labelledby="myModalLabel"
-											aria-hidden="true">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header">
-														<button type="button" class="close" data-dismiss="modal"
-															aria-hidden="true">&times;</button>
-														<h4 class="modal-title" id="H3">-----
-															ยืนยันการลบข้อมูล !! -----</h4>
-													</div>
-													<div class="modal-body">
-														<p>คุณต้องการลบข้อมูลชุดนี้?</p>
-														<input type="hidden" name="ivn_id" id="ivn_id" value="" />
-													</div>
-
-													<div class="modal-footer">
-														<button type="button" class="btn btn-default"
-															data-dismiss="modal">ยกเลิก</button>
-														<button type="button" id="deleteInventory"
-															class="btn btn-danger" onclick="deleteInventory();">ลบข้อมูล</button>
-
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
 									<!-- End modal -->
 									<div class="tab-pane fade" id="editInven">
 										<form role="form">
@@ -525,43 +503,33 @@
 											<input type="hidden" id="editIvnId">
 											<table width="50%" align="center">
 												<tr>
-													<td align="pull-right" style="padding: 15px">ปีงบประมาณ</td>
-													<td><input id="editIvnYear" maxlength="4"
-														class="form-control" placeholder="" name="vil-number"
-														required="true"></td>
-
+													<td align="pull-right" style="padding: 15px">ปีงบประมาณ <font color="red" size="3">*</font></td>
+													<td><input id="editIvnYear" data-mask="0000"
+														class="form-control" placeholder="ระบุปีงบประมาณ" name="editIvnYear"></td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">รายได้จัดเก็บเอง</td>
-													<td><input id="editIvnCollect" maxlength="15"
-														class="form-control" placeholder="" name="vil-number"
-														required="true"></td>
-
+													<td align="pull-right" style="padding: 15px">รายได้จัดเก็บเอง <font color="red" size="3">*</font></td>
+													<td><input id="editIvnCollect" data-mask="000000000"
+														class="form-control" placeholder="ระบุรายได้จัดเก็บเอง" name="editIvnCollect"></td>
+													<td style="padding-left: 10px">บาท</td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">รายได้รัฐจัดสรรให้</td>
-													<td><input id="editIvnGovProvide" maxlength="15"
-														class="form-control" placeholder="" name="vil-number"
-														required="true"></td>
-
+													<td align="pull-right" style="padding: 15px">รายได้รัฐจัดสรรให้ <font color="red" size="3">*</font></td>
+													<td><input id="editIvnGovProvide" data-mask="000000000"
+														class="form-control" placeholder="ระบุรายได้รัฐจัดสรรให้" name="editIvnGovProvide"></td>
+													<td style="padding-left: 10px">บาท</td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">รายได้อุดหนุนจากรัฐบาล</td>
-													<td><input id="editIvnGorPurchase" maxlength="15"
-														class="form-control" placeholder="" name="vil-number"
-														required="true"></td>
-
+													<td align="pull-right" style="padding: 15px">รายได้อุดหนุนจากรัฐบาล <font color="red" size="3">*</font></td>
+													<td><input id="editIvnGorPurchase" data-mask="000000000"
+														class="form-control" placeholder="ระบุรายได้อุดหนุนจากรัฐบาล" name="editIvnGorPurchase"></td>
+													<td style="padding-left: 10px">บาท</td>
 												</tr>
 												<tr>
-
-													<td align="pull-right" style="padding: 15px">รายจ่าย</td>
-													<td><input id="editInvOutcome" maxlength="15"
-														class="form-control" placeholder="" name="vil-number"
-														required="true"></td>
-
+													<td align="pull-right" style="padding: 15px">รายจ่าย <font color="red" size="3">*</font></td>
+													<td><input id="editInvOutcome" data-mask="000000000"
+														class="form-control" placeholder="ระบุรายจ่าย" name="editInvOutcome"></td>
+													<td style="padding-left: 10px">บาท</td>
 												</tr>
 												<tr>
 													<td></td>
